@@ -1,8 +1,14 @@
 SHELL = /bin/bash
 
-all: project/pyvenv.cfg
+all: virtualenv/pyvenv.cfg
 
-project/pyvenv.cfg:
-	pyvenv project
-	cd project && source bin/activate && pip install -r requirements.txt
-	cd project && source bin/activate && python -m nltk.downloader all
+virtualenv/pyvenv.cfg:
+	pyvenv virtualenv
+	source virtualenv/bin/activate && pip install -r pfcsamr/requirements.txt
+	source virtualenv/bin/activate && python -m nltk.downloader all
+
+shell:
+	source virtualenv/bin/activate && ipython
+
+devinstall: virtualenv/pyvenv.cfg
+	source virtualenv/bin/activate && pip install ipython
