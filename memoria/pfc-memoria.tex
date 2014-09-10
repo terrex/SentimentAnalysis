@@ -1,0 +1,40 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,11pt]{book}
+
+\usepackage[spanish]{babel}
+\usepackage{xltxtra}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{siunitx}
+\usepackage{float}
+\usepackage{mdwlist}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{subfigure}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage[style=authoryear,natbib=true,%
+maxbibnames=99,maxcitenames=1,%
+citestyle=authoryear-comp,doi=true,url=true]{biblatex}
+\bibliography{\jobname}
+\usepackage[hypcap]{caption}
+\usepackage{usebib}
+\usepackage{listings}
+\usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
+\newcommand{\xmark}{{\color{red}\ding{55}}}
+
+\begin{document}
+    Hola
+\nocite{*}
+\printbibliography[heading=bibnumbered,title=\bibname]
+
+\end{document}
