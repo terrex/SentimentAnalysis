@@ -1,14 +1,26 @@
 MASTER = pfc-memoria
 
-all: $(MASTER).bib $(MASTER).pdf
+ifeq ($(findstring B,$(MAKEFLAGS)),B)
+SUPERMODE = -gg
+SHOULDDISTCLEAN = distclean
+endif
+
+all: $(SHOULDDISTCLEAN) $(MASTER).bib $(MASTER).pdf
+
+viewpdf: $(MASTER).pdf
+	open $<
 
 %.pdf: %.tex %.bib
-	latexmk -xelatex $<
+	latexmk $(SUPERMODE) -xelatex $<
 
 %.bib: %.desk.bib
-	bibtool -q -i $< -r filter.rsc -M /dev/null -o $@
+	bibtool -q -i $< -r Makefile.filter.rsc -M /dev/null -o $@
 
 clean:
 	latexmk -C $(MASTER).tex
+	$(RM) $(MASTER).bbl $(MASTER).run.xml
+
+distclean: clean
+	$(RM) $(MASTER).bib
 
 .PHONY: all
