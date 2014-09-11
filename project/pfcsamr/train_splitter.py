@@ -23,7 +23,10 @@ def splitter(file):
             for line in lines:
                 matches = re.match(r'(\d+)\t(\d+)\t([^\t]+)\t(\d)', line)
                 if matches:
-                    categorized[int(matches.group(4))].write(matches.group(3) + "\n")
+                    phrase = matches.group(3)
+                    category = int(matches.group(4))
+                    # print("line: '", matches.group(0), "' went to category ", category)
+                    categorized[category].write(phrase + "\n")
 
     categorized[0].close()
     categorized[1].close()

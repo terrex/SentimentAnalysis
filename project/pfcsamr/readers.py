@@ -1,23 +1,24 @@
-from nltk.corpus import CategorizedCorpusReader, PlaintextCorpusReader
-from nltk.corpus.reader.util import StreamBackedCorpusView
+from nltk.corpus import CategorizedPlaintextCorpusReader
+from nltk.corpus import stopwords
+from nltk.classify import NaiveBayesClassifier
+import pickle
 
 
-class SamrTsvView(StreamBackedCorpusView):
-    def __init__(self, *args, **kwargs):
-        kwargs['startpos'] = 1
-        super().__init__(self, args[0], **kwargs)
+class KaggleSamrReader(CategorizedPlaintextCorpusReader):
+    pass
 
-    def read_block(self, stream):
-        words = super().read_block(stream)
-        phrase_id, sentence_id, phrase, sentiment = words[0], words[1], words[2:-1], words[-1]
 
-class SamrParsedCorpusReader(PlaintextCorpusReader):
-    CorpusView = SamrTsvView
+def bag_of_words(words, stopfile='english'):
+    return {word: True for word in (set(words) - set(stopwords.words(stopfile))) if len(word) > 2}
 
-class KaggleSamrReader(SamrParsedCorpusReader):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
 if __name__ == '__main__':
-    ksr = KaggleSamrReader('..', 'train.tsv')
-    ksr.sents()
+    ksr = KaggleSamrReader('..', r'train_\d\.txt', cat_pattern=r'train_(\d)\.txt')
+    feats = []
+    for category in ksr.categories():
+        for sent in ksr.sents(categories=(category,)):
+            feats += [(bag_of_words(sent), category)]
+
+    nb_classifier = NaiveBayesClassifier.train(feats)
+    with open('nb_classifier.pickle', 'wb+') as f:
+        pickle.dump(nb_classifier, f)

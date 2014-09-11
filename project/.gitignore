@@ -4,3 +4,5 @@
 sampleSubmission.csv
 test.tsv
 train.tsv
+train_*.txt
+*.pickle
