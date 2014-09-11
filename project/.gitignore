@@ -1,3 +1,6 @@
 .idea/
 *.pyc
 *~
+sampleSubmission.csv
+test.tsv
+train.tsv
