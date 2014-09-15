@@ -1,10 +1,22 @@
-import pickle
-from pfcsamr.readers import bag_of_words
+"""
+0,2076
+1,4670
+2,4643
+3,4943
+4,2353
+total: 18685
+"""
+
+import random
+
 
 if __name__ == '__main__':
-    nb_classifier = None
-    with open('nb_classifier.pickle', 'rb') as f:
-        nb_classifier = pickle.load(f)
+    categories = []
+    categories += [0] * 2076
+    categories += [1] * 4670
+    categories += [2] * 4643
+    categories += [3] * 4943
+    categories += [4] * 2353
     skip_first_line = False
     with open('test.tsv', 'r') as f:
         print("PhraseId,Sentiment")
@@ -16,9 +28,7 @@ if __name__ == '__main__':
             line = line.strip()
             try:
                 phrase_id, sentence_id, words = line.split('\t')
-                words = words.split(' ')
-                bow = bag_of_words(words)
-                category = nb_classifier.classify(bow)
+                category = random.choice(categories)
                 print(phrase_id, ',', category, sep='')
             except ValueError:
                 # there is no words

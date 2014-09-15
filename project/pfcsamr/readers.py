@@ -13,7 +13,7 @@ def bag_of_words(words, stopfile='english'):
 
 
 if __name__ == '__main__':
-    ksr = KaggleSamrReader('..', r'train_\d\.txt', cat_pattern=r'train_(\d)\.txt')
+    ksr = KaggleSamrReader('.', r'train_\d\.txt', cat_pattern=r'train_(\d)\.txt')
     feats = []
     for category in ksr.categories():
         for sent in ksr.sents(categories=(category,)):
