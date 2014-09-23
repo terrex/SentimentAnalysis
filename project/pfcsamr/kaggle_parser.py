@@ -19,6 +19,7 @@ class TrainParser(object):
     def parse(self):
         stpwrds = set(stopwords.words('english'))
         population = []
+        trees = []
         with open(self.filename, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')
             first = next(rdr)
@@ -39,9 +40,9 @@ class TrainParser(object):
                 population.append(sample)
                 parser = Parser()
                 the_tree = parser.nltk_parse(" ".join(sample.words))
-                tree.draw_trees(the_tree)
-                break
+                trees.append(the_tree)
 
+        tree.draw_trees(*trees)
         self.population = population
         return population
 
