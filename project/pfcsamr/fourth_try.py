@@ -51,30 +51,36 @@ class PhraseExtractor(BaseEstimator, TransformerMixin):
         return [sample.Phrase for sample in X]
 
 
+class TreeOfPairsVectorizer(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        self.labels_ = []
+        self.phrases_ = []
+
+    def fit(self, X, y=None):
+        self.labels_ = y
+        self.phrases_ = np.array([[1] for phrase in X], np.float64)
+        return self.phrases_
+
+    def fit_transform(self, X, y=None, **fit_params):
+        self.fit(X, y=y)
+        return self.transform(X, y=y)
+
+    def transform(self, X, y=None):
+        return self.phrases_
+
+
 def testargs(**kwargs):
     print("Process started")
-    classifier = make_pipeline(PhraseExtractor(),
-        TfidfVectorizer(stop_words='english', **kwargs),
-        MultinomialNB())
-    score = evaluate_cross_validation(classifier, train_data, data2targets(train_data), 5)
-    return "{}, mean score: {}".format(kwargs, score)
+    classifier = make_pipeline(
+        PhraseExtractor(),
+        TreeOfPairsVectorizer(),
+        MultinomialNB(),
+    )
+    score = evaluate_cross_validation(classifier, train_data[:100], data2targets(train_data[:100]), 5)
+    return "mean score: {}".format(score)
 
 
 if __name__ == '__main__':
     print(len(train_data))
     print(len(test_data))
-    with concurrent.futures.ProcessPoolExecutor(max_workers=4) as executor:
-        futures = set()
-
-        for min_df in range(1, 10):
-            for ngram_range_min in range(1, 3):
-                for ngram_range_max in range(3, 8):
-                    ngram_range = (ngram_range_min, ngram_range_max)
-                    future = executor.submit(testargs, ngram_range=ngram_range, min_df=min_df)
-                    futures.add(future)
-
-        for future in concurrent.futures.as_completed(futures):
-            try:
-                print(future.result())
-            except Exception as exc:
-                print('generated an exception: %s' % (exc,))
+    print(testargs())
