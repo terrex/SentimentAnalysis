@@ -11,13 +11,13 @@ viewpdf: $(MASTER).pdf
 	open $<
 
 %.pdf: %.tex %.bib
-	latexmk $(SUPERMODE) -bibtex -xelatex $<
+	latexmk $(SUPERMODE) -xelatex $<
 
 %.bib: %.desk.bib
 	bibtool -q -i $< -r Makefile.filter.rsc -M /dev/null -o $@
 
 clean:
-	latexmk -C -bibtex -xelatex $(MASTER).tex
+	latexmk -C -xelatex $(MASTER).tex
 	$(RM) $(MASTER).bbl $(MASTER).run.xml
 
 distclean: clean

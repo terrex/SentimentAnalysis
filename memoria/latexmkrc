@@ -1,0 +1,6 @@
+$use_make_for_missing_files = 1;
+$pdflatex = "xelatex --shell-escape %O %S";
+$pdf_mode = 1;
+$postscript_mode = 0;
+$dvi_mode = 0;
+@default_files = ("pfc-memoria");
