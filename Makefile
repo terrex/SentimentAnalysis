@@ -4,7 +4,7 @@ all: virtualenv/pyvenv.cfg
 
 virtualenv/pyvenv.cfg:
 	pyvenv virtualenv
-	source virtualenv/bin/activate && pip install -r pfcsamr/requirements.txt
+	source virtualenv/bin/activate && pip install -r project/requirements.txt
 	source virtualenv/bin/activate && python -m nltk.downloader all
 
 shell:

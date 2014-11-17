@@ -1,4 +1,7 @@
+Cython
+-e git://github.com/kivy/kivy.git#egg=Kivy
 numpy
 scipy
 scikit-learn
 nltk>=3.0.0
+word2vec
