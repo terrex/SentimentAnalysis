@@ -7,9 +7,8 @@ kivy.require('1.9.0')
 from kivy.app import App
 from kivy.uix.label import Label
 
-class MysApp(App):
-    def build(self):
-        return Label(text='Hello world')
+class PfcsamrApp(App):
+    pass
 
 if __name__ == '__main__':
-        MysApp().run()
+        PfcsamrApp().run()
