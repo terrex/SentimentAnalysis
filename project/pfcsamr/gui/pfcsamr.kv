@@ -1,54 +1,7 @@
-BoxLayout:
-    cols: 2
+#:kivy 1.0.4
 
-    ScrollView:
-        do_scroll_x: False
-        width: 48
-        size_hint_x: None
-
-        StackLayout:
-            orientation: 'tb-rl'
-
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "uno"
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-                on_press: app.on_touch_up_2()
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-            Button:
-                size: 48, 48
-                size_hint: None, None
-                text: "dos"
-
-    FloatLayout:
-        size_hint: 1, 1
-        canvas.before:
-            Color:
-                rgba: .5, .5, .5, 1
-            Rectangle:
-                # self here refers to the widget i.e BoxLayout
-                pos: self.pos
-                size: self.size
+<ScrollView>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
