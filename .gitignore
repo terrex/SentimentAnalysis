@@ -1,4 +1,2 @@
-virtualenv/
-project/first_try.csv
-project/random_classifier.csv
-project/titanic.txt
+py27/
+*.pickle
