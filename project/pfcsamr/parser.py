@@ -2,6 +2,7 @@ __author__ = 'terrex'
 
 import csv
 import pickle
+import re
 
 from pfcsamr.types import Sample
 
@@ -26,7 +27,7 @@ class TrainParser(Parser):
             rdr = csv.reader(file, dialect='excel-tab')
             first = next(rdr)
             for row in rdr:
-                words = row[2].split(r'\s+')
+                words = re.split(r'\s+', row[2])
                 sample = Sample(words=words, category=int(row[3]))
                 self.samples.append(sample)
 
@@ -40,7 +41,7 @@ class TestParser(Parser):
             rdr = csv.reader(file, dialect='excel-tab')
             first = next(rdr)
             for row in rdr:
-                words = row[2].split(r'\s+')
+                words = re.split(r'\s+', row[2])
                 sample = Sample(words=words, category=None)
                 self.samples.append(sample)
 
