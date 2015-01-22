@@ -2,7 +2,6 @@
 *.pyc
 *~
 sampleSubmission.csv
-test.tsv
-train.tsv
-train_*.txt
 *.pickle
+*.tsv*
+word2vec_model*
