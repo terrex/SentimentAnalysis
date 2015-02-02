@@ -10,6 +10,16 @@ __all__ = ('generate_model_word2vec', 'load_word2vec_models')
 
 
 def generate_model_word2vec(samples, *args, **kwargs):
+    """Pending description
+
+    :param samples: list of Sample tuples
+    :param args: None
+    :param kwargs: See Word2Vec():
+        size=100, alpha=0.025, window=5, min_count=5,
+        sample=0, seed=1, workers=1, min_alpha=0.0001, sg=1, hs=1, negative=0,
+        cbow_mean=0, hashfxn=hash, iter=1
+    :return:
+    """
     kwargs.update(sentences=iter_samples_words(samples))
     return Word2Vec(**kwargs)
 
