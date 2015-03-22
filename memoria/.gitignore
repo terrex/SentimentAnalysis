@@ -10,3 +10,4 @@ pfc-memoria.out
 pfc-memoria.pdf
 pfc-memoria.run.xml
 pfc-memoria.synctex.gz
+*.puml.tex

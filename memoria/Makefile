@@ -8,7 +8,7 @@ endif
 PUMLS = $(wildcard *.puml)
 PUMLS_TEXS = $(patsubst %.puml,%.puml.tex,$(PUMLS))
 
-all: $(SHOULDDISTCLEAN) $(MASTER).bib $(MASTER).pdf
+all: $(SHOULDDISTCLEAN) $(MASTER).bib $(MASTER).pdf $(PUMLS_TEXS)
 
 viewpdf: $(MASTER).pdf
 	open $<
@@ -16,15 +16,11 @@ viewpdf: $(MASTER).pdf
 %.pdf: %.tex %.bib $(PUMLS_TEXS)
 	latexmk $(SUPERMODE) -xelatex $<
 
-%.bib: %.desk.bib
-	bibtool -q -i $< -r Makefile.filter.rsc -M /dev/null -o $@
-
 clean:
 	latexmk -C -xelatex $(MASTER).tex
 	$(RM) $(MASTER).bbl $(MASTER).run.xml $(PUMLS_TEXS)
 
 distclean: clean
-	$(RM) $(MASTER).bib
 
 %.puml.tex: %.puml
 	java -jar plantuml.jar -tlatex $<
