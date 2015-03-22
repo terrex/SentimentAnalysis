@@ -3,7 +3,7 @@
 %!BIB TS-program = biber
 %!BIB program = biber
 
-\documentclass[a4paper,11pt]{book}
+\documentclass[a4paper,11pt,twoside]{scrbook}
 
 \usepackage[spanish]{babel}
 \usepackage{xltxtra}
@@ -11,7 +11,7 @@
 \usepackage{xunicode}
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{geometry}
+\usepackage[top=3cm,bottom=3cm,outer=3cm,inner=2cm]{geometry}
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{hyperref}
@@ -38,6 +38,10 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %plantuml
 \usepackage{filecontents}
 \usepackage{tikz}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\usepackage[Bjornstrup]{fncychap}
 
 
 \begin{document}
