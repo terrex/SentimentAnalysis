@@ -5,3 +5,5 @@ nltk>=3.0.0
 word2vec
 nose
 gensim
+#PyQt5
+#sip
