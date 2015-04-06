@@ -16,17 +16,29 @@ __author__ = 'terrex'
 
 import sys
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtQuick import QQuickView
+from PyQt5.QtCore import QObject
+
+from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterType
+
 from PyQt5.QtWidgets import QApplication
 
 
+class MainPfcsamrApp(QObject):
+    def load_tsv(self, selected_file):
+        print("Estoy aqui")
+        print(selected_file)
+
+
+qmlRegisterType(MainPfcsamrApp, 'pfcsamr', 1, 0, 'MainPfcsamrApp')
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    engine = QQmlApplicationEngine()
+    ctx = engine.rootContext()
+    ctx.setContextProperty("main", engine)
 
-    # Create the QML user interface.
-    view = QQuickView()
-    view.setSource(QUrl('../qtdesign/pfcsamr.qml'))
-    view.show()
+    engine.load('../qtdesign/pfcsamr.qml')
 
+    win = engine.rootObjects()[0]
+    win.show()
     sys.exit(app.exec_())
