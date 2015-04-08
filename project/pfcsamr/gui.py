@@ -16,29 +16,40 @@ __author__ = 'terrex'
 
 import sys
 
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QObject, pyqtSlot
 
-from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterType
+from urllib.request import urlopen
+
+from PyQt5.QtQml import QQmlApplicationEngine
 
 from PyQt5.QtWidgets import QApplication
 
 
 class MainPfcsamrApp(QObject):
+
+    @pyqtSlot(str)
     def load_tsv(self, selected_file):
         print("Estoy aqui")
         print(selected_file)
 
+        with urlopen(selected_file) as f:
+            for line in f:
+                print(line)
 
-qmlRegisterType(MainPfcsamrApp, 'pfcsamr', 1, 0, 'MainPfcsamrApp')
+        win.
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
+    mainPfcsamrApp = MainPfcsamrApp()
+    ctx.setContextProperty("mainPfcsamrApp", mainPfcsamrApp)
 
     engine.load('../qtdesign/pfcsamr.qml')
 
     win = engine.rootObjects()[0]
+    mainPfcsamrApp.win = win
     win.show()
     sys.exit(app.exec_())

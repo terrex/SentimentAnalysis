@@ -2,7 +2,7 @@ numpy
 scipy
 scikit-learn
 nltk>=3.0.0
-word2vec
+word2vec==0.6.7
 nose
 gensim
 #PyQt5
