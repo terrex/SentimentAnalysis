@@ -36,7 +36,7 @@ class MainPfcsamrApp(QObject):
             for line in f:
                 print(line)
 
-        win.
+        #win.
 
 
 if __name__ == '__main__':

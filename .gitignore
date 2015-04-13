@@ -1,3 +1,4 @@
 py27/
 py34/
+PyQt/
 *.pickle
