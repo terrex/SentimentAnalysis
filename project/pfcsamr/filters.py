@@ -15,6 +15,7 @@ class Vectorizer(Filter):
 
     def convert(self, train_sample):
         train_sample.phrase = train_sample.phrase.split()
+        return train_sample
 
 
 # \cite{Perkins2010}

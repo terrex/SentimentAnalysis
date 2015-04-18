@@ -3,40 +3,41 @@ __author__ = 'terrex'
 from pfcsamr.orchestrator import *
 
 import logging
+import logging.config
+logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
 from nose.tools import eq_
 
 
-def test_step_1():
+def disabled_test_step_1():
     orchestrator = Orchestrator()
     orchestrator.open_train_tsv("train.tsv")
     eq_(len(orchestrator.train_samples), 1999)
 
-def test_step_2():
+def disabled_test_step_2():
     orchestrator = Orchestrator()
     orchestrator.open_train_tsv("train.tsv")
     eq_(len(orchestrator.train_samples), 1999)
     orchestrator.vectorize()
-    print(orchestrator.train_samples[0])
+    logger.debug(orchestrator.train_samples[0])
 
-def test_step_3():
+def disabled_test_step_3():
     orchestrator = Orchestrator()
     orchestrator.open_train_tsv("train.tsv")
     eq_(len(orchestrator.train_samples), 1999)
     orchestrator.vectorize()
-    print(orchestrator.train_samples[0])
+    logger.debug(orchestrator.train_samples[0])
     orchestrator.stemmize()
-    print(orchestrator.train_samples[0])
+    logger.debug(orchestrator.train_samples[0])
 
-def test_step_4():
+def disabled_test_step_4():
     orchestrator = Orchestrator()
     orchestrator.open_train_tsv("train.tsv")
     eq_(len(orchestrator.train_samples), 1999)
     orchestrator.vectorize()
-    print(orchestrator.train_samples[0])
+    logger.debug(orchestrator.train_samples[0])
     orchestrator.stemmize()
-    print(orchestrator.train_samples[0])
+    logger.debug(orchestrator.train_samples[0])
     orchestrator.lemmatize()
-    print(orchestrator.train_samples[0])
-
+    logger.debug(orchestrator.train_samples[0])
