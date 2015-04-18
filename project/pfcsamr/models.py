@@ -1,6 +1,6 @@
 __author__ = 'terrex'
 
-from types import iter_samples_words
+from .types import iter_samples_words
 from gensim.models import Word2Vec
 
 import re

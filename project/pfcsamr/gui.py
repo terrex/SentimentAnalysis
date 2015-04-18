@@ -32,9 +32,9 @@ class MainPfcsamrApp(QObject):
         print("Estoy aqui")
         print(selected_file)
 
-        with urlopen(selected_file) as f:
-            for line in f:
-                print(line)
+#        with urlopen(selected_file) as f:
+#            for line in f:
+#                print(line)
 
         #win.
 

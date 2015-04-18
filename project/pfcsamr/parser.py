@@ -4,7 +4,7 @@ import csv
 import pickle
 import re
 
-from pfcsamr.types import Sample
+from .types import Sample
 
 __all__ = ('Parser', 'TrainParser', 'TestParser',
            'parse_and_save_samples', 'read_saved_samples')
