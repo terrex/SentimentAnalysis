@@ -17,26 +17,22 @@ __author__ = 'terrex'
 import sys
 
 from PyQt5.QtCore import QObject, pyqtSlot
-
-from urllib.request import urlopen
-
 from PyQt5.QtQml import QQmlApplicationEngine
-
 from PyQt5.QtWidgets import QApplication
 
 
 class MainPfcsamrApp(QObject):
-
     @pyqtSlot(str)
     def load_tsv(self, selected_file):
         print("Estoy aqui")
         print(selected_file)
 
-#        with urlopen(selected_file) as f:
-#            for line in f:
-#                print(line)
+        # with urlopen(selected_file) as f:
 
-        #win.
+    #            for line in f:
+    #                print(line)
+
+    #win.
 
 
 if __name__ == '__main__':

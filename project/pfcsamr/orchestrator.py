@@ -1,10 +1,10 @@
 __author__ = 'terrex'
 
-from collections import namedtuple
 import csv
-import re
+
 from .types import *
 from .filters import *
+
 
 class Orchestrator(object):
     def __init__(self):
@@ -25,6 +25,11 @@ class Orchestrator(object):
     def vectorize(self):
         vectorizer = Vectorizer()
         self.train_samples = [vectorizer.convert(sample) for sample in self.train_samples]
+        return self
+
+    def remove_stopwords(self):
+        stopwords_remover = StopwordsRemover()
+        self.train_samples = [stopwords_remover.convert(sample) for sample in self.train_samples]
         return self
 
     def stemmize(self):

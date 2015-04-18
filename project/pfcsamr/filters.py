@@ -1,26 +1,35 @@
 __author__ = 'terrex'
 
 from nltk.stem import PorterStemmer, WordNetLemmatizer
-from .types import TrainSample
-__all__ = ('Filter', 'Stemmer', 'Lemmatizer', 'Vectorizer')
+from nltk.corpus import stopwords
+
+__all__ = ('FilterI', 'Stemmer', 'Lemmatizer', 'Vectorizer', 'StopwordsRemover')
 
 
-class Filter(object):
-
+class FilterI(object):
     def convert(self, train_sample):
         raise NotImplementedError()
 
 
-class Vectorizer(Filter):
-
+class Vectorizer(FilterI):
     def convert(self, train_sample):
         train_sample.phrase = train_sample.phrase.split()
         return train_sample
 
 
 # \cite{Perkins2010}
-class Stemmer(Filter):
+class StopwordsRemover(FilterI):
+    def __init__(self):
+        super(StopwordsRemover, self).__init__()
+        self._stopwords_set = set(stopwords.words('english'))
 
+    def convert(self, train_sample):
+        train_sample.phrase = [word for word in train_sample.phrase if word not in self._stopwords_set]
+        return train_sample
+
+
+# \cite{Perkins2010}
+class Stemmer(FilterI):
     def __init__(self):
         super(Stemmer, self).__init__()
         self._stemmer = PorterStemmer()
@@ -31,8 +40,7 @@ class Stemmer(Filter):
 
 
 # \cite{Perkins2010}
-class Lemmatizer(Filter):
-
+class Lemmatizer(FilterI):
     def __init__(self):
         super(Lemmatizer, self).__init__()
         self._lemmatizer = WordNetLemmatizer()

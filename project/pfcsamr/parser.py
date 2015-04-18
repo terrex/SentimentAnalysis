@@ -6,12 +6,12 @@ import re
 
 from .types import Sample
 
+
 __all__ = ('Parser', 'TrainParser', 'TestParser',
-           'parse_and_save_samples', 'read_saved_samples')
+'parse_and_save_samples', 'read_saved_samples')
 
 
 class Parser(object):
-
     def __init__(self, filename):
         self.filename = filename
         self.samples = []
@@ -21,7 +21,6 @@ class Parser(object):
 
 
 class TrainParser(Parser):
-
     def parse(self):
         with open(self.filename, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')
@@ -35,7 +34,6 @@ class TrainParser(Parser):
 
 
 class TestParser(Parser):
-
     def parse(self):
         with open(self.filename, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')

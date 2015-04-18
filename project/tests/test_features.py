@@ -1,8 +1,9 @@
 __author__ = 'terrex'
 
+import logging
+
 from pfcsamr.features import *
 
-import logging
 logger = logging.getLogger(__name__)
 
 from nose.tools import eq_
