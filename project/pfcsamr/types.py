@@ -22,12 +22,16 @@ def samples_to_categories_map(samples):
 
 
 class TrainSample(SimpleNamespace):
-    def __init__(self, phrase_id=None, sentence_id=None, phrase=None, sentiment=None):
+    def __init__(self, phrase_id: int=None, sentence_id: int=None, phrase: str=None, sentiment: int=None):
         super(TrainSample, self).__init__()
         self._phrase_id = phrase_id
         self._sentence_id = sentence_id
         self._phrase = phrase
         self._sentiment = sentiment
+
+        # more atts
+        self._words = []
+        self._feats = {}
 
     @property
     def phrase_id(self):
@@ -60,3 +64,19 @@ class TrainSample(SimpleNamespace):
     @sentiment.setter
     def sentiment(self, value):
         self._sentiment = int(value)
+
+    @property
+    def words(self):
+        return self._words
+
+    @words.setter
+    def words(self, value: list):
+        self._words = value
+
+    @property
+    def feats(self):
+        return self._feats
+
+    @feats.setter
+    def feats(self, value: dict):
+        self._words = value

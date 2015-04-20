@@ -3,6 +3,8 @@ __author__ = 'terrex'
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.corpus import stopwords
 
+from .types import TrainSample
+
 __all__ = ('FilterI', 'Stemmer', 'Lemmatizer', 'Vectorizer', 'StopwordsRemover')
 
 
@@ -12,8 +14,8 @@ class FilterI(object):
 
 
 class Vectorizer(FilterI):
-    def convert(self, train_sample):
-        train_sample.phrase = train_sample.phrase.split()
+    def convert(self, train_sample: TrainSample) -> TrainSample:
+        train_sample.words = train_sample.phrase.split()
         return train_sample
 
 
@@ -23,8 +25,8 @@ class StopwordsRemover(FilterI):
         super(StopwordsRemover, self).__init__()
         self._stopwords_set = set(stopwords.words('english'))
 
-    def convert(self, train_sample):
-        train_sample.phrase = [word for word in train_sample.phrase if word not in self._stopwords_set]
+    def convert(self, train_sample: TrainSample) -> TrainSample:
+        train_sample.words = [word for word in train_sample.words if word not in self._stopwords_set]
         return train_sample
 
 
@@ -34,8 +36,8 @@ class Stemmer(FilterI):
         super(Stemmer, self).__init__()
         self._stemmer = PorterStemmer()
 
-    def convert(self, train_sample):
-        train_sample.phrase = [self._stemmer.stem(word) for word in train_sample.phrase]
+    def convert(self, train_sample: TrainSample) -> TrainSample:
+        train_sample.words = [self._stemmer.stem(word) for word in train_sample.words]
         return train_sample
 
 
@@ -45,6 +47,6 @@ class Lemmatizer(FilterI):
         super(Lemmatizer, self).__init__()
         self._lemmatizer = WordNetLemmatizer()
 
-    def convert(self, train_sample):
-        train_sample.phrase = [self._lemmatizer.lemmatize(word) for word in train_sample.phrase]
+    def convert(self, train_sample: TrainSample) -> TrainSample:
+        train_sample.words = [self._lemmatizer.lemmatize(word) for word in train_sample.words]
         return train_sample

@@ -2,6 +2,7 @@ __author__ = 'terrex'
 
 import csv
 
+from .features import *
 from .types import *
 from .filters import *
 
@@ -9,7 +10,9 @@ from .filters import *
 class Orchestrator(object):
     def __init__(self):
         self.file_path = None
+        """:type: str"""
         self.train_samples = []
+        """:type: list[TrainSample]"""
 
     def open_train_tsv(self, file_path=None):
         self.file_path = file_path
@@ -24,20 +27,36 @@ class Orchestrator(object):
 
     def vectorize(self):
         vectorizer = Vectorizer()
-        self.train_samples = [vectorizer.convert(sample) for sample in self.train_samples]
+        for sample in self.train_samples:
+            vectorizer.convert(sample)
         return self
 
     def remove_stopwords(self):
         stopwords_remover = StopwordsRemover()
-        self.train_samples = [stopwords_remover.convert(sample) for sample in self.train_samples]
+        for sample in self.train_samples:
+            stopwords_remover.convert(sample)
         return self
 
     def stemmize(self):
         stemmer = Stemmer()
-        self.train_samples = [stemmer.convert(sample) for sample in self.train_samples]
+        for sample in self.train_samples:
+            stemmer.convert(sample)
         return self
 
     def lemmatize(self):
         lemmatizer = Lemmatizer()
-        self.train_samples = [lemmatizer.convert(sample) for sample in self.train_samples]
+        for sample in self.train_samples:
+            lemmatizer.convert(sample)
+        return self
+
+    def bow(self):
+        bower = Bower()
+        for sample in self.train_samples:
+            bower.extract_feats(sample)
+        return self
+
+    def bow_bigrams(self):
+        bower_bigram = BowerBiGram()
+        for sample in self.train_samples:
+            bower_bigram.extract_feats(sample)
         return self
