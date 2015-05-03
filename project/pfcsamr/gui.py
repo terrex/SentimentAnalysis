@@ -16,12 +16,15 @@ __author__ = 'terrex'
 
 import sys
 
-from PyQt5.QtCore import QObject, pyqtSlot
-from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant
+from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent
+from PyQt5.QtWidgets import QApplication, QToolButton, QTextEdit, QWidget, QAbstractButton
+from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtQuick import QQuickItem
 
 
 class MainPfcsamrApp(QObject):
+
     @pyqtSlot(str)
     def load_tsv(self, selected_file):
         print("Estoy aqui")
@@ -33,6 +36,10 @@ class MainPfcsamrApp(QObject):
     #                print(line)
 
     #win.
+
+    @pyqtSlot(str, QObject)
+    def onToolBarBtnClicked(self, toolButton: str, txtProgram: QTextEdit):
+        print("Botón de la barra de herramientas Pulsado!!")
 
 
 if __name__ == '__main__':
