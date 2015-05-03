@@ -5,6 +5,7 @@ from types import SimpleNamespace
 
 __all__ = ('Sample', 'iter_samples_words', 'TrainSample')
 
+
 Sample = namedtuple('Sample', ['words', 'category'])
 
 
@@ -34,7 +35,7 @@ class TrainSample(SimpleNamespace):
         self._feats = {}
 
     @property
-    def phrase_id(self):
+    def phrase_id(self) -> int:
         return self._phrase_id
 
     @phrase_id.setter
@@ -42,7 +43,7 @@ class TrainSample(SimpleNamespace):
         self._phrase_id = int(value)
 
     @property
-    def sentence_id(self):
+    def sentence_id(self) -> int:
         return self._sentence_id
 
     @sentence_id.setter
@@ -50,7 +51,7 @@ class TrainSample(SimpleNamespace):
         self._sentence_id = int(value)
 
     @property
-    def phrase(self):
+    def phrase(self) -> str:
         return self._phrase
 
     @phrase.setter
@@ -66,7 +67,7 @@ class TrainSample(SimpleNamespace):
         self._sentiment = int(value)
 
     @property
-    def words(self):
+    def words(self) -> list:
         return self._words
 
     @words.setter
@@ -74,9 +75,9 @@ class TrainSample(SimpleNamespace):
         self._words = value
 
     @property
-    def feats(self):
+    def feats(self) -> set:
         return self._feats
 
     @feats.setter
     def feats(self, value: dict):
-        self._words = value
+        self._feats = value
