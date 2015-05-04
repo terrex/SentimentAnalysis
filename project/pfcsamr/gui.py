@@ -20,10 +20,16 @@ from PyQt5.QtCore import QObject, pyqtSlot, QVariant
 from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent
 from PyQt5.QtWidgets import QApplication, QToolButton, QTextEdit, QWidget, QAbstractButton
 from PyQt5.QtQuickWidgets import QQuickWidget
-from PyQt5.QtQuick import QQuickItem
+from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
 
 class MainPfcsamrApp(QObject):
+
+
+    def __init__(self, QObject_parent=None):
+        super().__init__(QObject_parent)
+        self.win = None
+        """:type: QQuickWindow"""
 
     @pyqtSlot(str)
     def load_tsv(self, selected_file):
@@ -37,8 +43,9 @@ class MainPfcsamrApp(QObject):
 
     #win.
 
-    @pyqtSlot(str, QObject)
-    def onToolBarBtnClicked(self, toolButton: str, txtProgram: QTextEdit):
+    @pyqtSlot(QObject, QObject)
+    def onToolBarBtnClicked(self, toolButton: QObject, txtProgram: QTextEdit):
+        self.win.findChild(QToolButton, "btnOpenTrain")
         print("Botón de la barra de herramientas Pulsado!!")
 
 

@@ -16,7 +16,7 @@ ApplicationWindow {
     }
 
     TextEdit {
-        id: textEdit1
+        id: txtProgram
         x: 13
         y: 39
         width: 518
@@ -43,4 +43,35 @@ ApplicationWindow {
             MenuItem { text: "Paste" }
         }
     }
+
+    toolBar:ToolBar {
+        RowLayout {
+            anchors.fill: parent
+            ToolButton {
+                id: btnOpenTrain
+                objectName: "btnOpenTrain"
+                text: qsTr("Open train.tsv")
+                onClicked: mainPfcsamrApp.onToolBarBtnClicked(btnOpenTrain, txtProgram)
+            }
+            ToolButton {
+                text: qsTr("Vectorize")
+            }
+            ToolButton {
+                text: qsTr("Remove stopwords")
+            }
+            ToolButton {
+                text: qsTr("Stemmize")
+            }
+            ToolButton {
+                text: qsTr("Lemmatize")
+            }
+            ToolButton {
+                text: qsTr("BOW")
+            }
+            ToolButton {
+                text: qsTr("2-BOW")
+            }
+        }
+    }
+
 }
