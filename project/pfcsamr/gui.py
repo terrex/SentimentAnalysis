@@ -35,6 +35,11 @@ class MainPfcsamrApp(QObject):
     def load_tsv(self, selected_file):
         print("Estoy aqui")
         print(selected_file)
+        self.win.findChild(QQuickItem, "btnOpenTrain")
+        txtProgram = self.win.findChild(QQuickItem, "txtProgram")
+        """:type: QTextEdit"""
+        txtProgram.append("Texto uno")
+        txtProgram.append("Texto dos")
 
         # with urlopen(selected_file) as f:
 

@@ -6,22 +6,24 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     id: rootWindow
+    objectName: rootWindow
     width: 640
     height: 480
 
     FileDialog {
         id: fileDialogChooseTSV
+        objectName: fileDialogChooseTSV
         nameFilters: ["Tab-separated files (*.tsv)"]
         onAccepted: mainPfcsamrApp.load_tsv(fileDialogChooseTSV.fileUrl.toString())
     }
 
     TextEdit {
         id: txtProgram
+        objectName: txtProgram
         x: 13
         y: 39
         width: 518
         height: 199
-        text: qsTr("Text Edit")
         font.pixelSize: 12
     }
 
@@ -44,14 +46,14 @@ ApplicationWindow {
         }
     }
 
-    toolBar:ToolBar {
+    toolBar: ToolBar {
         RowLayout {
             anchors.fill: parent
             ToolButton {
                 id: btnOpenTrain
                 objectName: "btnOpenTrain"
                 text: qsTr("Open train.tsv")
-                onClicked: mainPfcsamrApp.onToolBarBtnClicked(btnOpenTrain, txtProgram)
+                onClicked: fileDialogChooseTSV.open()
             }
             ToolButton {
                 text: qsTr("Vectorize")
