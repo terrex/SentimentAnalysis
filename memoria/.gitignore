@@ -9,5 +9,6 @@ pfc-memoria.log
 pfc-memoria.out
 pfc-memoria.pdf
 pfc-memoria.run.xml
-pfc-memoria.synctex.gz
+pfc-memoria.synctex*
+pfc-memoria.toc
 *.puml.tex
