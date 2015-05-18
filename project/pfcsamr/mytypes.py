@@ -5,7 +5,6 @@ from types import SimpleNamespace
 
 __all__ = ('Sample', 'iter_samples_words', 'TrainSample')
 
-
 Sample = namedtuple('Sample', ['words', 'category'])
 
 

@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 
 from .mytypes import TrainSample
 
+
 __all__ = ('FilterI', 'Stemmer', 'Lemmatizer', 'Vectorizer', 'StopwordsRemover')
 
 

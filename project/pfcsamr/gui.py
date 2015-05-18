@@ -11,23 +11,18 @@ author: Jan Bodnar
 website: zetcode.com
 last edited: January 2015
 """
-from urllib.request import urlopen
-from io import TextIOWrapper
 
 __author__ = 'terrex'
 
 import sys
 
-from PyQt5.QtCore import QObject, pyqtSlot, QVariant, QUrl
-from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent
-from PyQt5.QtWidgets import QApplication, QToolButton, QTextEdit, QWidget, QAbstractButton
-from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtCore import QObject, pyqtSlot, QUrl
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
 
 class MainPfcsamrApp(QObject):
-
-
     def __init__(self, QObject_parent=None):
         super().__init__(QObject_parent)
         self.win = None
@@ -46,6 +41,30 @@ class MainPfcsamrApp(QObject):
     def load_tsv(self, selected_file: QUrl):
         self._txtProgram.append("""orchestrator = Orchestrator()""")
         self._txtProgram.append("""orchestrator.open_train_tsv("%s")""" % selected_file.toLocalFile())
+
+    @pyqtSlot()
+    def vectorize(self):
+        self._txtProgram.append("""orchestrator.vectorize()""")
+
+    @pyqtSlot()
+    def remove_stopwords(self):
+        self._txtProgram.append("""orchestrator.remove_stopwords()""")
+
+    @pyqtSlot()
+    def stemmize(self):
+        self._txtProgram.append("""orchestrator.stemmize()""")
+
+    @pyqtSlot()
+    def lemmatize(self):
+        self._txtProgram.append("""orchestrator.lemmatize()""")
+
+    @pyqtSlot()
+    def bow(self):
+        self._txtProgram.append("""orchestrator.bow()""")
+
+    @pyqtSlot()
+    def bow_bigrams(self):
+        self._txtProgram.append("""orchestrator.bow_bigrams()""")
 
 
 if __name__ == '__main__':
