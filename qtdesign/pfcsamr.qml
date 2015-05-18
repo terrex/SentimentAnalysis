@@ -6,20 +6,24 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     id: rootWindow
-    objectName: rootWindow
+    objectName: "rootWindow"
     width: 640
     height: 480
 
     FileDialog {
         id: fileDialogChooseTSV
-        objectName: fileDialogChooseTSV
+        objectName: "fileDialogChooseTSV"
         nameFilters: ["Tab-separated files (*.tsv)"]
-        onAccepted: mainPfcsamrApp.load_tsv(fileDialogChooseTSV.fileUrl.toString())
+        onAccepted: {
+            console.log("el tipo es:")
+            console.log(typeof(fileDialogChooseTSV.fileUrl))
+            mainPfcsamrApp.load_tsv(this.fileUrl)
+        }
     }
 
     TextEdit {
         id: txtProgram
-        objectName: txtProgram
+        objectName: "txtProgram"
         x: 13
         y: 39
         width: 518
@@ -32,7 +36,7 @@ ApplicationWindow {
             title: "File"
             MenuItem { text: "Open..." }
             MenuItem {
-                text: "Load train.tsv..."
+                text: "Open train.tsv..."
                 onTriggered: fileDialogChooseTSV.open()
             }
             MenuItem { text: "Close" }

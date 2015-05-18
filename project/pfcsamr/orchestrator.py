@@ -3,7 +3,7 @@ __author__ = 'terrex'
 import csv
 
 from .features import *
-from .types import *
+from .mytypes import *
 from .filters import *
 
 

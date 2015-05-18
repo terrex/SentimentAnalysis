@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def test_generate_models_word2vec():
     from pfcsamr.parser import read_saved_samples
-    from pfcsamr.types import samples_to_categories_map
+    from pfcsamr.mytypes import samples_to_categories_map
 
     logger.info('reading samples from train_samples.pickle')
     samples = read_saved_samples('train_samples.pickle')

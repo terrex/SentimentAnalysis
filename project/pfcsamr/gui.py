@@ -11,12 +11,14 @@ author: Jan Bodnar
 website: zetcode.com
 last edited: January 2015
 """
+from urllib.request import urlopen
+from io import TextIOWrapper
 
 __author__ = 'terrex'
 
 import sys
 
-from PyQt5.QtCore import QObject, pyqtSlot, QVariant
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant, QUrl
 from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent
 from PyQt5.QtWidgets import QApplication, QToolButton, QTextEdit, QWidget, QAbstractButton
 from PyQt5.QtQuickWidgets import QQuickWidget
@@ -30,28 +32,20 @@ class MainPfcsamrApp(QObject):
         super().__init__(QObject_parent)
         self.win = None
         """:type: QQuickWindow"""
-
-    @pyqtSlot(str)
-    def load_tsv(self, selected_file):
-        print("Estoy aqui")
-        print(selected_file)
-        self.win.findChild(QQuickItem, "btnOpenTrain")
-        txtProgram = self.win.findChild(QQuickItem, "txtProgram")
+        self._btnOpenTrain = None
+        """:type: QQuickItem"""
+        self._txtProgram = None
         """:type: QTextEdit"""
-        txtProgram.append("Texto uno")
-        txtProgram.append("Texto dos")
 
-        # with urlopen(selected_file) as f:
+    def connect_widgets(self, win: QQuickWindow):
+        self.win = win
+        self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
+        self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
 
-    #            for line in f:
-    #                print(line)
-
-    #win.
-
-    @pyqtSlot(QObject, QObject)
-    def onToolBarBtnClicked(self, toolButton: QObject, txtProgram: QTextEdit):
-        self.win.findChild(QToolButton, "btnOpenTrain")
-        print("Botón de la barra de herramientas Pulsado!!")
+    @pyqtSlot(QUrl)
+    def load_tsv(self, selected_file: QUrl):
+        self._txtProgram.append("""orchestrator = Orchestrator()""")
+        self._txtProgram.append("""orchestrator.open_train_tsv("%s")""" % selected_file.toLocalFile())
 
 
 if __name__ == '__main__':
@@ -65,6 +59,6 @@ if __name__ == '__main__':
     engine.load('../qtdesign/pfcsamr.qml')
 
     win = engine.rootObjects()[0]
-    mainPfcsamrApp.win = win
+    mainPfcsamrApp.connect_widgets(win)
     win.show()
     sys.exit(app.exec_())

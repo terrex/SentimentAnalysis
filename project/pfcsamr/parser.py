@@ -4,7 +4,7 @@ import csv
 import pickle
 import re
 
-from .types import Sample
+from .mytypes import Sample
 
 
 __all__ = ('Parser', 'TrainParser', 'TestParser',

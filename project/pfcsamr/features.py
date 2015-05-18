@@ -4,7 +4,7 @@ __author__ = 'terrex'
 from nltk.collocations import BigramCollocationFinder
 from nltk.metrics import BigramAssocMeasures
 # from word2vec...
-from .types import TrainSample
+from .mytypes import TrainSample
 
 __all__ = ('bag_of_words_features', 'Bower','BowerBiGram')
 

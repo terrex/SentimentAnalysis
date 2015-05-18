@@ -5,7 +5,7 @@ import os
 
 from gensim.models import Word2Vec
 
-from .types import iter_samples_words
+from .mytypes import iter_samples_words
 
 
 __all__ = ('generate_model_word2vec', 'load_word2vec_models')

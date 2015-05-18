@@ -3,7 +3,7 @@ __author__ = 'terrex'
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.corpus import stopwords
 
-from .types import TrainSample
+from .mytypes import TrainSample
 
 __all__ = ('FilterI', 'Stemmer', 'Lemmatizer', 'Vectorizer', 'StopwordsRemover')
 
