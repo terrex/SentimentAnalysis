@@ -5,6 +5,8 @@ from nltk.metrics import BigramAssocMeasures
 # from word2vec...
 from .mytypes import TrainSample
 
+from .trainers import load_wordbin
+
 __all__ = ('bag_of_words_features', 'Bower', 'BowerBiGram')
 
 
@@ -16,13 +18,11 @@ def vectorized_features(words, trained_corpus):
     pass
 
 
-    # #
-
-    # # extract word features for each category
-    ##           >>> trained_model['woman']
-    ##          array([ -1.40128313e-02, ...]
-
-    ## then train with scikit-learn 5X dimensional features.
+# #
+# # extract word features for each category
+# #           >>> trained_model['woman']
+# #          array([ -1.40128313e-02, ...]
+# # then train with scikit-learn 5X dimensional features.
 
 
 class FeatureExtractorI(object):
@@ -50,4 +50,11 @@ class Bower(FeatureExtractorI):
 class BowerBiGram(FeatureExtractorI):
     def extract_feats(self, train_sample: TrainSample) -> TrainSample:
         train_sample.feats = bag_of_bigrams_words(train_sample.words)
+        return train_sample
+
+
+class Word2Vec(FeatureExtractorI):
+    def extract_feats(self, train_sample: TrainSample) -> TrainSample:
+        model = load_wordbin()
+        train_sample.feats = {'word2vec': model.get_vector()}
         return train_sample

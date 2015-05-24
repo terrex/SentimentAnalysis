@@ -10,20 +10,6 @@ ApplicationWindow {
     width: 640
     height: 480
 
-    FileDialog {
-        id: fileDialogChooseTSV
-        objectName: "fileDialogChooseTSV"
-        nameFilters: ["Tab-separated files (*.tsv)"]
-        onAccepted: mainPfcsamrApp.load_tsv(fileUrl)
-    }
-
-    TextArea {
-        id: txtProgram
-        objectName: "txtProgram"
-        anchors.fill: parent
-        textFormat: TextEdit.AutoText
-    }
-
     menuBar: MenuBar {
         Menu {
             title: "File"
@@ -85,7 +71,82 @@ ApplicationWindow {
         }
     }
 
+    FileDialog {
+        id: fileDialogChooseTSV
+        objectName: "fileDialogChooseTSV"
+        nameFilters: ["Tab-separated files (*.tsv)"]
+        onAccepted: mainPfcsamrApp.load_tsv(fileUrl)
+    }
+
+    TabView {
+        anchors.fill: parent
+
+        Tab {
+            id: designTab
+            objectName: "designTab"
+            title: "Design"
+
+            TextArea {
+                id: txtProgram
+                objectName: "txtProgram"
+                anchors.fill: parent
+                textFormat: TextEdit.AutoText
+            }
+        }
+
+        Tab {
+            id: runTab
+            objectName: "runTab"
+            title: "Run"
+        }
+
+        onCurrentIndexChanged: {
+            if (currentIndex == 0) {
+                rootWindow.toolBar = designTabToolbar
+                designTabToolbar.visible = true
+                runTabToolbar.visible = false
+                emptyToolbar.visible = false
+            } else if (currentIndex == 1) {
+                rootWindow.toolBar = runTabToolbar
+                designTabToolbar.visible = false
+                runTabToolbar.visible = true
+                emptyToolbar.visible = false
+            }
+        }
+    }
+
+    ToolBar {
+        id: emptyToolbar
+        objectName: "emptyToolbar"
+        visible: false
+
+        RowLayout {
+            Item {
+                Layout.fillWidth: true
+            }
+        }
+    }
+
+    ToolBar {
+        id: runTabToolbar
+        objectName: "runTabToolbar"
+        visible: false
+
+        RowLayout {
+            anchors.fill: parent
+            ToolButton {
+                id: btnRun
+                objectName: "btnRun"
+                text: qsTr("Run")
+                onClicked: mainPfcsamrApp.run_script()
+            }
+        }
+    }
+
     toolBar: ToolBar {
+        id: designTabToolbar
+        objectName: "designTabToolbar"
+
         RowLayout {
             anchors.fill: parent
             ToolButton {

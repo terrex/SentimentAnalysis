@@ -58,3 +58,9 @@ def test_step_6b():
     global orchestrator
     orchestrator.bow_bigrams()
     logger.debug(orchestrator.train_samples[0])
+
+
+def test_step_6c():
+    global orchestrator
+    orchestrator.word2vec()
+    logger.debug(orchestrator.train_samples[0])

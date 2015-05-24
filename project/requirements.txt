@@ -2,6 +2,8 @@ numpy
 scipy
 scikit-learn
 nltk>=3.0.0
+#sudo port install word2vec
+#export PATH=$PATH:/opt/local/libexec/word2vec
 #word2vec==0.6.7
 -e git+https://github.com/stephenbalaban/word2vec.git#egg=word2vec
 nose

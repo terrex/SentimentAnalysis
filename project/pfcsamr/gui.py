@@ -15,12 +15,24 @@ last edited: January 2015
 __author__ = 'terrex'
 
 import sys
+import logging
+import logging.config
 
 from PyQt5.QtCore import QObject, pyqtSlot, QUrl
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
+from pfcsamr.orchestrator import Orchestrator
+
+
+logging.config.fileConfig('logging.conf')
+logger = logging.getLogger(__name__)
+
+_temp = Orchestrator()
+
+# from IPython.kernel.client import KernelClient
+# from IPython import start_ipython
 
 class MainPfcsamrApp(QObject):
     def __init__(self, QObject_parent=None):
@@ -65,6 +77,19 @@ class MainPfcsamrApp(QObject):
     @pyqtSlot()
     def bow_bigrams(self):
         self._txtProgram.append("""orchestrator.bow_bigrams()""")
+
+    @pyqtSlot()
+    def word2vec(self):
+        self._txtProgram.append("""orchestrator.word2vec()""")
+
+    @pyqtSlot()
+    def run_script(self):
+        script = self._txtProgram.getText(0, 999999999)
+        co = compile(script, '<string>', 'exec')
+        exec(co)
+        logger.debug("Ejecutando " + script)
+        # ipy_client = KernelClient()
+        # ipy_client.execute(script)
 
 
 if __name__ == '__main__':
