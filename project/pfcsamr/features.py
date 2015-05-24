@@ -7,7 +7,9 @@ from .mytypes import TrainSample
 
 from .trainers import load_wordbin
 
-__all__ = ('bag_of_words_features', 'Bower', 'BowerBiGram')
+import numpy as np
+
+__all__ = ('bag_of_words_features', 'Bower', 'BowerBiGram', 'Word2Vec')
 
 
 def bag_of_words_features(words):
@@ -56,5 +58,13 @@ class BowerBiGram(FeatureExtractorI):
 class Word2Vec(FeatureExtractorI):
     def extract_feats(self, train_sample: TrainSample) -> TrainSample:
         model = load_wordbin()
-        train_sample.feats = {'word2vec': model.get_vector()}
+        feat_word2vec = np.ones_like(model.vectors[0])
+        for word in train_sample.words:
+            try:
+                wordvec = model.get_vector(word)
+                feat_word2vec = feat_word2vec * wordvec
+            except KeyError:
+                pass
+
+        train_sample.feats = {'vec': feat_word2vec}
         return train_sample

@@ -1,5 +1,3 @@
-from pfcsamr import Word2Vec
-
 __author__ = 'terrex'
 
 import csv
