@@ -179,6 +179,10 @@ ApplicationWindow {
                 text: qsTr("2-BOW")
                 onClicked: mainPfcsamrApp.bow_bigrams()
             }
+            ToolButton {
+                text: qsTr("word2vec")
+                onClicked: mainPfcsamrApp.word2vec()
+            }
         }
     }
 }
