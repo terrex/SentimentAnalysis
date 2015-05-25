@@ -1,6 +1,7 @@
 __author__ = 'terrex'
 
 import word2vec
+from sklearn.datasets.base import Bunch
 
 __all__ = ('load_wordbin',)
 

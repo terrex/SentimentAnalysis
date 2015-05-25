@@ -55,8 +55,8 @@ class MainPfcsamrApp(QObject):
         self._txtProgram.append("""orchestrator.open_train_tsv("%s")""" % selected_file.toLocalFile())
 
     @pyqtSlot()
-    def vectorize(self):
-        self._txtProgram.append("""orchestrator.vectorize()""")
+    def tokenize(self):
+        self._txtProgram.append("""orchestrator.tokenize()""")
 
     @pyqtSlot()
     def remove_stopwords(self):
@@ -81,6 +81,10 @@ class MainPfcsamrApp(QObject):
     @pyqtSlot()
     def word2vec(self):
         self._txtProgram.append("""orchestrator.word2vec()""")
+
+    @pyqtSlot()
+    def vectorize(self):
+        self._txtProgram.append("""orchestrator.vectorize()""")
 
     @pyqtSlot()
     def run_script(self):

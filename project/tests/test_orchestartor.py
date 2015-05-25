@@ -20,13 +20,13 @@ orchestrator = None
 def test_step_1():
     global orchestrator
     orchestrator = Orchestrator()
-    orchestrator.open_train_tsv("train.tsv")
-    eq_(len(orchestrator.train_samples), 1999)
+    orchestrator.open_train_tsv("train_first100.tsv")
+    eq_(len(orchestrator.train_samples), 100)
 
 
 def test_step_2():
     global orchestrator
-    orchestrator.vectorize()
+    orchestrator.tokenize()
     logger.debug(orchestrator.train_samples[0])
 
 
@@ -64,3 +64,7 @@ def test_step_6c():
     global orchestrator
     orchestrator.word2vec()
     logger.debug(orchestrator.train_samples[0])
+
+def test_step_7():
+    global orchestrator
+    orchestrator.vectorize()

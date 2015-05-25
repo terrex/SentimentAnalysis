@@ -156,8 +156,8 @@ ApplicationWindow {
                 onClicked: fileDialogChooseTSV.open()
             }
             ToolButton {
-                text: qsTr("Vectorize")
-                onClicked: mainPfcsamrApp.vectorize()
+                text: qsTr("Tokenize")
+                onClicked: mainPfcsamrApp.tokenize()
             }
             ToolButton {
                 text: qsTr("Remove stopwords")
@@ -182,6 +182,10 @@ ApplicationWindow {
             ToolButton {
                 text: qsTr("word2vec")
                 onClicked: mainPfcsamrApp.word2vec()
+            }
+            ToolButton {
+                text: qsTr("vectorize")
+                onClicked: mainPfcsamrApp.vectorize()
             }
         }
     }

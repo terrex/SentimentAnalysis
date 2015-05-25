@@ -56,12 +56,13 @@ class BowerBiGram(FeatureExtractorI):
 
 
 class Word2Vec(FeatureExtractorI):
+    model = load_wordbin()
+
     def extract_feats(self, train_sample: TrainSample) -> TrainSample:
-        model = load_wordbin()
-        feat_word2vec = np.ones_like(model.vectors[0])
+        feat_word2vec = np.ones_like(self.model.vectors[0])
         for word in train_sample.words:
             try:
-                wordvec = model.get_vector(word)
+                wordvec = self.model.get_vector(word)
                 feat_word2vec = feat_word2vec * wordvec
             except KeyError:
                 pass

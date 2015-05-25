@@ -6,7 +6,7 @@ from nltk.corpus import stopwords
 from .mytypes import TrainSample
 
 
-__all__ = ('FilterI', 'Stemmer', 'Lemmatizer', 'Vectorizer', 'StopwordsRemover')
+__all__ = ('FilterI', 'Stemmer', 'Lemmatizer', 'Tokenizer', 'StopwordsRemover')
 
 
 class FilterI(object):
@@ -14,7 +14,7 @@ class FilterI(object):
         raise NotImplementedError()
 
 
-class Vectorizer(FilterI):
+class Tokenizer(FilterI):
     def convert(self, train_sample: TrainSample) -> TrainSample:
         train_sample.words = train_sample.phrase.split()
         return train_sample

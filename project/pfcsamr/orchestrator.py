@@ -4,10 +4,12 @@ import csv
 import logging
 import logging.config
 
+from sklearn.datasets.base import Bunch
+
 from .features import *
 from .mytypes import *
 from .filters import *
-
+from .vectorizers import *
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
@@ -19,6 +21,7 @@ class Orchestrator(object):
         """:type: str"""
         self.train_samples = []
         """:type: list[TrainSample]"""
+        self.vectorized_train_samples = Bunch()
 
     def open_train_tsv(self, file_path=None):
         self.file_path = file_path
@@ -32,12 +35,12 @@ class Orchestrator(object):
         logger.debug("Read %d train samples".format(len(self.train_samples)))
         return self
 
-    def vectorize(self):
-        vectorizer = Vectorizer()
+    def tokenize(self):
+        tokenizer = Tokenizer()
         for sample in self.train_samples:
-            vectorizer.convert(sample)
+            tokenizer.convert(sample)
 
-        logger.debug("%d train samples vectorized".format(len(self.train_samples)))
+        logger.debug("%d train samples tokenized".format(len(self.train_samples)))
         return self
 
     def remove_stopwords(self):
@@ -87,3 +90,7 @@ class Orchestrator(object):
 
         logger.debug("%d train samples featured with Word2Vec".format(len(self.train_samples)))
         return self
+
+    def vectorize(self):
+        vectorizer = SkLearnVectorizer()
+        self.vectorized_train_samples = vectorizer.vectorize(self.train_samples)
