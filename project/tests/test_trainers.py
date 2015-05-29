@@ -15,7 +15,6 @@ import os
 
 os.environ['PATH'] += ":/opt/local/libexec/word2vec"
 
-
 def test_word2vec():
     import word2vec
 
@@ -26,4 +25,17 @@ def test_word2vec():
 def test_load_wordbin():
     print("kiyo ke")
     logger.debug("eyy")
-    load_wordbin()
+    #load_wordbin()
+
+
+def test_gensim():
+    from gensim.models.word2vec import Word2Vec
+    model_orig = Word2Vec.load_word2vec_format('pfcsamr/text8.bin', binary=True)
+    model_orig.save('pfcsamr/text8.bin.gensim')
+    model_new = Word2Vec.load('pfcsamr/text8.bin.gensim', mmap='r')
+    print(model_new)
+
+def test_gensim_load_mmap():
+    from gensim.models.word2vec import Word2Vec
+    model_new = Word2Vec.load('pfcsamr/GoogleNews-vectors-negative300.bin.gensim', mmap='r')
+    print(model_new)

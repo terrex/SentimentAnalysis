@@ -30,7 +30,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \bibliography{\jobname}
 \usepackage[hypcap]{caption}
 %\usepackage{usebib}
-\usepackage{listings}
+\usepackage{minted}
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
 \newcommand{\xmark}{{\color{red}\ding{55}}}
@@ -43,6 +43,13 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %\pagestyle{fancy}
 \usepackage[Bjornstrup]{fncychap}
 
+\sisetup{locale = ES,
+%output-decimal-marker={.},
+	product-units=single,
+	detect-all, detect-inline-family=text, detect-inline-weight=text,
+  detect-display-math=true}
+
+\let\code\verb
 
 \begin{document}
     Hola
