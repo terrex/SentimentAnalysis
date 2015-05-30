@@ -49,33 +49,46 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage{minted}
 \newcommand{\codep}[2][python]{%
 	\mintinline{#1}{#2}%
-}\renewcommand{\listingscaption}{Código}
+}
+\renewcommand{\listingscaption}{Código}
 \renewcommand{\listoflistingscaption}{Tabla de códigos}
 \setminted{breaklines=true,linenos=true}
 
 
 \begin{document}
 
+\frontmatter
+
+\pagenumbering{gobble}
+\clearpage
 \input{portada}
 
+\cleardoublepage
+\pagenumbering{arabic}
 \tableofcontents
 
-\input{analisis}
+\mainmatter
 
-%
-%
-%
-%
+%% %% %% %% %% %% %%
+
+\input{estructura-principal}
+
+%% %% %% %% %% %% %%
+
+\backmatter
+
+%% biliografía %%
+\nocite{*}
+\printbibliography[heading=bibintoc,title=\bibname]
+
+%% índices y tablas %
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Listado de listings}
 \listoflistings
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Índice}
+\addcontentsline{toc}{chapter}{Índice alfabetico}
 \printindex
-
-\nocite{*}
-\printbibliography[heading=bibintoc,title=\bibname]
 
 \end{document}

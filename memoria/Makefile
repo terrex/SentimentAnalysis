@@ -8,9 +8,9 @@ endif
 PUMLS = $(wildcard *.puml)
 PUMLS_TEXS = $(patsubst %.puml,%.puml.tex,$(PUMLS))
 
-default:
+default: $(SHOULDDISTCLEAN)
 	latexmk
-	$(MAKE) $(MAKEFLAGS) viewpdf
+	$(MAKE) viewpdf
 
 all: $(SHOULDDISTCLEAN) $(MASTER).bib $(MASTER).pdf $(PUMLS_TEXS)
 
