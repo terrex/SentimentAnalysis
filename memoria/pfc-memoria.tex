@@ -23,17 +23,25 @@
 \usepackage[table,usenames,dvipsnames]{xcolor}
 \usepackage{titlesec}
 \usepackage{subfigure}
-\usepackage{csquotes}
+%\usepackage{csquotes}
 \usepackage[style=authoryear,natbib=true,%
 maxbibnames=99,maxcitenames=1,%
 citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \bibliography{\jobname}
 \usepackage[hypcap]{caption}
+\usepackage{hhline}
+
 
 \usepackage{makeidx}\makeindex
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
 \newcommand{\xmark}{{\color{red}\ding{55}}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}
+
+\theoremstyle{definition}
+\newtheorem{example}{Ejemplo}
 
 %% plantuml %%
 \usepackage{filecontents}
@@ -56,7 +64,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 
 %% estilo %%
 
-\setmonofont[Scale=0.7]{Menlo}
+\setmonofont[Scale=0.8]{Menlo}
 \newfontfamily\portadafont{Arial Bold}
 
 

@@ -5,7 +5,7 @@
 
 \section{Preprocesamiento}
 
-\subsection[Tokenización]{\emph{``Tokenización''}}
+\subsection{\emph{``Tokenización''}}
 
 La \emph{tokenización}\index{tokenización}\index{tokenization@\emph{tokenization}} en NLP es normalmente el proceso de separar la cadena de entrada, frases en lenguaje natural, en las distintas palabras que componen la frase. Puede ser simplemente un separador que trocee la frase cada vez que se encuentre un espacio.
 \begin{minted}{python}
@@ -13,6 +13,40 @@ La \emph{tokenización}\index{tokenización}\index{tokenization@\emph{tokenizati
 ['of', 'escapades', 'demonstrating', 'the', 'adage', 'that', 'what', 'is', 'good', 'for', 'the', 'goose']
 >>> 
 \end{minted}
+
+La tokenización en su sentido más amplio y general es el procedimiento del análisis léxico para reconocer lexemas del flujo de entrada con la que se obtiene un flujo de salida compuesto por tokens \citep[p.27]{jimenez2004}.
+
+\begin{definition}[Token] \index{token}
+Denominamos \emph{token} al conjunto de cadenas de caracteres con significado mínimo.
+\end{definition}
+
+\begin{definition}[Patrón] \index{patrón}
+El \emph{patrón} es una regla que describe el conjunto de caracteres que cuadran un token.
+\end{definition}
+
+El concepto de ``cuadrar'' se denomina en inglés como match\index{match@\emph{match}}, y también se puede traducir como concordancia o correspondencia.
+
+\begin{definition}[Lexema] \index{lexema}
+Un \emph{lexema} es una secuencia concreta de caracteres que se corresponde con el patrón de un token determinado.
+\end{definition}
+
+\begin{example} \index{token} \index{patrón} \index{lexema}
+Pongamos algunos ejemplos de tokens, patrones y lexemas:
+\nopagebreak
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{token} & \textbf{lexemas de ejemplo} & \textbf{descripción informal del patrón} \\ \hhline{===}
+\codep{CONST} & \codep{const} & const \\ \hline
+\codep{IF} & \codep{if} & if \\ \hline
+\codep{OPREL} & \codep{<}, \codep{<=}, \codep{=}, \codep{>}, \codep{>=} & <~ ó <= ó = ó >~ ó >= \\ \hline
+\codep{ID} & \codep{pi}, \codep{contador}, \codep{D2} & letra seguida de letras y dígitos \\ \hline
+\codep{CTENUM} & \codep{3.1416}, \codep{0}, \codep{6.1E23} & cualquier constante numérica \\ \hline
+\codep{LITERAL} & \codep{"core dumped"} & cualesquiera letras entre \codep{"} y \codep{"} excepto \codep{"} \\ \hline
+\end{tabular}
+\end{center}
+\end{example}
+
 
 
 \chapter{Aprendizaje automático}
