@@ -17,5 +17,3 @@ pfc-memoria.ind
 pfc-memoria.lol
 *.puml.tex
 _minted*
-*.ipynb
-.ipynb*
