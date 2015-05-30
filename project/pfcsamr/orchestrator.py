@@ -106,6 +106,7 @@ class Orchestrator(object):
     def vectorize(self):
         vectorizer = SkLearnVectorizer()
         self.vectorized_train_samples = vectorizer.vectorize(self.train_samples)
+        return self
 
     def learn_nb(self):
         from nltk.classify import NaiveBayesClassifier
@@ -114,12 +115,14 @@ class Orchestrator(object):
             train_feats.append((sample.feats, sample.sentiment))
         nb_classifier = NaiveBayesClassifier.train(train_feats)
         self.classifier = nb_classifier
+        return self
 
     def classify(self, sample: TrainSample):
         return self.classifier.classify(sample.feats)
 
     def split_trainset(self, percent : float):
         self.percent = percent
+        return self
 
     def learn_evaluate(self):
         from nltk.metrics import f_measure
@@ -138,3 +141,10 @@ class Orchestrator(object):
 
         return f1_scores
 
+    def remove_contractions(self):
+        from .replacers import RegexpReplacer
+        replacer = RegexpReplacer()
+        for sample in self.train_samples:
+            sample.phrase = replacer.replace(sample.phrase)
+
+        return self

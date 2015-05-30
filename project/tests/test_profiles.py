@@ -12,6 +12,7 @@ from pfcsamr.orchestrator import Orchestrator
 def test_nb():
     orchestrator = Orchestrator()
     orchestrator.open_train_tsv('train.tsv')
+    orchestrator.remove_contractions()
     orchestrator.tokenize()
     orchestrator.remove_stopwords()
     orchestrator.stemmize()

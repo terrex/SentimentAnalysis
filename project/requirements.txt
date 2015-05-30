@@ -10,3 +10,5 @@ nose
 gensim
 #PyQt5
 #sip
+PyYAML
+pyenchant

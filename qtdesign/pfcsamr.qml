@@ -156,6 +156,10 @@ ApplicationWindow {
                 onClicked: fileDialogChooseTSV.open()
             }
             ToolButton {
+                text: qsTr("Remove contractions")
+                onClicked: mainPfcsamrApp.remove_contractions()
+            }
+            ToolButton {
                 text: qsTr("Tokenize")
                 onClicked: mainPfcsamrApp.tokenize()
             }

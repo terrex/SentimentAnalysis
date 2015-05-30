@@ -62,7 +62,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 }
 \renewcommand{\listingscaption}{Código}
 \providecommand*{\listingautorefname}{\listingscaption}
-\renewcommand{\listoflistingscaption}{Tabla de códigos}
+\renewcommand{\listoflistingscaption}{Índice de códigos}
 \setminted{breaklines=true,linenos=true}
 
 %% estilo %%
@@ -80,7 +80,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \input{portada}
 
 \cleardoublepage
-\pagenumbering{arabic}
+\pagenumbering{roman}
 \tableofcontents
 
 \mainmatter
@@ -100,11 +100,15 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %% índices y tablas %
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Listado de listings}
+\addcontentsline{toc}{chapter}{Índice de tablas}
+\listoftables
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Índice de códigos}
 \listoflistings
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Índice alfabetico}
+\addcontentsline{toc}{chapter}{Índice alfabético}
 \printindex
 
 \end{document}

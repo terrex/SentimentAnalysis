@@ -55,6 +55,10 @@ class MainPfcsamrApp(QObject):
         self._txtProgram.append("""orchestrator.open_train_tsv("%s")""" % selected_file.toLocalFile())
 
     @pyqtSlot()
+    def remove_contractions(self):
+        self._txtProgram.append("""orchestrator.remove_contractions()""")
+
+    @pyqtSlot()
     def tokenize(self):
         self._txtProgram.append("""orchestrator.tokenize()""")
 

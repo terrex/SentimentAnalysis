@@ -8,11 +8,15 @@
 \subsection{\emph{``Tokenización''}}
 
 La \emph{tokenización}\index{tokenización}\index{tokenization@\emph{tokenization}} en NLP es normalmente el proceso de separar la cadena de entrada, frases en lenguaje natural, en las distintas palabras que componen la frase. Puede ser simplemente un separador que trocee la frase cada vez que se encuentre un espacio.
+\begin{listing}[H]
 \begin{minted}{python}
 >>> 'of escapades demonstrating the adage that what is good for the goose'.split()
 ['of', 'escapades', 'demonstrating', 'the', 'adage', 'that', 'what', 'is', 'good', 'for', 'the', 'goose']
 >>> 
 \end{minted}
+\caption{Tokenización sencilla mediante la separación de espacios.}
+\label{lst:tokenizacion-sencilla}
+\end{listing}
 
 La tokenización en su sentido más amplio y general es el procedimiento del análisis léxico para reconocer lexemas del flujo de entrada con la que se obtiene un flujo de salida compuesto por tokens \citep[§2.2]{Jimenez2004}.
 
@@ -77,11 +81,17 @@ En cuanto a la separación de palabras, también pueden surgir problemas, depend
 \end{listing}
 
 Una mejor aproximación al problema es reemplazar --previamente a la tokenización--, las palabras contraídas con sus palabras equivalentes sin contracción.\footnote{Puede obtenerse un catálogo bastante extenso de contracciones en inglés --en uso y arcaicas--, en la dirección: \url{http://www.enchantedlearning.com/grammar/contractions/list.shtml}}
-Para ello es necesario construirse una tabla que establezca el mapping \citep{Perkins2014}. Como ejemplo, véase una tabla no exhaustiva en la \autoref{tbl:contracciones}.
+Para ello es necesario construirse una tabla que establezca el mapping \citep{Perkins2014}. Como ejemplo, véase una tabla no exhaustiva en la \autoref{tbl:contracciones}, en dos versiones:
+\nopagebreak
+\begin{enumerate}
+\item En la primera de ellas se implementaría empleando un diccionario común de palabras de búsqueda y reemplazo, directamente.
+\item En la segunda opción, se hace uso de expresiones regulares para condensar la tabla y no tener que hacer explícito todas las posibles contracciones que compartan sufijos sinónimos.
+\end{enumerate}
 
 \begin{table}[htbp]
 \centering
-\begin{subtable}[t]{0.40\linewidth}
+\begin{subtable}[t]{0.45\linewidth}
+\centering
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{contracción} & \textbf{reemplazar con} \\ \hhline{==}
@@ -112,10 +122,11 @@ you'll & you will \\ \hline
 he'll & he will \\ \hline
 she'll & she will \\ \hline
 \end{tabular}
-\caption{Sustitución directa}
+\caption{Sustitución literal}
 \label{tbl:contracciones-directa}
 \end{subtable}
-\begin{subtable}[t]{0.40\linewidth}
+\begin{subtable}[t]{0.45\linewidth}
+\centering
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{contracción} & \textbf{reemplazar con} \\ \hhline{==}
@@ -130,7 +141,7 @@ she'll & she will \\ \hline
 \verb=r"(\w+)'re"= & \verb="\g<1> are"= \\ \hline
 \verb=r"(\w+)'d"= & \verb="\g<1> would"= \\ \hline
 \end{tabular}
-\caption{Sustitución sintetizada mediante expresiones regulares}
+\caption{Sustitución condensada mediante expresiones regulares}
 \label{tbl:contracciones-regexp}
 \end{subtable}
 \vfill
