@@ -14,5 +14,8 @@ pfc-memoria.toc
 pfc-memoria.idx
 pfc-memoria.ilg
 pfc-memoria.ind
+pfc-memoria.lol
 *.puml.tex
 _minted*
+*.ipynb
+.ipynb*

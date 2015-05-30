@@ -49,7 +49,13 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 	detect-all, detect-inline-family=text, detect-inline-weight=text,
   detect-display-math=true}
 
-\let\code\verb
+\newcommand{\codep}[2][python]{%
+	\mintinline{#1}{#2}%
+}
+
+\renewcommand{\listingscaption}{Código}
+\renewcommand{\listoflistingscaption}{Tabla de códigos}
+\setminted{breaklines=true}
 
 \begin{document}
     Hola
@@ -62,6 +68,10 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %
 %
 %
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Listado de listings}
+\listoflistings
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Índice}
