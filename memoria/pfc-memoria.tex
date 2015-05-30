@@ -31,6 +31,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage[hypcap]{caption}
 %\usepackage{usebib}
 \usepackage{minted}
+\usepackage{makeidx}\makeindex
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
 \newcommand{\xmark}{{\color{red}\ding{55}}}
@@ -43,8 +44,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %\pagestyle{fancy}
 \usepackage[Bjornstrup]{fncychap}
 
-\sisetup{locale = ES,
-%output-decimal-marker={.},
+\sisetup{output-decimal-marker={.},
 	product-units=single,
 	detect-all, detect-inline-family=text, detect-inline-weight=text,
   detect-display-math=true}
@@ -57,6 +57,15 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \tableofcontents
 
 \input{analisis}
+
+%
+%
+%
+%
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Índice}
+\printindex
 
 \nocite{*}
 \printbibliography[heading=bibintoc,title=\bibname]

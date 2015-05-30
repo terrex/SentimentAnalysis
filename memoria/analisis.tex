@@ -1,35 +1,35 @@
 %!TEX root = pfc-memoria.tex
 %!TEX encoding = UTF-8 Unicode
 
-\part{Introducción y objetivos}
 
-\chapter{Introducción}
+\section{Clasificadores}
 
-\chapter{Objetivos del proyecto}
+\subsection{Bondad del clasificador (valor-F)}
 
-\chapter{Estructura de la memoria}
+Para la comparación de sistemas de búsqueda y recuperación de información disponemos de una métrica llamada valor-F\index{valor-F} (\emph{F-score}\index{F-score@\emph{F-score}}, \emph{F-measure}\index{F-measure@\emph{F-measure}} ó \emph{$F_1$ score}\index{F\_1 score@$F_1$ score}) siendo ésta la media armónica de otros dos indicadores: \citep{wikipedia:precision-exhaustividad}
+\begin{description}
+\item[precisión \emph{(precision)}] \index{precisión}\index{precision@\emph{precision}}
+Es la fracción de instancias recuperadas que son relevantes.
+\begin{eqnarray}
+\text{precisión} &=& \frac{|\{\text{relevantes}\}\cap\{\text{recuperados}\}|}{|\{\text{recuperados}\}|}
+\end{eqnarray}
+\item[exhaustividad \emph{(recall)}] \index{exhaustividad}\index{recall@\emph{recall}}
+Es la fracción de instancias relevantes que han sido recuperadas.
+\begin{eqnarray}
+\text{exhaustividad} &=& \frac{|\{\text{relevantes}\}\cap\{\text{recuperados}\}|}{|\{\text{relevantes}\}|}
+\end{eqnarray}
+\item[valor-F \emph{(F-score)}] Media armónica de precisión y exhaustividad.
+\begin{eqnarray}
+F_1 &=& 2\times\frac{\text{precisión}\times\text{exhaustividad}}{\text{precisión}+\text{exhaustividad}}
+\end{eqnarray}
+\end{description}
 
-\part{Estudio de viabilidad}
+Supongamos un clasificador binario:
+\begin{itemize}
+\item La medida de precisión será el porcentaje de documentos correctamente clasificados dentro del conjunto de prueba.
+\item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados. \citep{Perkins2010}
+\end{itemize}
 
-\chapter{Metodología de trabajo}
-
-\chapter{Planificación temporal}
-
-\chapter{Análisis del esfuerzo de desarrollo}
-
-\part{Desarrollo del proyecto}
-
-\chapter{Análisis de requisitos}
-
-\resizebox{0.5\textwidth}{!}{\input{diag1.puml}}
-
-\includegraphics[width=\textwidth]{bpmn-entrenamiento}
-
-
-
-\chapter{Diseño del sistema}
-
-\chapter{Implementación}
 
 \section{Rendimiento en Python}
 
@@ -56,15 +56,43 @@ model = Word2Vec.load('GoogleNews-vectors-negative300.bin.gensim', mmap='r')
 \end{minted}
 
 
-\part{Aseguramiento de la calidad}
+%\part{Introducción y objetivos}
 
-\chapter{Plan de pruebas}
+%\chapter{Introducción}
 
-\chapter{Plan de mantenimiento}
+%\chapter{Objetivos del proyecto}
 
-\part{Conclusiones}
+%\chapter{Estructura de la memoria}
 
-\chapter{Conclusiones}
+%\part{Estudio de viabilidad}
+
+%\chapter{Metodología de trabajo}
+
+%\chapter{Planificación temporal}
+
+%\chapter{Análisis del esfuerzo de desarrollo}
+
+%\part{Desarrollo del proyecto}
+
+%\chapter{Análisis de requisitos}
+
+\resizebox{0.5\textwidth}{!}{\input{diag1.puml}}
+
+\includegraphics[width=\textwidth]{bpmn-entrenamiento}
+
+%\chapter{Diseño del sistema}
+
+%\chapter{Implementación}
+
+%\part{Aseguramiento de la calidad}
+
+%\chapter{Plan de pruebas}
+
+%\chapter{Plan de mantenimiento}
+
+%\part{Conclusiones}
+
+%\chapter{Conclusiones}
 
 \part{Apéndices}
 \appendix

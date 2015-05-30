@@ -11,4 +11,8 @@ pfc-memoria.pdf
 pfc-memoria.run.xml
 pfc-memoria.synctex*
 pfc-memoria.toc
+pfc-memoria.idx
+pfc-memoria.ilg
+pfc-memoria.ind
 *.puml.tex
+_minted*

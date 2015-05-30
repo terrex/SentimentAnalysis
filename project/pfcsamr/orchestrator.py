@@ -3,6 +3,7 @@ __author__ = 'terrex'
 import csv
 import logging
 import logging.config
+import collections
 
 from sklearn.datasets.base import Bunch
 
@@ -22,6 +23,17 @@ class Orchestrator(object):
         self.train_samples = []
         """:type: list[TrainSample]"""
         self.vectorized_train_samples = Bunch()
+        self.percent = .75
+
+    def _get_train_samples_split_train(self):
+        c = len(self.train_samples)
+        m = int(c * self.percent)
+        return self.train_samples[:m]
+
+    def _get_train_samples_split_eval(self):
+        c = len(self.train_samples)
+        m = int(c * self.percent)
+        return self.train_samples[m:]
 
     def open_train_tsv(self, file_path=None):
         self.file_path = file_path
@@ -94,3 +106,35 @@ class Orchestrator(object):
     def vectorize(self):
         vectorizer = SkLearnVectorizer()
         self.vectorized_train_samples = vectorizer.vectorize(self.train_samples)
+
+    def learn_nb(self):
+        from nltk.classify import NaiveBayesClassifier
+        train_feats = []
+        for sample in self._get_train_samples_split_train():
+            train_feats.append((sample.feats, sample.sentiment))
+        nb_classifier = NaiveBayesClassifier.train(train_feats)
+        self.classifier = nb_classifier
+
+    def classify(self, sample: TrainSample):
+        return self.classifier.classify(sample.feats)
+
+    def split_trainset(self, percent : float):
+        self.percent = percent
+
+    def learn_evaluate(self):
+        from nltk.metrics import f_measure
+        classified = []
+        # from \citep{Perkins2010}
+        refsets = collections.defaultdict(set)
+        testsets = collections.defaultdict(set)
+        for sample in self._get_train_samples_split_eval():
+            refsets[sample.sentiment].add(frozenset(sample.feats))
+            sample.guessed = self.classifier.classify(sample.feats)
+            testsets[sample.guessed].add(frozenset(sample.feats))
+
+        f1_scores = {}
+        for category in refsets.keys():
+            f1_scores[category] = f_measure(refsets[category], testsets[category])
+
+        return f1_scores
+
