@@ -30,7 +30,11 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \bibliography{\jobname}
 \usepackage[hypcap]{caption}
 %\usepackage{usebib}
+
+%\usepackage{newfloat}
+\floatstyle{ruled}
 \usepackage{minted}
+
 \usepackage{makeidx}\makeindex
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
@@ -55,7 +59,9 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 
 \renewcommand{\listingscaption}{Código}
 \renewcommand{\listoflistingscaption}{Tabla de códigos}
-\setminted{breaklines=true}
+%\SetupFloatingEnvironment{listing}{name=Código}
+%\SetupFloatingEnvironment{listing}{listname=Tabla de códigos}
+\setminted{breaklines=true,linenos=true}
 
 \begin{document}
     Hola
