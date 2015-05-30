@@ -14,7 +14,7 @@ La \emph{tokenización}\index{tokenización}\index{tokenization@\emph{tokenizati
 >>> 
 \end{minted}
 
-La tokenización en su sentido más amplio y general es el procedimiento del análisis léxico para reconocer lexemas del flujo de entrada con la que se obtiene un flujo de salida compuesto por tokens \citep[p.27]{jimenez2004}.
+La tokenización en su sentido más amplio y general es el procedimiento del análisis léxico para reconocer lexemas del flujo de entrada con la que se obtiene un flujo de salida compuesto por tokens \citep[§2.2]{Jimenez2004}.
 
 \begin{definition}[Token] \index{token}
 Denominamos \emph{token} al conjunto de cadenas de caracteres con significado mínimo.
@@ -31,7 +31,7 @@ Un \emph{lexema} es una secuencia concreta de caracteres que se corresponde con 
 \end{definition}
 
 \begin{example} \index{token} \index{patrón} \index{lexema}
-Pongamos algunos ejemplos de tokens, patrones y lexemas:
+Pongamos algunos ejemplos de tokens, patrones y lexemas, de un lenguaje formal típico de programación:
 \nopagebreak
 \begin{center}
 \begin{tabular}{|l|l|l|}
@@ -47,7 +47,96 @@ Pongamos algunos ejemplos de tokens, patrones y lexemas:
 \end{center}
 \end{example}
 
+En lenguaje natural, la unidad mínima de información textual será la palabra. De manera que token y lexema coinciden siempre, y no tiene sentido definir un patrón para cada token de las palabras de un diccionario de la lengua, ya que el patrón es la propia secuencia de letras de la palabra.
 
+Existen distintos niveles de tokenización de documentos \citep[ch.~1]{Perkins2010}:
+\nopagebreak
+\begin{itemize}
+\item Tokenizar textos en frases.
+\item Tokenizar frases en palabras.
+\end{itemize}
+
+Simplemente para la primera tarea ya nos encontramos con dificultades, pues las frases no sólo terminan en punto. Pueden terminar en punto (\codep{.}), signo de exclamación (\codep[text]{!}), signo de interrogación (\codep[text]{?}), en algunos casos dos puntos (\codep{:}). Y en otros idiomas, como el español, también hay que tener en cuenta que en la separación entre frases puede haber signos de apertura de interrogación o exclamación, etc.
+
+En cuanto a la separación de palabras, también pueden surgir problemas, dependiendo del idioma. En el siguiente ejemplo (\autoref{lst:wordtokenizers}) podemos ver distintas formas de separar palabras de una frase en inglés que usa contracciones.\footnote{También se puede encontrar un demostrador interactivo de la tokenización en la siguiente dirección:\\
+\url{http://text-processing.com/demo/tokenize/}}
+
+\begin{listing}[H]
+\begin{minted}{python}
+>>> from nltk.tokenize import TreebankWordTokenizer, WordPunctTokenizer, WhitespaceTokenizer
+>>> TreebankWordTokenizer().tokenize("Can't is a contraction.")
+['Ca', "n't", 'is', 'a', 'contraction', '.']
+>>> WordPunctTokenizer().tokenize("Can't is a contraction.")
+['Can', "'", 't', 'is', 'a', 'contraction', '.']
+>>> WhitespaceTokenizer().tokenize("Can't is a contraction.")
+["Can't", 'is', 'a', 'contraction.']
+>>> 
+\end{minted}
+\caption{Diferentes estrategias de separación de palabras}
+\label{lst:wordtokenizers}
+\end{listing}
+
+Una mejor aproximación al problema es reemplazar --previamente a la tokenización--, las palabras contraídas con sus palabras equivalentes sin contracción.\footnote{Puede obtenerse un catálogo bastante extenso de contracciones en inglés --en uso y arcaicas--, en la dirección: \url{http://www.enchantedlearning.com/grammar/contractions/list.shtml}}
+Para ello es necesario construirse una tabla que establezca el mapping \citep{Perkins2014}. Como ejemplo, véase una tabla no exhaustiva en la \autoref{tbl:contracciones}.
+
+\begin{table}[htbp]
+\centering
+\begin{subtable}[t]{0.40\linewidth}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{contracción} & \textbf{reemplazar con} \\ \hhline{==}
+isn't & is not \\ \hline
+aren't & are not \\ \hline
+wasn't & was not \\ \hline
+weren't & were not \\ \hline
+haven't & have not \\ \hline
+hasn't & has not \\ \hline
+couldn't & could not \\ \hline
+shouldn't & should not \\ \hline
+mightn't & might not \\ \hline
+mustn't & must not \\ \hline
+could've & could have \\ \hline
+might've & might have \\ \hline
+must've & must have \\ \hline
+ma'am & madam \\ \hline
+she'd've & she would have \\ \hline
+'tisn't & it is not \\ \hline
+who'll & who will \\ \hline
+when'll & when will \\ \hline
+what're & what are \\ \hline
+we're & we are \\ \hline
+they're & they are \\ \hline
+that's & that is \\ \hline
+I'll & I will \\ \hline
+you'll & you will \\ \hline
+he'll & he will \\ \hline
+she'll & she will \\ \hline
+\end{tabular}
+\caption{Sustitución directa}
+\label{tbl:contracciones-directa}
+\end{subtable}
+\begin{subtable}[t]{0.40\linewidth}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{contracción} & \textbf{reemplazar con} \\ \hhline{==}
+\verb=r"won't"= & \verb="will not"= \\ \hline
+\verb=r"can't"= & \verb="cannot"= \\ \hline
+\verb=r"i'm"= & \verb="i am"= \\ \hline
+\verb=r"ain't"= & \verb="is not"= \\ \hline
+\verb=r"(\w+)'ll"= & \verb="\g<1> will"= \\ \hline
+\verb=r"(\w+)n't"= & \verb="\g<1> not"= \\ \hline
+\verb=r"(\w+)'ve"= & \verb="\g<1> have"= \\ \hline
+\verb=r"(\w+)'s"= & \verb="\g<1> is"= \\ \hline
+\verb=r"(\w+)'re"= & \verb="\g<1> are"= \\ \hline
+\verb=r"(\w+)'d"= & \verb="\g<1> would"= \\ \hline
+\end{tabular}
+\caption{Sustitución sintetizada mediante expresiones regulares}
+\label{tbl:contracciones-regexp}
+\end{subtable}
+\vfill
+\caption{Sustitución de contracciones en inglés}
+\label{tbl:contracciones}
+\end{table}
 
 \chapter{Aprendizaje automático}
 
@@ -55,7 +144,7 @@ Pongamos algunos ejemplos de tokens, patrones y lexemas:
 
 \subsection{Bondad del clasificador (valor-F)}
 
-Para la comparación de sistemas de búsqueda y recuperación de información disponemos de una métrica llamada valor-F\index{valor-F} (\emph{F-score}\index{F-score@\emph{F-score}}, \emph{F-measure}\index{F-measure@\emph{F-measure}} ó \emph{$F_1$ score}\index{F\_1 score@$F_1$ score}) siendo ésta la media armónica de otros dos indicadores: \citep{wikipedia:precision-exhaustividad}
+Para la comparación de sistemas de búsqueda y recuperación de información disponemos de una métrica llamada valor-F\index{valor-F} (\emph{F-score}\index{F-score@\emph{F-score}}, \emph{F-measure}\index{F-measure@\emph{F-measure}} ó \emph{$F_1$ score}\index{F\_1 score@$F_1$ score}) siendo ésta la media armónica de otros dos indicadores \citep{wikipedia:precision-exhaustividad}:
 \begin{description}
 \item[precisión \emph{(precision)}] \index{precisión}\index{precision@\emph{precision}}
 Es la fracción de instancias recuperadas que son relevantes.

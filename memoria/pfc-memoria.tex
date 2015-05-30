@@ -5,7 +5,7 @@
 
 \documentclass[a4paper,11pt,twoside]{scrbook}
 
-\usepackage[spanish]{babel}
+\usepackage[spanish,es-tabla]{babel}
 \usepackage{xltxtra}
 \usepackage{fontspec}
 \usepackage{xunicode}
@@ -22,7 +22,7 @@
 \usepackage{mdwlist}
 \usepackage[table,usenames,dvipsnames]{xcolor}
 \usepackage{titlesec}
-\usepackage{subfigure}
+%\usepackage{subfigure}
 %\usepackage{csquotes}
 \usepackage[style=authoryear,natbib=true,%
 maxbibnames=99,maxcitenames=1,%
@@ -31,6 +31,8 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage[hypcap]{caption}
 \usepackage{hhline}
 
+\usepackage{booktabs}
+\usepackage{subcaption}
 
 \usepackage{makeidx}\makeindex
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
@@ -54,11 +56,12 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 
 %% minted %%
 \floatstyle{ruled}
-\usepackage{minted}
+\usepackage[chapter]{minted}
 \newcommand{\codep}[2][python]{%
 	\mintinline{#1}{#2}%
 }
 \renewcommand{\listingscaption}{Código}
+\providecommand*{\listingautorefname}{\listingscaption}
 \renewcommand{\listoflistingscaption}{Tabla de códigos}
 \setminted{breaklines=true,linenos=true}
 
