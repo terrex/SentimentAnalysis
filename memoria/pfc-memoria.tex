@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage[top=3cm,bottom=3cm,outer=3cm,inner=2cm]{geometry}
+\usepackage[Bjornstrup]{fncychap}
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{hyperref}
@@ -23,48 +24,39 @@
 \usepackage{titlesec}
 \usepackage{subfigure}
 \usepackage{csquotes}
-%\usepackage[nottoc,numbib]{tocbibind}
 \usepackage[style=authoryear,natbib=true,%
 maxbibnames=99,maxcitenames=1,%
 citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \bibliography{\jobname}
 \usepackage[hypcap]{caption}
-%\usepackage{usebib}
-
-%\usepackage{newfloat}
-\floatstyle{ruled}
-\usepackage{minted}
 
 \usepackage{makeidx}\makeindex
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
 \newcommand{\xmark}{{\color{red}\ding{55}}}
 
-%plantuml
+%% plantuml %%
 \usepackage{filecontents}
 \usepackage{tikz}
-
-%\usepackage{fancyhdr}
-%\pagestyle{fancy}
-\usepackage[Bjornstrup]{fncychap}
 
 \sisetup{output-decimal-marker={.},
 	product-units=single,
 	detect-all, detect-inline-family=text, detect-inline-weight=text,
   detect-display-math=true}
 
+%% minted %%
+\floatstyle{ruled}
+\usepackage{minted}
 \newcommand{\codep}[2][python]{%
 	\mintinline{#1}{#2}%
-}
-
-\renewcommand{\listingscaption}{Código}
+}\renewcommand{\listingscaption}{Código}
 \renewcommand{\listoflistingscaption}{Tabla de códigos}
-%\SetupFloatingEnvironment{listing}{name=Código}
-%\SetupFloatingEnvironment{listing}{listname=Tabla de códigos}
 \setminted{breaklines=true,linenos=true}
 
+
 \begin{document}
-    Hola
+
+\input{portada}
 
 \tableofcontents
 
