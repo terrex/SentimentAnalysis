@@ -151,6 +151,10 @@ she'll & she will \\ \hline
 \label{tbl:contracciones}
 \end{table}
 
+\subsection{Supresión de palabras vacías (\emph{stopwords})}
+
+\ldots
+
 \subsection{Radicación \emph{``Stemming''}}
 
 La \emph{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma --siendo conocido el subconjunto común y más frecuente del mismo--, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
@@ -212,12 +216,12 @@ Aunque se pierda algo de información, tiene sus ventajas:
 No obstante también tiene alguna desventaja:
 \nopagebreak
 \begin{itemize}
-\item Al estar basado en la eliminación literal de sufijos, puede producir palabras no válidas del idioma (como en \emph{cookeri} en el ejemplo anterior).
+\item Al estar basado en la eliminación literal de sufijos, puede producir palabras no válidas del idioma (como en \codep{'cookeri'} en el ejemplo anterior).
 \end{itemize}
 
 NLTK proporciona otros stemmers adicionales a \codep{PorterStemmer}:
 \begin{description}
-\item[\codep{LancasterStemmer}] Desarrollado en la Universidad de Lancaster, es ligeramente más agresivo que el algoritmo de Porter, aunque no existen estudios que confirmen la supremacía de uno sobre el otro.
+\item[\codep{LancasterStemmer}] Desarrollado en la Universidad de Lancaster, es ligeramente más agresivo que el algoritmo de Porter, aunque no existen estudios que confirmen la supremacía de uno sobre el otro \citep{Perkins2014}.
 \item[\codep{RegexpStemmer}] Stemmer al que se puede recurrir para eliminar prefijos o sufijos de manera personalizada configurado mediante una expresión regular.
 \item[\codep{SnowballStemmer}] Snowball extiende el método Porter para su aplicación a otros idiomas indoeuropeos: románicos, germánicos y escandinavos.
 \end{description}
@@ -229,13 +233,29 @@ La lematización\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emp
 En lingüística, el \emph{lema}\index{lema} es la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
 \end{definition}
 
+\subsection{Anotación gramatical de la parte de la oración (\emph{Part-of-speech tagging}) }
+
+En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}. La gramática tradicional distingue nueve partes de la oración\index{parte de la oración}\index{part-of-speech\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
+\nopagebreak
+\begin{enumerate}
+\item Artículo o determinante
+\item Sustantivo o nombre
+\item Pronombre
+\item Verbo
+\item Adjetivo
+\item Adverbio
+\item Preposición
+\item Conjunción
+\item Interjección
+\end{enumerate}
+
 \chapter{Aprendizaje automático}
 
 \section{Clasificadores}
 
 \subsection{Bondad del clasificador (valor-F)}
 
-Para la comparación de sistemas de búsqueda y recuperación de información disponemos de una métrica llamada valor-F\index{valor-F} (\emph{F-score}\index{F-score@\emph{F-score}}, \emph{F-measure}\index{F-measure@\emph{F-measure}} ó \emph{$F_1$ score}\index{F\_1 score@$F_1$ score}) siendo ésta la media armónica de otros dos indicadores \citep{wikipedia:precision-exhaustividad}:
+Para la comparación de sistemas de búsqueda y recuperación de información disponemos de una métrica llamada valor-F\index{valor-F} (\emph{F-score}\index{F-score@\emph{F-score}}, \emph{F-measure}\index{F-measure@\emph{F-measure}} ó \emph{$F_1$ score}\index{F\_1 score@$F_1$ score}) siendo ésta la media armónica de otros dos indicadores \citep[Precisión y exhaustividad]{wikipedia-es}:
 \begin{description}
 \item[precisión \emph{(precision)}] \index{precisión}\index{precision@\emph{precision}}
 Es la fracción de instancias recuperadas que son relevantes.

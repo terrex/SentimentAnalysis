@@ -10,7 +10,7 @@ PUMLS_TEXS = $(patsubst %.puml,%.puml.tex,$(PUMLS))
 
 default: $(SHOULDDISTCLEAN)
 	latexmk
-#	$(MAKE) viewpdf
+	$(MAKE) viewpdf
 
 all: $(SHOULDDISTCLEAN) $(MASTER).bib $(MASTER).pdf $(PUMLS_TEXS)
 
