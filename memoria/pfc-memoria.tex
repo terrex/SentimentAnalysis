@@ -71,6 +71,11 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \newfontfamily\portadafont{Arial Bold}
 
 
+%% reduce widows
+\makeatletter
+\@beginparpenalty=10000
+\makeatother
+
 \begin{document}
 
 \frontmatter

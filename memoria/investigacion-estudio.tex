@@ -81,9 +81,11 @@ En cuanto a la separación de palabras, también pueden surgir problemas, depend
 \end{listing}
 
 Una mejor aproximación al problema es reemplazar --previamente a la tokenización--, las palabras contraídas con sus palabras equivalentes sin contracción.\footnote{Puede obtenerse un catálogo bastante extenso de contracciones en inglés --en uso y arcaicas--, en la dirección: \url{http://www.enchantedlearning.com/grammar/contractions/list.shtml}}
-Para ello es necesario construirse una tabla que establezca el mapping \citep{Perkins2014}. Como ejemplo, véase una tabla no exhaustiva en la \autoref{tbl:contracciones}, en dos versiones:
+Para ello es necesario construirse una tabla que establezca el mapping \citep{Perkins2014}.
+
+Como ejemplo de un conjunto de substitución, véase una tabla no exhaustiva en la \autoref{tbl:contracciones}, en dos versiones:
 \nopagebreak
-\begin{enumerate}
+\begin{enumerate}[(a)]
 \item En la primera de ellas se implementaría empleando un diccionario común de palabras de búsqueda y reemplazo, directamente.
 \item En la segunda opción, se hace uso de expresiones regulares para condensar la tabla y no tener que hacer explícito todas las posibles contracciones que compartan sufijos sinónimos.
 \end{enumerate}
@@ -92,7 +94,7 @@ Para ello es necesario construirse una tabla que establezca el mapping \citep{Pe
 \centering
 \begin{subtable}[t]{0.45\linewidth}
 \centering
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|l|}
 \hline
 \textbf{contracción} & \textbf{reemplazar con} \\ \hhline{==}
 isn't & is not \\ \hline
@@ -127,7 +129,7 @@ she'll & she will \\ \hline
 \end{subtable}
 \begin{subtable}[t]{0.45\linewidth}
 \centering
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|l|}
 \hline
 \textbf{contracción} & \textbf{reemplazar con} \\ \hhline{==}
 \verb=r"won't"= & \verb="will not"= \\ \hline
@@ -148,6 +150,84 @@ she'll & she will \\ \hline
 \caption{Sustitución de contracciones en inglés}
 \label{tbl:contracciones}
 \end{table}
+
+\subsection{Radicación \emph{``Stemming''}}
+
+La \emph{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma --siendo conocido el subconjunto común y más frecuente del mismo--, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
+\nopagebreak
+\begin{description}
+\item[La contextualización.]\index{contextualización} Por medio de este mecanismo rastreamos el significado de la palabra valiéndonos del contexto o entorno de las frases en las cuales está inscrita. Ejemplos:
+\nopagebreak
+\begin{itemize}
+\item ``Lo admiran por su \textbf{sindéresis}, ya que su \emph{capacidad para juzgar} es notable.'' $\Longrightarrow$ El contexto nos permite deducir que el significado de sindéresis es la capacidad para juzgar.
+\item ``Los \emph{derechos económicos, sociales y culturales} son de segundo orden. Los \textbf{DESC} suponen mayores demandas.'' $\Longrightarrow$ El contexto nos permite intuir que el acrónimo DESC se refiere a derechos económicos, sociales y culturales.
+\end{itemize}
+%
+\item[La sinonimia.]\index{sinonimia} Mediante la sinonimia, se puede hacer coincidir el significado de la palabra desconocida con términos semejantes que se han mencionado antes de ella (anáfora) o que se mencionarán después (catáfora) en el texto. Ejemplo:
+\nopagebreak
+\begin{itemize}
+\item ``Nadie ha visto al \textbf{abate}. Parece que este \emph{clérigo} ha desaparecido.'' $\Longrightarrow$ El sinónimo de abate es clérigo, aunque seguramente tenga algún matiz que lo convierte en un término con mayor especificidad.
+\end{itemize}
+%
+\item[La radicación.]\index{radicación} En inglés \emph{stemming}\index{stemming@\emph{stemming}}. La radicación consiste en descomponer la palabra en sus elementos constituyentes o afijos: prefijos, infijos y sufijos. Ejemplos:\footnote{Pueden consultarse más ejemplos en \url{http://www.slideshare.net/sandracasierra/decodificacin-primaria}}
+\nopagebreak
+\begin{itemize}
+\item \textbf{postdiluviano} $\Longrightarrow$ Después (post-) de un diluvio.
+\item \textbf{subtropical}  $\Longrightarrow$ Por debajo (sub-) del trópico.
+\end{itemize}
+\end{description}
+
+La manera más común de realizar la radicación\index{radicación}\index{stemming@\emph{stemming}} en aplicaciones de NLP es eliminar los sufijos para quedarse con la raíz de la palabra, y su significado más primitivo (véase \autoref{lst:PorterStemmer}).
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> from nltk.stem import PorterStemmer
+>>> stemmer = PorterStemmer()
+>>> stemmer.stem('cookery')
+'cookeri'
+>>> stemmer.stem('cooking')
+'cook'
+>>> stemmer.stem('series')
+'seri'
+>>> stemmer.stem('women')
+'women'
+>>> stemmer.stem('riding')
+'ride'
+>>> 
+\end{minted}
+\caption{Funcionamiento de \codep{PorterStemmer}}
+\label{lst:PorterStemmer}
+\end{listing}
+
+\codep{PorterStemmer} es la implementación en NLTK del algoritmo de radicación de Martin Porter \citep{Porter1980}. Es un algoritmo --muy usado para lengua inglesa--, de eliminación o reemplazo de sufijos en varias iteraciones.
+
+Aunque se pierda algo de información, tiene sus ventajas:
+\nopagebreak
+\begin{itemize}
+\item Sirve para reducir el tamaño del vocabulario; y por consiguiente, el orden del tiempo y el espacio que ocupan los programas de procesamiento.
+\item Sirve para asemejar conceptos similares, que es normalmente lo deseable al hacer una búsqueda o extracción de información.
+\item También sirve para acelerar el procesamiento y reducir el tamaño de los índices de los motores de búsqueda.
+\end{itemize}
+
+No obstante también tiene alguna desventaja:
+\nopagebreak
+\begin{itemize}
+\item Al estar basado en la eliminación literal de sufijos, puede producir palabras no válidas del idioma (como en \emph{cookeri} en el ejemplo anterior).
+\end{itemize}
+
+NLTK proporciona otros stemmers adicionales a \codep{PorterStemmer}:
+\begin{description}
+\item[\codep{LancasterStemmer}] Desarrollado en la Universidad de Lancaster, es ligeramente más agresivo que el algoritmo de Porter, aunque no existen estudios que confirmen la supremacía de uno sobre el otro.
+\item[\codep{RegexpStemmer}] Stemmer al que se puede recurrir para eliminar prefijos o sufijos de manera personalizada configurado mediante una expresión regular.
+\item[\codep{SnowballStemmer}] Snowball extiende el método Porter para su aplicación a otros idiomas indoeuropeos: románicos, germánicos y escandinavos.
+\end{description}
+
+\subsection{Lematización}
+
+La lematización\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \emph{flexionada} (plural, femenino, verbo conjugado, \ldots) por su \textbf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
+\begin{definition}[Lema]
+En lingüística, el \emph{lema}\index{lema} es la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
+\end{definition}
 
 \chapter{Aprendizaje automático}
 
@@ -202,8 +282,12 @@ model_orig.save('GoogleNews-vectors-negative300.bin.gensim')
 
 Y para la carga de la versión optimizada:
 
+\begin{listing}[H]
 \begin{minted}{python}
 from gensim.models.word2vec import Word2Vec
 # lectura optimizada
 model = Word2Vec.load('GoogleNews-vectors-negative300.bin.gensim', mmap='r')
 \end{minted}
+\caption{Lectura del modelo optimizado por \codep{gensim} previamente almacenado}
+\label{lst:word2vec-convert}
+\end{listing}
