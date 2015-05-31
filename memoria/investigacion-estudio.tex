@@ -249,6 +249,81 @@ En gramática tradicional, la clasificación según categorías gramaticales es 
 \item Interjección
 \end{enumerate}
 
+El proceso de anotación gramatical POS convierte la lista de palabras, en una lista de pares de palabras con su etiqueta POS indicando si funciona como nombre, verbo, adjetivo, \ldots
+
+En NLTK existen diversos \emph{taggers}\index{POS tagger@\emph{POS tagger}}, y pueden combinarse en una cadena de taggers de manera que si uno no es capaz de asignar la etiqueta sin ambigüedad, se intenta con el siguiente en la cadena.
+
+En los taggers se pueden establecer reglas que permitan identificar la parte de la oración de la palabra a partir de su lexicografía, o bien teniendo en cuenta el contexto (palabras anteriores y/o posteriores). Por ejemplo: si sólo vemos la palabra \codep{'la'}, podemos suponer que se trata del artículo determinado femenino singular, que es lo más común; mientras que si tenemos en cuenta la palabra en su contexto: \codep{'la sigue a sol en la escala de notas musicales'}, la palabra \codep{'la'} funciona como sustantivo al ser el nombre de una nota musical.
+
+Para estos casos, el tagger dependiente del contexto se entrena mediante alguna técnica de aprendizaje automático sobre un corpus previamente anotado manualmente. De este entrenamiento, el tagger extrae la reglas de prelación, o realiza la inferencia estadística que le permita identificarlo correctamente para la mayoría de los casos. Evidentemente, funcionará mejor cuando el texto a anotar sea del mismo dominio del lenguaje que el texto usado para el entrenamiento.
+
+También existen distintos conjuntos de etiquetas posibles, dependiendo del autor y del idioma a anotar. En la \autoref{tbl:pos-tags} se muestran (a) los que se utilizan en el proyecto Penn Treebank de la Universidad de Pennsylvania,\footnote{Extraído de \url{http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}} (b) la correspondencia con los tags del corpus de WordNet.
+
+\begin{table}[htbp]
+\centering
+\begin{subtable}[t]{0.60\linewidth}
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{\#} & \textbf{tag} & \textbf{descripción} \\ \hhline{===}
+1 & \verb=CC= & Coordinating conjunction \\ \hline
+2 & \verb=CD= & Cardinal number \\ \hline
+3 & \verb=DT= & Determiner \\ \hline
+4 & \verb=EX= & Existential \emph{there} \\ \hline
+5 & \verb=FW= & Foreign word \\ \hline
+6 & \verb=IN= & Preposition or subordinating conjunction \\ \hline
+7 & \verb=JJ= & Adjective \\ \hline
+8 & \verb=JJR= & Adjective, comparative \\ \hline
+9 & \verb=JJS= & Adjective, superlative \\ \hline
+10 & \verb=LS= & List item marker \\ \hline
+11 & \verb=MD= & Modal \\ \hline
+12 & \verb=NN= & Noun, singular or mass \\ \hline
+13 & \verb=NNS= & Noun, plural \\ \hline
+14 & \verb=NNP= & Proper noun, singular \\ \hline
+15 & \verb=NNPS= & Proper noun, plural \\ \hline
+16 & \verb=PDT= & Predeterminer \\ \hline
+17 & \verb=POS= & Possessive ending \\ \hline
+18 & \verb=PRP= & Personal pronoun \\ \hline
+19 & \verb=PRP$= & Possessive pronoun \\ \hline
+20 & \verb=RB= & Adverb \\ \hline
+21 & \verb=RBR= & Adverb, comparative \\ \hline
+22 & \verb=RBS= & Adverb, superlative \\ \hline
+23 & \verb=RP= & Particle \\ \hline
+24 & \verb=SYM= & Symbol \\ \hline
+25 & \verb=TO= & \emph{to} \\ \hline
+26 & \verb=UH= & Interjection \\ \hline
+27 & \verb=VB= & Verb, base form \\ \hline
+28 & \verb=VBD= & Verb, past tense \\ \hline
+29 & \verb=VBG= & Verb, gerund or present participle \\ \hline
+30 & \verb=VBN= & Verb, past participle \\ \hline
+31 & \verb=VBP= & Verb, non-3rd person singular present \\ \hline
+32 & \verb=VBZ= & Verb, 3rd person singular present \\ \hline
+33 & \verb=WDT= & Wh-determiner \\ \hline
+34 & \verb=WP= & Wh-pronoun \\ \hline
+35 & \verb=WP$= & Possessive wh-pronoun \\ \hline
+36 & \verb=WRB= & Wh-adverb \\ \hline
+\end{tabular}
+\caption{POS tags del Penn Treebank}
+\label{tbl:pos-tags-peen-treebank}
+\end{subtable}
+\begin{subtable}{0.38\linewidth}
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{WordNet} & \textbf{Treebank} \\ \hhline{==}
+n & NN \\ \hline
+a & JJ \\ \hline
+s & JJ \\ \hline
+r & RB \\ \hline
+v & VB \\ \hline
+\end{tabular}
+\caption{POS tags correspondientes en WordNet}
+\label{tbl:pos-tags-wordnet}
+\end{subtable}
+\caption{Etiquetas POS en Penn Treebank y en WordNet}
+\label{tbl:pos-tags}
+\end{table}
+
 \chapter{Aprendizaje automático}
 
 \section{Clasificadores}
@@ -276,7 +351,7 @@ F_1 &=& 2\times\frac{\text{precisión}\times\text{exhaustividad}}{\text{precisi�
 Supongamos un clasificador binario:
 \begin{itemize}
 \item La medida de precisión será el porcentaje de documentos correctamente clasificados dentro del conjunto de prueba.
-\item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados. \citep{Perkins2010}
+\item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados \citep{Perkins2010}.
 \end{itemize}
 
 
