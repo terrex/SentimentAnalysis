@@ -16,5 +16,6 @@ pfc-memoria.ilg
 pfc-memoria.ind
 pfc-memoria.lol
 pfc-memoria.lot
+pfc-memoria.lof
 *.puml.tex
 _minted*

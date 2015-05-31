@@ -1,7 +1,9 @@
 %!TEX root = pfc-memoria.tex
 %!TEX encoding = UTF-8 Unicode
 
-\chapter{Procesamiento del Lenguaje Natural}
+\chapter{Procesamiento del lenguaje natural}
+
+\section{Lenguaje natural vs lenguajes formales}
 
 \section{Preprocesamiento}
 
@@ -60,7 +62,7 @@ Existen distintos niveles de tokenización de documentos \citep[ch.~1]{Perkins20
 \item Tokenizar frases en palabras.
 \end{itemize}
 
-Simplemente para la primera tarea ya nos encontramos con dificultades, pues las frases no sólo terminan en punto. Pueden terminar en punto (\codep{.}), signo de exclamación (\codep[text]{!}), signo de interrogación (\codep[text]{?}), en algunos casos dos puntos (\codep{:}). Y en otros idiomas, como el español, también hay que tener en cuenta que en la separación entre frases puede haber signos de apertura de interrogación o exclamación, etc.
+Simplemente para la primera tarea ya nos encontramos con dificultades, pues las frases no sólo terminan en punto. Pueden terminar en punto (\codep{.}), signo de exclamación (\codep[text]{!}), signo de interrogación (\codep[text]{?}), en algunos casos dos puntos (\codep{:}). Y en otros idiomas, como el español, también hay que tener en cuenta que en la separación entre frases puede haber signos de apertura de interrogación o exclamación, etc. Y también hay que tener en cuenta los puntos que separar unidades de millar en una cifra, o los puntos suspensivos, los puntos usados en acrónimos y abreviaturas, \ldots
 
 En cuanto a la separación de palabras, también pueden surgir problemas, dependiendo del idioma. En el siguiente ejemplo (\autoref{lst:wordtokenizers}) podemos ver distintas formas de separar palabras de una frase en inglés que usa contracciones.\footnote{También se puede encontrar un demostrador interactivo de la tokenización en la siguiente dirección:\\
 \url{http://text-processing.com/demo/tokenize/}}
@@ -235,7 +237,7 @@ En lingüística, el \emph{lema}\index{lema} es la forma que por convenio se ace
 
 \subsection{Anotación gramatical de la parte de la oración (\emph{Part-of-speech tagging}) }
 
-En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}. La gramática tradicional distingue nueve partes de la oración\index{parte de la oración}\index{part-of-speech\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
+En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}. La gramática tradicional distingue nueve partes de la oración\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
 \nopagebreak
 \begin{enumerate}
 \item Artículo o determinante
@@ -253,7 +255,7 @@ El proceso de anotación gramatical POS convierte la lista de palabras, en una l
 
 En NLTK existen diversos \emph{taggers}\index{POS tagger@\emph{POS tagger}}, y pueden combinarse en una cadena de taggers de manera que si uno no es capaz de asignar la etiqueta sin ambigüedad, se intenta con el siguiente en la cadena.
 
-En los taggers se pueden establecer reglas que permitan identificar la parte de la oración de la palabra a partir de su lexicografía, o bien teniendo en cuenta el contexto (palabras anteriores y/o posteriores). Por ejemplo: si sólo vemos la palabra \codep{'la'}, podemos suponer que se trata del artículo determinado femenino singular, que es lo más común; mientras que si tenemos en cuenta la palabra en su contexto: \codep{'la sigue a sol en la escala de notas musicales'}, la palabra \codep{'la'} funciona como sustantivo al ser el nombre de una nota musical.
+En los taggers se pueden establecer reglas que permitan identificar la parte de la oración de la palabra a partir de su lexicografía, o bien teniendo en cuenta el contexto (un número de palabras anteriores). Por ejemplo: si sólo vemos la palabra \codep{'la'}, podemos suponer que se trata del artículo determinado femenino singular, que es lo más común; mientras que si tenemos en cuenta la palabra en su contexto: \codep{'la sigue a sol en la escala de notas musicales'}, la palabra \codep{'la'} funciona como sustantivo al ser el nombre de una nota musical.
 
 Para estos casos, el tagger dependiente del contexto se entrena mediante alguna técnica de aprendizaje automático sobre un corpus previamente anotado manualmente. De este entrenamiento, el tagger extrae la reglas de prelación, o realiza la inferencia estadística que le permita identificarlo correctamente para la mayoría de los casos. Evidentemente, funcionará mejor cuando el texto a anotar sea del mismo dominio del lenguaje que el texto usado para el entrenamiento.
 
@@ -324,9 +326,85 @@ v & VB \\ \hline
 \label{tbl:pos-tags}
 \end{table}
 
+\section{Análisis sintáctico}
+
+\section{Modelo de espacio vectorial}
+
 \chapter{Aprendizaje automático}
 
+El \textbf{aprendizaje automático}\index{aprendizaje automático} (en inglés, \emph{machine learning}\index{machine learning@\emph{machine learning}}) es la rama de la Inteligencia Artificial cuyo objetivo es desarrollar técnicas que permitan a las computadoras \textbf{aprender}. De forma más concreta, se trata de crear programas capaces de generalizar comportamientos a partir de una información suministrada en forma de ejemplos de la que debe extraer el conocimiento necesario para que el programa pueda realizar automáticamente la tarea que se le desea.
+
+Estas posibles tareas pueden ser:
+\begin{itemize}
+\item Toma de decisiones
+\item Clasificación de documentos
+\item Búsqueda de documentos relevantes
+\item Comprensión del lenguaje
+\item Recuperación de la información
+\item Extracción de la información
+\item Generación de discurso
+\item Traducción automática
+\item \ldots
+\end{itemize}
+
+\section{Clasificación de métodos de aprendizaje automático}
+
+Existen básicamente dos grupos de métodos de aprendizaje automático:
+\nopagebreak
+\begin{description}
+\item[Aprendizaje supervisado]\index{aprendizaje!supervisado} Estos algoritmos producen una función entrenada con un conjunto de entrenamiento que proporciona la entrada y también la salida que se desea para el sistema.
+\item[Aprendizaje no supervisado]\index{aprendizaje!no supervisado} Éstos, por el contrario, se entrenan simplemente con las entradas.
+\item[Aprendizaje semi-supervisado]\index{aprendizaje!semi-supervisado} Combina ambos tipos de aprendizaje.
+\end{description}
+
+A modo de muestra, enumeramos algunos de los algoritmos para cada tipo:
+\nopagebreak
+\begin{itemize}
+\item Supervisados:
+\begin{itemize}
+\item Árboles de decisión
+\item Vecinos más cercanos
+\item Aprendizaje por refuerzo con retroalimentación (ensayo-error)
+\item Máquinas de Vectores de Soporte (\emph{Support Vector Machines}, SVM\index{SVM})
+\item Aprendizaje estadístico Naïve-Bayes
+\item Redes Neuronales Artificiales
+\end{itemize}
+\item No supervisados:
+\begin{itemize}
+\item Agrupamiento plano: \emph{flat partitional clustering}
+\item Agrupamiento jerárquico: \emph{hierarchical clustering}
+\end{itemize}
+\end{itemize}
+
+En las figuras \ref{fig:hier-clustering} y \ref{fig:k-medias} se puede ver las diferencias en las etapas de clustering para el método de particionado plano y el jerárquico.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{hierarchical-clustering}
+\caption{Etapas del agrupamiento jerárquico}
+\label{fig:hier-clustering}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{k-medias}
+\caption[Etapas del agrupamiento plano]{Etapas del agrupamiento plano \citep{RuizReina2013}}
+\label{fig:k-medias}
+\end{figure}
+
+Además, uno de los retos de estos sistemas es cómo representar el conocimiento extraído en el entrenamiento para almacenarlo y usarlo posteriormente.
+
 \section{Clasificadores}
+
+Los clasificadores son programas que dado un documento de entrada, le asocia una categoría o etiqueta. Estos clasificadores han debido ser previamente entrenados mediante una técnica de aprendizaje automático, o bien programados con las reglas apropiadas.
+
+En función del resultado de la clasificación, podemos distinguir dos tipos de clasificadores:
+\nopagebreak
+\begin{description}
+\item[Clasificador binario] En este caso, existen dos posibles categorías a asocias a cada documento. Por ejemplo, un detector de \emph{spam} puede determinar que un mensaje de correo electrónico es spam o no lo es (es \emph{spam} o es \emph{ham}). El resultado puede venir --y es recomendable--, acompañado de un valor de confidencia (probabilidad de haber acertado).
+\item[Clasificador múltiple] Aquí el documento puede asignarse a varias categorías, con un valor de confidencia diferente para cada una. Se podría después tener en cuenta solamente la categoría asignada con mayor probabilidad, o bien se infiere que pertenece simultáneamente a las $n$ categorías con mayor probabilidad.
+\end{description}
+
 
 \subsection{Bondad del clasificador (valor-F)}
 
@@ -354,6 +432,12 @@ Supongamos un clasificador binario:
 \item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados \citep{Perkins2010}.
 \end{itemize}
 
+\subsection{Resumen de procedimientos de preprocesamiento}
+
+\begin{figure}[H]
+\includegraphics[width=0.98\textwidth]{procesamiento-textos-mod-ir}
+\caption[Resumen de procedimientos de preprocesamiento]{Resumen de procedimientos de preprocesamiento \citep[ch. 7]{Baeza-Yates2011}}
+\end{figure}
 
 \section{Rendimiento en Python}
 
