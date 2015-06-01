@@ -16,6 +16,7 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{hyperxmp}
 \usepackage{enumerate}
 \usepackage{siunitx}
 \usepackage{float}
@@ -78,6 +79,23 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \makeatletter
 \@beginparpenalty=10000
 \makeatother
+
+%% doc info %%
+\newcommand{\pfctitle}{Procesamiento del Lenguaje Natural aplicado al Análisis del Sentimiento de opiniones}
+\newcommand{\pfcauthor}{Guillermo Gutiérrez-Herrera}
+\newcommand{\pfcdate}{julio de 2015}
+
+\title{\pfctitle}
+\author{\pfcauthor}
+\date{\pfcdate}
+
+\hypersetup{
+  pdftitle=\pfctitle,
+  pdfauthor=\pfcauthor,
+  pdfkeywords={Natural Language Processing, Machine Learning, Sentiment Analysis},
+  pdfcontactemail={guiguther@alum.us.es},
+  pdflang={es},
+}
 
 \begin{document}
 
