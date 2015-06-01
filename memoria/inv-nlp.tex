@@ -335,4 +335,10 @@ v & VB \\ \hline
 
 \section{Análisis sintáctico}
 
-\section{Modelo de espacio vectorial}
+\section{Modelo de espacio vectorial semántico}
+
+Se han usado espacios vectoriales para modelar la semántica de las palabras. A cada palabra del vocabulario se le asigna un vector $n$-dimensional, y es un hecho que este vector puede representar de alguna manera el significado de la palabra \citep{Socher2012}.
+
+Después de realizar un entrenamiento en un gran corpus y usando un espacio vectorial de grandes dimensiones. Cuando converge, se observa que palabras con significado similar les corresponden vectores cercanos (en términos de la distancia coseno entre ellos). Por ejemplo, «powerful» y «strong» están cercanos, mientras que «powerful» y «Paris» no lo están. Incluso las operaciones algebraicas entre vectores semánticos también incorporan significado, de manera que puede responder a cuestiones por analogía:
+$\text{«king»} - \text{«man»} + \text{«woman»} \approx \text{«queen»}$
+\citep{DBLP:journals/corr/LeM14}.
