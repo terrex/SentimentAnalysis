@@ -24,13 +24,15 @@
 \usepackage[table,usenames,dvipsnames]{xcolor}
 \usepackage{titlesec}
 %\usepackage{subfigure}
-%\usepackage{csquotes}
+\usepackage[autostyle]{csquotes}
 \usepackage[style=authoryear,natbib=true,%
-maxbibnames=99,maxcitenames=1,%
+maxbibnames=99,maxcitenames=2,%
 citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \bibliography{\jobname}
 \usepackage[hypcap]{caption}
 \usepackage{hhline}
+\usepackage{epigraph}
+\usepackage{framed}
 
 \usepackage{booktabs}
 \usepackage{subcaption}
@@ -61,6 +63,9 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \newcommand{\codep}[2][python]{%
 	\mintinline{#1}{#2}%
 }
+\newcommand{\codet}[2][text]{%
+	\mintinline[escapeinside=@@]{#1}{#2}%
+}
 \renewcommand{\listingscaption}{Código}
 \providecommand*{\listingautorefname}{\listingscaption}
 \renewcommand{\listoflistingscaption}{Índice de códigos}
@@ -70,6 +75,9 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 
 \setmonofont[Scale=0.8]{Menlo}
 \newfontfamily\portadafont{Arial Bold}
+%\DefineBibliographyStrings{spanish}{andothers={et~al\adddot}}
+\newfontfamily\nombrefont{Futura}[Scale=0.94]
+\newcommand{\nombrebf}[1]{\textbf{\sffamily #1}}
 
 %\setlength{\parindent}{2em}
 \setlength{\parskip}{0.8em}
@@ -79,6 +87,9 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \makeatletter
 \@beginparpenalty=10000
 \makeatother
+\clubpenalty=8000
+\widowpenalty=6000
+
 
 %% doc info %%
 \newcommand{\pfctitle}{Procesamiento del Lenguaje Natural aplicado al Análisis del Sentimiento de opiniones}

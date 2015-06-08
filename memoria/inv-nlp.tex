@@ -3,9 +3,99 @@
 
 \chapter{Procesamiento del lenguaje natural}
 
+\epigraph{``Pero si el pensamiento corrompe el lenguaje, el lenguaje también puede corromper el pensamiento.''}{\textsc{George Orwell}}
+
 \section{Lenguaje natural vs lenguajes formales}
 
-\section{Preprocesamiento}
+En general, un \nombrebf{lenguaje}\index{lenguaje} es el conjunto, potencialmente infinito, de oraciones y secuencias de palabras construidas mediante las reglas gramaticales (en sus distintos niveles), fonéticas y de significación que rigen el propio lenguaje.
+
+Hay diferentes tipos de lenguajes, y se pueden encontrar diferentes clasificaciones según diferentes criterios. Atendiendo su propósito y forma en que se originó:
+\nopagebreak
+\begin{itemize}
+\item Lenguaje natural
+\item Lenguaje formal
+\item Lenguaje artificial o construido
+\end{itemize}
+
+\subsection{Lenguaje natural}
+
+La \nombrebf{lengua natural}\index{lenguaje!natural} es la lengua o idioma que nace espontáneamente de un grupo de hablantes por la mera necesidad de establecer comunicación verbal. Está ligado a la cultura de cada civilización y evoluciona según su uso por parte de su comunidad de hablantes, que debe ponerse de acuerdo en la manera de usar el lenguaje para que cualquier hablante del mismo pueda interpretar y producir mensajes con el mismo sentido en que se originó. Son los idiomas de uso común para expresar ideas y sentimientos: inglés, francés, ruso, latín, griego,~\ldots
+
+Es muy importante enmarcar el ámbito de empleo de la lengua natural en la comunicación humana. Es evidente que en los avances técnicos en la tarea de «humanizar» las interfaces de comunicación hombre-máquina (HMI\index{HMI} por sus siglas en inglés, \emph{Human-Machine Interface}, o también HCI:\index{HCI} \emph{Human-Computer Interaction}) se intente emular la comprensión y producción verbal en el mismo lenguaje natural que los humanos; de manera que es necesario modelar el proceso de comunicación.
+
+Los primeros estudios y experimentos se enfocaron en proporcionar el reconocimiento de órdenes escritas en lenguaje natural del inglés para comunicarse con los programas. Así tenemos por ejemplo el programa \nombrebf{STUDENT}\index{STUDENT@\emph{STUDENT}} \citep{Bobrow1964}.
+
+Este programa realizado en \nombrebf{LISP}, posee una reglas de interpretación de ciertas construcciones en inglés, además de unas reglas básicas de conocimiento (la fórmula del cálculo de la velocidad a partir de la distancia y el tiempo, conversiones entre unidades de medida,~\ldots). Por ejemplo, una posible entrada sería:
+\foreignblockquote{english}{Tom is twice Mary's age, and Jane's age is half the difference between \\
+Mary and Tom.\\
+If Mary is 18 years old, how old is Jane?}
+El programa traduce la entrada en ecuaciones, las añade a sus ecuaciones integradas en su base de conocimiento inicial, y resuelve el sistema usando álgebra convencional (cuando sea posible hacerlo). Posteriormente muestra el resultado con un listado de las variables incógnitas y sus valores calculados. En el ejemplo del \autoref{lst:STUDENT}, el sistema ya conoce el significado de duplicar una cantidad (\codet{twice}), de elevar al cuadrado (\codet{square}) y tratar los porcentajes (\verb=%=).
+
+\begin{listing}[htbp]
+\begin{minted}{text}
+> (student '(If the number of customers Tom gets is twice the square of
+             20% of the number of advertisements he runs |,|
+             and the number of advertisements is 45 |,|
+             then what is the number of customers Tom gets ?))
+
+The equations to be solved are:
+  CUSTOMERS = (2 * (((20 / 100) * ADVERTISEMENTS) *
+                    ((20 / 100) * ADVERTISEMENTS)))
+  ADVERTISEMENTS = 45
+  WHAT = CUSTOMERS
+
+The solution is:
+  WHAT = 162
+  CUSTOMERS = 162
+  ADVERTISEMENTS = 45
+NIL
+\end{minted}
+\caption[Ejemplo de problema descrito en lenguaje natural y su resolución en una sesión en el programa \nombrebf{STUDENT}]{Ejemplo de problema descrito en lenguaje natural y su resolución en una sesión en el programa \nombrebf{STUDENT} \citep{Norvig2014}}
+\label{lst:STUDENT}
+\end{listing}
+
+\citet{Russell2003} resumen el proceso de comunicación en 7 etapas desde que el emisor toma la iniciativa de transmitir una idea al receptor, hasta que éste recibe la realización del mensaje en una idea percibida (que puede coincidir en mayor o menor medida con la idea original) para posteriormente integrarla en su conocimiento si lo estima oportuno (\autoref{fig:steps-comm-process}).
+
+\begin{figure}[htbp]
+\centering
+\begin{framed}
+\begin{minipage}{\textwidth}
+\begin{center}
+{\large \textsf{Etapas del Proceso de Comunicación}}
+\end{center}
+\begin{description}
+\item[Escenario:] $A$lice $\longrightarrow$ $B$ob; proposición $P$; frase $W$
+\item[Proceso del emisor $A$]:
+\begin{enumerate}
+\item \nombrebf{Intención:} $A$ quiere transmitir la proposición $P$ a $B$
+\item \nombrebf{Generación:} $A$ transforma $P$ en la frase $W$
+\item \nombrebf{Síntesis:} $A$ envía $W'$ a $B$
+\suspend{enumerate}
+\item[Proceso del receptor $B$]:
+\resume{enumerate}
+\item \nombrebf{Percepción:} $B$ percibe $W''$ y decodifica $W_2$
+\item \nombrebf{Análisis:} $B$ infiere que $W_2$ puede tener $P_1, P_2, \ldots, P_n$ significados
+\item \nombrebf{Desambiguación:} $B$ decide que la proposición $P_i$ es el significado más probable
+\item \nombrebf{Incorporación:} $B$ decide si cree o no en $P_i$ y la integra
+\end{enumerate}
+\end{description}
+\end{minipage}
+\end{framed}
+\caption[Etapas del Proceso de Comunicación]{Etapas del Proceso de Comunicación \citep[pp. 792]{Russell2003}}
+\label{fig:steps-comm-process}
+\end{figure}
+
+Aquí $W'$ y $W''$ representan el mensaje oral o escrito físicamente de la oración, en la que es necesario la codificación $W'$ en fonemas articulados mediante las cuerdas vocales, o trazos de símbolos en un papel; y posterior decodificación $W''$ mediante el oído o nola vista. La dificultad general del análisis estriba en que el lenguaje natural es propenso a ser ambiguo, y debe reducirse esa ambigüedad para procesar la idea de manera precisa y fidedigna. En la comunicación personal puede intervernir incluso el lenguaje gestual para resolver la ambigüedad; o llegar a ser en sí mismo la manera de comunicación, como en la lengua de signos que emplean las personas sordas.
+
+\subsection{Lenguaje formal}
+
+
+
+\subsection{Lenguaje artificial o construido}
+
+
+
+\section{Técnicas de preprocesamiento del lenguaje natural}
 
 \subsection{\emph{``Tokenización''}}
 
@@ -338,6 +428,13 @@ v & VB \\ \hline
 \section{Modelo de espacio vectorial semántico}
 
 Se han usado espacios vectoriales para modelar la semántica de las palabras. A cada palabra del vocabulario se le asigna un vector $n$-dimensional, y es un hecho que este vector puede representar de alguna manera el significado de la palabra \citep{Socher2012}.
+
+Existen varios métodos para realizar este entrenamiento no supervisado:
+\begin{description}
+\item[]
+\end{description}
+Recently,Mikolov et al. [8] introduced the Skip-grammodel, an efficient method for learning high- quality vector representations of words from large amounts of unstructured text data. Unlike most of the previously used neural network architectures for learning word vectors, training of the Skip- gram model (see Figure 1) does not involve dense matrix multiplications. This makes the training extremely efficient: an optimized single-machine implementation can train onmore than 100 billion words in one day.
+
 
 Después de realizar un entrenamiento en un gran corpus y usando un espacio vectorial de grandes dimensiones. Cuando converge, se observa que palabras con significado similar les corresponden vectores cercanos (en términos de la distancia coseno entre ellos). Por ejemplo, «powerful» y «strong» están cercanos, mientras que «powerful» y «Paris» no lo están. Incluso las operaciones algebraicas entre vectores semánticos también incorporan significado, de manera que puede responder a cuestiones por analogía:
 $\text{«king»} - \text{«man»} + \text{«woman»} \approx \text{«queen»}$
