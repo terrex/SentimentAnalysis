@@ -29,6 +29,7 @@ Este programa realizado en \nombrebf{LISP}, posee una reglas de interpretación 
 \foreignblockquote{english}{Tom is twice Mary's age, and Jane's age is half the difference between \\
 Mary and Tom.\\
 If Mary is 18 years old, how old is Jane?}
+
 El programa traduce la entrada en ecuaciones, las añade a sus ecuaciones integradas en su base de conocimiento inicial, y resuelve el sistema usando álgebra convencional (cuando sea posible hacerlo). Posteriormente muestra el resultado con un listado de las variables incógnitas y sus valores calculados. En el ejemplo del \autoref{lst:STUDENT}, el sistema ya conoce el significado de duplicar una cantidad (\codet{twice}), de elevar al cuadrado (\codet{square}) y tratar los porcentajes (\verb=%=).
 
 \begin{listing}[htbp]
@@ -89,10 +90,72 @@ Aquí $W'$ y $W''$ representan el mensaje oral o escrito físicamente de la orac
 
 \subsection{Lenguaje formal}
 
+Los \nombrebf{lenguajes formales}\index{lenguaje!formal}, al contrario que los naturales, difieren en que no han surgido espontáneamente, sino que han sido diseñados para un ámbito de aplicación concreto (normalmente en las ciencias) y se definen de manera que sean precisos y libres de cualquier ambigüedad.
 
+Ejemplos de lenguas formales son:
+\nopagebreak
+\begin{itemize}
+\item Lenguaje matemático
+\item Lenguajes de programación (C, Java, Fortran,~\ldots)
+\item Lenguaje musical
+\end{itemize}
+
+\begin{definition}[Gramática formal]\index{gramática!formal}
+Se denomina \nombrebf{gramática formal} $G$ la gramática definida por la cuádrupla
+\[
+G = \left< \Sigma_T, \Sigma_N, S, P \right>
+\]
+\begin{itemize}
+\item $\Sigma_T$: alfabeto de símbolos terminales
+\item $\Sigma_N$: alfabeto de símbolos no terminales
+\item $S \in \Sigma_N$: símbolo inicial de la gramática
+\item $P$: conjunto finito de reglas de producción $u \rightarrow v$, con $u \in \Sigma^+$ y $v \in \Sigma^*$
+\end{itemize}
+con el alfabeto $\Sigma = \Sigma_T \cup \Sigma_N$ siendo disjuntos $\Sigma_T \cap \Sigma_N = \varnothing$
+\end{definition}
+
+Dependiendo de las restricciones en la forma de las reglas de producción, \citet{Chomsky1965} enumera 4 tipos de gramáticas generativas, que generan 4 tipos de lenguajes, cada uno con mayor nivel de expresividad (y por tanto siendo necesario una máquina con mayor potencia de cálculo para ser procesado) conocido como la \nombrebf{Jerarquía de Chomsky}\index{Chomsky!jerarquía de}\index{jerarquía!de Chomsky} (\autoref{tbl:jerarquia-chomsky})
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\nombrebf{tipo} & \nombrebf{lenguaje} & \nombrebf{autómata} & \nombrebf{reglas} \\ \hhline{====}
+L0 & recursivamente enumerable (LRE) & máquina de Turing (MT) & Sin restricciones \\ \hline
+L1 & sensible al contexto (LSC) & autómata linealmente acotado &
+$\alpha A \beta \rightarrow \alpha \gamma \beta$ \\ \hline
+L2 & libre de contexto (LLC) & autómata con pila & $A \rightarrow \gamma$ \\ \hline
+L3 & regular (LR) & autómata finito & $A \rightarrow aB$; $A \rightarrow a$ \\ \hline
+\end{tabular}
+\caption[Jerarquía de Chomsky]{Jerarquía de Chomsky \citep{Chomsky1965}}
+\label{tbl:jerarquia-chomsky}
+\end{table}
+
+Los lenguajes formales de nivel inferior se encuentran estrictamente contenidos en los lenguajes de nivel superior (\autoref{eqn:conjuntos-chomsky}).
+\begin{eqnarray}
+\text{L3} \subset \text{L2} \subset \text{L1} \subset \text{L0}
+\label{eqn:conjuntos-chomsky}
+\end{eqnarray}
+
+La complejidad en el procesamiento aumenta conforme aumenta la potencia de expresividad:
+\nopagebreak
+\begin{itemize}
+\item L3: lineal
+\item L2: polinómica
+\item L1: exponencial
+\item L0: indecible
+\end{itemize}
 
 \subsection{Lenguaje artificial o construido}
 
+Las \nombrebf{lenguas artificiales}\index{lenguaje!artificial} son lenguas \emph{a priori}, diseñadas antes de ser usadas por sus parlantes. Se distingue de las lenguas formales en que no se exige una precisión libre de ambigüedad, ya que su ámbito de aplicación es el mismo que el lenguaje natural, siendo aceptable la polisemia, homofonía, etc.
+
+Dentro de las lenguas artificiales, las podemos clasificar en:
+\nopagebreak
+\begin{description}
+\item[lenguas auxiliares:] cuya intención es que se emplee en la vida real como medio de comunicación común (interlingua, esperanto, o últimamente también, el inglés).
+\item[lenguas ficticias:] para ser usados en obras de ficción (p. ej. el idioma \emph{klingon} usado en la saga Stark Trek).
+\end{description}
 
 
 \section{Técnicas de preprocesamiento del lenguaje natural}
@@ -249,7 +312,7 @@ she'll & she will \\ \hline
 
 \subsection{Radicación \emph{``Stemming''}}
 
-La \emph{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma --siendo conocido el subconjunto común y más frecuente del mismo--, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
+La \nombrebf{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma --siendo conocido el subconjunto común y más frecuente del mismo--, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
 \nopagebreak
 \begin{description}
 \item[La contextualización.]\index{contextualización} Por medio de este mecanismo rastreamos el significado de la palabra valiéndonos del contexto o entorno de las frases en las cuales está inscrita. Ejemplos:
@@ -320,14 +383,14 @@ NLTK proporciona otros stemmers adicionales a \codep{PorterStemmer}:
 
 \subsection{Lematización}
 
-La lematización\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \emph{flexionada} (plural, femenino, verbo conjugado, \ldots) por su \textbf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
+La \nombrebf{lematización}\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \nombrebf{flexionada} (plural, femenino, verbo conjugado,~\ldots) por su \nombrebf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
 \begin{definition}[Lema]
-En lingüística, el \emph{lema}\index{lema} es la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
+En lingüística, el \nombrebf{lema}\index{lema} es la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
 \end{definition}
 
 \subsection{Anotación gramatical de la parte de la oración (\emph{Part-of-speech tagging}) }
 
-En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}. La gramática tradicional distingue nueve partes de la oración\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
+En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve partes de la oración\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
 \nopagebreak
 \begin{enumerate}
 \item Artículo o determinante
@@ -343,7 +406,7 @@ En gramática tradicional, la clasificación según categorías gramaticales es 
 
 El proceso de anotación gramatical POS convierte la lista de palabras, en una lista de pares de palabras con su etiqueta POS indicando si funciona como nombre, verbo, adjetivo, \ldots
 
-En NLTK existen diversos \emph{taggers}\index{POS tagger@\emph{POS tagger}}, y pueden combinarse en una cadena de taggers de manera que si uno no es capaz de asignar la etiqueta sin ambigüedad, se intenta con el siguiente en la cadena.
+En NLTK existen diversos \emph{taggers}\index{POS tagger@\emph{POS tagger}}, y pueden combinarse en una cadena de taggers de manera que si uno no es capaz de asignar la etiqueta sin ambigüedad, se intenta con el siguiente en la cadena \citep{Perkins2010}.
 
 En los taggers se pueden establecer reglas que permitan identificar la parte de la oración de la palabra a partir de su lexicografía, o bien teniendo en cuenta el contexto (un número de palabras anteriores). Por ejemplo: si sólo vemos la palabra \codep{'la'}, podemos suponer que se trata del artículo determinado femenino singular, que es lo más común; mientras que si tenemos en cuenta la palabra en su contexto: \codep{'la sigue a sol en la escala de notas musicales'}, la palabra \codep{'la'} funciona como sustantivo al ser el nombre de una nota musical.
 

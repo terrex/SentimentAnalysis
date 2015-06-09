@@ -3,7 +3,7 @@
 %!BIB TS-program = biber
 %!BIB program = biber
 
-\documentclass[a4paper,11pt,twoside]{scrbook}
+\documentclass[a4paper,11pt,twoside,headsepline]{scrbook}
 
 \usepackage[spanish,es-tabla]{babel}
 \usepackage{xltxtra}
@@ -36,6 +36,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 
 \usepackage{booktabs}
 \usepackage{subcaption}
+\usepackage{hhline}
 
 \usepackage{makeidx}\makeindex
 \usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
@@ -80,8 +81,8 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \newcommand{\nombrebf}[1]{\textbf{\sffamily #1}}
 
 %\setlength{\parindent}{2em}
-\setlength{\parskip}{0.8em}
-
+\setlength{\parskip}{1em plus4mm minus2mm}
+\linespread{1.1}
 
 %% reduce widows
 \makeatletter
