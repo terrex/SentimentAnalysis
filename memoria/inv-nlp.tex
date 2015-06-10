@@ -358,7 +358,24 @@ she'll & she will \\ \hline
 
 \subsection{Supresión de palabras vacías (\emph{stopwords})}
 
-\ldots
+Las \nombrebf{stopwords}\index{stopword@\emph{stopword}} (o palabras vacías) son palabras que no contribuyen al significado de la frase, o al menos no son útiles para la recuperación de la información \citep{Perkins2010}. Ejemplos: «the», «thence», «th», «vs», «thereby», «c'mon», «clearly», \ldots
+
+Conviene usarlo en técnicas de aprendizaje probabilístico, pues reduce el tamaño del vocabulario a tener en cuenta y, consecuentemente, de los índices o bases de conocimiento que se puedan generar.
+
+En el \autoref{lst:stopwords} se puede ver un ejemplo de cómo eliminar stopwords usando el conjunto de stopwords que viene con NLTK.
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> from nltk.corpus import stopwords
+>>> words = 'the quick brown fox'.split(' ')
+>>> stopwords_set = set(stopwords.words('english'))
+>>> [w for w in words if w not in stopwords_set]
+['quick', 'brown', 'fox']
+>>> 
+\end{minted}
+\caption{Supresión de palabras vacías (stopwords)}
+\label{lst:stopwords}
+\end{listing}
 
 \subsection{Radicación \emph{``Stemming''}}
 
