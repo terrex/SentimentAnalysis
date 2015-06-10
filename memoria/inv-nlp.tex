@@ -25,12 +25,12 @@ Es muy importante enmarcar el ámbito de empleo de la lengua natural en la comun
 
 Los primeros estudios y experimentos se enfocaron en proporcionar el reconocimiento de órdenes escritas en lenguaje natural del inglés para comunicarse con los programas. Así tenemos por ejemplo el programa \nombrebf{STUDENT}\index{STUDENT@\emph{STUDENT}} \citep{Bobrow1964}.
 
-Este programa realizado en \nombrebf{LISP}, posee una reglas de interpretación de ciertas construcciones en inglés, además de unas reglas básicas de conocimiento (la fórmula del cálculo de la velocidad a partir de la distancia y el tiempo, conversiones entre unidades de medida,~\ldots). Por ejemplo, una posible entrada sería:
+Este programa realizado en \nombrebf{LISP}, posee una reglas de interpretación de ciertas construcciones en inglés, además de unas reglas básicas de conocimiento (la fórmula del cálculo de la velocidad a partir de la distancia y el tiempo, conversiones entre unidades de medida, etc.). Por ejemplo, una posible entrada sería:
 \foreignblockquote{english}{Tom is twice Mary's age, and Jane's age is half the difference between \\
 Mary and Tom.\\
 If Mary is 18 years old, how old is Jane?}
 
-El programa traduce la entrada en ecuaciones, las añade a sus ecuaciones integradas en su base de conocimiento inicial, y resuelve el sistema usando álgebra convencional (cuando sea posible hacerlo). Posteriormente muestra el resultado con un listado de las variables incógnitas y sus valores calculados. En el ejemplo del \autoref{lst:STUDENT}, el sistema ya conoce el significado de duplicar una cantidad (\codet{twice}), de elevar al cuadrado (\codet{square}) y tratar los porcentajes (\verb=%=).
+El programa traduce la entrada en ecuaciones, las añade a sus ecuaciones integradas en su base de conocimiento inicial, y resuelve el sistema usando álgebra convencional (cuando sea posible hacerlo). Posteriormente muestra el resultado con un listado de las variables incógnitas y sus valores calculados. En el ejemplo del \autoref{lst:STUDENT}, el sistema ya conoce el significado de duplicar una cantidad (\codet{twice}), de elevar al cuadrado (\codet{square}) y cómo tratar los porcentajes (\verb=%=).
 
 \begin{listing}[htbp]
 \begin{minted}{text}
@@ -86,7 +86,16 @@ NIL
 \label{fig:steps-comm-process}
 \end{figure}
 
-Aquí $W'$ y $W''$ representan el mensaje oral o escrito físicamente de la oración, en la que es necesario la codificación $W'$ en fonemas articulados mediante las cuerdas vocales, o trazos de símbolos en un papel; y posterior decodificación $W''$ mediante el oído o nola vista. La dificultad general del análisis estriba en que el lenguaje natural es propenso a ser ambiguo, y debe reducirse esa ambigüedad para procesar la idea de manera precisa y fidedigna. En la comunicación personal puede intervernir incluso el lenguaje gestual para resolver la ambigüedad; o llegar a ser en sí mismo la manera de comunicación, como en la lengua de signos que emplean las personas sordas.
+Aquí $W'$ y $W''$ representan el mensaje oral o escrito físicamente de la oración, en la que es necesario la codificación $W'$ en fonemas articulados mediante las cuerdas vocales, o trazos de símbolos en un papel; y posterior decodificación $W''$ mediante el oído o la vista. La dificultad general del análisis estriba en que el lenguaje natural es propenso a ser ambiguo, y debe reducirse esa ambigüedad para procesar la idea de manera precisa y fidedigna. En la comunicación personal puede intervernir incluso el lenguaje gestual para resolver la ambigüedad; o llegar a ser en sí mismo la manera de comunicación, como en la lengua de signos que emplean las personas sordas.
+
+Las causas de la ambigüedad pueden ser:
+\nopagebreak
+\begin{description}
+\item[Imprecisiones semánticas.] En los lenguajes naturales no se da una correspondencia biunívoca entre signos y objetos representados: hay palabras que son demasiado vagas, que están mal definidas. Otras tienen más de un significado (son polisémicas), y se pueden usar ambiguamente.
+\item[Impresiones sintácticas.] Las reglas gramaticales permiten formar enunciados que no tienen ningún significado, aunque sean sintácticamente correctas y se pueda desarrollar un árbol de derivación.
+\end{description}
+
+Este lenguaje que nos resulta tan útil para la vida cotidiana sin embargo, no es adecuado para la ciencia, que necesita rigor y precisión. \citep{DiazSantos2015}
 
 \subsection{Lenguaje formal}
 
@@ -95,12 +104,15 @@ Los \nombrebf{lenguajes formales}\index{lenguaje!formal}, al contrario que los n
 Ejemplos de lenguas formales son:
 \nopagebreak
 \begin{itemize}
-\item Lenguaje matemático
+\item Lenguaje matemático y lógico
 \item Lenguajes de programación (C, Java, Fortran,~\ldots)
 \item Lenguaje musical
 \end{itemize}
 
+Formalmente, un lenguaje es el conjunto (potencialmente infinito) de oraciones (sentencias o frases) que se pueden construir con las reglas de la gramática asociada al lenguaje.
+
 \begin{definition}[Gramática formal]\index{gramática!formal}
+\citep{MorenoVelo2010}
 Se denomina \nombrebf{gramática formal} $G$ la gramática definida por la cuádrupla
 \[
 G = \left< \Sigma_T, \Sigma_N, S, P \right>
@@ -111,7 +123,7 @@ G = \left< \Sigma_T, \Sigma_N, S, P \right>
 \item $S \in \Sigma_N$: símbolo inicial de la gramática
 \item $P$: conjunto finito de reglas de producción $u \rightarrow v$, con $u \in \Sigma^+$ y $v \in \Sigma^*$
 \end{itemize}
-con el alfabeto $\Sigma = \Sigma_T \cup \Sigma_N$ siendo disjuntos $\Sigma_T \cap \Sigma_N = \varnothing$
+con el alfabeto $\Sigma = \Sigma_T \cup \Sigma_N$; siendo éstos disjuntos: $\Sigma_T \cap \Sigma_N = \varnothing$
 \end{definition}
 
 Dependiendo de las restricciones en la forma de las reglas de producción, \citet{Chomsky1965} enumera 4 tipos de gramáticas generativas, que generan 4 tipos de lenguajes, cada uno con mayor nivel de expresividad (y por tanto siendo necesario una máquina con mayor potencia de cálculo para ser procesado) conocido como la \nombrebf{Jerarquía de Chomsky}\index{Chomsky!jerarquía de}\index{jerarquía!de Chomsky} (\autoref{tbl:jerarquia-chomsky})
@@ -121,11 +133,11 @@ Dependiendo de las restricciones en la forma de las reglas de producción, \cite
 \begin{tabular}{|l|l|l|l|}
 \hline
 \nombrebf{tipo} & \nombrebf{lenguaje} & \nombrebf{autómata} & \nombrebf{reglas} \\ \hhline{====}
-L0 & recursivamente enumerable (LRE) & máquina de Turing (MT) & Sin restricciones \\ \hline
-L1 & sensible al contexto (LSC) & autómata linealmente acotado &
+L0 & recursivamente enumerable (LRE)\index{LRE} & máquina de Turing (MT) & Sin restricciones \\ \hline
+L1 & sensible al contexto (LSC)\index{LSC} & autómata linealmente acotado &
 $\alpha A \beta \rightarrow \alpha \gamma \beta$ \\ \hline
-L2 & libre de contexto (LLC) & autómata con pila & $A \rightarrow \gamma$ \\ \hline
-L3 & regular (LR) & autómata finito & $A \rightarrow aB$; $A \rightarrow a$ \\ \hline
+L2 & libre de contexto (LLC)\index{LLC} & autómata con pila & $A \rightarrow \gamma$ \\ \hline
+L3 & regular (LR)\index{LR} & autómata finito & $A \rightarrow aB$; $A \rightarrow a$ \\ \hline
 \end{tabular}
 \caption[Jerarquía de Chomsky]{Jerarquía de Chomsky \citep{Chomsky1965}}
 \label{tbl:jerarquia-chomsky}
@@ -158,11 +170,49 @@ Dentro de las lenguas artificiales, las podemos clasificar en:
 \end{description}
 
 
-\section{Técnicas de preprocesamiento del lenguaje natural}
+\section{Técnicas de preprocesamiento textual del lenguaje natural}
+
+En esta sección describimos distintas técnicas de preprocesamiento de las frases del lenguaje natural. Generalmente, la experimentación en técnicas de procesamiento de lenguaje natural se han realizado en base a \nombrebf{corpus}\index{corpus} de texto: conjuntos de ejemplo de uso real del lenguaje.
+
+Estos corpus (\autoref{tbl:corpus-list}) son grandes ficheros normalmente de texto plano con el texto en crudo, o ligeramente procesado, acompañado de métricas o etiquetas. A éstos textos, posteriormente se le puede aplicar una o más de las técnicas de preprocesamiento que se explican en esta sección, antes de pasar a la fase de entrenamiento para el componente de aprendizaje automático (machine learning); o como conjunto de datos (\emph{dataset}\index{dataset@\emph{dataset}}) para cualquier otra investigación.
+
+El \nombrebf{Linguistic Data Consortium}\footnote{\url{https://www.ldc.upenn.edu}} (LDC\index{LDC}) es un consorcio de empresas y universidades que realiza publicaciones de grandes datasets lingüísticos, tanto en texto como en audio, mantenido por la Universidad de Pennsylvania y financiado entre otros, por la Agencia de Investigación Avanzada del Departamento de Defensa americano (\emph{Defense Advanced Research Projects Agency}, DARPA\index{DARPA}).
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{3.2cm}|p{12cm}|}
+\hline
+\nombrebf{Enron Corpus} & {\small\url{https://www.cs.cmu.edu/~./enron/}} \\ \hline
+descripción: & Conjunto de 600.000 mensajes de email de los empleados de la extinguida compañía Enron~Corporation. \\ \hline
+propósito: & Entrenar clasificadores de spam-ham; y por temáticas. \\ \hhline{==}
+%
+\nombrebf{Google's n-gram} & {\small\url{http://googleresearch.blogspot.com.es/2006/08/all-our-n-gram-are-belong-to-you.html}} \\ \hline
+descripción: & 1,2,3,4 y 5-gramas de las páginas indexadas por Google con su número de apariciones. 24~GiB de texto en gzip. \\ \hline
+propósito: & Conocimiento sobre la lingüística del idioma inglés por técnicas probabilísticas.\\ \hhline{==}
+%
+\nombrebf{Google's Wikilinks} & {\small\url{http://googleresearch.blogspot.co.uk/2013/03/learning-from-big-data-40-million.html}} \\ \hline
+descripción: & Páginas enlazadas a conceptos definidos en la Wikipedia, con su contexto. \\ \hline
+propósito: & Conocimiento de conceptos, web semántica, taxonomías, ontologías\ldots \\ \hhline{==}
+%
+\nombrebf{Treebank-3} & {\small\url{https://catalog.ldc.upenn.edu/LDC99T42}} \\ \hline
+descripción: & 2.499 artículos del Wall Street Journal con anotaciones sintácticas. \\ \hline
+propósito: & Conocimiento sobre la estructura gramatical del idioma inglés. \\ \hhline{==}
+%
+\nombrebf{TIMIT LDC93S1} & {\small\url{https://catalog.ldc.upenn.edu/LDC93S1}} \\ \hline
+descripción: & Muestras de fonemas, transcripciones y pronunciación de palabras en inglés americano.\\ \hline
+propósito: & Aplicaciones de reconocimiento de voz. \\ \hhline{==}
+%
+\nombrebf{Wiktionary RDF extraction} & {\small\url{http://wiki.dbpedia.org/wiktionary-rdf-extraction}} \\ \hline
+descripción: & Metadatos RDF de las definiciones de los términos de las ediciones en distintos idiomas de Wiktionary.\\ \hline
+propósito: & Web semántica, ontologías, tesauros. \\ \hline
+\end{tabular}
+\caption{Algunos corpus lingüísticos (datasets) existentes}
+\label{tbl:corpus-list}
+\end{table}
 
 \subsection{\emph{``Tokenización''}}
 
-La \emph{tokenización}\index{tokenización}\index{tokenization@\emph{tokenization}} en NLP es normalmente el proceso de separar la cadena de entrada, frases en lenguaje natural, en las distintas palabras que componen la frase. Puede ser simplemente un separador que trocee la frase cada vez que se encuentre un espacio.
+La \nombrebf{tokenización}\index{tokenización}\index{tokenization@\emph{tokenization}} en NLP es normalmente el proceso de separar la cadena de entrada, frases en lenguaje natural, en las distintas palabras que componen la frase. Puede ser simplemente un separador que trocee la frase cada vez que se encuentre un espacio.
 \begin{listing}[H]
 \begin{minted}{python}
 >>> 'of escapades demonstrating the adage that what is good for the goose'.split()
@@ -215,7 +265,7 @@ Existen distintos niveles de tokenización de documentos \citep[ch.~1]{Perkins20
 \item Tokenizar frases en palabras.
 \end{itemize}
 
-Simplemente para la primera tarea ya nos encontramos con dificultades, pues las frases no sólo terminan en punto. Pueden terminar en punto (\codep{.}), signo de exclamación (\codep[text]{!}), signo de interrogación (\codep[text]{?}), en algunos casos dos puntos (\codep{:}). Y en otros idiomas, como el español, también hay que tener en cuenta que en la separación entre frases puede haber signos de apertura de interrogación o exclamación, etc. Y también hay que tener en cuenta los puntos que separan unidades de millar en una cifra, o los puntos suspensivos, los puntos usados en acrónimos y abreviaturas, \ldots, para no interpretarlo como separador de frases en estos casos.
+Simplemente para la primera tarea ya nos encontramos con dificultades, pues las frases no sólo terminan en punto. Pueden terminar en punto (\codep{.}), signo de exclamación (\codep[text]{!}), signo de interrogación (\codep[text]{?}), en algunos casos dos puntos (\codep{:}). Y en otros idiomas, como el español, también hay que tener en cuenta que en la separación entre frases puede haber signos de apertura de interrogación o exclamación, etc. Y también hay que tener en cuenta los puntos que separan unidades de millar en una cifra, o los puntos suspensivos, los puntos usados en acrónimos y abreviaturas, etc., para no interpretarlo como separador de frases en estos casos.
 
 En cuanto a la separación de palabras, también pueden surgir problemas, dependiendo del idioma. En el siguiente ejemplo (\autoref{lst:wordtokenizers}) podemos ver distintas formas de separar palabras de una frase en inglés que usa contracciones.\footnote{También se puede encontrar un demostrador interactivo de la tokenización en la siguiente dirección:\\
 \url{http://text-processing.com/demo/tokenize/}}
