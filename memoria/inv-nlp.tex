@@ -450,14 +450,34 @@ NLTK proporciona otros stemmers adicionales a \codep{PorterStemmer}:
 
 \subsection{Lematización}
 
-La \nombrebf{lematización}\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \nombrebf{flexionada} (plural, femenino, verbo conjugado,~\ldots) por su \nombrebf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
+La \nombrebf{lematización}\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \nombrebf{flexionada} (plural, femenino, verbo conjugado, etc.) por su \nombrebf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
+
 \begin{definition}[Lema]
 En lingüística, el \nombrebf{lema}\index{lema} es la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
 \end{definition}
 
+En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usando WordNet en NLTK. La función en bastante conservadora; si no sabe qué hacer, deja la palabra como está. En el ejemplo se muestra cómo intervenir en el reemplazo del sinónimo si le indicamos cuál es la parte de la oración (part-of-speech) --un verbo en este caso.
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> from nltk.stem import WordNetLemmatizer
+>>> lemmatizer = WordNetLemmatizer()
+>>> lemmatizer.lemmatize('cooking')
+'cooking'
+>>> lemmatizer.lemmatize('cooking', pos='v')
+'cook'
+>>> lemmatizer.lemmatize('cookbooks')
+'cookbook'
+>>> 
+\end{minted}
+\caption{Lematización en NLTK}
+\label{lst:WordNetLemmatizer}
+\end{listing}
+
+
 \subsection{Anotación gramatical de la parte de la oración (\emph{Part-of-speech tagging}) }
 
-En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve partes de la oración\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
+En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve \nombrebf{partes de la oración}\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
 \nopagebreak
 \begin{enumerate}
 \item Artículo o determinante
