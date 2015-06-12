@@ -33,6 +33,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage{hhline}
 \usepackage{epigraph}
 \usepackage{framed}
+\usepackage{dcolumn}
 
 \usepackage{booktabs}
 \usepackage{subcaption}
@@ -59,6 +60,13 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
   detect-display-math=true}
 
 %% minted %%
+\makeatletter
+\renewcommand\fs@ruled{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+  \def\@fs@pre{\hrule height.8pt depth0pt \kern2pt}%
+  \def\@fs@post{\vskip-0.7\baselineskip\kern2pt\hrule\relax}%
+  \def\@fs@mid{\kern2pt\hrule\kern2pt}%
+  \let\@fs@iftopcapt\iftrue}
+\makeatother
 \floatstyle{ruled}
 \usepackage[chapter]{minted}
 \newcommand{\codep}[2][python]{%
@@ -74,11 +82,16 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 
 %% estilo %%
 
+\defaultfontfeatures{Mapping=tex-text,Numbers={Lining}}
 \setmonofont[Scale=0.8]{Menlo}
 \newfontfamily\portadafont{Arial Bold}
 %\DefineBibliographyStrings{spanish}{andothers={et~al\adddot}}
 \newfontfamily\nombrefont{Futura}[Scale=0.94]
 \newcommand{\nombrebf}[1]{\textbf{\sffamily #1}}
+\setromanfont[Mapping=tex-text]{Hoefler Text}
+%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+%\setmonofont[Scale=0.9]{Courier New}
+
 
 %\setlength{\parindent}{2em}
 \setlength{\parskip}{1em plus4mm minus2mm}

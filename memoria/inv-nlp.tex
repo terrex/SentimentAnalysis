@@ -456,7 +456,7 @@ La \nombrebf{lematización}\index{lematización} (\emph{lemmatizing}\index{lemma
 En lingüística, el \nombrebf{lema}\index{lema} es la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
 \end{definition}
 
-En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usando WordNet en NLTK. La función en bastante conservadora; si no sabe qué hacer, deja la palabra como está. En el ejemplo se muestra cómo intervenir en el reemplazo del sinónimo si le indicamos cuál es la parte de la oración (part-of-speech) --un verbo en este caso.
+En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usando WordNet en NLTK. La función en bastante conservadora; si no sabe qué hacer, deja la palabra como está. En el ejemplo se muestra cómo intervenir en el reemplazo del sinónimo si le indicamos cuál es la parte de la oración (part-of-speech) ---un verbo en este caso.
 
 \begin{listing}[htbp]
 \begin{minted}{python}
@@ -479,7 +479,7 @@ En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usa
 
 En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve \nombrebf{partes de la oración}\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
 \nopagebreak
-\begin{enumerate}
+\begin{enumerate*}
 \item Artículo o determinante
 \item Sustantivo o nombre
 \item Pronombre
@@ -489,7 +489,7 @@ En gramática tradicional, la clasificación según categorías gramaticales es 
 \item Preposición
 \item Conjunción
 \item Interjección
-\end{enumerate}
+\end{enumerate*}
 
 El proceso de anotación gramatical POS convierte la lista de palabras, en una lista de pares de palabras con su etiqueta POS indicando si funciona como nombre, verbo, adjetivo, \ldots
 
@@ -577,15 +577,74 @@ v & VB \\ \hline
 
 \section{Modelo de espacio vectorial semántico}
 
-Se han usado espacios vectoriales para modelar la semántica de las palabras. A cada palabra del vocabulario se le asigna un vector $n$-dimensional, y es un hecho que este vector puede representar de alguna manera el significado de la palabra \citep{Socher2012}.
+Se han usado \nombrebf{modelos de espacios vectoriales} (MEV)\index{MEV} para modelar la semántica de las palabras. A cada palabra del vocabulario se le asigna un vector $n$-dimensional, y es un hecho que este vector puede representar de alguna manera el significado de la palabra \citep{Socher2012}.
+
+Para posicionar cada palabra dentro del MEV, el sistema se entrena a partir de grandes corpus de texto continuo no estructurado. Se toma cada palabra con su contexto ($n$-gramas), y se relacionará la misma palabra con los futuros contextos en los que aparezca.
 
 Existen varios métodos para realizar este entrenamiento no supervisado:
 \begin{description}
-\item[]
+\item[continous bag-of-words] (CBOW)\index{CBOW@\emph{CBOW}} Se considera la palabra central y un contexto de $n$ palabras anteriores y posteriores, que se tratará como un conjunto (bolsa de palabras), sin tener en cuenta su orden de aparición en la frase.
+\item[skip-gram] \index{skip-gram@\emph{skip-gram}} En este modelo, se considera la palabra central y un contexto de $n$ palabras anteriores y posteriores, con posibilidad de saltar $k$ palabras, teniendo además en cuenta su orden de aparición.
 \end{description}
-Recently,Mikolov et al. [8] introduced the Skip-grammodel, an efficient method for learning high- quality vector representations of words from large amounts of unstructured text data. Unlike most of the previously used neural network architectures for learning word vectors, training of the Skip- gram model (see Figure 1) does not involve dense matrix multiplications. This makes the training extremely efficient: an optimized single-machine implementation can train onmore than 100 billion words in one day.
 
+\begin{example}
+Sea la frase «the rain in Spain falls mainly on the plain»:
+\begin{itemize}
+\item $\text{CBOW}(n=2)$: se toman las parejas $(n=2)$ de palabras consecutivas:
+$\{\text{the}, \text{rain}\}$,
+$\{\text{rain}, \text{in}\}$,
+$\{\text{in}, \text{Spain}\}$,
+$\{\text{Spain}, \text{falls}\}$, \ldots
+\item $\text{skip-gram}(n=2,k=1)$: se toman las parejas $(n=2)$ de palabras consecutivas, y además las parejas de palabras con distancia de $k=1$ palabra: 
+$[\text{the}, \text{rain}]$,
+$[\text{the}, \text{in}]$,
+$[\text{rain}, \text{in}]$,
+$[\text{rain}, \text{Spain}]$, 
+$[\text{in}, \text{Spain}]$, 
+$[\text{in}, \text{falls}]$, 
+$[\text{Spain}, \text{falls}]$, 
+$[\text{Spain}, \text{mainly}]$, \ldots
+\end{itemize}
+\end{example}
 
-Después de realizar un entrenamiento en un gran corpus y usando un espacio vectorial de grandes dimensiones. Cuando converge, se observa que palabras con significado similar les corresponden vectores cercanos (en términos de la distancia coseno entre ellos). Por ejemplo, «powerful» y «strong» están cercanos, mientras que «powerful» y «Paris» no lo están. Incluso las operaciones algebraicas entre vectores semánticos también incorporan significado, de manera que puede responder a cuestiones por analogía:
+En el modelo de espacio vectorial, es importante tener una medida de la similitud entre conceptos, para aplicaciones de recuperación de la información.
+\begin{definition}[Similitud coseno]
+La \nombrebf{similitud coseno} (o distancia coseno) entre dos vectores $\vec{A}$ y $\vec{B}$ en un modelo de espacio vectorial se define como la relación entre el producto escalar de ambos y el producto de sus módulos:
+\begin{eqnarray}
+\text{similitud coseno} = \cos(\theta) &=& \frac{\vec{A}\cdot\vec{B}}{\|\vec{A}\| \|\vec{B}\|}
+\end{eqnarray}
+\end{definition}
+
+De esta manera, dos vectores estarán separados según la distancia coseno en un valor en el rango $\cos(\theta) \in [-1,1]$, con la siguiente interpretación:
+\begin{itemize}
+\item Dos vectores con gran similitud (conceptos relacionados, palabras sinónimas, etc.) que apunten al mismo sitio, formarán un ángulo $\theta$ próximo a~0º, y por tanto un coseno próximo a 1.
+\item Dos vectores con mínima similitud, que sean prácticamente ortogonales (conceptos o palabras sin relación), con ángulo $\theta \approx 90^{\circ}$ tendrá un coseno próximo a 0.
+\item Dos vectores con gran similitud y sentidos opuestos, (conceptos contrarios, palabras antónimas, etc.), tendrán un coseno próximo a -1.
+\end{itemize}
+
+Después de realizar un entrenamiento en un gran corpus ---y usando un espacio vectorial de grandes dimensiones---, cuando el modelo converge, se observa que palabras con significado similar les corresponden vectores cercanos (en términos de la distancia coseno entre ellos). Por ejemplo, «powerful» y «strong» están cercanos, mientras que «powerful» y «Paris» no lo están. Incluso las operaciones algebraicas entre vectores semánticos también incorporan significado, de manera que puede responder a ciertas cuestiones por analogía:
 $\text{«king»} - \text{«man»} + \text{«woman»} \approx \text{«queen»}$
 \citep{DBLP:journals/corr/LeM14}.
+
+Se pueden ver más ejemplos de relaciones análogas aprendidas mediante este sistema en la \autoref{tbl:examples-skip-gram}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\nombrebf{relación} & \nombrebf{ejemplo 1} & \nombrebf{ejemplo 2} & \nombrebf{ejemplo 3} \\ \hhline{====}
+France - Paris & Italy: Rome  & Japan: Tokyo & Florida: Tallahassee \\ \hline
+big - bigger & small: larger & cold: colder & quick: quicker \\ \hline
+Miami - Florida & Baltimore: Maryland & Dallas: Texas & Kona: Hawaii \\ \hline
+Einstein - scientist &  Messi: midfielder  & Mozart: violinist & Picasso: painter \\ \hline
+Sarkozy - France &  Berlusconi: Italy  & Merkel: Germany & Koizumi: Japan \\ \hline
+copper - Cu &  zinc: Zn & gold: Au & uranium: plutonium \\ \hline
+Berlusconi - Silvio & Sarkozy: Nicolas  & Putin: Medvedev & Obama: Barack \\ \hline
+Microsoft - Windows  & Google: Android  & IBM: Linux & Apple: iPhone \\ \hline
+Microsoft - Ballmer  & Google: Yahoo & IBM: McNealy & Apple: Jobs \\ \hline
+Japan - sushi & Germany: bratwurst & France: tapas & USA: pizza \\ \hline
+\end{tabular}
+\caption[Ejemplos de las relaciones aprendidas entre parejas de palabras (modelo \emph{skipgram})]{Ejemplos de las relaciones aprendidas entre parejas de palabras (modelo skipgram entrenado con 783 mill. de palabras y 300 dimensiones, \citet{Mikolov2013})}
+\label{tbl:examples-skip-gram}
+\end{table}
+
