@@ -21,7 +21,7 @@ Hay diferentes tipos de lenguajes, y se pueden encontrar diferentes clasificacio
 
 La \nombrebf{lengua natural}\index{lenguaje!natural} es la lengua o idioma que nace espontáneamente de un grupo de hablantes por la mera necesidad de establecer comunicación verbal. Está ligado a la cultura de cada civilización y evoluciona según su uso por parte de su comunidad de hablantes, que debe ponerse de acuerdo en la manera de usar el lenguaje para que cualquier hablante del mismo pueda interpretar y producir mensajes con el mismo sentido en que se originó. Son los idiomas de uso común para expresar ideas y sentimientos: inglés, francés, ruso, latín, griego,~\ldots
 
-Es muy importante enmarcar el ámbito de empleo de la lengua natural en la comunicación humana. Es evidente que en los avances técnicos en la tarea de «humanizar» las interfaces de comunicación hombre-máquina (HMI\index{HMI} por sus siglas en inglés, \emph{Human-Machine Interface}, o también HCI:\index{HCI} \emph{Human-Computer Interaction}) se intente emular la comprensión y producción verbal en el mismo lenguaje natural que los humanos; de manera que es necesario modelar el proceso de comunicación.
+Es muy importante enmarcar el ámbito de empleo de la lengua natural en la comunicación humana. Es evidente que en los avances técnicos en la tarea de «humanizar» las interfaces de comunicación hombre-máquina (HMI\index{HMI} por sus siglas en inglés, \emph{Human-Machine Interface}, o también HCI:\index{HCI} \emph{Human-Computer Interaction}) se intente emular la comprensión y producción verbal en el mismo lenguaje natural que los humanos; de manera que surge la necesidad de modelar el proceso de comunicación.
 
 Los primeros estudios y experimentos se enfocaron en proporcionar el reconocimiento de órdenes escritas en lenguaje natural del inglés para comunicarse con los programas. Así tenemos por ejemplo el programa \nombrebf{STUDENT}\index{STUDENT@\emph{STUDENT}} \citep{Bobrow1964}.
 
@@ -126,7 +126,7 @@ G = \left< \Sigma_T, \Sigma_N, S, P \right>
 con el alfabeto $\Sigma = \Sigma_T \cup \Sigma_N$; siendo éstos disjuntos: $\Sigma_T \cap \Sigma_N = \varnothing$
 \end{definition}
 
-Dependiendo de las restricciones en la forma de las reglas de producción, \citet{Chomsky1965} enumera 4 tipos de gramáticas generativas, que generan 4 tipos de lenguajes, cada uno con mayor nivel de expresividad (y por tanto siendo necesario una máquina con mayor potencia de cálculo para ser procesado) conocido como la \nombrebf{Jerarquía de Chomsky}\index{Chomsky!jerarquía de}\index{jerarquía!de Chomsky} (\autoref{tbl:jerarquia-chomsky})
+Dependiendo de las restricciones en la forma de las reglas de producción, \citet{Chomsky1965} enumera 4 tipos de gramáticas generativas, que generan 4 tipos de lenguajes, cada uno con mayor nivel de expresividad (y por tanto siendo necesario una máquina con mayor potencia de cálculo para ser procesado) conocido como la \nombrebf{Jerarquía de Chomsky}\index{Chomsky!jerarquía de}\index{jerarquía!de Chomsky} (\autoref{tbl:jerarquia-chomsky}).
 
 \begin{table}[htbp]
 \centering
@@ -174,7 +174,7 @@ Dentro de las lenguas artificiales, las podemos clasificar en:
 
 En esta sección describimos distintas técnicas de preprocesamiento de las frases del lenguaje natural. Generalmente, la experimentación en técnicas de procesamiento de lenguaje natural se han realizado en base a \nombrebf{corpus}\index{corpus} de texto: conjuntos de ejemplo de uso real del lenguaje.
 
-Estos corpus (\autoref{tbl:corpus-list}) son grandes ficheros normalmente de texto plano con el texto en crudo, o ligeramente procesado, acompañado de métricas o etiquetas. A éstos textos, posteriormente se le puede aplicar una o más de las técnicas de preprocesamiento que se explican en esta sección, antes de pasar a la fase de entrenamiento para el componente de aprendizaje automático (machine learning); o como conjunto de datos (\emph{dataset}\index{dataset@\emph{dataset}}) para cualquier otra investigación.
+Estos corpus (véase la \autoref{tbl:corpus-list}) son grandes ficheros normalmente de texto plano con el texto en crudo, o ligeramente procesado, acompañado de métricas o etiquetas. A éstos textos, posteriormente se le puede aplicar una o más de las técnicas de preprocesamiento que se explican en esta sección, antes de pasar a la fase de entrenamiento para el componente de aprendizaje automático (machine learning); o como conjunto de datos (\emph{dataset}\index{dataset@\emph{dataset}}) para cualquier otra investigación.
 
 El \nombrebf{Linguistic Data Consortium}\footnote{\url{https://www.ldc.upenn.edu}} (LDC\index{LDC}) es un consorcio de empresas y universidades que realiza publicaciones de grandes datasets lingüísticos, tanto en texto como en audio, mantenido por la Universidad de Pennsylvania y financiado entre otros, por la Agencia de Investigación Avanzada del Departamento de Defensa americano (\emph{Defense Advanced Research Projects Agency}, DARPA\index{DARPA}).
 
@@ -285,7 +285,7 @@ En cuanto a la separación de palabras, también pueden surgir problemas, depend
 \label{lst:wordtokenizers}
 \end{listing}
 
-Una mejor aproximación al problema es reemplazar --previamente a la tokenización--, las palabras contraídas con sus palabras equivalentes sin contracción.\footnote{Puede obtenerse un catálogo bastante extenso de contracciones en inglés --en uso y arcaicas--, en la dirección: \url{http://www.enchantedlearning.com/grammar/contractions/list.shtml}}
+Una mejor aproximación al problema es reemplazar ---previamente a la tokenización---, las palabras contraídas con sus palabras equivalentes sin contracción.\footnote{Puede obtenerse un catálogo bastante extenso de contracciones en inglés ---en uso y arcaicas---, en la dirección:\\ \url{http://www.enchantedlearning.com/grammar/contractions/list.shtml}}
 Para ello es necesario construirse una tabla que establezca el mapping \citep{Perkins2014}.
 
 Como ejemplo de un conjunto de substitución, véase una tabla no exhaustiva en la \autoref{tbl:contracciones}, en dos versiones:
@@ -379,7 +379,7 @@ En el \autoref{lst:stopwords} se puede ver un ejemplo de cómo eliminar stopword
 
 \subsection{Radicación \emph{``Stemming''}}
 
-La \nombrebf{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma --siendo conocido el subconjunto común y más frecuente del mismo--, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
+La \nombrebf{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma ---siendo conocido el subconjunto común y más frecuente del mismo---, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
 \nopagebreak
 \begin{description}
 \item[La contextualización.]\index{contextualización} Por medio de este mecanismo rastreamos el significado de la palabra valiéndonos del contexto o entorno de las frases en las cuales está inscrita. Ejemplos:
@@ -425,7 +425,7 @@ La manera más común de realizar la radicación\index{radicación}\index{stemmi
 \label{lst:PorterStemmer}
 \end{listing}
 
-\codep{PorterStemmer} es la implementación en NLTK del algoritmo de radicación de Martin Porter \citep{Porter1980}. Es un algoritmo --muy usado para lengua inglesa--, de eliminación o reemplazo de sufijos en varias iteraciones.
+\codep{PorterStemmer} es la implementación en NLTK del algoritmo de radicación de Martin Porter \citep{Porter1980}. Es un algoritmo ---muy usado para lengua inglesa---, de eliminación o reemplazo de sufijos en varias iteraciones, bastante eficiente.
 
 Aunque se pierda algo de información, tiene sus ventajas:
 \nopagebreak
@@ -575,6 +575,21 @@ v & VB \\ \hline
 
 \section{Análisis sintáctico}
 
+El \nombrebf{análisis sintáctico}\index{análisis!sintáctico} (\emph{parsing}\index{parsing@\emph{parsing}}) de una oración se realiza en dos pasos:
+\begin{enumerate}
+\item Realizar la anotación de la categoría gramatical o parte de la oración (POS tagging) de cada palabra de la oración. En caso de ambigüedades, mantenerlas todas, o bien la más probable.
+\item Calcular uno o varios de los árboles de derivación teniendo en cuenta las reglas de construcción (reglas de producción) de estructuras sintácticas de la gramática del idioma.
+\end{enumerate}
+
+En la \autoref{fig:arbol-sintactico} se muestra un ejemplo de árbol sintáctico anotado con la categoría gramatical.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{arbol-sintactico}
+\caption{Arbol sintáctico}
+\label{fig:arbol-sintactico}
+\end{figure}
+
 \section{Modelo de espacio vectorial semántico}
 
 Se han usado \nombrebf{modelos de espacios vectoriales} (MEV)\index{MEV} para modelar la semántica de las palabras. A cada palabra del vocabulario se le asigna un vector $n$-dimensional, y es un hecho que este vector puede representar de alguna manera el significado de la palabra \citep{Socher2012}.
@@ -611,7 +626,7 @@ En el modelo de espacio vectorial, es importante tener una medida de la similitu
 \begin{definition}[Similitud coseno]
 La \nombrebf{similitud coseno} (o distancia coseno) entre dos vectores $\vec{A}$ y $\vec{B}$ en un modelo de espacio vectorial se define como la relación entre el producto escalar de ambos y el producto de sus módulos:
 \begin{eqnarray}
-\text{similitud coseno} = \cos(\theta) &=& \frac{\vec{A}\cdot\vec{B}}{\|\vec{A}\| \|\vec{B}\|}
+\cos(\theta) &=& \frac{\vec{A}\cdot\vec{B}}{\|\vec{A}\| \|\vec{B}\|}
 \end{eqnarray}
 \end{definition}
 
@@ -622,9 +637,10 @@ De esta manera, dos vectores estarán separados según la distancia coseno en un
 \item Dos vectores con gran similitud y sentidos opuestos, (conceptos contrarios, palabras antónimas, etc.), tendrán un coseno próximo a -1.
 \end{itemize}
 
-Después de realizar un entrenamiento en un gran corpus ---y usando un espacio vectorial de grandes dimensiones---, cuando el modelo converge, se observa que palabras con significado similar les corresponden vectores cercanos (en términos de la distancia coseno entre ellos). Por ejemplo, «powerful» y «strong» están cercanos, mientras que «powerful» y «Paris» no lo están. Incluso las operaciones algebraicas entre vectores semánticos también incorporan significado, de manera que puede responder a ciertas cuestiones por analogía:
-$\text{«king»} - \text{«man»} + \text{«woman»} \approx \text{«queen»}$
-\citep{DBLP:journals/corr/LeM14}.
+Después de realizar un entrenamiento en un gran corpus ---y usando un espacio vectorial de grandes dimensiones---, cuando el modelo converge, se observa que palabras con significado similar les corresponden vectores cercanos (en términos de la distancia coseno entre ellos). Por ejemplo, «powerful» y «strong» están cercanos, mientras que «powerful» y «Paris» no lo están. Incluso las operaciones algebraicas entre vectores semánticos también incorporan significado, de manera que puede responder a ciertas cuestiones por analogía \citep{DBLP:journals/corr/LeM14}:
+\[
+\text{«king»} - \text{«man»} + \text{«woman»} \approx \text{«queen»}
+\]
 
 Se pueden ver más ejemplos de relaciones análogas aprendidas mediante este sistema en la \autoref{tbl:examples-skip-gram}.
 
