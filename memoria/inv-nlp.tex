@@ -598,8 +598,8 @@ Para posicionar cada palabra dentro del MEV, el sistema se entrena a partir de g
 
 Existen varios métodos para realizar este entrenamiento no supervisado:
 \begin{description}
-\item[continous bag-of-words] (CBOW)\index{CBOW@\emph{CBOW}} Se considera la palabra central y un contexto de $n$ palabras anteriores y posteriores, que se tratará como un conjunto (bolsa de palabras), sin tener en cuenta su orden de aparición en la frase.
-\item[skip-gram] \index{skip-gram@\emph{skip-gram}} En este modelo, se considera la palabra central y un contexto de $n$ palabras anteriores y posteriores, con posibilidad de saltar $k$ palabras, teniendo además en cuenta su orden de aparición.
+\item[continous bag-of-words] (CBOW)\index{CBOW} Se considera la palabra y un contexto de $n-1$ palabras posteriores consecutivas, que se tratará como un conjunto (bolsa de palabras), sin tener en cuenta su orden de aparición en la frase.
+\item[skip-gram] \index{skip-gram@\emph{skip-gram}} En este modelo, se considera la palabra y un contexto de $n-1$ palabras a elegir de entre las $n-1 + k$ palabras posteriores consecutivas; «saltando» de esta manera hasta un máximo de $k$ palabras, teniendo además en cuenta su orden de aparición.
 \end{description}
 
 \begin{example}

@@ -3,9 +3,9 @@
 
 \chapter{Aprendizaje automático}
 
-El \textbf{aprendizaje automático}\index{aprendizaje automático} (en inglés, \emph{machine learning}\index{machine learning@\emph{machine learning}}) es la rama de la Inteligencia Artificial cuyo objetivo es desarrollar técnicas que permitan a las computadoras \textbf{aprender}. De forma más concreta, se trata de crear programas capaces de generalizar comportamientos a partir de una información suministrada en forma de ejemplos de la que debe extraer el conocimiento necesario para que el programa pueda realizar automáticamente la tarea que se le desea.
+El \textbf{aprendizaje automático}\index{aprendizaje automático} (en inglés, \emph{machine learning}\index{machine learning@\emph{machine learning}}) es la rama de la Inteligencia Artificial cuyo objetivo es desarrollar técnicas que permitan a las computadoras \textbf{aprender}. De forma más concreta, se trata de crear programas capaces de generalizar comportamientos a partir de una información suministrada en forma de ejemplos de la que debe extraer el conocimiento necesario para que el programa pueda realizar automáticamente la tarea que se le pretende \citep[Aprendizaje automático]{wikipedia-es}.
 
-Estas posibles tareas pueden ser:
+Estas posibles tareas pueden ser: \citep{MartinMateos2013} 
 \begin{itemize}
 \item Toma de decisiones
 \item Clasificación de documentos
@@ -17,6 +17,17 @@ Estas posibles tareas pueden ser:
 \item Traducción automática
 \item \ldots
 \end{itemize}
+
+\section{Concepto}
+
+Vamos a explicar el concepto de método de aprendizaje automático para tareas de clasificación de documentos.
+Formalizando el \nombrebf{problema de clasificación}\index{clasificación!problema de}, tenemos la descripción $d\in \mathbb{X}$ de un documento, dónde $\mathbb{X}$ es el espacio de documentos; y un conjunto finito de clases $\mathbb{C} = \{c_1, c_2, \ldots, c_J\}$. Estas clases también se llaman categorías o etiquetas \citep{Manning2008}.
+
+$\mathbb{X}$ suele ser un espacio vectorial con un gran número de dimensiones, mientras que las clases son las necesarias para la aplicación. En el caso de detección de la polaridad del sentimiento, podría ser $\mathbb{C}=\{-2,-1,0,-1,-2\}$, representando a opiniones muy negativas, negativas, neutras, positivas y muy positivas.
+
+En lugar de tener que programar manualmente cómo relacionar documentos y clases para construir el clasificador, tomaremos un conjunto de entrenamiento $\mathbb{D}$ de documentos manualmente etiquetados $\langle d, c \rangle \in \mathbb{X} \times \mathbb{C}$.
+
+Usando un método de \nombrebf{aprendizaje automático}\index{aprendizaje automático} $\Gamma$ aplicado al conjunto de entrenamiento $\Gamma(\mathbb{D})$ obtenemos como resultado el clasificador $\gamma : \mathbb{X} \mapsto \mathbb{C}$ \citep{Manning2008}.
 
 \section{Métodos de aprendizaje automático}
 

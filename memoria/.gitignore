@@ -17,5 +17,7 @@ pfc-memoria.ind
 pfc-memoria.lol
 pfc-memoria.lot
 pfc-memoria.lof
+pfc-memoria.mw
 *.puml.tex
 _minted*
+mendeley.*
