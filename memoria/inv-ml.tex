@@ -25,17 +25,17 @@ Formalizando el \nombrebf{problema de clasificación}\index{clasificación!probl
 
 $\mathbb{X}$ suele ser un espacio vectorial con un gran número de dimensiones, mientras que las clases son las necesarias para la aplicación. En el caso de detección de la polaridad del sentimiento, podría ser $\mathbb{C}=\{-2,-1,0,-1,-2\}$, representando a opiniones muy negativas, negativas, neutras, positivas y muy positivas.
 
-En lugar de tener que programar manualmente cómo relacionar documentos y clases para construir el clasificador, tomaremos un conjunto de entrenamiento $\mathbb{D}$ de documentos manualmente etiquetados $\langle d, c \rangle \in \mathbb{X} \times \mathbb{C}$.
+En lugar de tener que programar manualmente cómo relacionar documentos y clases para construir el clasificador, tomaremos un conjunto de entrenamiento $\mathbb{D}$ de documentos $d$ manualmente etiquetados con su clase $\langle d, c \rangle \in \mathbb{X} \times \mathbb{C}$.
 
-Usando un método de \nombrebf{aprendizaje automático}\index{aprendizaje automático} $\Gamma$ aplicado al conjunto de entrenamiento $\Gamma(\mathbb{D})$ obtenemos como resultado el clasificador $\gamma : \mathbb{X} \mapsto \mathbb{C}$ \citep{Manning2008}.
+Usando un método de \nombrebf{aprendizaje automático}\index{aprendizaje automático} $\Gamma$ aplicado al conjunto de entrenamiento $\Gamma(\mathbb{D})$ obtenemos como resultado el clasificador $\gamma : \mathbb{X} \mapsto \mathbb{C}$ \citep{Manning2008} que predice la clase a la que pertenecen documentos no vistos en la fase de entrenamiento.
 
 \section{Métodos de aprendizaje automático}
 
 Existen básicamente dos grupos de métodos de aprendizaje automático:
 \nopagebreak
 \begin{description}
-\item[Aprendizaje supervisado]\index{aprendizaje!supervisado} Estos algoritmos producen una función entrenada con un conjunto de entrenamiento que proporciona la entrada y también la salida que se desea para el sistema.
-\item[Aprendizaje no supervisado]\index{aprendizaje!no supervisado} Éstos, por el contrario, se entrenan simplemente con las entradas.
+\item[Aprendizaje supervisado]\index{aprendizaje!supervisado} Estos algoritmos producen una función entrenada con un conjunto de entrenamiento que proporciona la entrada y también la salida (la \emph{clase}, en el caso del problema de clasificación) que se desea para el sistema.
+\item[Aprendizaje no supervisado]\index{aprendizaje!no supervisado} Éstos, por el contrario, se entrenan simplemente con las entradas (en el caso de clasificación: sin necesidad de estar la muestra etiquetada con su clase).
 \item[Aprendizaje semi-supervisado]\index{aprendizaje!semi-supervisado} Combina ambos tipos de aprendizaje.
 \end{description}
 
