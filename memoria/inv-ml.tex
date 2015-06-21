@@ -83,8 +83,8 @@ Los clasificadores son programas que dado un documento de entrada, le asocia una
 En función del resultado de la clasificación, podemos distinguir dos tipos de clasificadores:
 \nopagebreak
 \begin{description}
-\item[Clasificador binario] En este caso, existen dos posibles categorías a asocias a cada documento. Por ejemplo, un detector de \emph{spam} puede determinar que un mensaje de correo electrónico es spam o no lo es (es \emph{spam} o es \emph{ham}). El resultado puede venir --y es recomendable--, acompañado de un valor de confidencia (probabilidad de haber acertado).
-\item[Clasificador múltiple] Aquí el documento puede asignarse a varias categorías, con un valor de confidencia diferente para cada una. Se podría después tener en cuenta solamente la categoría asignada con mayor probabilidad, o bien se infiere que pertenece simultáneamente a las $n$ categorías con mayor probabilidad.
+\item[Clasificador binario] En este caso, existen dos posibles categorías a asocias a cada documento. Por ejemplo, un detector de \emph{spam} puede determinar que un mensaje de correo electrónico es spam o no lo es (es \emph{spam} o es \emph{ham}). El resultado puede venir ---y es recomendable---, acompañado de un valor de confidencia (probabilidad de haber acertado la predicción).
+\item[Clasificador múltiple] Aquí el documento puede asignarse a varias categorías, con un valor de confidencia diferente para cada una. Se podría posteriormente tener en cuenta solamente la categoría asignada con mayor probabilidad, o bien se infiere que pertenece simultáneamente a las $n$ categorías con mayor probabilidad (por ejemplo, en un clasificador de temática, cuando nos encontramos con un documento que versa sobre dos temáticas diferentes).
 \end{description}
 
 
@@ -113,3 +113,5 @@ Supongamos un clasificador binario:
 \item La medida de precisión será el porcentaje de documentos correctamente clasificados dentro del conjunto de prueba.
 \item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados \citep{Perkins2010}.
 \end{itemize}
+
+\subsection{Máquinas de vectores de soporte}
