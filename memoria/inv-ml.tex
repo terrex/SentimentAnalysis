@@ -76,6 +76,24 @@ En las figuras \ref{fig:hier-clustering} y \ref{fig:k-medias} se puede ver las d
 
 Además, uno de los retos de estos sistemas es cómo representar el conocimiento extraído en el entrenamiento para almacenarlo y usarlo posteriormente.
 
+\section{Extracción de características}
+
+En los métodos de aprendizaje que vemos en esta sección, por regla general hay que establecer un vector que represente a cada documento (frase). Todos los vectores deberán tener la misma dimensión, y cada dimensión del espacio vectorial de documentos recibe el nombre de \nombrebf{característica}. De esta manera, un documento se equipara a un vector de valores numéricos (números en coma flotante, bien en cualquier rango o bien normalizado y acotado en el intervalo $[0,1]$).
+
+Una vez trasformado el corpus de texto de entrenamiento en un conjunto de puntos dentro del espacio vectorial, se pasa como entrada al método de aprendizaje automático. Si estos puntos llevan asociada la clase, será un aprendizaje supervisado. En caso contrario, será un aprendizaje no supervisado.
+
+\subsection{Saco de palabras \emph{(bag-of-words)}}
+
+\begin[saco de palabras]{definition}
+Se denomina \nombrebf{saco de palabras}\index{saco de palabras} (BOW, por sus siglas en inglés de \emph{bag-of-words})\index{bag-of-words@\emph{bag-of-words}} al conjunto de palabras existente en un documento.
+\end{definition}
+
+A este saco, se le pueden eliminar las palabras vacías, y además no tener en cuenta las palabras con poca frecuencia de distribución dentro del conjunto de corpus si éste es muy grande, como manera de reducir el vocabulario.
+
+\begin[vocabulario]{definition}
+el Vocabulario es...
+\end{definition}
+
 \section{Clasificadores}
 
 Los clasificadores son programas que dado un documento de entrada, le asocia una categoría o etiqueta. Estos clasificadores han debido ser previamente entrenados mediante una técnica de aprendizaje automático, o bien programados con las reglas apropiadas.
