@@ -101,10 +101,94 @@ Se denomina \nombrebf{saco de palabras}\index{saco de palabras} (BOW, por sus si
 A este saco, se le pueden eliminar las palabras vacías (stopwords) ---si es que no se le ha aplicado antes---, y además no tener en cuenta las palabras (términos) con poca frecuencia de distribución dentro del conjunto de corpus si éste es muy grande, como manera de reducir el vocabulario y mejorar el rendimiento o reducir el \nombrebf{sobreajuste}\index{sobreajuste} \emph{(overfitting)}\index{overfitting@\emph{overfitting}} del modelo.
 
 \begin{definition}[vocabulario]
-El \nombrebf{vocabulario}\index{vocabulario} es el conjunto formado por los términos que se toman en consideración para una aplicación de NLP. Se puede contemplar el uso del vocabulario común del idioma, también llamado \nombrebf{lexicón}\index{lexicón}.
+El \nombrebf{vocabulario}\index{vocabulario} es el conjunto formado por los términos que se toman en consideración para una aplicación de NLP. Se puede contemplar el uso del vocabulario común del idioma, también llamado \nombrebf{lexicón}\index{lexicón}, diccionario o tesauro\index{tesauro}.
 \end{definition}
 
 Una vez calculado el vocabulario, se usa cada término como característica, y o bien se indica con un valor 0 ó 1 si el término está presente en el documento o no, o bien el conteo del número de las apariciones del término en el mismo.
+
+\begin{example}[Vocabulario y representación usando BOW]
+Dado el siguiente conjunto de documentos:
+\begin{enumerate}
+\item ``A series of escapades demonstrating the adage that what is good for the goose''
+\item ``demonstrating the adage that what is good for the goose''
+\item ``amuses but none of which amounts to much of a story''
+\end{enumerate}
+Obtener el vocabulario de características y vector de representación BOW para cada documento.
+\end{example}
+
+La solución es:
+
+\begin{listing}[H]
+\begin{minted}{python}
+>>> doc1 = set("A series of escapades demonstrating the adage that what is good for the goose".split(' '))
+>>> doc2 = set("demonstrating the adage that what is good for the goose".split(' '))
+>>> doc3 = set("amuses but none of which amounts to much of a story".split(' '))
+>>> features = list(doc1.union(doc2).union(doc3))
+>>> features.sort()
+>>> vec1 = [int((feat in doc1)) for feat in features]
+>>> vec2 = [int((feat in doc2)) for feat in features]
+>>> vec3 = [int((feat in doc3)) for feat in features]
+>>> print(features)
+['A', 'a', 'adage', 'amounts', 'amuses', 'but', 'demonstrating', 'escapades', 'for', 'good', 'goose', 'is', 'much', 'none', 'of', 'series', 'story', 'that', 'the', 'to', 'what', 'which']
+>>> print(vec1)
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0]
+>>> print(vec2)
+[0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0]
+>>> print(vec3)
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1]
+>>> 
+\end{minted}
+\caption{Vocabulario de características y representación BOW}
+\label{lst:vocab-feat-BOW}
+\end{listing}
+
+\subsection{Saco de bigramas \emph{(2-BOW)}}
+
+Análogo al anterior, pero considerando como términos:
+\begin{itemize}
+\item Cada palabra.
+\item Cada par de palabras consecutivas (bigrama).
+\end{itemize}
+
+\begin{example}[Vocabulario y representación usando 2-BOW]
+Dado el siguiente conjunto de documentos:
+\begin{enumerate}
+\item ``A series of escapades demonstrating the adage that what is good for the goose''
+\item ``demonstrating the adage that what is good for the goose''
+\item ``amuses but none of which amounts to much of a story''
+\end{enumerate}
+Obtener el vocabulario de características y vector de representación 2-BOW para cada documento.
+\end{example}
+
+La solución es:
+
+\begin{listing}[H]
+\begin{minted}{python}
+>>> doc1 = set("A series of escapades demonstrating the adage that what is good for the goose".split(' '))
+>>> doc2 = set("demonstrating the adage that what is good for the goose".split(' '))
+>>> doc3 = set("amuses but none of which amounts to much of a story".split(' '))
+>>> features = list(doc1.union(doc2).union(doc3))
+>>> features.sort()
+>>> vec1 = [int((feat in doc1)) for feat in features]
+>>> vec2 = [int((feat in doc2)) for feat in features]
+>>> vec3 = [int((feat in doc3)) for feat in features]
+>>> print(features)
+['A', 'a', 'adage', 'amounts', 'amuses', 'but', 'demonstrating', 'escapades', 'for', 'good', 'goose', 'is', 'much', 'none', 'of', 'series', 'story', 'that', 'the', 'to', 'what', 'which']
+>>> print(vec1)
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0]
+>>> print(vec2)
+[0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0]
+>>> print(vec3)
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1]
+>>> 
+\end{minted}
+\caption{Vocabulario de características y representación 2-BOW}
+\label{lst:vocab-feat-2BOW}
+\end{listing}
+
+
+ 
+
 
 \section{Clasificadores}
 
