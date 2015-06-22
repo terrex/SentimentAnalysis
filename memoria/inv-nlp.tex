@@ -171,10 +171,11 @@ Dentro de las lenguas artificiales, las podemos clasificar en:
 
 
 \section{Técnicas de preprocesamiento textual del lenguaje natural}
+\label{sec:preproc-NLP}
 
 En esta sección describimos distintas técnicas de preprocesamiento de las frases del lenguaje natural. Generalmente, la experimentación en técnicas de procesamiento de lenguaje natural se han realizado en base a \nombrebf{corpus}\index{corpus} de texto: conjuntos de ejemplo de uso real del lenguaje.
 
-Estos corpus (véase la \autoref{tbl:corpus-list}) son grandes ficheros normalmente de texto plano con el texto en crudo, o ligeramente procesado, acompañado de métricas o etiquetas. A éstos textos, posteriormente se le puede aplicar una o más de las técnicas de preprocesamiento que se explican en esta sección, antes de pasar a la fase de entrenamiento para el componente de aprendizaje automático (machine learning); o como conjunto de datos (\emph{dataset}\index{dataset@\emph{dataset}}) para cualquier otra investigación.
+Estos corpus (véase la \autoref{tbl:corpus-list}) son grandes ficheros normalmente de texto plano con el texto en crudo, o ligeramente procesado, acompañado de métricas o etiquetas. A éstos textos, posteriormente se le puede aplicar una o más de las técnicas de preprocesamiento que se explican en esta sección, antes de pasar a la fase de entrenamiento para el componente de aprendizaje automático (machine learning); o como conjunto de datos \emph{(dataset)}\index{dataset@\emph{dataset}} para cualquier otra investigación.
 
 El \nombrebf{Linguistic Data Consortium}\footnote{\url{https://www.ldc.upenn.edu}} (LDC\index{LDC}) es un consorcio de empresas y universidades que realiza publicaciones de grandes datasets lingüísticos, tanto en texto como en audio, mantenido por la Universidad de Pennsylvania y financiado entre otros, por la Agencia de Investigación Avanzada del Departamento de Defensa americano (\emph{Defense Advanced Research Projects Agency}, DARPA\index{DARPA}).
 
@@ -233,7 +234,7 @@ Denominamos \emph{token} al conjunto de cadenas de caracteres con significado m�
 El \emph{patrón} es una regla que describe el conjunto de caracteres que cuadran un token.
 \end{definition}
 
-El concepto de ``cuadrar'' se denomina en inglés como match\index{match@\emph{match}}, y también se puede traducir como concordancia o correspondencia.
+El concepto de ``cuadrar'' se denomina en inglés como \emph{match}\index{match@\emph{match}}, y también se puede traducir como concordancia o correspondencia.
 
 \begin{definition}[Lexema] \index{lexema}
 Un \emph{lexema} es una secuencia concreta de caracteres que se corresponde con el patrón de un token determinado.
@@ -356,7 +357,7 @@ she'll & she will \\ \hline
 \label{tbl:contracciones}
 \end{table}
 
-\subsection{Supresión de palabras vacías (\emph{stopwords})}
+\subsection{Supresión de palabras vacías \emph{(stopwords)}}
 
 Las \nombrebf{stopwords}\index{stopword@\emph{stopword}} (o palabras vacías) son palabras que no contribuyen al significado de la frase, o al menos no son útiles para la recuperación de la información \citep{Perkins2010}. Ejemplos: «the», «thence», «th», «vs», «thereby», «c'mon», «clearly», \ldots
 
@@ -475,7 +476,7 @@ En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usa
 \end{listing}
 
 
-\subsection{Anotación gramatical de la parte de la oración (\emph{Part-of-speech tagging}) }
+\subsection{Anotación gramatical de la parte de la oración \emph{(Part-of-speech tagging)}}
 
 En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve \nombrebf{partes de la oración}\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
 \nopagebreak
@@ -575,7 +576,7 @@ v & VB \\ \hline
 
 \section{Análisis sintáctico}
 
-El \nombrebf{análisis sintáctico}\index{análisis!sintáctico} (\emph{parsing}\index{parsing@\emph{parsing}}) de una oración se realiza en dos pasos:
+El \nombrebf{análisis sintáctico}\index{análisis!sintáctico} \emph{(parsing)}\index{parsing@\emph{parsing}} de una oración se realiza en dos pasos:
 \begin{enumerate}
 \item Realizar la anotación de la categoría gramatical o parte de la oración (POS tagging) de cada palabra de la oración. En caso de ambigüedades, mantenerlas todas, o bien la más probable.
 \item Calcular uno o varios de los árboles de derivación teniendo en cuenta las reglas de construcción (reglas de producción) de estructuras sintácticas de la gramática del idioma.
@@ -598,7 +599,7 @@ Para posicionar cada palabra dentro del MEV, el sistema se entrena a partir de g
 
 Existen varios métodos para realizar este entrenamiento no supervisado:
 \begin{description}
-\item[continous bag-of-words] (CBOW)\index{CBOW} Se considera la palabra y un contexto de $n-1$ palabras posteriores consecutivas, que se tratará como un conjunto (bolsa de palabras), sin tener en cuenta su orden de aparición en la frase.
+\item[continous bag-of-words] (CBOW)\index{CBOW} Se considera la palabra y un contexto de $n-1$ palabras posteriores consecutivas, que se tratará como un conjunto (saco de palabras), sin tener en cuenta su orden de aparición en la frase.
 \item[skip-gram] \index{skip-gram@\emph{skip-gram}} En este modelo, se considera la palabra y un contexto de $n-1$ palabras a elegir de entre las $n-1 + k$ palabras posteriores consecutivas; «saltando» de esta manera hasta un máximo de $k$ palabras, teniendo además en cuenta su orden de aparición.
 \end{description}
 
