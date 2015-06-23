@@ -38,6 +38,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage{booktabs}
 \usepackage{subcaption}
 \usepackage{hhline}
+\usepackage{multirow}
 
 \usepackage[colorinlistoftodos, shadow]{todonotes}
   \presetkeys{todonotes}{inline}{}
@@ -49,10 +50,10 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \newcommand{\xmark}{{\color{red}\ding{55}}}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definición}
+\newtheorem{definition}{Definición}[chapter]
 
 \theoremstyle{definition}
-\newtheorem{example}{Ejemplo}
+\newtheorem{example}{Ejemplo}[chapter]
 
 %% plantuml %%
 \usepackage{filecontents}
@@ -97,6 +98,9 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
 %\setmonofont[Scale=0.9]{Courier New}
 
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
 
 %\setlength{\parindent}{2em}
 \setlength{\parskip}{1em plus4mm minus3mm}

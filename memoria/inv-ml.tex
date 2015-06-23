@@ -78,7 +78,7 @@ Además, uno de los retos de estos sistemas es cómo representar el conocimiento
 
 \section{Extracción de características}
 
-En los métodos de aprendizaje que vemos en esta sección, por regla general hay que establecer un vector que represente a cada documento (frase). Todos los vectores deberán tener la misma dimensión, y cada dimensión del espacio vectorial de documentos recibe el nombre de \nombrebf{característica}\index{característica} \emph{(feature)}\index{feature@\emph{feature}}. De esta manera, un documento se equipara a un vector de valores numéricos (números en coma flotante, bien en cualquier rango o bien normalizado y acotado en el intervalo $[0,1]$); un \emph{punto} dentro del espacio vectorial (\autoref{fig:feat-space}).
+En los métodos de aprendizaje que vemos en esta sección, por regla general hay que establecer un vector que represente a cada documento (frase). Todos los vectores deberán tener la misma dimensión, y cada dimensión del espacio vectorial de documentos recibe el nombre de \nombrebf{característica}\index{característica} \emph{(feature)}\index{feature@\emph{feature}}. De esta manera, un documento se equipara a un vector de valores numéricos (números en coma flotante, bien en cualquier rango o bien normalizado y acotado en el intervalo $[0,1]$); lo que se puede representar mediante un \emph{punto} dentro del espacio vectorial (\autoref{fig:feat-space}).
 
 \begin{figure}[htbp]
 \centering
@@ -106,7 +106,7 @@ El \nombrebf{vocabulario}\index{vocabulario} es el conjunto formado por los tér
 
 Una vez calculado el vocabulario, se usa cada término como característica, y o bien se indica con un valor 0 ó 1 si el término está presente en el documento o no, o bien el conteo del número de las apariciones del término en el mismo.
 
-\begin{example}[Vocabulario y representación usando BOW]
+\begin{example}[Vocabulario y representación usando BOW]\label{exa:ml-bow}
 Dado el siguiente conjunto de documentos:
 \begin{enumerate}
 \item ``A series of escapades demonstrating the adage that what is good for the goose''
@@ -116,26 +116,26 @@ Dado el siguiente conjunto de documentos:
 Obtener el vocabulario de características y vector de representación BOW para cada documento.
 \end{example}
 
-La solución es:
+La solución al ejercicio la calculamos con en el \autoref{lst:vocab-feat-BOW}.
 
-\begin{listing}[H]
+\begin{listing}[htbp]
 \begin{minted}{python}
->>> doc1 = set("A series of escapades demonstrating the adage that what is good for the goose".split(' '))
->>> doc2 = set("demonstrating the adage that what is good for the goose".split(' '))
->>> doc3 = set("amuses but none of which amounts to much of a story".split(' '))
->>> features = list(doc1.union(doc2).union(doc3))
+>>> doc1 = "A series of escapades demonstrating the adage that what is good for the goose".split(' ')
+>>> doc2 = "demonstrating the adage that what is good for the goose".split(' ')
+>>> doc3 = "amuses but none of which amounts to much of a story".split(' ')
+>>> features = list(set(doc1 + doc2 + doc3))
 >>> features.sort()
->>> vec1 = [int((feat in doc1)) for feat in features]
->>> vec2 = [int((feat in doc2)) for feat in features]
->>> vec3 = [int((feat in doc3)) for feat in features]
->>> print(features)
+>>> vec1 = [doc1.count(feat) for feat in features]
+>>> vec2 = [doc2.count(feat) for feat in features]
+>>> vec3 = [doc3.count(feat) for feat in features]
+>>> print(features) # vocabulario de características
 ['A', 'a', 'adage', 'amounts', 'amuses', 'but', 'demonstrating', 'escapades', 'for', 'good', 'goose', 'is', 'much', 'none', 'of', 'series', 'story', 'that', 'the', 'to', 'what', 'which']
->>> print(vec1)
-[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0]
->>> print(vec2)
-[0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0]
->>> print(vec3)
-[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1]
+>>> print(vec1) # vector de representación del documento 1
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 2, 0, 1, 0]
+>>> print(vec2) # vector de representación del documento 2
+[0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0]
+>>> print(vec3) # vector de representación del documento 3
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 1, 0, 0, 1, 0, 1]
 >>> 
 \end{minted}
 \caption{Vocabulario de características y representación BOW}
@@ -150,7 +150,7 @@ Análogo al anterior, pero considerando como términos:
 \item Cada par de palabras consecutivas (bigrama).
 \end{itemize}
 
-\begin{example}[Vocabulario y representación usando 2-BOW]
+\begin{example}[Vocabulario y representación usando 2-BOW]\label{exa:ml-2bow}
 Dado el siguiente conjunto de documentos:
 \begin{enumerate}
 \item ``A series of escapades demonstrating the adage that what is good for the goose''
@@ -160,26 +160,30 @@ Dado el siguiente conjunto de documentos:
 Obtener el vocabulario de características y vector de representación 2-BOW para cada documento.
 \end{example}
 
-La solución es:
+La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-2BOW}.
 
-\begin{listing}[H]
+\begin{listing}[htbp]
 \begin{minted}{python}
->>> doc1 = set("A series of escapades demonstrating the adage that what is good for the goose".split(' '))
->>> doc2 = set("demonstrating the adage that what is good for the goose".split(' '))
->>> doc3 = set("amuses but none of which amounts to much of a story".split(' '))
->>> features = list(doc1.union(doc2).union(doc3))
+>>> from nltk.util import bigrams
+>>> doc1 = "A series of escapades demonstrating the adage that what is good for the goose".split(' ')
+>>> doc2 = "demonstrating the adage that what is good for the goose".split(' ')
+>>> doc3 = "amuses but none of which amounts to much of a story".split(' ')
+>>> bg1 = list(bigrams(doc1)) + [(w,) for w in doc1]
+>>> bg2 = list(bigrams(doc2)) + [(w,) for w in doc2]
+>>> bg3 = list(bigrams(doc3)) + [(w,) for w in doc3]
+>>> features = list(set(bg1 + bg2 + bg3))
 >>> features.sort()
->>> vec1 = [int((feat in doc1)) for feat in features]
->>> vec2 = [int((feat in doc2)) for feat in features]
->>> vec3 = [int((feat in doc3)) for feat in features]
->>> print(features)
-['A', 'a', 'adage', 'amounts', 'amuses', 'but', 'demonstrating', 'escapades', 'for', 'good', 'goose', 'is', 'much', 'none', 'of', 'series', 'story', 'that', 'the', 'to', 'what', 'which']
->>> print(vec1)
-[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0]
->>> print(vec2)
-[0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0]
->>> print(vec3)
-[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1]
+>>> vec1 = [bg1.count(feat) for feat in features]
+>>> vec2 = [bg2.count(feat) for feat in features]
+>>> vec3 = [bg3.count(feat) for feat in features]
+>>> print(features) # vocabulario de características
+[('A',), ('A', 'series'), ('a',), ('a', 'story'), ('adage',), ('adage', 'that'), ('amounts',), ('amounts', 'to'), ('amuses',), ('amuses', 'but'), ('but',), ('but', 'none'), ('demonstrating',), ('demonstrating', 'the'), ('escapades',), ('escapades', 'demonstrating'), ('for',), ('for', 'the'), ('good',), ('good', 'for'), ('goose',), ('is',), ('is', 'good'), ('much',), ('much', 'of'), ('none',), ('none', 'of'), ('of',), ('of', 'a'), ('of', 'escapades'), ('of', 'which'), ('series',), ('series', 'of'), ('story',), ('that',), ('that', 'what'), ('the',), ('the', 'adage'), ('the', 'goose'), ('to',), ('to', 'much'), ('what',), ('what', 'is'), ('which',), ('which', 'amounts')]
+>>> print(vec1) # vector de representación del documento 1
+[1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 2, 1, 1, 0, 0, 1, 1, 0, 0]
+>>> print(vec2) # vector de representación del documento 2
+[0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 0, 0, 1, 1, 0, 0]
+>>> print(vec3) # vector de representación del documento 3
+[0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1]
 >>> 
 \end{minted}
 \caption{Vocabulario de características y representación 2-BOW}
@@ -227,5 +231,138 @@ Supongamos un clasificador binario:
 \item La medida de precisión será el porcentaje de documentos correctamente clasificados dentro del conjunto de prueba.
 \item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados \citep{Perkins2010}.
 \end{itemize}
+
+\subsection{Naïve Bayes multinomial}
+
+Éste es un clasificador de los llamados estadísticos o probabilísticos. En la fase de aprendizaje supervisado de este clasificador \citep{Jurafsky2015}:
+\begin{itemize}
+\item Se construye un vocabulario $V$ de los términos vistos en todos los ejemplos.
+\item Se aprenden las probabilidades a priori $\mathcal{P}(c)$ de que un documento cualquiera pertenezca a una clase $c$. Esto se hace simplemente contando el número de ejemplos que pertenecen a cada clase, referido del total de ejemplos suministrados.
+\begin{equation}
+\mathcal{P}(c) = \frac{\text{\#(ejemplos con clase $c$)}}{\text{\#(ejemplos)}}
+\end{equation}
+\item La verosimilitud (\emph{likelihood}) $\mathcal{P}(w|c)$ del término $w$ para cada clase $c$. Para ello se cuenta el número de apariciones del término $w$ en todos los ejemplos categorizados con clase $c$, referido del número de términos en todos los ejemplos categorizados con clase $c$.\\
+Para luego no tener problemas con el estimador, le añadimos un \nombrebf{suavizado de Laplace}\index{Laplace!suavizado de} (\emph{Laplace} o \emph{add-one smoothing})\index{Laplace!smoothing@\emph{smoothing}}\index{add-one@\emph{add-one}} para que los términos no vistos durante el entrenamiento (y por lo tanto, no existentes en el vocabulario) no perjudiquen al cómputo general de la estimación.
+\begin{equation}
+\mathcal{P}(w|c) = \frac{\text{\#(apariciones de $w$ en ejemplos con clase $c$)} + 1}%
+{\text{\#(términos en ejemplos con clase $c$)} \cdot |V|}
+\end{equation}
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{multinomialNB-clsfy}
+\caption[Clasificador Naïve Bayes]{Clasificador Naïve Bayes \citep{Jurafsky2015}}
+\label{fig:multinomialNB-clsfy}
+\end{figure}
+
+Durante la fase de clasificación, se calculan las probabilidades de que el documento pertenezca a cada clase, tomando como cierta la clase con mayor probabilidad.
+\begin{equation}
+c_\text{MAP} = \argmax_{c\in C} \mathcal{P}(c|d) 
+= \argmax_{c\in C} \frac{\mathcal{P}(d|c)\mathcal{P}(c)}{\mathcal{P}(d)}
+= \argmax_{c\in C} \mathcal{P}(d|c)\mathcal{P}(c)
+\end{equation}
+
+El documento $d$, lo representamos por su vector de características, así
+\begin{equation}
+c_\text{MAP} = \argmax_{c\in C} \mathcal{P}(x_1,x_2,\ldots,x_n|c)\mathcal{P}(c)
+\end{equation}
+
+Esta transformación implica que
+\begin{enumerate}
+\item La posición de los términos no tiene relevancia. Por tanto, sería indistinguible de cualquier otra permutación del documento o del vector de características. 
+\item Las probabilidades de cada característica $x_i$ son mutuamente independientes dada una clase $c$.
+\end{enumerate}
+
+De esta manera, podemos calcular la probabilidad conjunta $\mathcal{P}(x_1,x_2,\ldots,x_n|c)$ como
+\begin{equation}
+\mathcal{P}(x_1,x_2,\ldots,x_n|c) = \mathcal{P}(x_1|c) \cdot \mathcal{P}(x_2|c) \cdots \mathcal{P}(x_n|c)
+\end{equation}
+
+Y finalmente
+\begin{equation}
+c_\text{NB} = \argmax_{c\in C} \mathcal{P}(c) \prod_{x\in X} \mathcal{P}(x|c)
+\end{equation}
+
+Lo ponemos en práctica en el siguiente ejemplo.
+
+\begin{example}[Clasificación NB usando BOW y 2-BOW]
+Dados los documentos y los vectores de características del Ejemplo~\ref{exa:ml-bow} y Ejemplo~\ref{exa:ml-2bow}, realizar ambos entrenamientos y obtener la estimación con sus probabilidades usando el clasificador NB multinomial para los siguientes documentos de test:
+\begin{enumerate}
+\item ``demonstrating the adage''
+\item ``demonstrating the adage amuses but none of which amounts to much of a story''
+\end{enumerate}
+\end{example}
+
+La solución al ejercicio la calculamos en el \autoref{lst:multinb-bow} y \autoref{lst:multinb-2bow}. El resumen de los resultados de las predicciones puede verse en la \autoref{tbl:multinb}
+
+%guille
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|r|S[table-format=1.6]|S[table-format=1.6]|S[table-format=1.6]|S[table-format=1.6]|}
+\hline
+\multirow{2}{*}{\nombrebf{Doc.}} & \multicolumn{2}{|c|}{\nombrebf{BOW}} & \multicolumn{2}{|c|}{\nombrebf{2-BOW}} \\ \hhline{~----}
+  & \multicolumn{1}{|c|}{$c_1$} & \multicolumn{1}{|c|}{$c_2$} & \multicolumn{1}{|c|}{$c_1$} & \multicolumn{1}{|c|}{$c_2$} \\ \hhline{=====}
+1 & 0.029215 & 0.970784 & 0.006114 & 0.993885 \\ \hline
+2 & 0.999253 & 0.000746 & 0.999999 & 0.000000 \\ \hline
+\end{tabular}
+\caption{Predicción de clasificación en Naïve Bayes}
+\label{tbl:multinb}
+\end{table}
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> from sklearn.naive_bayes import MultinomialNB 
+>>> doctest1 = "demonstrating the adage".split(' ')
+>>> doctest2 = "demonstrating the adage amuses but none of which amounts to much of a story".split(' ')
+>>> vectest1 = [doctest1.count(feat) for feat in features]
+>>> vectest2 = [doctest2.count(feat) for feat in features]
+>>> print(vectest1) # vector de características del documento de prueba 1 en BOW
+[0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+>>> print(vectest2) # vector de características del documento de prueba 2 en BOW
+[0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 2, 0, 1, 0, 1, 1, 0, 1]
+>>> clsfy = MultinomialNB()
+>>> clsfy.fit([vec1, vec2, vec3], [2, 2, 1])
+MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
+>>> print(clsfy.classes_)
+[1 2]
+>>> print(clsfy.predict_proba(vectest1)) # predicción de vectest1
+[[ 0.02921541  0.97078459]]
+>>> print(clsfy.predict_proba(vectest2)) # predicción de vectest2
+[[  9.99253463e-01   7.46536777e-04]]
+>>> 
+\end{minted}
+\caption{Predicción NB en BOW}
+\label{lst:multinb-bow}
+\end{listing}
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> from nltk.util import bigrams
+>>> from sklearn.naive_bayes import MultinomialNB 
+>>> doctest1 = "demonstrating the adage".split(' ')
+>>> doctest2 = "demonstrating the adage amuses but none of which amounts to much of a story".split(' ')
+>>> bg1 = list(bigrams(doctest1)) + [(w,) for w in doctest1]
+>>> bg2 = list(bigrams(doctest2)) + [(w,) for w in doctest2]
+>>> vectest1 = [bg1.count(feat) for feat in features]
+>>> vectest2 = [bg2.count(feat) for feat in features]
+>>> print(vectest1) # vector de características del documento de prueba 1 en 2-BOW
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+>>> print(vectest2) # vector de características del documento de prueba 2 en 2-BOW
+[0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1]
+>>> clsfy = MultinomialNB()
+>>> clsfy.fit([vec1, vec2, vec3], [2, 2, 1])
+MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
+>>> print(clsfy.classes_)
+[1 2]
+>>> print(clsfy.predict_proba(vectest1)) # predicción de vectest1
+[[ 0.00611419  0.99388581]]
+>>> print(clsfy.predict_proba(vectest2)) # predicción de vectest2
+[[  9.99999838e-01   1.62105831e-07]]
+\end{minted}
+\caption{Predicción NB en 2-BOW}
+\label{lst:multinb-2bow}
+\end{listing}
+
 
 \subsection{Máquinas de vectores de soporte}
