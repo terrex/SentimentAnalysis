@@ -191,18 +191,29 @@ La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-2BOW}.
 \end{listing}
 
 
- 
+\subsection{Red neural recursiva (RNN)} 
 
+\todo{Completar esta subsección}
+\citep{Socher2013}
+
+\subsection{Características enumeradas}
+
+\todo{Completar esta subsección}
+\url{http://scikit-learn.org/stable/modules/feature_extraction.html#dict-feature-extraction}
+
+\subsection{Combinación de los anteriores}
+
+\todo{Completar esta subsección}
 
 \section{Clasificadores}
 
-Los clasificadores son programas que dado un documento de entrada, le asocia una categoría o etiqueta. Estos clasificadores han debido ser previamente entrenados mediante una técnica de aprendizaje automático, o bien programados con las reglas apropiadas.
+Los clasificadores son programas que dado un documento de entrada, le asocia una \nombrebf{clase}\index{clase} (categoría o etiqueta). Estos clasificadores han debido ser previamente entrenados mediante una técnica de aprendizaje automático, o bien programados con las reglas apropiadas.
 
 En función del resultado de la clasificación, podemos distinguir dos tipos de clasificadores:
 \nopagebreak
 \begin{description}
-\item[Clasificador binario] En este caso, existen dos posibles categorías a asocias a cada documento. Por ejemplo, un detector de \emph{spam} puede determinar que un mensaje de correo electrónico es spam o no lo es (es \emph{spam} o es \emph{ham}). El resultado puede venir ---y es recomendable---, acompañado de un valor de confidencia (probabilidad de haber acertado la predicción).
-\item[Clasificador múltiple] Aquí el documento puede asignarse a varias categorías, con un valor de confidencia diferente para cada una. Se podría posteriormente tener en cuenta solamente la categoría asignada con mayor probabilidad, o bien se infiere que pertenece simultáneamente a las $n$ categorías con mayor probabilidad (por ejemplo, en un clasificador de temática, cuando nos encontramos con un documento que versa sobre dos temáticas diferentes).
+\item[Clasificador binario] En este caso, existen dos posibles clases a asocias a cada documento. Por ejemplo, un detector de \emph{spam} puede determinar que un mensaje de correo electrónico es spam o no lo es (es \emph{spam} o es \emph{ham}). El resultado puede venir ---y es recomendable---, acompañado de un valor de confidencia (probabilidad de haber acertado la predicción).
+\item[Clasificador múltiple] Aquí el documento puede asignarse a varias clases, con un valor de confidencia diferente para cada una. Se podría posteriormente tener en cuenta solamente la clase asignada con mayor probabilidad, o bien se infiere que pertenece simultáneamente a las $n$ clases con mayor probabilidad (por ejemplo, en un clasificador de temática, cuando nos encontramos con un documento que versa sobre dos temáticas diferentes).
 \end{description}
 
 
