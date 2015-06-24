@@ -190,16 +190,69 @@ La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-2BOW}.
 \label{lst:vocab-feat-2BOW}
 \end{listing}
 
+\subsection{Saco de $n$-gramas \emph{(n-BOW)}}
+
+Las técnicas explicadas anteriormente se pueden extender a cualquier número de $n$-gramas. Mostramos un ejemplo en el \autoref{lst:scikit-ngramas}, contando unigramas, bigramas y trigramas.
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> from sklearn.feature_extraction.text import CountVectorizer
+>>> doc1 = "A series of escapades demonstrating the adage that what is good for the goose"
+>>> doc2 = "demonstrating the adage that what is good for the goose"
+>>> doc3 = "amuses but none of which amounts to much of a story"
+>>> vectorizer = CountVectorizer(ngram_range=(1,3))
+>>> X = vectorizer.fit_transform([doc1, doc2, doc3])
+>>> print(vectorizer.get_feature_names())
+['adage', 'adage that', 'adage that what', 'amounts', 'amounts to', 'amounts to much', 'amuses', 'amuses but', 'amuses but none', 'but', 'but none', 'but none of', 'demonstrating', 'demonstrating the', 'demonstrating the adage', 'escapades', 'escapades demonstrating', 'escapades demonstrating the', 'for', 'for the', 'for the goose', 'good', 'good for', 'good for the', 'goose', 'is', 'is good', 'is good for', 'much', 'much of', 'much of story', 'none', 'none of', 'none of which', 'of', 'of escapades', 'of escapades demonstrating', 'of story', 'of which', 'of which amounts', 'series', 'series of', 'series of escapades', 'story', 'that', 'that what', 'that what is', 'the', 'the adage', 'the adage that', 'the goose', 'to', 'to much', 'to much of', 'what', 'what is', 'what is good', 'which', 'which amounts', 'which amounts to']
+>>> X.toarray()
+array([[1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0,
+        1, 1, 1, 2, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+       [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 1, 2, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+       [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 0, 0, 1, 1, 1, 0, 0, 0, 1,
+        0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1]], dtype=int64)
+>>> 
+\end{minted}
+\caption{Saco de $\{1,2,3\}$-gramas mediante scikit-learn}
+\label{lst:scikit-ngramas}
+\end{listing}
+
+
+
+\subsection{Características enumeradas}
+
+En el caso de características con posibles valores discretos, enumerados, el procedimiento es crear una característica nueva booleana por cada posible valor. De esta manera se puede pasar como entrada a un método de aprendizaje numérico. Véase un ejemplo\footnote{Ejemplo extraído de\\
+\url{http://scikit-learn.org/stable/modules/feature_extraction.html\#dict-feature-extraction}} en el \autoref{lst:feat-enum}.
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> measurements = [
+...     {'city': 'Dubai', 'temperature': 33.},
+...     {'city': 'London', 'temperature': 12.},
+...     {'city': 'San Fransisco', 'temperature': 18.},
+... ]
+>>> 
+>>> from sklearn.feature_extraction import DictVectorizer
+>>> vec = DictVectorizer()
+>>> vec.fit_transform(measurements).toarray()
+array([[  1.,   0.,   0.,  33.],
+       [  0.,   1.,   0.,  12.],
+       [  0.,   0.,   1.,  18.]])
+>>> vec.get_feature_names()
+['city=Dubai', 'city=London', 'city=San Fransisco', 'temperature']
+\end{minted}
+\caption{Vectorización de atributos enumerados}
+\label{lst:feat-enum}
+\end{listing}
+
 
 \subsection{Red neural recursiva (RNN)} 
 
 \todo{Completar esta subsección}
 \citep{Socher2013}
-
-\subsection{Características enumeradas}
-
-\todo{Completar esta subsección}
-\url{http://scikit-learn.org/stable/modules/feature_extraction.html#dict-feature-extraction}
 
 \subsection{Combinación de los anteriores}
 
