@@ -372,7 +372,7 @@ Este modelo es idéntico al modelo de predicción en Naïve Bayes multinomial, c
 
 \subsection{Análisis de discriminante lineal y cuadrático (LDA, QDA)}
 
-La técnica de \nombrebf{análisis del discriminante lineal}\index{discriminante!lineal} o cuadrático\index{discriminante!cuadrático}(\emph{Linear and quadratic discriminant analysis}, LDA, QDA)\index{LDA}\index{QDA} es una técnica que permite reducir el número de características que sean irrelevantes o que contribuyan poco a la diferenciación de las clases.
+La técnica de \nombrebf{análisis del discriminante lineal}\index{discriminante!lineal} o \nombrebf{cuadrático}\index{discriminante!cuadrático} (\emph{Linear and quadratic discriminant analysis}, LDA, QDA)\index{LDA}\index{QDA} es una técnica que permite reducir el número de características que sean irrelevantes o que contribuyan poco a la diferenciación de las clases \citep[Discriminant function analysis]{wikipedia-en}.
 
 El objetivo del algoritmo es construir una combinación lineal sobre las características que:
 \begin{itemize}
@@ -417,10 +417,59 @@ LDA(n_components=None, priors=None, shrinkage=None, solver='svd',
 [[ 0.99719891  0.00280109]]
 >>> 
 \end{minted}
-\caption{Uso del clasificador de discrimininante lineal (LDA)}
+\caption{Uso del clasificador de discriminante lineal (LDA)}
 \label{lst:lda}
 \end{listing}
 
 
-\subsection{Máquinas de vectores de soporte}
+\subsection{Máquinas de vectores de soporte (SVM)}
 
+Las \nombrebf{máquinas de vectores de soporte}\index{vectores de soporte!máquinas de} (\emph{Support Vector Machines}, SVM)\index{SVM}\index{machines@\emph{machines}}\index{machines!support vector@\emph{support vector}} son algoritmos de aprendizaje supervisado que se pueden usar para clasificación, regresión y detección de valores atípicos\index{valor atípico} \emph{(outliers)}\index{outlier@\emph{outlier}} \citep{Pedregosa2011}.
+
+Su utilidad está indicada especialmente en los siguientes casos:
+\nopagebreak
+\begin{itemize}
+\item Cuando no se dispone de otra información a priori sobre el dominio de aplicación.
+\item En espacios de dimensionalidad muy alta (cuando existe una gran cantidad de características a considerar), incluso cuando el número de dimensiones es superior al número de ejemplos de entrenamiento.
+\end{itemize}
+
+En la fase de aprendizaje, el algoritmo intenta construir un \nombrebf{hiperplano lineal}\index{hiperplano lineal} (o conjunto de hiperplanos para el caso de clasificación múltiple) que divide el espacio vectorial en dos mitades separando las clases con el mayor margen posible \emph{(maximum margin separator)}. No es necesario recordar todo el conjunto de puntos de cada clase, tan sólo los más cercanos al hiperplano (véase la \autoref{fig:svm1}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.4\textwidth]{svm1}
+\caption[Separación mediante SVM]{Separación mediante SVM. Los vectores de soporte son los 3 puntos marcados en las fronteras de la separación, y la recta que está en el punto medio es el hiperplano (separador de margen máximo) detectado \citep{Russell2009}.}
+\label{fig:svm1}
+\end{figure}
+
+Los SVMs son muy útiles para separar clases no linealmente separables en el espacio de origen. Para ello, se puede transformar el conjunto de entrenamiento añadiendo una o más dimensiones; es decir: teniendo más características en cuenta. Siempre se puede encontrar un espacio de dimensión superior en el que las clases sean linealmente separables \citep[cap. 18]{Russell2009}.
+
+\begin{example}\label{exa:svm-circulo-separable}
+Sean una serie de puntos de entrenamiento con dos características $(x_1,x_2)$, en el que los ejemplos positivos se encuentran dentro del círculo $1 = x^2 + y^2$ y los negativos fuera. En un espacio de dos dimensiones, no se puede construir una recta que separe las dos clases. Pero estableciendo la siguiente transformación
+\[
+\left(x_1, x_2\right) \longrightarrow \left(x_1^2, x_2^2, \sqrt{2} x_1 x_2\right)
+\]
+sí se puede realizar la separación con un hiperplano (un plano regular) en un espacio tridimensional (\autoref{fig:svm-circulo-separable}).
+Esta función de transformación recibe el nombre de \nombrebf{kernel}\index{kernel}.
+\end{example}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{svm-circulo-separable}
+\caption[Sobredimensionamiento del espacio para hacer las clases linealmente separables]{Sobredimensionamiento del espacio para hacer las clases linealmente separables \citep{Russell2009}.}
+\label{fig:svm-circulo-separable}
+\end{figure}
+
+El modelo trata de encontrar el vector dual de pesos $\vec{\alpha}$ realizando el producto escalar (por eso es un método muy eficiente) de los que serán los dos vectores de soporte $\vec{x_j}$ y $\vec{x_k}$ que sirvan de frontera para el separador de margen máximo, siendo $y_j, y_k \in \{-1, 1\}$ las clases de $\vec{x_j}$ y $\vec{x_k}$, respectivamente; en la ecuación \eqref{eqn:SVM}.
+\begin{equation}
+\argmax_\alpha \sum_j \alpha_j - \frac{1}{2} \sum_{j,k}\alpha_j \alpha_k y_j y_k (\vec{x_j} \cdot \vec{x_k})
+\label{eqn:SVM}
+\end{equation}
+
+En el caso de ser necesario su transformación a un espacio de dimensión superior, se utiliza la función kernel aplicado a la pareja de ejemplos $K(\vec{x_j}, \vec{x_k})$; que sutituyendo en \eqref{eqn:SVM} queda
+\begin{equation}
+\argmax_\alpha \sum_j \alpha_j - \frac{1}{2} \sum_{j,k}\alpha_j \alpha_k y_j y_k (K(\vec{x_j},\vec{x_k}))
+\label{eqn:SVM-kerneled}
+\end{equation}
+
+En el ejemplo~\ref{exa:svm-circulo-separable} se usó la función kernel $K(\vec{x_j},\vec{x_k})=(\vec{x_j}\cdot\vec{x_k})^2$; pero se pueden usar otras \citep{Russell2009}, como el kernel polinómico $K(\vec{x_j},\vec{x_k})=(1+\vec{x_j}\cdot\vec{x_k})^d$.
