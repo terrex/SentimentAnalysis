@@ -242,10 +242,10 @@ Supongamos un clasificador binario:
 \mathcal{P}(c) = \frac{\text{\#(ejemplos con clase $c$)}}{\text{\#(ejemplos)}}
 \end{equation}
 \item La verosimilitud (\emph{likelihood}) $\mathcal{P}(w|c)$ del término $w$ para cada clase $c$. Para ello se cuenta el número de apariciones del término $w$ en todos los ejemplos categorizados con clase $c$, referido del número de términos en todos los ejemplos categorizados con clase $c$.\\
-Para luego no tener problemas con el estimador, le añadimos un \nombrebf{suavizado de Laplace}\index{Laplace!suavizado de} (\emph{Laplace} o \emph{add-one smoothing})\index{Laplace!smoothing@\emph{smoothing}}\index{add-one@\emph{add-one}} para que los términos no vistos durante el entrenamiento (y por lo tanto, no existentes en el vocabulario) no perjudiquen al cómputo general de la estimación.
+Para luego no tener problemas con el estimador, le añadimos un \nombrebf{suavizado de Laplace}\index{Laplace!suavizado de} (\emph{Laplace} o \emph{add-one smoothing})\index{Laplace!smoothing@\emph{smoothing}}\index{add-one@\emph{add-one}} con $\alpha = 1$ para que los términos no vistos durante el entrenamiento (y por lo tanto, no existentes en el vocabulario) no perjudiquen al cómputo general de la estimación con algún cero en el multiplicatorio. Si $0 < \alpha < 1$ entonces se denomina \nombrebf{suavizado de Lidstone}\index{Lidstone!suavizado de}\index{Lidstone!smoothing@\emph{smoothing}} \citep{Pedregosa2011}.
 \begin{equation}
-\mathcal{P}(w|c) = \frac{\text{\#(apariciones de $w$ en ejemplos con clase $c$)} + 1}%
-{\text{\#(términos en ejemplos con clase $c$)} \cdot |V|}
+\mathcal{P}(w|c) = \frac{\text{\#(apariciones de $w$ en ejemplos con clase $c$)} + \alpha}%
+{\text{\#(términos en ejemplos con clase $c$)} \cdot \alpha |V|}
 \end{equation}
 \end{itemize}
 
@@ -294,9 +294,8 @@ Dados los documentos y los vectores de características del Ejemplo~\ref{exa:ml-
 \end{enumerate}
 \end{example}
 
-La solución al ejercicio la calculamos en el \autoref{lst:multinb-bow} y \autoref{lst:multinb-2bow}. El resumen de los resultados de las predicciones puede verse en la \autoref{tbl:multinb}
+La solución al ejercicio la calculamos en el \autoref{lst:multinb-bow} y \autoref{lst:multinb-2bow}. El resumen de los resultados de las predicciones puede verse en la \autoref{tbl:multinb}. Como se observa, la predicción es más intensa en el modelo 2-BOW que en el BOW. Al tener mayor número de características en consideración, hay más evidencias de la posibilidad de pertenecer a una u otra clase.
 
-%guille
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|r|S[table-format=1.6]|S[table-format=1.6]|S[table-format=1.6]|S[table-format=1.6]|}
@@ -364,5 +363,64 @@ MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
 \label{lst:multinb-2bow}
 \end{listing}
 
+\subsection{Naïve Bayes Gausiano}
+
+Este modelo es idéntico al modelo de predicción en Naïve Bayes multinomial, con la diferencia de que se puede aplicar en datos con variables continuas \citep[Naive Bayes classifier]{wikipedia-es}. Se asume que la variable se distribuye en una curva gausiana, entonces se calcula la media $\mu_c$ y la varianza $\sigma^2_c$ de cada característica $x_i$ en los ejemplos de cada clase $c$, y se toma como valor de verosimilitud el siguiente:
+\begin{equation}
+\mathcal{P}(x_i=v|c) = \frac{1}{\sqrt{2\pi\sigma^2_c}}\exp\left(-\frac{(v-\mu_c)^2}{2\sigma^2_c}\right)
+\end{equation}
+
+\subsection{Análisis de discriminante lineal y cuadrático (LDA, QDA)}
+
+La técnica de \nombrebf{análisis del discriminante lineal}\index{discriminante!lineal} o cuadrático\index{discriminante!cuadrático}(\emph{Linear and quadratic discriminant analysis}, LDA, QDA)\index{LDA}\index{QDA} es una técnica que permite reducir el número de características que sean irrelevantes o que contribuyan poco a la diferenciación de las clases.
+
+El objetivo del algoritmo es construir una combinación lineal sobre las características que:
+\begin{itemize}
+\item Maximice la separación entre los centroides de las clases.
+\item Minimice la separación entre los ejemplos de cada clase.
+\end{itemize}
+
+En la \autoref{fig:lda} se puede ver la función discriminante $D$ que ha calculado el algoritmo en el caso de 2 dimensiones (2 características). La recta ortogonal a ésta que pasa por el punto de intersección más alto de ambas distribuciones normales es la que sirve de separación entre las dos clases.
+
+En la versión lineal, se asume que la covarianza en las características de cada clase es constante; mientras que en la versión cuadrática del modelo, no se tiene en cuenta esta asunción y el espacio de decisión puede ser cuadrático (\autoref{fig:lda-qda}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{lda}
+\caption[Función discriminante]{Función discriminante \citep{Ruiz2001}}
+\label{fig:lda}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{plot_lda_qda_0011}
+\caption[Ejemplo gráfico de discriminantes lineal y cuadrático (LDA, QDA)]{Ejemplo gráfico de discriminantes lineal y cuadrático (LDA, QDA) \citep{Pedregosa2011}}
+\label{fig:lda-qda}
+\end{figure}
+
+En el \autoref{lst:lda} podemos ver un ejemplo de clasificación de este método en Scikit-Learn.
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> import numpy as np
+>>> X = np.array([[-1, -1, 0.1], [-2, -1, 0], [-3, -2, 0.3], [1, 1.1, 0.2], [2, 1, 0.7], [3, 2, 0.6]])
+>>> y = np.array([1, 1, 1, 2, 2, 2])
+>>> 
+>>> from sklearn.lda import LDA
+>>> clf = LDA()
+>>> clf.fit(X, y)
+LDA(n_components=None, priors=None, shrinkage=None, solver='svd',
+  store_covariance=False, tol=0.0001)
+>>> print(clf.classes_)
+[1 2]
+>>> print(clf.predict_proba([[-0.8, -1, 0.7]]))
+[[ 0.99719891  0.00280109]]
+>>> 
+\end{minted}
+\caption{Uso del clasificador de discrimininante lineal (LDA)}
+\label{lst:lda}
+\end{listing}
+
 
 \subsection{Máquinas de vectores de soporte}
+
