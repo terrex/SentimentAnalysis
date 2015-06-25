@@ -1,0 +1,126 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="648" measuredH="542" mockupW="609" mockupH="538">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="39" y="48" w="608" h="494" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>25</bottomheight>
+        <close>true</close>
+        <dragger>true</dragger>
+        <maximizeRestore>true</maximizeRestore>
+        <minimize>true</minimize>
+        <text>Sentiment%20Analysis</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="399" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Clasify%2C%20Test%2C%20Evaluate</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::MenuBar" x="39" y="4" w="609" h="29" measuredW="189" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>File%2C%20Edit%2C%20View%2C%20Help</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::DataGrid" x="39" y="337" w="608" h="183" measuredW="334" measuredH="245" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <rowHeight>16</rowHeight>
+        <text>PhraseID%2C%20SentenceID%2C%20n-grams%2C%20Sentiment%0A3%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A4%2C1%2C%5B1%5C%2C2%5C%2C1%5C%2C1%5C%2C1%5C%2C2%5C%2C...%2C2%0A5%2C1%2C%5B0%5C%2C3%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A6%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C2%5C%2C...%2C2%0A7%2C1%2C%5B1%5C%2C5%5C%2C1%5C%2C6%5C%2C3%5C%2C4%5C%2C...%2C2%0A8%2C1%2C%5B0%5C%2C2%5C%2C5%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A9%2C1%2C%5B2%5C%2C2%5C%2C1%5C%2C1%5C%2C2%5C%2C1%5C%2C...%2C2%0A10%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A11%2C1%2C%5B0%5C%2C2%5C%2C0%5C%2C1%5C%2C1%5C%2C6%5C%2C...%2C2%0A12%2C1%2C%5B4%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A13%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C6%5C%2C1%5C%2C...%2C2%0A14%2C1%2C%5B0%5C%2C3%5C%2C1%5C%2C1%5C%2C2%5C%2C0%5C%2C...%2C2%0A15%2C1%2C%5B8%5C%2C0%5C%2C0%5C%2C0%5C%2C0%5C%2C0%5C%2C...%2C2%0A16%2C1%2C%5B0%5C%2C0%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2</text>
+        <value>10</value>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::VSplitter" x="39" y="326" w="608" h="-1" measuredW="100" measuredH="11" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::CheckBox" x="54" y="112" w="-1" h="-1" measuredW="103" measuredH="22" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>n-grams%20from%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::CheckBox" x="54" y="259" w="-1" h="-1" measuredW="201" measuredH="22" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>remove%20features%20with%20less%20than</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Button" x="54" y="288" w="-1" h="-1" measuredW="49" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>RUN</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::NumericStepper" x="157" y="112" w="-1" h="-1" measuredW="39" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="205" y="114" w="-1" h="-1" measuredW="12" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>to</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::NumericStepper" x="225" y="113" w="-1" h="-1" measuredW="41" measuredH="24" zOrder="10" locked="false" isInGroup="-1"/>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="75" y="141" w="-1" h="-1" measuredW="221" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>with%20document%20frecuency%20constraints%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::NumericStepper" x="204" y="164" w="54" h="-1" measuredW="39" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::ComboBox" x="273" y="164" w="152" h="-1" measuredW="131" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>no.%20of%20documents</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::NumericStepper" x="204" y="195" w="-1" h="-1" measuredW="54" measuredH="24" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>100</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::ComboBox" x="273" y="194" w="152" h="-1" measuredW="127" measuredH="24" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%25%20of%20documents</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::NumericStepper" x="270" y="258" w="54" h="-1" measuredW="49" measuredH="24" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0.1</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Label" x="339" y="260" w="-1" h="-1" measuredW="51" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>variance</text>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Button" x="117" y="288" w="-1" h="-1" measuredW="188" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Get%20list%20of%20selected%20features</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::NumericStepper" x="232" y="227" w="-1" h="-1" measuredW="57" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>300</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Label" x="301" y="229" w="-1" h="-1" measuredW="49" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>features</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::CheckBox" x="75" y="228" w="-1" h="-1" measuredW="142" measuredH="22" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>only%20most%20significant</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="165" w="-1" h="-1" measuredW="95" measuredH="22" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>a%20minimun%20of</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="196" w="-1" h="-1" measuredW="103" measuredH="22" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>a%20maximum%20of</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
