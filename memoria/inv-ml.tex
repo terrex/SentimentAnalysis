@@ -92,6 +92,7 @@ Una vez transformado el corpus de texto de entrenamiento en un conjunto de punto
 
 Antes de proceder al extracción de las características del texto del documento, es útil aplicar algún procesamiento como los explicados en la \autoref{sec:preproc-NLP}, ``\nameref{sec:preproc-NLP}''.
 
+\FloatBarrier
 \subsection{Saco de palabras \emph{(bag-of-words)}}
 
 \begin{definition}[saco de palabras]
@@ -116,7 +117,7 @@ Dado el siguiente conjunto de documentos:
 Obtener el vocabulario de características y vector de representación BOW para cada documento.
 \end{example}
 
-La solución al ejercicio la calculamos con en el \autoref{lst:vocab-feat-BOW}.
+La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-BOW}.
 
 \begin{listing}[htbp]
 \begin{minted}{python}
@@ -142,6 +143,7 @@ La solución al ejercicio la calculamos con en el \autoref{lst:vocab-feat-BOW}.
 \label{lst:vocab-feat-BOW}
 \end{listing}
 
+\FloatBarrier
 \subsection{Saco de bigramas \emph{(2-BOW)}}
 
 Análogo al anterior, pero considerando como términos:
@@ -190,6 +192,7 @@ La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-2BOW}.
 \label{lst:vocab-feat-2BOW}
 \end{listing}
 
+\FloatBarrier
 \subsection{Saco de $n$-gramas (n-BOW)}
 
 Las técnicas explicadas anteriormente se pueden extender a cualquier número de $n$-gramas. Mostramos un ejemplo en el \autoref{lst:scikit-ngramas}, contando unigramas, bigramas y trigramas.
@@ -216,15 +219,15 @@ array([[1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1]], dtype=int64)
 >>> 
 \end{minted}
-\caption{Saco de $\{1,2,3\}$-gramas mediante scikit-learn}
+\caption{Saco de $\{1,2,3\}\text{-gramas}$ mediante scikit-learn}
 \label{lst:scikit-ngramas}
 \end{listing}
 
 
-
+\FloatBarrier
 \subsection{Características enumeradas}
 
-En el caso de características con posibles valores discretos, enumerados, el procedimiento es crear una característica nueva booleana por cada posible valor. De esta manera se puede pasar como entrada a un método de aprendizaje numérico. Véase un ejemplo\footnote{Ejemplo extraído de\\
+En el caso de características con posibles valores discretos, enumerados, el procedimiento habitual es crear una característica nueva booleana por cada posible valor. De esta manera se puede pasar como entrada a un método de aprendizaje numérico. Véase un ejemplo\footnote{Ejemplo extraído de\\
 \url{http://scikit-learn.org/stable/modules/feature_extraction.html\#dict-feature-extraction}} en el \autoref{lst:feat-enum}.
 
 \begin{listing}[htbp]
@@ -249,24 +252,98 @@ array([[  1.,   0.,   0.,  33.],
 \end{listing}
 
 
-\subsection{Red neuronal matriz-vector recursiva (MV-RNN)} 
+\FloatBarrier
+\subsection{Red neuronal recursiva (RNN)} 
 
-En los artículos de \citet{Socher2012,Socher2013} se documentan un método para combinar la semántica de los términos teniendo en cuenta el análisis sintáctico de los ejemplos. De esta manera se puede capturar el significado de las composiciones de sintagmas léxicos, y no sólo de grupos de términos contiguos.
+En la \autoref{sec:MEVS}, ``\nameref{sec:MEVS}'', se describe una forma de identificar el significado de un término mediante un punto en el espacio vectorial semántico. No obstante, es lógico pensar que la semántica combinada de la combinación de palabras no siempre es la suma de su significado independiente.
+
+En los artículos de \citet{Socher2012,Socher2013} se documenta un método para combinar la semántica de los términos teniendo en cuenta el análisis sintáctico de los ejemplos, llamado \nombrebf{red neuronal recursiva}\index{RNN}\index{red neuronal!recursiva} \emph{(recursive neural network)}. De esta manera se puede capturar el significado de las composiciones de sintagmas léxicos, y no sólo de grupos de términos contiguos.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=5cm]{semantic-compositionality}
+\caption[Idea de la composicionalidad semántica]{Idea de la composicionalidad semántica \citep{Socher2013}}
+\label{fig:semantic-compositionality}
+\end{figure}
 
 Para realizar este cómputo, hay que transformar la entrada de la siguiente manera:
 \nopagebreak
 \begin{enumerate}
 \item Realizar el análisis sintáctico de la frase o parte de la frase.
-\item Binarizar el árbol mediante la Forma Normal de Chomsky.
-\item Asociar a cada nodo hoja un vector semántico de la palabra y una matriz (incialmente la matriz identidad) de correlación con las palabras cercanas.
+\item Binarizar el árbol sintáctico mediante la Forma Normal de Chomsky.
+\item Asociar a cada nodo hoja un vector de características del término.
+\item El vector de características de los nodos intermedios y de la raíz se calcula en recorrido ascendente\index{recorrido ascendente} \emph{(bottom-up)}\index{bottom-up@\emph{bottom-up}} aplicando la función de combinación $g$ sobre ambos hijos (\autoref{fig:semantic-compositionality}).
 \end{enumerate}
 
-%guille
-\todo{Voy por aqui}
+En el modelo estándar, esta función $g$ es:
+\begin{equation}
+g(b, c) = f\left(W \left[\begin{array}{c}b \\c\end{array}\right] \right)
+\end{equation}
+con $f=\tanh$ o alguna otra función no lineal; siendo $W$ el parámetro a aprender \citep{Socher2013}, una vez categorizados los $n$-gramas.
 
+\FloatBarrier
+\subsection{Red neuronal matriz-vector recursiva (VM-RNN)} 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=3.5cm]{semantic-compositionality-vm}
+\caption[Composicionalidad matriz-vector recursiva]{Composicionalidad matriz-vector recursiva \citep{Socher2013}}
+\label{fig:semantic-compositionality-vm}
+\end{figure}
+
+En una \nombrebf{red neuronal matriz-vector recursiva}\index{red neuronal!matriz-vector}\index{VM-RNN} \emph{(vector-matrix recursive neural network)}, como en el caso anterior, cada nodo lleva asociado un vector de características. Pero además, una matriz (\autoref{fig:semantic-compositionality-vm}); en la que inicialmente en los nodos hoja, (en los términos), se coloca una matriz identidad \citep{Socher2013}. Los nuevos vectores y matrices de los nodos intermedios se calculan en recorrido ascendente realizando la combinación de vectores y matrices de ambos hijos (\autoref{eq:vm-rnn}).
+\begin{equation}
+p_1 = f\left( W \left[\begin{array}{c}Cb \\Bc\end{array}\right] \right), \;
+P_1 = f\left( W_M \left[\begin{array}{c}B \\C\end{array}\right] \right)
+\label{eq:vm-rnn}
+\end{equation}
+
+\FloatBarrier
 \subsection{Combinación de los anteriores}
 
-\todo{Completar esta subsección}
+Hemos visto en las anteriores secciones que podemos extraer características de las palabras, de la combinación de las mismas, de su correlación en su contexto, del vector semántico, etc. Si se tratasen de documentos tipo email, podemos añadir características como el día, hora, mañana o tarde, día de la semana del envío, el texto del asunto, el número de destinatarios, etc. En los ficheros PDF o JPEG por ejemplo, también se pueden añadir información presente en los metadatos\index{metadatos} y usarlo como características.
+
+La manera de combinar varios extractores de características es concatenar los vector de características, teniendo en cuenta que se debe hacer igual en los ejemplos de entrenamiento que en los de evaluación.
+
+\FloatBarrier
+\subsection{Reducción de características \emph{(feature selection)}}
+
+Si nos encontramos con un espacio vectorial demasiado grande, podemos ir eliminando aquellas características que no aportan gran información o que no sirven para diferenciar la clase a la que pertenecen los ejemplos, para mejorar el rendimiento tanto en tiempo como en espacio de memoria. A este procedimiento se le llama \nombrebf{reducción de características} o \emph{feature selection}\index{feature selection@\emph{feature selection}}.
+
+Una de las formas más simples es eliminar aquellas características que tengan poca o ninguna varianza; es decir: que existan muchos ejemplos con el mismo valor o valores muy cercanos \citep{Pedregosa2011}. Continuando con el ejemplo de los $\{1,2,3\}\text{-gramas}$ del \autoref{lst:scikit-ngramas}, decidimos tener en consideración sólo aquellas características con varianza superior a 0.4, pasando de un espacio de dimensión 60 a uno bidimensional; lo que supone una reducción del 96\% (véase el \autoref{lst:feature-selection}).
+
+Ésta sería una forma de reducción \emph{a priori} (sirviendo además para aprendizaje no supervisado), mientras que la reducción de características motivado por su poco peso en la función de decisión del estimador computado por el método de aprendizaje automático sería una reducción \emph{a posteriori}. Si bien no serviría para reducir el tiempo de entrenamiento, sí que puede ser útil para mejorar el tiempo de evaluación de nuevos ejemplos, para los que no sería necesario tener en cuenta esas características sin importancia una vez considerado el espacio vectorial de reducida dimensión.
+
+\begin{listing}[htbp]
+\begin{minted}{python}
+>>> ...
+>>> print(vectorizer.get_feature_names())
+['adage', 'adage that', 'adage that what', 'amounts', 'amounts to', 'amounts to much', 'amuses', 'amuses but', 'amuses but none', 'but', 'but none', 'but none of', 'demonstrating', 'demonstrating the', 'demonstrating the adage', 'escapades', 'escapades demonstrating', 'escapades demonstrating the', 'for', 'for the', 'for the goose', 'good', 'good for', 'good for the', 'goose', 'is', 'is good', 'is good for', 'much', 'much of', 'much of story', 'none', 'none of', 'none of which', 'of', 'of escapades', 'of escapades demonstrating', 'of story', 'of which', 'of which amounts', 'series', 'series of', 'series of escapades', 'story', 'that', 'that what', 'that what is', 'the', 'the adage', 'the adage that', 'the goose', 'to', 'to much', 'to much of', 'what', 'what is', 'what is good', 'which', 'which amounts', 'which amounts to']
+>>> X.toarray()
+array([[1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0,
+        1, 1, 1, 2, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+       [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 1, 2, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+       [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 0, 0, 1, 1, 1, 0, 0, 0, 1,
+        0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1]], dtype=int64)
+>>> from sklearn.feature_selection import VarianceThreshold
+>>> sel = VarianceThreshold(threshold=.4)
+>>> sel.fit_transform(X).toarray()
+array([[1, 2],
+       [0, 2],
+       [2, 0]], dtype=int64)
+>>> import numpy as np
+>>> np.asarray(vectorizer.get_feature_names())[sel.get_support()]
+array(['of', 'the'], 
+      dtype='<U27')
+\end{minted}
+\caption{Selección de características con varianza considerable $(> 0.4)$}
+\label{lst:feature-selection}
+\end{listing}
+
 
 \section{Clasificadores}
 
@@ -279,7 +356,7 @@ En función del resultado de la clasificación, podemos distinguir dos tipos de 
 \item[Clasificador múltiple] Aquí el documento puede asignarse a varias clases, con un valor de confidencia diferente para cada una. Se podría posteriormente tener en cuenta solamente la clase asignada con mayor probabilidad, o bien se infiere que pertenece simultáneamente a las $n$ clases con mayor probabilidad (por ejemplo, en un clasificador de temática, cuando nos encontramos con un documento que versa sobre dos temáticas diferentes).
 \end{description}
 
-
+\FloatBarrier
 \subsection{Bondad del clasificador (valor-F)}
 
 Para la comparación de sistemas de búsqueda y recuperación de información disponemos de una métrica llamada valor-F\index{valor-F} (\emph{F-score}\index{F-score@\emph{F-score}}, \emph{F-measure}\index{F-measure@\emph{F-measure}} ó \emph{$F_1$ score}\index{F\_1 score@$F_1$ score}) siendo ésta la media armónica de otros dos indicadores \citep[Precisión y exhaustividad]{wikipedia-es}:
@@ -306,6 +383,7 @@ Supongamos un clasificador binario:
 \item La medida de exhaustividad será el porcentaje de documentos del conjunto de referencia que han sido correctamente clasificados \citep{Perkins2010}.
 \end{itemize}
 
+\FloatBarrier
 \subsection{Naïve Bayes multinomial}
 
 Éste es un clasificador de los llamados estadísticos o probabilísticos. En la fase de aprendizaje supervisado de este clasificador \citep{Jurafsky2015}:
@@ -437,6 +515,7 @@ MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
 \label{lst:multinb-2bow}
 \end{listing}
 
+\FloatBarrier
 \subsection{Naïve Bayes Gausiano}
 
 Este modelo es idéntico al modelo de predicción en Naïve Bayes multinomial, con la diferencia de que se puede aplicar en datos con variables continuas \citep[Naive Bayes classifier]{wikipedia-es}. Se asume que la variable se distribuye en una curva gausiana, entonces se calcula la media $\mu_c$ y la varianza $\sigma^2_c$ de cada característica $x_i$ en los ejemplos de cada clase $c$, y se toma como valor de verosimilitud el siguiente:
@@ -444,6 +523,7 @@ Este modelo es idéntico al modelo de predicción en Naïve Bayes multinomial, c
 \mathcal{P}(x_i=v|c) = \frac{1}{\sqrt{2\pi\sigma^2_c}}\exp\left(-\frac{(v-\mu_c)^2}{2\sigma^2_c}\right)
 \end{equation}
 
+\FloatBarrier
 \subsection{Análisis de discriminante lineal y cuadrático (LDA, QDA)}
 
 La técnica de \nombrebf{análisis del discriminante lineal}\index{discriminante!lineal} o \nombrebf{cuadrático}\index{discriminante!cuadrático} (\emph{Linear and quadratic discriminant analysis}, LDA, QDA)\index{LDA}\index{QDA} es una técnica que permite reducir el número de características que sean irrelevantes o que contribuyan poco a la diferenciación de las clases \citep[Discriminant function analysis]{wikipedia-en}.
@@ -468,7 +548,7 @@ En la versión lineal, se asume que la covarianza en las características de cad
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{plot_lda_qda_0011}
-\caption[Ejemplo gráfico de discriminantes lineal y cuadrático (LDA, QDA)]{Ejemplo gráfico de discriminantes lineal y cuadrático (LDA, QDA) \citep{Pedregosa2011}}
+\caption[Ejemplo gráfico de discriminantes lineal y cuadrático (LDA, QDA)]{Ejemplo gráfico de discriminantes lineal y cuadrático (LDA, QDA). Como se observa, el modelo cuadrático se ajusta mejor a los datos con covarianza variable, mientras que en el caso de covarianza constante no se obtiene un mejor estimador \citep{Pedregosa2011}.}
 \label{fig:lda-qda}
 \end{figure}
 
@@ -495,7 +575,7 @@ LDA(n_components=None, priors=None, shrinkage=None, solver='svd',
 \label{lst:lda}
 \end{listing}
 
-
+\FloatBarrier
 \subsection{Máquinas de vectores de soporte (SVM)}
 
 Las \nombrebf{máquinas de vectores de soporte}\index{vectores de soporte!máquinas de} (\emph{Support Vector Machines}, SVM)\index{SVM}\index{machines@\emph{machines}}\index{machines!support vector@\emph{support vector}} son algoritmos de aprendizaje supervisado que se pueden usar para clasificación, regresión y detección de valores atípicos\index{valor atípico} \emph{(outliers)}\index{outlier@\emph{outlier}} \citep{Pedregosa2011}.

@@ -17,6 +17,7 @@ Hay diferentes tipos de lenguajes, y se pueden encontrar diferentes clasificacio
 \item Lenguaje artificial o construido
 \end{itemize}
 
+\FloatBarrier
 \subsection{Lenguaje natural}
 
 La \nombrebf{lengua natural}\index{lenguaje!natural} es la lengua o idioma que nace espontáneamente de un grupo de hablantes por la mera necesidad de establecer comunicación verbal. Está ligado a la cultura de cada civilización y evoluciona según su uso por parte de su comunidad de hablantes, que debe ponerse de acuerdo en la manera de usar el lenguaje para que cualquier hablante del mismo pueda interpretar y producir mensajes con el mismo sentido en que se originó. Son los idiomas de uso común para expresar ideas y sentimientos: inglés, francés, ruso, latín, griego,~\ldots
@@ -97,6 +98,7 @@ Las causas de la ambigüedad pueden ser:
 
 Este lenguaje que nos resulta tan útil para la vida cotidiana sin embargo, no es adecuado para la ciencia, que necesita rigor y precisión. \citep{DiazSantos2015}
 
+\FloatBarrier
 \subsection{Lenguaje formal}
 
 Los \nombrebf{lenguajes formales}\index{lenguaje!formal}, al contrario que los naturales, difieren en que no han surgido espontáneamente, sino que han sido diseñados para un ámbito de aplicación concreto (normalmente en las ciencias) y se definen de manera que sean precisos y libres de cualquier ambigüedad.
@@ -158,6 +160,7 @@ La complejidad en el procesamiento aumenta conforme aumenta la potencia de expre
 \item L0: indecible
 \end{itemize}
 
+\FloatBarrier
 \subsection{Lenguaje artificial o construido}
 
 Las \nombrebf{lenguas artificiales}\index{lenguaje!artificial} son lenguas \emph{a priori}, diseñadas antes de ser usadas por sus parlantes. Se distingue de las lenguas formales en que no se exige una precisión libre de ambigüedad, ya que su ámbito de aplicación es el mismo que el lenguaje natural, siendo aceptable la polisemia, homofonía, etc.
@@ -211,6 +214,7 @@ propósito: & Web semántica, ontologías, tesauros. \\ \hline
 \label{tbl:corpus-list}
 \end{table}
 
+\FloatBarrier
 \subsection{\emph{``Tokenización''}}
 
 La \nombrebf{tokenización}\index{tokenización}\index{tokenization@\emph{tokenization}} en NLP es normalmente el proceso de separar la cadena de entrada, frases en lenguaje natural, en las distintas palabras que componen la frase. Puede ser simplemente un separador que trocee la frase cada vez que se encuentre un espacio.
@@ -357,6 +361,7 @@ she'll & she will \\ \hline
 \label{tbl:contracciones}
 \end{table}
 
+\FloatBarrier
 \subsection{Supresión de palabras vacías \emph{(stopwords)}}
 
 Las \nombrebf{stopwords}\index{stopword@\emph{stopword}} (o palabras vacías) son palabras que no contribuyen al significado de la frase, o al menos no son útiles para la recuperación de la información \citep{Perkins2010}. Ejemplos: «the», «thence», «th», «vs», «thereby», «c'mon», «clearly», \ldots
@@ -378,6 +383,7 @@ En el \autoref{lst:stopwords} se puede ver un ejemplo de cómo eliminar stopword
 \label{lst:stopwords}
 \end{listing}
 
+\FloatBarrier
 \subsection{Radicación \emph{``Stemming''}}
 
 La \nombrebf{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma ---siendo conocido el subconjunto común y más frecuente del mismo---, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
@@ -449,6 +455,7 @@ NLTK proporciona otros stemmers adicionales a \codep{PorterStemmer}:
 \item[\codep{SnowballStemmer}] Snowball extiende el método Porter para su aplicación a otros idiomas indoeuropeos: románicos, germánicos y escandinavos.
 \end{description}
 
+\FloatBarrier
 \subsection{Lematización}
 
 La \nombrebf{lematización}\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \nombrebf{flexionada} (plural, femenino, verbo conjugado, etc.) por su \nombrebf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
@@ -476,6 +483,7 @@ En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usa
 \end{listing}
 
 
+\FloatBarrier
 \subsection{Anotación gramatical de la parte de la oración \emph{(Part-of-speech tagging)}}
 
 En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve \nombrebf{partes de la oración}\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
@@ -567,6 +575,7 @@ v & VB \\ \hline
 \label{tbl:pos-tags}
 \end{table}
 
+\FloatBarrier
 \subsection{Resumen de procedimientos de preprocesamiento}
 
 \begin{figure}[H]
@@ -591,7 +600,7 @@ En la \autoref{fig:arbol-sintactico} se muestra un ejemplo de árbol sintáctico
 \label{fig:arbol-sintactico}
 \end{figure}
 
-\section{Modelo de espacio vectorial semántico}
+\section{Modelo de espacio vectorial semántico}\label{sec:MEVS}
 
 Se han usado \nombrebf{modelos de espacios vectoriales} (MEV)\index{MEV} para modelar la semántica de las palabras. A cada palabra del vocabulario se le asigna un vector $n$-dimensional, y es un hecho que este vector puede representar de alguna manera el significado de la palabra \citep{Socher2012}.
 
