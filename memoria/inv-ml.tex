@@ -190,7 +190,7 @@ La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-2BOW}.
 \label{lst:vocab-feat-2BOW}
 \end{listing}
 
-\subsection{Saco de $n$-gramas \emph{(n-BOW)}}
+\subsection{Saco de $n$-gramas (n-BOW)}
 
 Las técnicas explicadas anteriormente se pueden extender a cualquier número de $n$-gramas. Mostramos un ejemplo en el \autoref{lst:scikit-ngramas}, contando unigramas, bigramas y trigramas.
 
@@ -232,7 +232,7 @@ En el caso de características con posibles valores discretos, enumerados, el pr
 >>> measurements = [
 ...     {'city': 'Dubai', 'temperature': 33.},
 ...     {'city': 'London', 'temperature': 12.},
-...     {'city': 'San Fransisco', 'temperature': 18.},
+...     {'city': 'San Francisco', 'temperature': 18.},
 ... ]
 >>> 
 >>> from sklearn.feature_extraction import DictVectorizer
@@ -242,17 +242,27 @@ array([[  1.,   0.,   0.,  33.],
        [  0.,   1.,   0.,  12.],
        [  0.,   0.,   1.,  18.]])
 >>> vec.get_feature_names()
-['city=Dubai', 'city=London', 'city=San Fransisco', 'temperature']
+['city=Dubai', 'city=London', 'city=San Francisco', 'temperature']
 \end{minted}
 \caption{Vectorización de atributos enumerados}
 \label{lst:feat-enum}
 \end{listing}
 
 
-\subsection{Red neural recursiva (RNN)} 
+\subsection{Red neuronal matriz-vector recursiva (MV-RNN)} 
 
-\todo{Completar esta subsección}
-\citep{Socher2013}
+En los artículos de \citet{Socher2012,Socher2013} se documentan un método para combinar la semántica de los términos teniendo en cuenta el análisis sintáctico de los ejemplos. De esta manera se puede capturar el significado de las composiciones de sintagmas léxicos, y no sólo de grupos de términos contiguos.
+
+Para realizar este cómputo, hay que transformar la entrada de la siguiente manera:
+\nopagebreak
+\begin{enumerate}
+\item Realizar el análisis sintáctico de la frase o parte de la frase.
+\item Binarizar el árbol mediante la Forma Normal de Chomsky.
+\item Asociar a cada nodo hoja un vector semántico de la palabra y una matriz (incialmente la matriz identidad) de correlación con las palabras cercanas.
+\end{enumerate}
+
+%guille
+\todo{Voy por aqui}
 
 \subsection{Combinación de los anteriores}
 
