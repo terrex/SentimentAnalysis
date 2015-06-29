@@ -3,11 +3,10 @@
 
 \chapter{Aprendizaje automático}
 
-El \textbf{aprendizaje automático}\index{aprendizaje automático} (en inglés, \emph{machine learning}\index{machine learning@\emph{machine learning}}) es la rama de la Inteligencia Artificial cuyo objetivo es desarrollar técnicas que permitan a las computadoras \textbf{aprender}. De forma más concreta, se trata de crear programas capaces de generalizar comportamientos a partir de una información suministrada en forma de ejemplos de la que debe extraer el conocimiento necesario para que el programa pueda realizar automáticamente la tarea que se le pretende \citep[Aprendizaje automático]{wikipedia-es}.
+El \textbf{aprendizaje automático}\index{aprendizaje!automático} (en inglés, \emph{machine learning}\index{machine learning@\emph{machine learning}}) es la rama de la Inteligencia Artificial cuyo objetivo es desarrollar técnicas que permitan a las computadoras \textbf{aprender}. De forma más concreta, se trata de crear programas capaces de generalizar comportamientos a partir de una información suministrada en forma de ejemplos de la que debe extraer el conocimiento necesario para que el programa pueda realizar automáticamente la tarea que se le pretende \citep[Aprendizaje automático]{wikipedia-es}.
 
-Estas posibles tareas pueden ser: \citep{MartinMateos2013} 
+Algunas de las tareas que hacen uso de técnicas de aprendizaje automático \citep{MartinMateos2013} para procesar textos en lenguaje natural son: 
 \begin{itemize}
-\item Toma de decisiones
 \item Clasificación de documentos
 \item Búsqueda de documentos relevantes
 \item Comprensión del lenguaje
@@ -27,7 +26,7 @@ $\mathbb{X}$ suele ser un espacio vectorial con un gran número de dimensiones, 
 
 En lugar de tener que programar manualmente cómo relacionar documentos y clases para construir el clasificador, tomaremos un conjunto de entrenamiento $\mathbb{D}$ de documentos $d$ manualmente etiquetados con su clase $\langle d, c \rangle \in \mathbb{X} \times \mathbb{C}$.
 
-Usando un método de \nombrebf{aprendizaje automático}\index{aprendizaje automático} $\Gamma$ aplicado al conjunto de entrenamiento $\Gamma(\mathbb{D})$ obtenemos como resultado el clasificador $\gamma : \mathbb{X} \mapsto \mathbb{C}$ \citep{Manning2008} que predice la clase a la que pertenecen documentos no vistos en la fase de entrenamiento.
+Usando un método de \nombrebf{aprendizaje automático}\index{aprendizaje!automático} $\Gamma$ aplicado al conjunto de entrenamiento $\Gamma(\mathbb{D})$ obtenemos como resultado el clasificador $\gamma : \mathbb{X} \mapsto \mathbb{C}$ \citep{Manning2008} que predice la clase a la que pertenecen documentos no vistos en la fase de entrenamiento.
 
 \section{Métodos de aprendizaje automático}
 
