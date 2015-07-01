@@ -112,15 +112,15 @@ ApplicationWindow {
                     title: "Load"
                     anchors.margins: 10
 
-                    GridLayout {
-                        columns: 1
-
+                    ColumnLayout {
                         RowLayout {
                             Button {
                                 text: "Select file"
                             }
-                            TextField {
-                                width: 100
+                            TextEdit {
+                                text: "No file selected"
+                                Layout.fillWidth: true
+                                readOnly: true
                             }
                         }
                         RowLayout {
@@ -132,7 +132,7 @@ ApplicationWindow {
                             SpinBox {
                                 enabled: loadOnlyFirst.checked
                                 minimumValue: 0
-                                maximumValue: 1000 //Actualizar por código
+                                maximumValue: 99999999 //Actualizar por código
                                 value: 1000 //Actualizar por código
                             }
                             Label {
@@ -154,36 +154,267 @@ ApplicationWindow {
                     id: preprocessTab
                     objectName: "preprocessTab"
                     title: "Preprocess"
+                    anchors.margins: 10
+                    ColumnLayout {
+                        CheckBox {
+                            id: unsplitContractions
+                            text: "unsplit contractions"
+                        }
+                        CheckBox {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            text: "expand contractions"
+                            enabled: unsplitContractions.checked
+                            onEnabledChanged: {
+                                if (!enabled) {
+                                    checked = false
+                                }
+                            }
+                        }
+                        CheckBox {
+                            text: "remove stopwords"
+                        }
+                        GroupBox {
+                            checkable: true
+                            title: "word replacement"
+                            checked: false
+                            ExclusiveGroup {
+                                id: stemmizeLemmatizeExclusiveGroup
+                            }
+                            ColumnLayout {
+                                RadioButton {
+                                    text: "stemmize"
+                                    exclusiveGroup: stemmizeLemmatizeExclusiveGroup
+                                }
+                                RadioButton {
+                                    text: "lemmatize"
+                                    exclusiveGroup: stemmizeLemmatizeExclusiveGroup
+                                    checked: true
+                                }
+                            }
+                        }
+                        CheckBox {
+                            text: "POS tag words"
+                        }
+                        Button {
+                            text: "RUN"
+                        }
+
+                        RowLayout {
+                            anchors.fill: parent
+                        }
+                    }
                 }
 
                 Tab {
                     id: featuresTab
                     objectName: "featuresTab"
                     title: "Features"
+                    anchors.margins: 10
+                    ColumnLayout {
+                        RowLayout {
+                            CheckBox {
+                                id: ngramsFrom
+                                text: "n-grams from"
+                            }
+                            SpinBox {
+                                minimumValue: 1
+                                maximumValue: 20
+                                enabled: ngramsFrom.checked
+                            }
+                            Label {
+                                text: "to"
+                            }
+                            SpinBox {
+                                minimumValue: 1
+                                maximumValue: 20
+                                value: 3
+                                enabled: ngramsFrom.checked
+                            }
+                        }
+                        RowLayout {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            Label {
+                                text: "with document frecuency contraints:"
+                            }
+                        }
+                        RowLayout {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 20
+                            CheckBox {
+                                id: aMinimumDFOf
+                                text: "a minimum of"
+                                enabled: ngramsFrom.checked
+                            }
+                            SpinBox {
+                                minimumValue: 1
+                                maximumValue: 99999999
+                                enabled: aMinimumDFOf.checked
+                            }
+                            ComboBox {
+                                model: ["no. of documents", "% of documents"]
+                            }
+                        }
+                        RowLayout {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 20
+                            CheckBox {
+                                id: aMaximumDFOf
+                                text: "a maximum of"
+                                enabled: ngramsFrom.checked
+                            }
+                            SpinBox {
+                                minimumValue: 1
+                                maximumValue: 99999999
+                                value: 100
+                                enabled: aMaximumDFOf.checked
+                            }
+                            ComboBox {
+                                currentIndex: 1
+                                model: ["no. of documents", "% of documents"]
+                            }
+                        }
+                        RowLayout {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            CheckBox {
+                                id: onlyMostSignificant
+                                text: "only most significant"
+                            }
+                            SpinBox {
+                                minimumValue: 1
+                                maximumValue: 1000
+                                value: 300
+                                enabled: onlyMostSignificant.checked
+                            }
+                            Label {
+                                text: "features"
+                            }
+                        }
+                        RowLayout {
+                            CheckBox {
+                                id: removeFeaturesWithLessThan
+                                text: "remove features with less than"
+                            }
+                            SpinBox {
+                                decimals: 2
+                                value: 0.10
+                                minimumValue: 0
+                                maximumValue: 99999999
+                                enabled: removeFeaturesWithLessThan.checked
+                            }
+                            Label {
+                                text: "variance"
+                            }
+                        }
+                        RowLayout {
+                            Button {
+                                text: "RUN"
+                            }
+                            Button {
+                                text: "Show selected features"
+                            }
+                        }
+
+                        RowLayout {
+                            anchors.fill: parent
+                        }
+                    }
                 }
 
                 Tab {
                     id: learnTab
                     objectName: "learnTab"
                     title: "Learn"
+                    anchors.margins: 10
+                    ColumnLayout {
+                        RowLayout {
+                            id: splitRandomlyRowLayout
+                            CheckBox {
+                                id: splitRandomly
+                                text: "split randomly"
+                            }
+                            SpinBox {
+                                minimumValue: 1
+                                maximumValue: 99
+                                suffix: " %"
+                                enabled: splitRandomly.checked
+                            }
+                            Label {
+                                text: "dataset for train and remaining for self-test"
+                            }
+                        }
+
+                        RowLayout {
+                            height: parent.height - splitRandomlyRowLayout.height - learnRUN.height
+                            TabView {
+                                anchors.fill: parent
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                Tab {
+                                    title: "MultinomialNB"
+                                }
+                                Tab {
+                                    title: "GaussianNB"
+                                }
+                                Tab {
+                                    title: "LDA"
+                                }
+                                Tab {
+                                    title: "QDA"
+                                }
+                                Tab {
+                                    title: "LinearSVM"
+                                }
+                            }
+                        }
+
+                        Button {
+                            id: learnRUN
+                            text: "RUN"
+                        }
+                    }
                 }
 
                 Tab {
                     id: classifyTab
                     objectName: "classifyTab"
                     title: "Classify"
+                    anchors.margins: 10
+                    ColumnLayout {
+                        //Aqui van los demás
+                        RowLayout {
+                            anchors.fill: parent
+                        }
+                    }
                 }
 
                 Tab {
                     id: testTab
                     objectName: "testTab"
                     title: "Test"
+                    anchors.margins: 10
+                    ColumnLayout {
+                        //Aqui van los demás
+                        RowLayout {
+                            anchors.fill: parent
+                        }
+                    }
                 }
 
                 Tab {
                     id: evaluateTab
                     objectName: "evaluateTab"
                     title: "Evaluate"
+                    anchors.margins: 10
+                    ColumnLayout {
+                        //Aqui van los demás
+                        RowLayout {
+                            anchors.fill: parent
+                        }
+                    }
                 }
             }
         }
@@ -205,8 +436,5 @@ ApplicationWindow {
                 model: libraryModel
             }
         }
-    }
-
-    statusBar: StatusBar {
     }
 }

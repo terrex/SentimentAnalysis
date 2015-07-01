@@ -92,9 +92,9 @@
         <text>variance</text>
       </controlProperties>
     </control>
-    <control controlID="53" controlTypeID="com.balsamiq.mockups::Button" x="117" y="288" w="-1" h="-1" measuredW="188" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Button" x="117" y="288" w="-1" h="-1" measuredW="161" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Get%20list%20of%20selected%20features</text>
+        <text>Show%20selected%20features</text>
       </controlProperties>
     </control>
     <control controlID="55" controlTypeID="com.balsamiq.mockups::NumericStepper" x="232" y="227" w="-1" h="-1" measuredW="57" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
