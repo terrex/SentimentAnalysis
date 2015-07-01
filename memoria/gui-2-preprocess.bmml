@@ -13,7 +13,7 @@
     <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="399" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>1</selectedIndex>
-        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Clasify%2C%20Test%2C%20Evaluate</text>
+        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify%2C%20Test%2C%20Evaluate</text>
       </controlProperties>
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::MenuBar" x="39" y="4" w="609" h="29" measuredW="189" measuredH="29" zOrder="2" locked="false" isInGroup="-1">

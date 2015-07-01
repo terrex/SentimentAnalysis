@@ -7,8 +7,10 @@ import QtQuick.Dialogs 1.2
 ApplicationWindow {
     id: rootWindow
     objectName: "rootWindow"
-    width: 640
-    height: 480
+    width: 720
+    height: 560
+    minimumWidth: 720
+    minimumHeight: 560
 
     menuBar: MenuBar {
         Menu {
@@ -78,119 +80,133 @@ ApplicationWindow {
         onAccepted: mainPfcsamrApp.load_tsv(fileUrl)
     }
 
-    TabView {
+    ListModel {
+        id: libraryModel
+        ListElement {
+            title: "A Masterpiece"
+            author: "Gabriel"
+        }
+        ListElement {
+            title: "Brilliance"
+            author: "Jens"
+        }
+        ListElement {
+            title: "Outstanding"
+            author: "Frederik"
+        }
+    }
+
+    SplitView {
         anchors.fill: parent
+        orientation: Qt.Vertical
 
-        Tab {
-            id: designTab
-            objectName: "designTab"
-            title: "Design"
+        Rectangle {
+            Layout.minimumHeight: 300
 
-            TextArea {
-                id: txtProgram
-                objectName: "txtProgram"
+            TabView {
                 anchors.fill: parent
-                textFormat: TextEdit.AutoText
+
+                Tab {
+                    id: loadTab
+                    objectName: "loadTab"
+                    title: "Load"
+                    anchors.margins: 10
+
+                    GridLayout {
+                        columns: 1
+
+                        RowLayout {
+                            Button {
+                                text: "Select file"
+                            }
+                            TextField {
+                                width: 100
+                            }
+                        }
+                        RowLayout {
+                            CheckBox {
+                                id: loadOnlyFirst
+                                text: "Load only first"
+                                checked: false
+                            }
+                            SpinBox {
+                                enabled: loadOnlyFirst.checked
+                                minimumValue: 0
+                                maximumValue: 1000 //Actualizar por código
+                                value: 1000 //Actualizar por código
+                            }
+                            Label {
+                                text: "samples"
+                            }
+                        }
+                        RowLayout {
+                            Button {
+                                text: "LOAD"
+                            }
+                        }
+                        RowLayout {
+                            anchors.fill: parent
+                        }
+                    }
+                }
+
+                Tab {
+                    id: preprocessTab
+                    objectName: "preprocessTab"
+                    title: "Preprocess"
+                }
+
+                Tab {
+                    id: featuresTab
+                    objectName: "featuresTab"
+                    title: "Features"
+                }
+
+                Tab {
+                    id: learnTab
+                    objectName: "learnTab"
+                    title: "Learn"
+                }
+
+                Tab {
+                    id: classifyTab
+                    objectName: "classifyTab"
+                    title: "Classify"
+                }
+
+                Tab {
+                    id: testTab
+                    objectName: "testTab"
+                    title: "Test"
+                }
+
+                Tab {
+                    id: evaluateTab
+                    objectName: "evaluateTab"
+                    title: "Evaluate"
+                }
             }
         }
 
-        Tab {
-            id: runTab
-            objectName: "runTab"
-            title: "Run"
-        }
+        Rectangle {
+            Layout.minimumHeight: 100
 
-        onCurrentIndexChanged: {
-            if (currentIndex == 0) {
-                rootWindow.toolBar = designTabToolbar
-                designTabToolbar.visible = true
-                runTabToolbar.visible = false
-                emptyToolbar.visible = false
-            } else if (currentIndex == 1) {
-                rootWindow.toolBar = runTabToolbar
-                designTabToolbar.visible = false
-                runTabToolbar.visible = true
-                emptyToolbar.visible = false
+            TableView {
+                anchors.fill: parent
+
+                TableViewColumn {
+                    role: "title"
+                    title: "Title"
+                }
+                TableViewColumn {
+                    role: "author"
+                    title: "Author"
+                }
+                model: libraryModel
             }
         }
     }
 
-    ToolBar {
-        id: emptyToolbar
-        objectName: "emptyToolbar"
-        visible: false
-
-        RowLayout {
-            Item {
-                Layout.fillWidth: true
-            }
-        }
-    }
-
-    ToolBar {
-        id: runTabToolbar
-        objectName: "runTabToolbar"
-        visible: false
-
-        RowLayout {
-            anchors.fill: parent
-            ToolButton {
-                id: btnRun
-                objectName: "btnRun"
-                text: qsTr("Run")
-                onClicked: mainPfcsamrApp.run_script()
-            }
-        }
-    }
-
-    toolBar: ToolBar {
-        id: designTabToolbar
-        objectName: "designTabToolbar"
-
-        RowLayout {
-            anchors.fill: parent
-            ToolButton {
-                id: btnOpenTrain
-                objectName: "btnOpenTrain"
-                text: qsTr("Open train.tsv")
-                onClicked: fileDialogChooseTSV.open()
-            }
-            ToolButton {
-                text: qsTr("Remove contractions")
-                onClicked: mainPfcsamrApp.remove_contractions()
-            }
-            ToolButton {
-                text: qsTr("Tokenize")
-                onClicked: mainPfcsamrApp.tokenize()
-            }
-            ToolButton {
-                text: qsTr("Remove stopwords")
-                onClicked: mainPfcsamrApp.remove_stopwords()
-            }
-            ToolButton {
-                text: qsTr("Stemmize")
-                onClicked: mainPfcsamrApp.stemmize()
-            }
-            ToolButton {
-                text: qsTr("Lemmatize")
-                onClicked: mainPfcsamrApp.lemmatize()
-            }
-            ToolButton {
-                text: qsTr("BOW")
-                onClicked: mainPfcsamrApp.bow()
-            }
-            ToolButton {
-                text: qsTr("2-BOW")
-                onClicked: mainPfcsamrApp.bow_bigrams()
-            }
-            ToolButton {
-                text: qsTr("word2vec")
-                onClicked: mainPfcsamrApp.word2vec()
-            }
-            ToolButton {
-                text: qsTr("vectorize")
-                onClicked: mainPfcsamrApp.vectorize()
-            }
-        }
+    statusBar: StatusBar {
     }
 }
