@@ -77,7 +77,7 @@ ApplicationWindow {
         id: fileDialogChooseTSV
         objectName: "fileDialogChooseTSV"
         nameFilters: ["Tab-separated files (*.tsv)"]
-        onAccepted: mainPfcsamrApp.load_tsv(fileUrl)
+        onAccepted: mainPfcsamrApp.file_selected(fileUrl)
     }
 
     ListModel {
@@ -116,24 +116,41 @@ ApplicationWindow {
                         RowLayout {
                             Button {
                                 text: "Select file"
+                                onClicked: fileDialogChooseTSV.open()
                             }
                             TextEdit {
-                                text: "No file selected"
+                                id: load_train_file
+                                objectName: "load_train_file"
+                                text: mainPfcsamrApp.get_config_prop(
+                                          'load_train_file')
                                 Layout.fillWidth: true
                                 readOnly: true
+                                onTextChanged: mainPfcsamrApp.set_config_prop_value(
+                                                   'load_train_file', text)
                             }
                         }
                         RowLayout {
                             CheckBox {
-                                id: loadOnlyFirst
+                                id: load_only_first
+                                objectName: 'load_only_first'
                                 text: "Load only first"
-                                checked: false
+                                checked: mainPfcsamrApp.get_config_prop(
+                                             'load_only_first')
+                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                      'load_only_first',
+                                                      checked)
                             }
                             SpinBox {
-                                enabled: loadOnlyFirst.checked
+                                id: load_only_first_rows
+                                objectName: 'load_only_first_rows'
+                                enabled: load_only_first.checked
                                 minimumValue: 0
                                 maximumValue: 99999999 //Actualizar por código
-                                value: 1000 //Actualizar por código
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'load_only_first_rows')
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'load_only_first_rows',
+                                                    value)
                             }
                             Label {
                                 text: "samples"
@@ -157,44 +174,90 @@ ApplicationWindow {
                     anchors.margins: 10
                     ColumnLayout {
                         CheckBox {
-                            id: unsplitContractions
+                            id: preproc_unsplit_contractions
+                            objectName: 'preproc_unsplit_contractions'
                             text: "unsplit contractions"
+                            checked: mainPfcsamrApp.get_config_prop(
+                                         'preproc_unsplit_contractions')
+                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                  'preproc_unsplit_contractions',
+                                                  checked)
                         }
                         CheckBox {
+                            id: preproc_expand_contractions
+                            objectName: 'preproc_expand_contractions'
                             anchors.left: parent.left
                             anchors.leftMargin: 10
                             text: "expand contractions"
-                            enabled: unsplitContractions.checked
+                            enabled: preproc_unsplit_contractions.checked
                             onEnabledChanged: {
                                 if (!enabled) {
                                     checked = false
                                 }
                             }
+                            checked: mainPfcsamrApp.get_config_prop(
+                                         'preproc_expand_contractions')
+                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                  'preproc_expand_contractions',
+                                                  checked)
                         }
                         CheckBox {
+                            id: preproc_remove_stopwords
+                            objectName: 'preproc_remove_stopwords'
                             text: "remove stopwords"
+                            checked: mainPfcsamrApp.get_config_prop(
+                                         'preproc_remove_stopwords')
+                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                  'preproc_remove_stopwords',
+                                                  checked)
                         }
                         GroupBox {
+                            id: preproc_word_replacement
+                            objectName: 'preproc_word_replacement'
                             checkable: true
                             title: "word replacement"
-                            checked: false
+                            checked: mainPfcsamrApp.get_config_prop(
+                                         'preproc_word_replacement')
+                            onCheckableChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'preproc_word_replacement',
+                                                    checked)
                             ExclusiveGroup {
                                 id: stemmizeLemmatizeExclusiveGroup
                             }
                             ColumnLayout {
                                 RadioButton {
+                                    id: preproc_stemmize
+                                    objectName: 'preproc_stemmize'
                                     text: "stemmize"
                                     exclusiveGroup: stemmizeLemmatizeExclusiveGroup
+                                    checked: mainPfcsamrApp.get_config_prop(
+                                                 'preproc_stemmize')
+                                    onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                          'preproc_stemmize',
+                                                          checked)
                                 }
                                 RadioButton {
+                                    id: preproc_lemmatize
+                                    objectName: 'preproc_lemmatize'
                                     text: "lemmatize"
                                     exclusiveGroup: stemmizeLemmatizeExclusiveGroup
-                                    checked: true
+                                    checked: mainPfcsamrApp.get_config_prop(
+                                                 'preproc_lemmatize')
+                                    onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                          'preproc_lemmatize',
+                                                          checked)
                                 }
                             }
                         }
                         CheckBox {
+                            id: preproc_pos_tag_words
+                            objectName: 'preproc_pos_tag_words'
                             text: "POS tag words"
+                            checked: mainPfcsamrApp.get_config_prop(
+                                         'preproc_pos_tag_words')
+                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                  'preproc_pos_tag_words',
+                                                  checked)
                         }
                         Button {
                             text: "RUN"

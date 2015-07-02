@@ -20,7 +20,7 @@ import logging.config
 
 from PyQt5.QtCore import QObject, pyqtSlot, QUrl
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QLabel
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
 from pfcsamr.orchestrator import Orchestrator
@@ -43,16 +43,23 @@ class MainPfcsamrApp(QObject):
         """:type: QQuickItem"""
         self._txtProgram = None
         """:type: QTextEdit"""
+        self._fileSelectedLabel = None
+        """:type: QLabel"""
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
         self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
         self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
+        self._fileSelectedLabel = self.win.findChild(QQuickItem, "fileSelectedLabel")
 
     @pyqtSlot(QUrl)
     def load_tsv(self, selected_file: QUrl):
         self._txtProgram.append("""orchestrator = Orchestrator()""")
         self._txtProgram.append("""orchestrator.open_train_tsv("%s")""" % selected_file.toLocalFile())
+
+    @pyqtSlot(QUrl)
+    def file_selected(self, selected_file: QUrl):
+        self._fileSelectedLabel.setText(selected_file.toLocalFile())
 
     @pyqtSlot()
     def remove_contractions(self):
@@ -98,7 +105,6 @@ class MainPfcsamrApp(QObject):
         logger.debug("Ejecutando " + script)
         # ipy_client = KernelClient()
         # ipy_client.execute(script)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

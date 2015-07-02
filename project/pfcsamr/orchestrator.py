@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QAbstractTableModel
+
 __author__ = 'terrex'
 
 import csv
@@ -15,6 +17,8 @@ from .vectorizers import *
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
+class PfcSamrDataModel(QAbstractTableModel):
+    pass
 
 class Orchestrator(object):
     def __init__(self):
