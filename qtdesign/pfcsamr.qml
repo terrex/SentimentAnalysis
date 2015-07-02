@@ -495,6 +495,8 @@ ApplicationWindow {
             Layout.minimumHeight: 100
 
             TableView {
+                id: data_table_view
+                objectName: 'data_table_view'
                 anchors.fill: parent
 
                 TableViewColumn {

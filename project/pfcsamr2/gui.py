@@ -6,7 +6,7 @@ import logging.config
 
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QTableView
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
 __all__ = ('MainPfcsamr2App',)
@@ -28,6 +28,8 @@ class MainPfcsamr2App(QObject):
         """:type: QTextEdit"""
         self._fileSelectedLabel = None
         """:type: QLabel"""
+        self._data_table_view = None
+        """:type: QTableView"""
         self._config = {
             'load_train_file': 'No file selected',
             'load_only_first': False,
@@ -62,12 +64,15 @@ class MainPfcsamr2App(QObject):
         self._orchestrator = Orchestrator2()
         self._orchestrator.load_train_tsv(self._config['load_train_file'])
         # TODO : update table
+        self._data_table_view.setModel(self._orchestrator.update_model())
+        self._data_table_view.resizeColumnsToContents()
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
         self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
         self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
         self._fileSelectedLabel = self.win.findChild(QQuickItem, "fileSelectedLabel")
+        self._data_table_view = self.win.findChild(QQuickItem, "data_table_view")
 
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
