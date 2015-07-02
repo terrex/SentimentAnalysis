@@ -1,15 +1,21 @@
-from PyQt5.QtCore import QObject, pyqtSlot, QUrl, QVariant
-from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtWidgets import QApplication, QLabel
-from PyQt5.QtQuick import QQuickItem, QQuickWindow
-
 __author__ = 'terrex'
 
 import sys
+import logging
 import logging.config
+
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtQuick import QQuickItem, QQuickWindow
+
+__all__ = ('MainPfcsamr2App',)
+
+from pfcsamr2.orchestrator import Orchestrator2
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
+
 
 class MainPfcsamr2App(QObject):
     def __init__(self, QObject_parent=None):
@@ -51,11 +57,22 @@ class MainPfcsamr2App(QObject):
     def set_config_prop_value(self, propname: str, value: QVariant):
         self._config[propname] = value
 
+    @pyqtSlot()
+    def load_button_load_on_clicked(self):
+        self._orchestrator = Orchestrator2()
+        self._orchestrator.load_train_tsv(self._config['load_train_file'])
+        # TODO : update table
+
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
         self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
         self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
         self._fileSelectedLabel = self.win.findChild(QQuickItem, "fileSelectedLabel")
+
+    @pyqtSlot(str, result=QQuickItem)
+    def findChild(self, item_name: str) -> QQuickItem:
+        return self.win.findChild(QQuickItem, item_name)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

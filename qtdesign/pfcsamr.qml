@@ -77,7 +77,7 @@ ApplicationWindow {
         id: fileDialogChooseTSV
         objectName: "fileDialogChooseTSV"
         nameFilters: ["Tab-separated files (*.tsv)"]
-        onAccepted: mainPfcsamrApp.file_selected(fileUrl)
+        onAccepted: mainPfcsamrApp.findChild('load_train_file').text = fileUrl
     }
 
     ListModel {
@@ -97,13 +97,19 @@ ApplicationWindow {
     }
 
     SplitView {
+        id: main_split_view
+        objectName: 'main_split_view'
         anchors.fill: parent
         orientation: Qt.Vertical
 
         Rectangle {
+            id: upper_split_view
+            objectName: 'upper_split_view'
             Layout.minimumHeight: 300
 
             TabView {
+                id: upper_tab_view
+                objectName: 'upper_tab_view'
                 anchors.fill: parent
 
                 Tab {
@@ -158,7 +164,10 @@ ApplicationWindow {
                         }
                         RowLayout {
                             Button {
+                                id: load_button_load
+                                objectName: 'load_button_load'
                                 text: "LOAD"
+                                onClicked: mainPfcsamrApp.load_button_load_on_clicked()
                             }
                         }
                         RowLayout {
