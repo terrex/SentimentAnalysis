@@ -64,8 +64,8 @@ class MainPfcsamr2App(QObject):
         self._orchestrator = Orchestrator2()
         self._orchestrator.load_train_tsv(self._config['load_train_file'])
         # TODO : update table
-        self._data_table_view.setModel(self._orchestrator.update_model())
-        self._data_table_view.resizeColumnsToContents()
+        self._data_table_view.setProperty('model', self._orchestrator.update_model())
+        self._data_table_view.update()
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
@@ -78,6 +78,9 @@ class MainPfcsamr2App(QObject):
     def findChild(self, item_name: str) -> QQuickItem:
         return self.win.findChild(QQuickItem, item_name)
 
+    @pyqtSlot(result='QStringList')
+    def get_table_headings(self):
+        return self._orchestrator.headings
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

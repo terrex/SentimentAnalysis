@@ -4,7 +4,9 @@ import csv
 import logging
 import logging.config
 
-from PyQt5.QtCore import QAbstractTableModel, QModelIndex
+from PyQt5.QtCore import QAbstractTableModel, QModelIndex, pyqtSlot
+
+from PyQt5.QtSql import QSqlRelationalTableModel, QSqlDatabase
 
 __all__ = ('Orchestrator2',)
 
@@ -32,6 +34,39 @@ class PfcSamrTableModelFromPythonTable(QAbstractTableModel):
         return "header"
 
 
+def make_model_from_python_table(orchestrator):
+    db = QSqlDatabase.addDatabase('QSQLITE')
+    """:type: QSqlDatabase"""
+    db.setDatabaseName('temp.sqlite')
+    db.open()
+    columns = ["{0} text".format(h) for h in orchestrator.headings]
+    query = "create table loadtab ({0})".format(",".join(columns))
+    db.exec(query)
+    print(query)
+    logger.debug(db.lastError().text())
+    for row in orchestrator.rows:
+        values = ["'{0}'".format(val) for val in row]
+        query = "insert into loadtab values ({0})".format(",".join(values))
+        db.exec(query)
+        print(query)
+        logger.debug(db.lastError().text())
+
+    result = QSqlRelationalTableModel(db=db)
+    result.setTable("loadtab")
+    result.select()
+
+    for column_name in orchestrator.headings:
+        result.setHeaderData(result.fieldIndex(column_name), 1, column_name)
+
+    def debug_data(self, QModelIndex, int_role=None):
+        logger.debug("eyy")
+        pass
+
+    result.data = debug_data
+
+    return result
+
+
 class Orchestrator2(object):
     def __init__(self):
         self.file_path = None
@@ -54,4 +89,4 @@ class Orchestrator2(object):
         return self
 
     def update_model(self) -> QAbstractTableModel:
-        return PfcSamrTableModelFromPythonTable(self)
+        return make_model_from_python_table(self)

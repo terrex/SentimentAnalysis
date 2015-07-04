@@ -80,22 +80,6 @@ ApplicationWindow {
         onAccepted: mainPfcsamrApp.findChild('load_train_file').text = fileUrl
     }
 
-    ListModel {
-        id: libraryModel
-        ListElement {
-            title: "A Masterpiece"
-            author: "Gabriel"
-        }
-        ListElement {
-            title: "Brilliance"
-            author: "Jens"
-        }
-        ListElement {
-            title: "Outstanding"
-            author: "Frederik"
-        }
-    }
-
     SplitView {
         id: main_split_view
         objectName: 'main_split_view'
@@ -499,15 +483,25 @@ ApplicationWindow {
                 objectName: 'data_table_view'
                 anchors.fill: parent
 
-                TableViewColumn {
-                    role: "title"
-                    title: "Title"
+                onModelChanged: {
+                    console.log("KIYOOOOO")
+                    var table_headings = mainPfcsamrApp.get_table_headings()
+                    var ii = 0
+                    for (ii = 0; ii < model.count; ii++) {
+                        for (var i = 0; i < table_headings.length; i++) {
+                            model.setProperty(ii, table_headings[i],
+                                              "Something")
+                        }
+                    }
+                    for (var i = 0; i < table_headings.length; i++) {
+                        addColumn(Qt.createQmlObject(
+                                      'import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;'
+                                      + 'TableViewColumn{' + 'role: "' + table_headings[i]
+                                      + '";' + 'title: "' + table_headings[i]
+                                      + '";' + ' width: 100;' + ' }',
+                                      data_table_view))
+                    }
                 }
-                TableViewColumn {
-                    role: "author"
-                    title: "Author"
-                }
-                model: libraryModel
             }
         }
     }
