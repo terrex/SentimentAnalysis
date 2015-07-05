@@ -6,7 +6,7 @@ import logging.config
 
 from PyQt5.QtCore import QAbstractTableModel, QModelIndex, pyqtSlot
 
-from PyQt5.QtSql import QSqlRelationalTableModel, QSqlDatabase
+from PyQt5.QtSql import QSqlRelationalTableModel, QSqlDatabase, QSqlTableModel
 
 __all__ = ('Orchestrator2',)
 
@@ -34,7 +34,7 @@ class PfcSamrTableModelFromPythonTable(QAbstractTableModel):
         return "header"
 
 
-def make_model_from_python_table(orchestrator):
+def make_model_from_python_table(orchestrator) -> QSqlTableModel:
     db = QSqlDatabase.addDatabase('QSQLITE')
     """:type: QSqlDatabase"""
     db.setDatabaseName('temp.sqlite')
@@ -45,24 +45,16 @@ def make_model_from_python_table(orchestrator):
     print(query)
     logger.debug(db.lastError().text())
     for row in orchestrator.rows:
-        values = ["'{0}'".format(val) for val in row]
+        values = ["'{0}'".format(val.replace(r'\\',r'\\\\').replace(r"'",r"\'")) for val in row]
         query = "insert into loadtab values ({0})".format(",".join(values))
         db.exec(query)
         print(query)
         logger.debug(db.lastError().text())
 
-    result = QSqlRelationalTableModel(db=db)
+    result = QSqlTableModel(db=db)
     result.setTable("loadtab")
     result.select()
-
-    for column_name in orchestrator.headings:
-        result.setHeaderData(result.fieldIndex(column_name), 1, column_name)
-
-    def debug_data(self, QModelIndex, int_role=None):
-        logger.debug("eyy")
-        pass
-
-    result.data = debug_data
+    result.record(4)
 
     return result
 
@@ -74,6 +66,7 @@ class Orchestrator2(object):
 
         self.headings = []
         self.rows = []
+        self.current_model = None
 
     def load_train_tsv(self, file_path:str=None):
         if file_path.startswith('file:///'):
@@ -88,5 +81,6 @@ class Orchestrator2(object):
         logger.debug("Read %d train samples".format(len(self.rows)))
         return self
 
-    def update_model(self) -> QAbstractTableModel:
-        return make_model_from_python_table(self)
+    def update_model(self) -> QSqlTableModel:
+        self.current_model = make_model_from_python_table(self)
+        return self.current_model

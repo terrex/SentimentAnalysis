@@ -4,8 +4,8 @@ import sys
 import logging
 import logging.config
 
-from PyQt5.QtCore import QObject, pyqtSlot, QVariant
-from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant, QAbstractTableModel, QAbstractItemModel, pyqtProperty
+from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterType, QQmlContext
 from PyQt5.QtWidgets import QApplication, QTableView
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
@@ -42,6 +42,8 @@ class MainPfcsamr2App(QObject):
             'preproc_lemmatize': True,
             'preproc_pos_tag_words': False,
         }
+        self.rootContext = None
+        """:type: QQmlContext"""
 
     def _get_config(self) -> dict:
         return self._config
@@ -65,7 +67,8 @@ class MainPfcsamr2App(QObject):
         self._orchestrator.load_train_tsv(self._config['load_train_file'])
         # TODO : update table
         self._data_table_view.setProperty('model', self._orchestrator.update_model())
-        self._data_table_view.update()
+        self.rootContext.setContextProperty("current_model", self._orchestrator.current_model)
+        #self._data_table_view.update()
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
@@ -82,6 +85,10 @@ class MainPfcsamr2App(QObject):
     def get_table_headings(self):
         return self._orchestrator.headings
 
+    @pyqtProperty(int)
+    def rowCount(self):
+        return self._orchestrator.current_model.rowCount()
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
@@ -89,6 +96,7 @@ if __name__ == '__main__':
     ctx.setContextProperty("main", engine)
     mainPfcsamr2App = MainPfcsamr2App()
     ctx.setContextProperty("mainPfcsamrApp", mainPfcsamr2App)
+    mainPfcsamr2App.rootContext = ctx
 
     engine.load('../qtdesign/pfcsamr.qml')
 
