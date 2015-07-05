@@ -80,6 +80,16 @@ ApplicationWindow {
         onAccepted: mainPfcsamrApp.findChild('load_train_file').text = fileUrl
     }
 
+    statusBar: StatusBar {
+        RowLayout {
+            Label {
+                id: status_bar_label
+                objectName: "status_bar_label"
+                text: "Done"
+            }
+        }
+    }
+
     SplitView {
         id: main_split_view
         objectName: 'main_split_view'

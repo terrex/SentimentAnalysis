@@ -58,23 +58,28 @@ def make_model_from_python_table(orchestrator) -> QSqlTableModel:
 
 
 class Orchestrator2(object):
-    def __init__(self):
+    def __init__(self, mainPfcsamrApp):
         self.file_path = None
         """:type: str"""
 
         self.headings = []
         self.rows = []
         self.current_model = None
+        self.mainPfcsamrApp = mainPfcsamrApp
 
-    def load_train_tsv(self, file_path:str=None):
+    def load_train_tsv(self, file_path:str=None, max_rows=None):
         if file_path.startswith('file:///'):
             file_path = file_path[7:]
         self.file_path = file_path
         with open(file_path, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')
             self.headings = next(rdr)
-            for row in rdr:
+            for no, row in enumerate(rdr, 1):
                 self.rows.append(row)
+                #if no % 50 == 0:
+                #    self.mainPfcsamrApp._status_bar_label.setProperty('text', 'prueba ' + str(no))
+                if max_rows is not None and no >= max_rows:
+                    break
 
         logger.debug("Read %d train samples".format(len(self.rows)))
         return self

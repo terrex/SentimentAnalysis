@@ -44,6 +44,8 @@ class MainPfcsamr2App(QObject):
         }
         self.rootContext = None
         """:type: QQmlContext"""
+        self._status_bar_label = None
+        """:type: QLabel"""
 
     def _get_config(self) -> dict:
         return self._config
@@ -63,9 +65,11 @@ class MainPfcsamr2App(QObject):
 
     @pyqtSlot()
     def load_button_load_on_clicked(self):
-        self._orchestrator = Orchestrator2()
-        self._orchestrator.load_train_tsv(self._config['load_train_file'])
-        # TODO : update table
+        self._orchestrator = Orchestrator2(self)
+        if self._config['load_only_first']:
+            self._orchestrator.load_train_tsv(self._config['load_train_file'], self._config['load_only_first_rows'])
+        else:
+            self._orchestrator.load_train_tsv(self._config['load_train_file'])
         self._data_table_view.setProperty('model', self._orchestrator.update_model())
 
     def connect_widgets(self, win: QQuickWindow):
@@ -74,6 +78,7 @@ class MainPfcsamr2App(QObject):
         self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
         self._fileSelectedLabel = self.win.findChild(QQuickItem, "fileSelectedLabel")
         self._data_table_view = self.win.findChild(QQuickItem, "data_table_view")
+        self._status_bar_label = self.win.findChild(QQuickItem, "status_bar_label")
 
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
