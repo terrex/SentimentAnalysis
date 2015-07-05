@@ -4,9 +4,8 @@ import csv
 import logging
 import logging.config
 
-from PyQt5.QtCore import QAbstractTableModel, QModelIndex, pyqtSlot
-
-from PyQt5.QtSql import QSqlRelationalTableModel, QSqlDatabase, QSqlTableModel
+from PyQt5.QtCore import QAbstractTableModel, QModelIndex
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 
 __all__ = ('Orchestrator2',)
 
@@ -40,15 +39,14 @@ def make_model_from_python_table(orchestrator) -> QSqlTableModel:
     db.setDatabaseName('temp.sqlite')
     db.open()
     columns = ["{0} text".format(h) for h in orchestrator.headings]
+    db.exec("drop table if EXISTS loadtab")
     query = "create table loadtab ({0})".format(",".join(columns))
     db.exec(query)
-    print(query)
     logger.debug(db.lastError().text())
     for row in orchestrator.rows:
-        values = ["'{0}'".format(val.replace(r'\\',r'\\\\').replace(r"'",r"\'")) for val in row]
+        values = ["'{0}'".format(val.replace(r'\\', r'\\\\').replace(r"'", r"\'")) for val in row]
         query = "insert into loadtab values ({0})".format(",".join(values))
         db.exec(query)
-        print(query)
         logger.debug(db.lastError().text())
 
     result = QSqlTableModel(db=db)

@@ -483,48 +483,27 @@ ApplicationWindow {
                 objectName: 'data_table_view'
                 anchors.fill: parent
 
-                model: current_model
-                onCurrentRowChanged:  {
-                }
-
                 onModelChanged: {
-                    console.log("numero es " + mainPfcsamrApp.rowCount)
-                    console.log("numero es " + current_model.rowCount)
-                    console.log("numero es " + model.rowCount)
-                    console.log("KIYOOOOO")
-                    console.log(model.data)
-                    console.log(current_model)
-                    console.log(model)
-                    console.log("numero es " + current_model.rowCount())
-                    console.log("numero es " + model.rowCount())
+                    while (columnCount > 0) {
+                        removeColumn(0)
+                    }
                     var table_headings = mainPfcsamrApp.get_table_headings()
-                    var ii = 0
-                    for (var p in model) {
-                        console.log(p)
-                    }
-                    for (var pp in model.prototype) {
-                        console.log(pp)
-                    }
-                    console.log(model.prototype)
-
-                    console.log('model.count is ' + model.count)
-                    for (ii = 0; ii < model.count; ii++) {
-                        for (var i = 0; i < table_headings.length; i++) {
-                            console.log("setting " + table_headings[i] + " of " + ii)
-                            model.setProperty(ii, table_headings[i],
-                                              "Something")
-                        }
-                    }
                     for (var j = 0; j < table_headings.length; j++) {
                         addColumn(Qt.createQmlObject(
                                       'import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;'
-                                      + 'TableViewColumn{' + 'role: "' + table_headings[j]
-                                      + '";' + 'title: "' + table_headings[j]
-                                      + '";' + ' width: 100;' + ' }',
+                                      + 'TableViewColumn{role:"' + table_headings[j]
+                                      + '";title:"' + table_headings[j] + '";width:100;}',
                                       data_table_view))
-                        console.log('import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;' + 'TableViewColumn{'
-                                    + 'role: "' + table_headings[j] + '";' + 'title: "'
-                                    + table_headings[j] + '";' + ' width: 100;' + ' }')
+                    }
+                }
+                itemDelegate: Item {
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.fill: parent
+                        color: styleData.textColor
+                        elide: Text.ElideRight
+                        text: mainPfcsamrApp.get_current_model_cell(
+                                  styleData.row, styleData.column)
                     }
                 }
             }

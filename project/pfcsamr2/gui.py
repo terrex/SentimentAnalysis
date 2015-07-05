@@ -4,9 +4,9 @@ import sys
 import logging
 import logging.config
 
-from PyQt5.QtCore import QObject, pyqtSlot, QVariant, QAbstractTableModel, QAbstractItemModel, pyqtProperty
-from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterType, QQmlContext
-from PyQt5.QtWidgets import QApplication, QTableView
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
 __all__ = ('MainPfcsamr2App',)
@@ -67,8 +67,6 @@ class MainPfcsamr2App(QObject):
         self._orchestrator.load_train_tsv(self._config['load_train_file'])
         # TODO : update table
         self._data_table_view.setProperty('model', self._orchestrator.update_model())
-        self.rootContext.setContextProperty("current_model", self._orchestrator.current_model)
-        #self._data_table_view.update()
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
@@ -85,9 +83,10 @@ class MainPfcsamr2App(QObject):
     def get_table_headings(self):
         return self._orchestrator.headings
 
-    @pyqtProperty(int)
-    def rowCount(self):
-        return self._orchestrator.current_model.rowCount()
+    @pyqtSlot(int, int, result=str)
+    def get_current_model_cell(self, row: int, column: int):
+        return self._orchestrator.current_model.record(row).value(column)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
