@@ -3,3 +3,5 @@ py34/
 PyQt/
 *.pickle
 *.ipynb*
+old-files/
+capturas/

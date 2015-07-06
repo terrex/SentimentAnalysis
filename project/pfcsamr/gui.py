@@ -1,40 +1,23 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
-"""
-ZetCode PyQt5 tutorial
-
-In this example, we create a simple
-window in PyQt5.
-
-author: Jan Bodnar
-website: zetcode.com
-last edited: January 2015
-"""
-
 __author__ = 'terrex'
 
 import sys
 import logging
 import logging.config
 
-from PyQt5.QtCore import QObject, pyqtSlot, QUrl
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtWidgets import QApplication, QLabel
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
-from pfcsamr.orchestrator import Orchestrator
+__all__ = ('MainPfcsamr2App',)
 
+from pfcsamr2.orchestrator import Orchestrator2
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
-_temp = Orchestrator()
 
-# from IPython.kernel.client import KernelClient
-# from IPython import start_ipython
-
-class MainPfcsamrApp(QObject):
+class MainPfcsamr2App(QObject):
     def __init__(self, QObject_parent=None):
         super().__init__(QObject_parent)
         self.win = None
@@ -45,78 +28,92 @@ class MainPfcsamrApp(QObject):
         """:type: QTextEdit"""
         self._fileSelectedLabel = None
         """:type: QLabel"""
+        self._data_table_view = None
+        """:type: QTableView"""
+        self._config = {
+            'load_train_file': 'No file selected',
+            'load_only_first': True,
+            'load_only_first_rows': 100,
+            'preproc_unsplit_contractions': True,
+            'preproc_expand_contractions': True,
+            'preproc_remove_stopwords': True,
+            'preproc_word_replacement': True,
+            'preproc_stemmize': False,
+            'preproc_lemmatize': True,
+            'preproc_pos_tag_words': False,
+        }
+        self.rootContext = None
+        """:type: QQmlContext"""
+        self._status_bar_label = None
+        """:type: QLabel"""
+
+    def _get_config(self) -> dict:
+        return self._config
+
+    def _set_config(self, config: dict) -> None:
+        self._config.update(config)
+
+    config = property(_get_config, _set_config)
+
+    @pyqtSlot(str, result=QVariant)
+    def get_config_prop(self, propname: str):
+        return self._config[propname]
+
+    @pyqtSlot(str, QVariant)
+    def set_config_prop_value(self, propname: str, value: QVariant):
+        self._config[propname] = value
+
+    @pyqtSlot()
+    def load_button_load_on_clicked(self):
+        self._orchestrator = Orchestrator2(self)
+        if self._config['load_only_first']:
+            self._orchestrator.load_train_tsv(self._config['load_train_file'], self._config['load_only_first_rows'])
+        else:
+            self._orchestrator.load_train_tsv(self._config['load_train_file'])
+        self._data_table_view.setProperty('model', self._orchestrator.update_model())
+
+    @pyqtSlot()
+    def preproc_button_run_on_clicked(self):
+        self._orchestrator.do_preprocess()
+        self._data_table_view.setProperty('model', self._orchestrator.update_model_preproc())
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
         self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
         self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
         self._fileSelectedLabel = self.win.findChild(QQuickItem, "fileSelectedLabel")
+        self._data_table_view = self.win.findChild(QQuickItem, "data_table_view")
+        self._status_bar_label = self.win.findChild(QQuickItem, "status_bar_label")
 
-    @pyqtSlot(QUrl)
-    def load_tsv(self, selected_file: QUrl):
-        self._txtProgram.append("""orchestrator = Orchestrator()""")
-        self._txtProgram.append("""orchestrator.open_train_tsv("%s")""" % selected_file.toLocalFile())
+    @pyqtSlot(str, result=QQuickItem)
+    def findChild(self, item_name: str) -> QQuickItem:
+        return self.win.findChild(QQuickItem, item_name)
 
-    @pyqtSlot(QUrl)
-    def file_selected(self, selected_file: QUrl):
-        self._fileSelectedLabel.setText(selected_file.toLocalFile())
+    @pyqtSlot(result='QStringList')
+    def get_table_headings(self):
+        return self._orchestrator.headings
 
-    @pyqtSlot()
-    def remove_contractions(self):
-        self._txtProgram.append("""orchestrator.remove_contractions()""")
+    @pyqtSlot(int, int, result=str)
+    def get_current_model_cell(self, row: int, column: int):
+        return self._orchestrator.current_model.record(row).value(column)
 
-    @pyqtSlot()
-    def tokenize(self):
-        self._txtProgram.append("""orchestrator.tokenize()""")
+    def set_status_text(self, text: str):
+        self._status_bar_label.setProperty('text', text)
+        logger.debug(text)
 
-    @pyqtSlot()
-    def remove_stopwords(self):
-        self._txtProgram.append("""orchestrator.remove_stopwords()""")
-
-    @pyqtSlot()
-    def stemmize(self):
-        self._txtProgram.append("""orchestrator.stemmize()""")
-
-    @pyqtSlot()
-    def lemmatize(self):
-        self._txtProgram.append("""orchestrator.lemmatize()""")
-
-    @pyqtSlot()
-    def bow(self):
-        self._txtProgram.append("""orchestrator.bow()""")
-
-    @pyqtSlot()
-    def bow_bigrams(self):
-        self._txtProgram.append("""orchestrator.bow_bigrams()""")
-
-    @pyqtSlot()
-    def word2vec(self):
-        self._txtProgram.append("""orchestrator.word2vec()""")
-
-    @pyqtSlot()
-    def vectorize(self):
-        self._txtProgram.append("""orchestrator.vectorize()""")
-
-    @pyqtSlot()
-    def run_script(self):
-        script = self._txtProgram.getText(0, 999999999)
-        co = compile(script, '<string>', 'exec')
-        exec(co)
-        logger.debug("Ejecutando " + script)
-        # ipy_client = KernelClient()
-        # ipy_client.execute(script)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
-    mainPfcsamrApp = MainPfcsamrApp()
-    ctx.setContextProperty("mainPfcsamrApp", mainPfcsamrApp)
+    mainPfcsamr2App = MainPfcsamr2App()
+    ctx.setContextProperty("mainPfcsamrApp", mainPfcsamr2App)
+    mainPfcsamr2App.rootContext = ctx
 
     engine.load('../qtdesign/pfcsamr.qml')
 
     win = engine.rootObjects()[0]
-    mainPfcsamrApp.connect_widgets(win)
+    mainPfcsamr2App.connect_widgets(win)
     win.show()
     sys.exit(app.exec_())

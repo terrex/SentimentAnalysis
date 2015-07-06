@@ -1,154 +1,185 @@
-from PyQt5.QtCore import QAbstractTableModel
-
 __author__ = 'terrex'
 
 import csv
 import logging
 import logging.config
-import collections
+import re
 
-from sklearn.datasets.base import Bunch
+from PyQt5.QtCore import QAbstractTableModel, QModelIndex
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
+from nltk.corpus import stopwords
+import nltk
 
-from .features import *
-from .mytypes import *
-from .filters import *
-from .vectorizers import *
+english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
+
+__all__ = ('Orchestrator2',)
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
-class PfcSamrDataModel(QAbstractTableModel):
-    pass
 
-class Orchestrator(object):
-    def __init__(self):
+class PfcSamrTableModelFromPythonTable(QAbstractTableModel):
+    def __init__(self, orchestrator):
+        self.orchestrator = orchestrator
+        """:type: Orchestrator2"""
+
+    def rowCount(self, QModelIndex_parent=None, *args, **kwargs):
+        return len(self.orchestrator.rows)
+
+    def columnCount(self, QModelIndex_parent=None, *args, **kwargs):
+        return len(self.orchestrator.headings)
+
+    def data(self, index: QModelIndex, int_role=None):
+        i = index.row()
+        j = index.column()
+        return self.orchestrator.rows[i][j]
+
+    def headerData(self, p_int, Qt_Orientation, int_role=None):
+        return "header"
+
+
+def make_model_from_python_table(orchestrator) -> QSqlTableModel:
+    db = QSqlDatabase.addDatabase('QSQLITE')
+    """:type: QSqlDatabase"""
+    db.setDatabaseName('temp.sqlite')
+    db.open()
+    columns = ["{0} text".format(h) for h in orchestrator.headings]
+    db.exec("drop table if EXISTS loadtab")
+    query = "create table loadtab ({0})".format(",".join(columns))
+    db.exec(query)
+    logger.debug(db.lastError().text())
+    for row in orchestrator.rows:
+        values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
+        query = "insert into loadtab values ({0})".format(",".join(values))
+        db.exec(query)
+        logger.debug(db.lastError().text())
+
+    result = QSqlTableModel(db=db)
+    result.setTable("loadtab")
+    result.select()
+    db.close()
+    QSqlDatabase.removeDatabase(db.connectionName())
+
+    return result
+
+
+def make_model_from_python_table_preproc(orchestrator) -> QSqlTableModel:
+    db = QSqlDatabase.addDatabase('QSQLITE')
+    """:type: QSqlDatabase"""
+    db.setDatabaseName('temp.sqlite')
+    db.open()
+    columns = ["{0} text".format(h) for h in orchestrator.headings]
+    db.exec("drop table if EXISTS preproctab")
+    query = "create table preproctab ({0})".format(",".join(columns))
+    db.exec(query)
+    logger.debug(db.lastError().text())
+    for row in orchestrator.preprocessed_rows:
+        values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
+        query = "insert into preproctab values ({0})".format(",".join(values))
+        db.exec(query)
+        logger.debug(db.lastError().text())
+
+    result = QSqlTableModel(db=db)
+    result.setTable("preproctab")
+    result.select()
+    db.close()
+    QSqlDatabase.removeDatabase(db.connectionName())
+
+    return result
+
+
+def is_text(value):
+    try:
+        float(value)
+        int(value)
+        return False
+    except ValueError:
+        return True
+
+
+def unsplit_contractions(text: str) -> str:
+    return re.sub(r"(\w)\s+'(\w)", r"\1'\2", text)
+
+
+def remove_stopwords(text: str) -> str:
+    global english_words_re
+    replaced = re.sub(english_words_re, r'', text)
+    replaced = re.sub(r'\s+', r' ', replaced)
+    return replaced
+
+
+def postag(text: str) -> str:
+    tokens = nltk.word_tokenize(text)
+    words_tags = nltk.pos_tag(tokens)
+    return ' '.join(["{0}/{1}".format(w, t) for w, t in words_tags])
+
+
+class Orchestrator2(object):
+    def __init__(self, mainPfcsamrApp):
         self.file_path = None
-        """:type: str"""
-        self.train_samples = []
-        """:type: list[TrainSample]"""
-        self.vectorized_train_samples = Bunch()
-        self.percent = .75
+        """:type:str"""
 
-    def _get_train_samples_split_train(self):
-        c = len(self.train_samples)
-        m = int(c * self.percent)
-        return self.train_samples[:m]
+        self.headings = []
+        self.rows = []
+        self.preprocessed_rows = []
+        self.current_model = None
+        self.mainPfcsamrApp = mainPfcsamrApp
+        """:type: MainPfcsamr2App"""
 
-    def _get_train_samples_split_eval(self):
-        c = len(self.train_samples)
-        m = int(c * self.percent)
-        return self.train_samples[m:]
-
-    def open_train_tsv(self, file_path=None):
+    def load_train_tsv(self, file_path:str=None, max_rows=None):
+        if file_path.startswith('file:///'):
+            file_path = file_path[7:]
         self.file_path = file_path
         with open(file_path, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')
-            first = next(rdr)
-            for row in rdr:
-                train_sample = TrainSample(*row)
-                self.train_samples.append(train_sample)
+            self.headings = next(rdr)
+            for no, row in enumerate(rdr, 1):
+                self.rows.append(row)
+                # if no % 50 == 0:
+                #    self.mainPfcsamrApp._status_bar_label.setProperty('text', 'prueba ' + str(no))
+                if max_rows is not None and no >= max_rows:
+                    break
 
-        logger.debug("Read %d train samples".format(len(self.train_samples)))
+        self.mainPfcsamrApp.set_status_text("Read {0} train samples".format(len(self.rows)))
         return self
 
-    def tokenize(self):
-        tokenizer = Tokenizer()
-        for sample in self.train_samples:
-            tokenizer.convert(sample)
+    def update_model(self) -> QSqlTableModel:
+        self.current_model = make_model_from_python_table(self)
+        return self.current_model
 
-        logger.debug("%d train samples tokenized".format(len(self.train_samples)))
-        return self
+    def update_model_preproc(self) -> QSqlTableModel:
+        self.current_model = make_model_from_python_table_preproc(self)
+        return self.current_model
 
-    def remove_stopwords(self):
-        stopwords_remover = StopwordsRemover()
-        for sample in self.train_samples:
-            stopwords_remover.convert(sample)
+    def do_preprocess(self):
+        from .replacers import RegexpReplacer as ContractionsExpander
 
-        logger.debug("%d train samples cleaned out of stopwords".format(len(self.train_samples)))
-        return self
+        expander = ContractionsExpander()
+        ws_tokenizer = nltk.WhitespaceTokenizer()
+        stemmer = nltk.PorterStemmer()
+        lemmatizer = nltk.WordNetLemmatizer()
+        self.preprocessed_rows = []
+        for row in self.rows:
+            new_row = []
+            for column in row:
+                if is_text(column):
+                    if self.mainPfcsamrApp.config['preproc_unsplit_contractions']:
+                        column = unsplit_contractions(column)
+                    if self.mainPfcsamrApp.config['preproc_expand_contractions']:
+                        column = expander.replace(column)
+                    if self.mainPfcsamrApp.config['preproc_remove_stopwords']:
+                        column = remove_stopwords(column)
+                    if self.mainPfcsamrApp.config['preproc_word_replacement'] and self.mainPfcsamrApp.config[
+                        'preproc_stemmize']:
+                        column = ' '.join([stemmer.stem(w) for w in ws_tokenizer.tokenize(column)])
+                    if self.mainPfcsamrApp.config['preproc_word_replacement'] and self.mainPfcsamrApp.config[
+                        'preproc_lemmatize']:
+                        column = ' '.join([lemmatizer.lemmatize(w) for w in ws_tokenizer.tokenize(column)])
+                    if self.mainPfcsamrApp.config['preproc_pos_tag_words']:
+                        column = postag(column)
 
-    def stemmize(self):
-        stemmer = Stemmer()
-        for sample in self.train_samples:
-            stemmer.convert(sample)
+                new_row.append(column)
 
-        logger.debug("%d train samples stemmed".format(len(self.train_samples)))
-        return self
+            self.preprocessed_rows.append(new_row)
 
-    def lemmatize(self):
-        lemmatizer = Lemmatizer()
-        for sample in self.train_samples:
-            lemmatizer.convert(sample)
-
-        logger.debug("%d train samples lemmed".format(len(self.train_samples)))
-        return self
-
-    def bow(self):
-        bower = Bower()
-        for sample in self.train_samples:
-            bower.extract_feats(sample)
-
-        logger.debug("%d train samples featured with BOW".format(len(self.train_samples)))
-        return self
-
-    def bow_bigrams(self):
-        bower_bigram = BowerBiGram()
-        for sample in self.train_samples:
-            bower_bigram.extract_feats(sample)
-
-        logger.debug("%d train samples featured with 2-BOW".format(len(self.train_samples)))
-        return self
-
-    def word2vec(self):
-        word2vec = Word2Vec()
-        for sample in self.train_samples:
-            word2vec.extract_feats(sample)
-
-        logger.debug("%d train samples featured with Word2Vec".format(len(self.train_samples)))
-        return self
-
-    def vectorize(self):
-        vectorizer = SkLearnVectorizer()
-        self.vectorized_train_samples = vectorizer.vectorize(self.train_samples)
-        return self
-
-    def learn_nb(self):
-        from nltk.classify import NaiveBayesClassifier
-        train_feats = []
-        for sample in self._get_train_samples_split_train():
-            train_feats.append((sample.feats, sample.sentiment))
-        nb_classifier = NaiveBayesClassifier.train(train_feats)
-        self.classifier = nb_classifier
-        return self
-
-    def classify(self, sample: TrainSample):
-        return self.classifier.classify(sample.feats)
-
-    def split_trainset(self, percent : float):
-        self.percent = percent
-        return self
-
-    def learn_evaluate(self):
-        from nltk.metrics import f_measure
-        classified = []
-        # from \citep{Perkins2010}
-        refsets = collections.defaultdict(set)
-        testsets = collections.defaultdict(set)
-        for sample in self._get_train_samples_split_eval():
-            refsets[sample.sentiment].add(frozenset(sample.feats))
-            sample.guessed = self.classifier.classify(sample.feats)
-            testsets[sample.guessed].add(frozenset(sample.feats))
-
-        f1_scores = {}
-        for category in refsets.keys():
-            f1_scores[category] = f_measure(refsets[category], testsets[category])
-
-        return f1_scores
-
-    def remove_contractions(self):
-        from .replacers import RegexpReplacer
-        replacer = RegexpReplacer()
-        for sample in self.train_samples:
-            sample.phrase = replacer.replace(sample.phrase)
-
-        return self
+        self.mainPfcsamrApp.set_status_text("Preprocessed done")
