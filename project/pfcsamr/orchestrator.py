@@ -12,8 +12,6 @@ import nltk
 
 english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
 
-__all__ = ('Orchestrator2',)
-
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
@@ -21,7 +19,7 @@ logger = logging.getLogger(__name__)
 class PfcSamrTableModelFromPythonTable(QAbstractTableModel):
     def __init__(self, orchestrator):
         self.orchestrator = orchestrator
-        """:type: Orchestrator2"""
+        """:type: Orchestrator"""
 
     def rowCount(self, QModelIndex_parent=None, *args, **kwargs):
         return len(self.orchestrator.rows)
@@ -114,7 +112,7 @@ def postag(text: str) -> str:
     return ' '.join(["{0}/{1}".format(w, t) for w, t in words_tags])
 
 
-class Orchestrator2(object):
+class Orchestrator(object):
     def __init__(self, mainPfcsamrApp):
         self.file_path = None
         """:type:str"""

@@ -9,3 +9,4 @@ word2vec_model*
 *.gensim*
 pfcsamr/text8
 pfcsamr/text8-phrases
+*.sqlite

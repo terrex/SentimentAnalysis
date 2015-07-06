@@ -3,21 +3,20 @@ __author__ = 'terrex'
 import sys
 import logging
 import logging.config
+import os
 
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
-__all__ = ('MainPfcsamr2App',)
-
-from pfcsamr2.orchestrator import Orchestrator2
+from pfcsamr.orchestrator import Orchestrator
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
 
-class MainPfcsamr2App(QObject):
+class MainPfcsamrApp(QObject):
     def __init__(self, QObject_parent=None):
         super().__init__(QObject_parent)
         self.win = None
@@ -65,7 +64,7 @@ class MainPfcsamr2App(QObject):
 
     @pyqtSlot()
     def load_button_load_on_clicked(self):
-        self._orchestrator = Orchestrator2(self)
+        self._orchestrator = Orchestrator(self)
         if self._config['load_only_first']:
             self._orchestrator.load_train_tsv(self._config['load_train_file'], self._config['load_only_first_rows'])
         else:
@@ -107,13 +106,13 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
-    mainPfcsamr2App = MainPfcsamr2App()
-    ctx.setContextProperty("mainPfcsamrApp", mainPfcsamr2App)
-    mainPfcsamr2App.rootContext = ctx
+    mainPfcsamrApp = MainPfcsamrApp()
+    ctx.setContextProperty("mainPfcsamrApp", mainPfcsamrApp)
+    mainPfcsamrApp.rootContext = ctx
 
-    engine.load('../qtdesign/pfcsamr.qml')
+    engine.load(os.path.join(os.path.dirname(__file__), 'gui.qml'))
 
     win = engine.rootObjects()[0]
-    mainPfcsamr2App.connect_widgets(win)
+    mainPfcsamrApp.connect_widgets(win)
     win.show()
     sys.exit(app.exec_())
