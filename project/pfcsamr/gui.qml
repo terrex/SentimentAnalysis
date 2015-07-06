@@ -71,7 +71,10 @@ ApplicationWindow {
         id: fileDialogChooseTSV
         objectName: "fileDialogChooseTSV"
         nameFilters: ["Tab-separated files (*.tsv)"]
-        onAccepted: mainPfcsamrApp.findChild('load_train_file').text = fileUrl
+        onAccepted: {
+            mainPfcsamrApp.findChild('load_train_file').text = fileUrl
+            mainPfcsamrApp.findChild('load_button_load').enabled = true
+        }
     }
 
     statusBar: StatusBar {
@@ -156,6 +159,7 @@ ApplicationWindow {
                                 objectName: 'load_button_load'
                                 text: "LOAD"
                                 onClicked: mainPfcsamrApp.load_button_load_on_clicked()
+                                enabled: false
                             }
                         }
                         RowLayout {
@@ -277,22 +281,40 @@ ApplicationWindow {
                     ColumnLayout {
                         RowLayout {
                             CheckBox {
-                                id: ngramsFrom
+                                id: features_ngrams
+                                objectName: 'features_ngrams'
                                 text: "n-grams from"
+                                checked: mainPfcsamrApp.get_config_prop(
+                                             'features_ngrams')
+                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                      'features_ngrams',
+                                                      checked)
                             }
                             SpinBox {
+                                id: features_ngrams_from
+                                objectName: 'features_ngrams_from'
                                 minimumValue: 1
-                                maximumValue: 20
-                                enabled: ngramsFrom.checked
+                                maximumValue: Math.min(20,
+                                                       features_ngrams_to.value)
+                                enabled: features_ngrams.checked
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'features_ngrams_from')
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'features_ngrams_from',
+                                                    value)
                             }
                             Label {
                                 text: "to"
+                                enabled: features_ngrams.checked
                             }
                             SpinBox {
-                                minimumValue: 1
+                                id: features_ngrams_to
+                                objectName: 'features_ngrams_to'
+                                minimumValue: Math.max(
+                                                  1, features_ngrams_from.value)
                                 maximumValue: 20
                                 value: 3
-                                enabled: ngramsFrom.checked
+                                enabled: features_ngrams.checked
                             }
                         }
                         RowLayout {
@@ -300,80 +322,142 @@ ApplicationWindow {
                             anchors.leftMargin: 10
                             Label {
                                 text: "with document frecuency contraints:"
+                                enabled: features_ngrams.checked
                             }
                         }
                         RowLayout {
                             anchors.left: parent.left
                             anchors.leftMargin: 20
                             CheckBox {
-                                id: aMinimumDFOf
+                                id: features_minimum_df
+                                objectName: 'features_minimum_df'
                                 text: "a minimum of"
-                                enabled: ngramsFrom.checked
+                                enabled: features_ngrams.checked
+                                checked: mainPfcsamrApp.get_config_prop(
+                                             'features_minimum_df')
+                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                      'features_minimum_df',
+                                                      checked)
+                                onEnabledChanged: if (!enabled)
+                                                      checked = false
                             }
                             SpinBox {
+                                id: features_minimum_df_value
+                                objectName: 'features_minimum_df_value'
                                 minimumValue: 1
                                 maximumValue: 99999999
-                                enabled: aMinimumDFOf.checked
+                                enabled: features_minimum_df.checked
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'features_minimum_df_value')
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'features_minimum_df_value',
+                                                    value)
                             }
                             ComboBox {
                                 model: ["no. of documents", "% of documents"]
+                                enabled: features_minimum_df.checked
+                                currentIndex: mainPfcsamrApp.get_config_prop(
+                                                  'features_minimum_df_unit')
+                                onCurrentIndexChanged: mainPfcsamrApp.set_config_prop_value(
+                                                           'features_minimum_df_unit',
+                                                           currentIndex)
                             }
                         }
                         RowLayout {
                             anchors.left: parent.left
                             anchors.leftMargin: 20
                             CheckBox {
-                                id: aMaximumDFOf
+                                id: features_maximum_df
+                                objectName: 'features_maximum_df'
                                 text: "a maximum of"
-                                enabled: ngramsFrom.checked
+                                enabled: features_ngrams.checked
+                                onEnabledChanged: if (!enabled)
+                                                      checked = false
                             }
                             SpinBox {
+                                id: features_maximum_df_value
+                                objectName: 'features_maximum_df_value'
                                 minimumValue: 1
                                 maximumValue: 99999999
-                                value: 100
-                                enabled: aMaximumDFOf.checked
+                                enabled: features_maximum_df.checked
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'features_maximum_df_value')
+                                onValueChanged: {
+                                    console.log("eyyy " + value)
+                                    mainPfcsamrApp.set_config_prop_value(
+                                                'features_maximum_df_value',
+                                                value)
+                                }
                             }
                             ComboBox {
-                                currentIndex: 1
+                                id: features_maximum_df_unit
+                                objectName: 'features_maximum_df_unit'
                                 model: ["no. of documents", "% of documents"]
+                                enabled: features_maximum_df.checked
+                                currentIndex: mainPfcsamrApp.get_config_prop(
+                                                  'features_maximum_df_unit')
+                                onCurrentIndexChanged: mainPfcsamrApp.set_config_prop_value(
+                                                           'features_maximum_df_unit',
+                                                           currentIndex)
                             }
                         }
                         RowLayout {
                             anchors.left: parent.left
                             anchors.leftMargin: 10
                             CheckBox {
-                                id: onlyMostSignificant
+                                id: features_only_most_significant
                                 text: "only most significant"
+                                enabled: features_ngrams.checked
+                                onEnabledChanged: if (!enabled)
+                                                      checked = false
                             }
                             SpinBox {
+                                id: features_only_most_significant_feats
+                                objectName: 'features_only_most_significant_feats'
                                 minimumValue: 1
                                 maximumValue: 1000
-                                value: 300
-                                enabled: onlyMostSignificant.checked
+                                enabled: features_only_most_significant.checked
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'features_only_most_significant_feats')
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'features_only_most_significant_feats',
+                                                    value)
                             }
                             Label {
                                 text: "features"
+                                enabled: features_only_most_significant.checked
                             }
                         }
                         RowLayout {
                             CheckBox {
-                                id: removeFeaturesWithLessThan
+                                id: features_remove_less_than
+                                objectName: 'features_remove_less_than'
                                 text: "remove features with less than"
                             }
                             SpinBox {
+                                id: features_remove_less_than_variance
+                                objectName: 'features_remove_less_than_variance'
                                 decimals: 2
-                                value: 0.10
                                 minimumValue: 0
                                 maximumValue: 99999999
-                                enabled: removeFeaturesWithLessThan.checked
+                                enabled: features_remove_less_than.checked
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'features_remove_less_than_variance')
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'features_remove_less_than_variance',
+                                                    value)
                             }
                             Label {
                                 text: "variance"
+                                enabled: features_remove_less_than.checked
                             }
                         }
                         RowLayout {
                             Button {
+                                id: features_button_run
+                                objectName: 'features_button_run'
                                 text: "RUN"
+                                onClicked: mainPfcsamrApp.features_button_run_on_clicked()
                             }
                             Button {
                                 text: "Show selected features"

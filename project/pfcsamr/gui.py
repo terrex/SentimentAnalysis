@@ -42,6 +42,19 @@ class MainPfcsamrApp(QObject):
             'preproc_stemmize': False,
             'preproc_lemmatize': True,
             'preproc_pos_tag_words': False,
+            'features_ngrams': True,
+            'features_ngrams_from': 1,
+            'features_ngrams_to': 2,
+            'features_minimum_df': False,
+            'features_minimum_df_value': 1,
+            'features_minimum_df_unit': 0,  # 0 means Number of documents
+            'features_maximum_df': True,
+            'features_maximum_df_value': 100,
+            'features_maximum_df_unit': 1,  # 1 means % of documents
+            'features_only_most_significant': False,
+            'features_only_most_significant_feats': 300,
+            'features_remove_less_than': False,
+            'features_remove_less_than_variance': 0.10,
         }
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
@@ -82,6 +95,34 @@ class MainPfcsamrApp(QObject):
     def preproc_button_run_on_clicked(self):
         self.orchestrator.do_preprocess()
         self.data_table_view.setProperty('model', self.orchestrator.update_model_preproc())
+
+    @pyqtSlot()
+    def features_button_run_on_clicked(self):
+        # TODO join all text fields and flat others except Sentiment
+        count_vectorizer_options = {}
+        if self._config['features_ngrams']:
+            count_vectorizer_options['ngram_range'] = (
+                self._config['features_ngrams_from'], self._config['features_ngrams_to'])
+            if self._config['features_minimum_df']:
+                if self._config['features_minimum_df_unit'] == 0:
+                    count_vectorizer_options['min_df'] = int(self._config['features_minimum_df_value'])
+                elif self._config['features_minimum_df_unit'] == 1:
+                    count_vectorizer_options['min_df'] = int(self._config['features_minimum_df_value']) / 100.0
+            if self._config['features_maximum_df']:
+                if self._config['features_maximum_df_unit'] == 0:
+                    count_vectorizer_options['min_df'] = int(self._config['features_maximum_df_value'])
+                elif self._config['features_maximum_df_unit'] == 1:
+                    count_vectorizer_options['min_df'] = int(self._config['features_maximum_df_value']) / 100.0
+            if self._config['features_only_most_significant']:
+                count_vectorizer_options['max_features'] = self._config['features_only_most_significant_feats']
+            # TODO count vectorizer on text fields
+
+        if self._config['features_remove_less_than']:
+            # TODO feature selection
+            pass
+
+        print(count_vectorizer_options)
+        self.set_status_text("Feature extraction done. Shape of model ndarray: ") #TODO
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
