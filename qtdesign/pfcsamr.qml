@@ -263,7 +263,10 @@ ApplicationWindow {
                                                   checked)
                         }
                         Button {
+                            id: preproc_button_run
+                            objectName: 'preproc_button_run'
                             text: "RUN"
+                            onClicked: mainPfcsamrApp.preproc_button_run_on_clicked()
                         }
 
                         RowLayout {

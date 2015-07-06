@@ -32,8 +32,8 @@ class MainPfcsamr2App(QObject):
         """:type: QTableView"""
         self._config = {
             'load_train_file': 'No file selected',
-            'load_only_first': False,
-            'load_only_first_rows': 1000,
+            'load_only_first': True,
+            'load_only_first_rows': 100,
             'preproc_unsplit_contractions': True,
             'preproc_expand_contractions': True,
             'preproc_remove_stopwords': True,
@@ -72,6 +72,11 @@ class MainPfcsamr2App(QObject):
             self._orchestrator.load_train_tsv(self._config['load_train_file'])
         self._data_table_view.setProperty('model', self._orchestrator.update_model())
 
+    @pyqtSlot()
+    def preproc_button_run_on_clicked(self):
+        self._orchestrator.do_preprocess()
+        self._data_table_view.setProperty('model', self._orchestrator.update_model_preproc())
+
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
         self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
@@ -91,6 +96,10 @@ class MainPfcsamr2App(QObject):
     @pyqtSlot(int, int, result=str)
     def get_current_model_cell(self, row: int, column: int):
         return self._orchestrator.current_model.record(row).value(column)
+
+    def set_status_text(self, text: str):
+        self._status_bar_label.setProperty('text', text)
+        logger.debug(text)
 
 
 if __name__ == '__main__':
