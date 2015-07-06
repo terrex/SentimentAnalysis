@@ -41,34 +41,28 @@ ApplicationWindow {
             MenuItem {
                 text: qsTr("Undo")
                 shortcut: StandardKey.Undo
-                onTriggered: txtProgram.undo()
             }
             MenuItem {
                 text: qsTr("Redo")
                 shortcut: StandardKey.Redo
-                onTriggered: txtProgram.redo()
             }
             MenuSeparator {
             }
             MenuItem {
                 text: qsTr("Cut")
                 shortcut: StandardKey.Cut
-                onTriggered: txtProgram.cut()
             }
             MenuItem {
                 text: qsTr("Copy")
                 shortcut: StandardKey.Copy
-                onTriggered: txtProgram.copy()
             }
             MenuItem {
                 text: qsTr("Paste")
                 shortcut: StandardKey.Paste
-                onTriggered: txtProgram.paste()
             }
             MenuItem {
                 text: qsTr("Select All")
                 shortcut: StandardKey.SelectAll
-                onTriggered: txtProgram.selectAll()
             }
         }
     }

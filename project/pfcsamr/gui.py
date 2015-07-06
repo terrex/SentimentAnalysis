@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class MainPfcsamrApp(QObject):
     def __init__(self, QObject_parent=None):
         super().__init__(QObject_parent)
-        self.win = None
+        self._win = None
         """:type: QQuickWindow"""
         self._btnOpenTrain = None
         """:type: QQuickItem"""
@@ -53,6 +53,7 @@ class MainPfcsamrApp(QObject):
         self._config.update(config)
 
     config = property(_get_config, _set_config)
+    """:type: dict"""
 
     @pyqtSlot(str, result=QVariant)
     def get_config_prop(self, propname: str):
@@ -77,16 +78,13 @@ class MainPfcsamrApp(QObject):
         self._data_table_view.setProperty('model', self._orchestrator.update_model_preproc())
 
     def connect_widgets(self, win: QQuickWindow):
-        self.win = win
-        self._btnOpenTrain = self.win.findChild(QQuickItem, "btnOpenTrain")
-        self._txtProgram = self.win.findChild(QQuickItem, "txtProgram")
-        self._fileSelectedLabel = self.win.findChild(QQuickItem, "fileSelectedLabel")
-        self._data_table_view = self.win.findChild(QQuickItem, "data_table_view")
-        self._status_bar_label = self.win.findChild(QQuickItem, "status_bar_label")
+        self._win = win
+        self._data_table_view = self._win.findChild(QQuickItem, "data_table_view")
+        self._status_bar_label = self._win.findChild(QQuickItem, "status_bar_label")
 
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
-        return self.win.findChild(QQuickItem, item_name)
+        return self._win.findChild(QQuickItem, item_name)
 
     @pyqtSlot(result='QStringList')
     def get_table_headings(self):
