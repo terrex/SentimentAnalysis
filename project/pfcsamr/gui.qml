@@ -101,8 +101,8 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 Tab {
-                    id: loadTab
-                    objectName: "loadTab"
+                    id: load_tab
+                    objectName: "load_tab"
                     title: "Load"
                     anchors.margins: 10
 
@@ -165,8 +165,8 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    id: preprocessTab
-                    objectName: "preprocessTab"
+                    id: preproc_tab
+                    objectName: "preproc_tab"
                     title: "Preprocess"
                     anchors.margins: 10
                     ColumnLayout {
@@ -270,8 +270,8 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    id: featuresTab
-                    objectName: "featuresTab"
+                    id: features_tab
+                    objectName: "features_tab"
                     title: "Features"
                     anchors.margins: 10
                     ColumnLayout {
@@ -387,8 +387,8 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    id: learnTab
-                    objectName: "learnTab"
+                    id: learn_tab
+                    objectName: "learn_tab"
                     title: "Learn"
                     anchors.margins: 10
                     ColumnLayout {
@@ -442,8 +442,8 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    id: classifyTab
-                    objectName: "classifyTab"
+                    id: classify_tab
+                    objectName: "classify_tab"
                     title: "Classify"
                     anchors.margins: 10
                     ColumnLayout {
@@ -455,8 +455,8 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    id: testTab
-                    objectName: "testTab"
+                    id: test_tab
+                    objectName: "test_tab"
                     title: "Test"
                     anchors.margins: 10
                     ColumnLayout {
@@ -468,8 +468,8 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    id: evaluateTab
-                    objectName: "evaluateTab"
+                    id: evaluate_tab
+                    objectName: "evaluate_tab"
                     title: "Evaluate"
                     anchors.margins: 10
                     ColumnLayout {

@@ -1,3 +1,5 @@
+from PyQt5.QtSql import QSqlDatabase
+
 __author__ = 'terrex'
 
 import sys
@@ -17,34 +19,38 @@ logger = logging.getLogger(__name__)
 
 
 class MainPfcsamrApp(QObject):
-    def __init__(self, QObject_parent=None):
-        super().__init__(QObject_parent)
-        self._win = None
+    def __init__(self, parent: QObject=None):
+        super().__init__(parent)
+        self.win = None
         """:type: QQuickWindow"""
-        self._btnOpenTrain = None
-        """:type: QQuickItem"""
-        self._txtProgram = None
-        """:type: QTextEdit"""
-        self._fileSelectedLabel = None
-        """:type: QLabel"""
-        self._data_table_view = None
+        self.rootContext = None
+        """:type: QQmlContext"""
+
+        self.data_table_view = None
         """:type: QTableView"""
+        self.status_bar_label = None
+        """:type: QLabel"""
+
         self._config = {
             'load_train_file': 'No file selected',
             'load_only_first': True,
             'load_only_first_rows': 100,
-            'preproc_unsplit_contractions': True,
-            'preproc_expand_contractions': True,
+            'preproc_unsplit_contractions': False,
+            'preproc_expand_contractions': False,
             'preproc_remove_stopwords': True,
             'preproc_word_replacement': True,
             'preproc_stemmize': False,
             'preproc_lemmatize': True,
             'preproc_pos_tag_words': False,
         }
-        self.rootContext = None
-        """:type: QQmlContext"""
-        self._status_bar_label = None
-        """:type: QLabel"""
+
+        self.db = QSqlDatabase.addDatabase('QSQLITE')
+        """:type: QSqlDatabase"""
+        self.db.setDatabaseName('temp.sqlite')
+        self.db.open()
+
+        self.orchestrator = None
+        """:type: Orchestrator"""
 
     def _get_config(self) -> dict:
         return self._config
@@ -65,37 +71,37 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot()
     def load_button_load_on_clicked(self):
-        self._orchestrator = Orchestrator(self)
+        self.orchestrator = Orchestrator(self)
+        max_rows = None
         if self._config['load_only_first']:
-            self._orchestrator.load_train_tsv(self._config['load_train_file'], self._config['load_only_first_rows'])
-        else:
-            self._orchestrator.load_train_tsv(self._config['load_train_file'])
-        self._data_table_view.setProperty('model', self._orchestrator.update_model())
+            max_rows = self._config['load_only_first_rows']
+        self.orchestrator.load_train_tsv(self._config['load_train_file'], max_rows=max_rows)
+        self.data_table_view.setProperty('model', self.orchestrator.update_model_load())
 
     @pyqtSlot()
     def preproc_button_run_on_clicked(self):
-        self._orchestrator.do_preprocess()
-        self._data_table_view.setProperty('model', self._orchestrator.update_model_preproc())
+        self.orchestrator.do_preprocess()
+        self.data_table_view.setProperty('model', self.orchestrator.update_model_preproc())
 
     def connect_widgets(self, win: QQuickWindow):
-        self._win = win
-        self._data_table_view = self._win.findChild(QQuickItem, "data_table_view")
-        self._status_bar_label = self._win.findChild(QQuickItem, "status_bar_label")
+        self.win = win
+        self.data_table_view = self.win.findChild(QQuickItem, "data_table_view")
+        self.status_bar_label = self.win.findChild(QQuickItem, "status_bar_label")
 
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
-        return self._win.findChild(QQuickItem, item_name)
+        return self.win.findChild(QQuickItem, item_name)
 
     @pyqtSlot(result='QStringList')
     def get_table_headings(self):
-        return self._orchestrator.headings
+        return self.orchestrator.headings
 
     @pyqtSlot(int, int, result=str)
     def get_current_model_cell(self, row: int, column: int):
-        return self._orchestrator.current_model.record(row).value(column)
+        return self.orchestrator.current_model.record(row).value(column)
 
     def set_status_text(self, text: str):
-        self._status_bar_label.setProperty('text', text)
+        self.status_bar_label.setProperty('text', text)
         logger.debug(text)
 
 
@@ -104,13 +110,13 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
-    mainPfcsamrApp = MainPfcsamrApp()
-    ctx.setContextProperty("mainPfcsamrApp", mainPfcsamrApp)
-    mainPfcsamrApp.rootContext = ctx
+    main_pfcsamr_app = MainPfcsamrApp()
+    ctx.setContextProperty("mainPfcsamrApp", main_pfcsamr_app)
+    main_pfcsamr_app.rootContext = ctx
 
     engine.load(os.path.join(os.path.dirname(__file__), 'gui.qml'))
 
     win = engine.rootObjects()[0]
-    mainPfcsamrApp.connect_widgets(win)
+    main_pfcsamr_app.connect_widgets(win)
     win.show()
     sys.exit(app.exec_())
