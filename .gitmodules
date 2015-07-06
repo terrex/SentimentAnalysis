@@ -1,3 +1,0 @@
-[submodule "CoreNLP"]
-	path = CoreNLP
-	url = https://github.com/stanfordnlp/CoreNLP
