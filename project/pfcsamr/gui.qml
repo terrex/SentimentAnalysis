@@ -313,7 +313,10 @@ ApplicationWindow {
                                 minimumValue: Math.max(
                                                   1, features_ngrams_from.value)
                                 maximumValue: 20
-                                value: 3
+                                value: mainPfcsamrApp.get_config_prop(
+                                           'features_ngrams_to')
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'features_ngrams_to', value)
                                 enabled: features_ngrams.checked
                             }
                         }
@@ -373,6 +376,11 @@ ApplicationWindow {
                                 enabled: features_ngrams.checked
                                 onEnabledChanged: if (!enabled)
                                                       checked = false
+                                checked: mainPfcsamrApp.get_config_prop(
+                                             'features_maximum_df')
+                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                      'features_maximum_df',
+                                                      checked)
                             }
                             SpinBox {
                                 id: features_maximum_df_value
@@ -382,12 +390,9 @@ ApplicationWindow {
                                 enabled: features_maximum_df.checked
                                 value: mainPfcsamrApp.get_config_prop(
                                            'features_maximum_df_value')
-                                onValueChanged: {
-                                    console.log("eyyy " + value)
-                                    mainPfcsamrApp.set_config_prop_value(
-                                                'features_maximum_df_value',
-                                                value)
-                                }
+                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
+                                                    'features_maximum_df_value',
+                                                    value)
                             }
                             ComboBox {
                                 id: features_maximum_df_unit
@@ -406,10 +411,16 @@ ApplicationWindow {
                             anchors.leftMargin: 10
                             CheckBox {
                                 id: features_only_most_significant
+                                objectName: 'features_only_most_significant'
                                 text: "only most significant"
                                 enabled: features_ngrams.checked
                                 onEnabledChanged: if (!enabled)
                                                       checked = false
+                                checked: mainPfcsamrApp.get_config_prop(
+                                             'features_only_most_significant')
+                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                      'features_only_most_significant',
+                                                      checked)
                             }
                             SpinBox {
                                 id: features_only_most_significant_feats
@@ -433,11 +444,17 @@ ApplicationWindow {
                                 id: features_remove_less_than
                                 objectName: 'features_remove_less_than'
                                 text: "remove features with less than"
+                                checked: mainPfcsamrApp.get_config_prop(
+                                             'features_remove_less_than')
+                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
+                                                      'features_remove_less_than',
+                                                      checked)
                             }
                             SpinBox {
                                 id: features_remove_less_than_variance
                                 objectName: 'features_remove_less_than_variance'
                                 decimals: 2
+                                stepSize: 0.01
                                 minimumValue: 0
                                 maximumValue: 99999999
                                 enabled: features_remove_less_than.checked

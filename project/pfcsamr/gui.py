@@ -102,7 +102,7 @@ class MainPfcsamrApp(QObject):
         count_vectorizer_options = {}
         if self._config['features_ngrams']:
             count_vectorizer_options['ngram_range'] = (
-                self._config['features_ngrams_from'], self._config['features_ngrams_to'])
+                int(self._config['features_ngrams_from']), int(self._config['features_ngrams_to']))
             if self._config['features_minimum_df']:
                 if self._config['features_minimum_df_unit'] == 0:
                     count_vectorizer_options['min_df'] = int(self._config['features_minimum_df_value'])
@@ -110,19 +110,19 @@ class MainPfcsamrApp(QObject):
                     count_vectorizer_options['min_df'] = int(self._config['features_minimum_df_value']) / 100.0
             if self._config['features_maximum_df']:
                 if self._config['features_maximum_df_unit'] == 0:
-                    count_vectorizer_options['min_df'] = int(self._config['features_maximum_df_value'])
+                    count_vectorizer_options['max_df'] = int(self._config['features_maximum_df_value'])
                 elif self._config['features_maximum_df_unit'] == 1:
-                    count_vectorizer_options['min_df'] = int(self._config['features_maximum_df_value']) / 100.0
+                    count_vectorizer_options['max_df'] = int(self._config['features_maximum_df_value']) / 100.0
             if self._config['features_only_most_significant']:
                 count_vectorizer_options['max_features'] = self._config['features_only_most_significant_feats']
-            # TODO count vectorizer on text fields
+                # TODO count vectorizer on text fields
 
         if self._config['features_remove_less_than']:
             # TODO feature selection
             pass
 
         print(count_vectorizer_options)
-        self.set_status_text("Feature extraction done. Shape of model ndarray: ") #TODO
+        self.set_status_text("Feature extraction done. Shape of model ndarray: ")  # TODO
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
