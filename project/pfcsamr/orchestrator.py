@@ -1,3 +1,8 @@
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.pipeline import Pipeline, FeatureUnion
+
 __author__ = 'terrex'
 
 import csv
@@ -53,6 +58,24 @@ def make_model_from_python_table_preproc(orchestrator) -> QSqlTableModel:
     return result
 
 
+def make_model_from_python_table_featured(orchestrator) -> QSqlTableModel:
+    columns = ["{0} float".format(h) for h in orchestrator.featured_headings]
+    orchestrator.main_pfcsamr_app.db.exec("drop table if EXISTS featurestab")
+    query = "create table featurestab ({0})".format(",".join(c.replace(' ', '_') for c in columns))
+    orchestrator.main_pfcsamr_app.db.exec(query)
+    logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
+    for values in orchestrator.featured_rows:
+        query = "insert into featurestab values ({0})".format(",".join(str(v) for v in values.toarray()[0]))
+        orchestrator.main_pfcsamr_app.db.exec(query)
+        logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
+
+    result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
+    result.setTable("featurestab")
+    result.select()
+
+    return result
+
+
 def is_text(value):
     try:
         float(value)
@@ -79,6 +102,45 @@ def postag(text: str) -> str:
     return ' '.join(["{0}/{1}".format(w, t) for w, t in words_tags])
 
 
+class SelectNumerics(BaseEstimator, TransformerMixin):
+    def __init__(self, columns_is_text, columns_names, columns_is_class):
+        self.columns_is_text = columns_is_text
+        self.columns_names = columns_names
+        self.columns_is_class = columns_is_class
+
+    def fit(self, x, y=None):
+        return self
+
+    def transform(self, data):
+        result = []
+        for d in data:
+            e = {}
+            for i, column_name in enumerate(self.columns_names):
+                if not self.columns_is_text[i] and not self.columns_is_class[i]:
+                    e[column_name] = float(d[i])
+            result.append(e)
+        return result
+
+
+class SelectText(BaseEstimator, TransformerMixin):
+    def __init__(self, column_i):
+        self.column_i = column_i
+
+    def fit(self, x, y=None):
+        return self
+
+    def transform(self, data):
+        result = []
+        for d in data:
+            result.append(d[self.column_i])
+        return result
+
+
+class MyPipeline(Pipeline):
+    def get_feature_names(self):
+        return self._final_estimator.get_feature_names()
+
+
 class Orchestrator(object):
     def __init__(self, mainPfcsamrApp):
         self.file_path = None
@@ -88,8 +150,14 @@ class Orchestrator(object):
         self.rows = []
         self.preprocessed_rows = []
         self.current_model = None
+        self.current_model_headings = []
         self.main_pfcsamr_app = mainPfcsamrApp
         """:type: MainPfcsamr2App"""
+        self.featured_rows = []
+        self.train_y = []
+        self.feature_union = None
+        """:type: FeatureUnion"""
+        self.featured_headings = []
 
     def load_train_tsv(self, file_path:str=None, max_rows=None):
         if file_path.startswith('file:///'):
@@ -108,10 +176,17 @@ class Orchestrator(object):
 
     def update_model_load(self) -> QSqlTableModel:
         self.current_model = make_model_from_python_table_load(self)
+        self.current_model_headings = self.headings
         return self.current_model
 
     def update_model_preproc(self) -> QSqlTableModel:
         self.current_model = make_model_from_python_table_preproc(self)
+        self.current_model_headings = self.headings
+        return self.current_model
+
+    def update_model_featured(self) -> QSqlTableModel:
+        self.current_model = make_model_from_python_table_featured(self)
+        self.current_model_headings = self.featured_headings
         return self.current_model
 
     def do_preprocess(self):
@@ -146,3 +221,34 @@ class Orchestrator(object):
             self.preprocessed_rows.append(new_row)
 
         self.main_pfcsamr_app.set_status_text("Preprocessed done")
+
+    def do_features_countvectorizer(self, **kwargs):
+        if not self.preprocessed_rows:
+            self.preprocessed_rows = self.rows
+
+        # TODO No hardcodear
+        columns_names = self.headings
+        columns_is_text = [False, False, True, False]
+        columns_is_class = [False, False, False, True]
+
+        train_y = []
+
+        steps = []
+        steps.append(('numeric_feats', MyPipeline([
+            ('selector', SelectNumerics(columns_is_text, columns_names, columns_is_class)),
+            ('dict', DictVectorizer()),
+        ])))
+        for column_i, column_is_text in enumerate(columns_is_text):
+            if columns_is_class[column_i]:
+                train_y = map(lambda x: x[column_i], self.preprocessed_rows)
+            else:
+                if column_is_text:
+                    steps.append((columns_names[column_i], MyPipeline([
+                        ('selector', SelectText(column_i=column_i)),
+                        ('count_vector', CountVectorizer(**kwargs)),
+                    ])))
+
+        self.feature_union = FeatureUnion(steps)
+        self.featured_rows = self.feature_union.fit_transform(self.preprocessed_rows, train_y)
+        self.featured_headings = self.feature_union.get_feature_names()
+        self.train_y = train_y

@@ -72,7 +72,8 @@ ApplicationWindow {
         objectName: "fileDialogChooseTSV"
         nameFilters: ["Tab-separated files (*.tsv)"]
         onAccepted: {
-            mainPfcsamrApp.findChild('load_train_file').text = fileUrl
+            mainPfcsamrApp.findChild('load_train_file').text = fileUrl.toString(
+                        ).replace("file://", "")
             mainPfcsamrApp.findChild('load_button_load').enabled = true
         }
     }

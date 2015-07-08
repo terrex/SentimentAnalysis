@@ -44,11 +44,11 @@ class MainPfcsamrApp(QObject):
             'preproc_pos_tag_words': False,
             'features_ngrams': True,
             'features_ngrams_from': 1,
-            'features_ngrams_to': 2,
+            'features_ngrams_to': 3,
             'features_minimum_df': False,
             'features_minimum_df_value': 1,
             'features_minimum_df_unit': 0,  # 0 means Number of documents
-            'features_maximum_df': True,
+            'features_maximum_df': False,
             'features_maximum_df_value': 100,
             'features_maximum_df_unit': 1,  # 1 means % of documents
             'features_only_most_significant': False,
@@ -114,15 +114,17 @@ class MainPfcsamrApp(QObject):
                 elif self._config['features_maximum_df_unit'] == 1:
                     count_vectorizer_options['max_df'] = int(self._config['features_maximum_df_value']) / 100.0
             if self._config['features_only_most_significant']:
-                count_vectorizer_options['max_features'] = self._config['features_only_most_significant_feats']
+                count_vectorizer_options['max_features'] = int(self._config['features_only_most_significant_feats'])
                 # TODO count vectorizer on text fields
 
+        self.orchestrator.do_features_countvectorizer(**count_vectorizer_options)
         if self._config['features_remove_less_than']:
             # TODO feature selection
             pass
 
         print(count_vectorizer_options)
         self.set_status_text("Feature extraction done. Shape of model ndarray: ")  # TODO
+        self.data_table_view.setProperty('model', self.orchestrator.update_model_featured())
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
@@ -135,11 +137,11 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot(result='QStringList')
     def get_table_headings(self):
-        return self.orchestrator.headings
+        return self.orchestrator.current_model_headings
 
     @pyqtSlot(int, int, result=str)
     def get_current_model_cell(self, row: int, column: int):
-        return self.orchestrator.current_model.record(row).value(column)
+        return str(self.orchestrator.current_model.record(row).value(column))
 
     def set_status_text(self, text: str):
         self.status_bar_label.setProperty('text', text)
