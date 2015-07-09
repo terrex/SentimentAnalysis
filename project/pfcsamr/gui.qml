@@ -509,14 +509,21 @@ ApplicationWindow {
                         RowLayout {
                             id: splitRandomlyRowLayout
                             CheckBox {
-                                id: splitRandomly
+                                id: learn_train_split
+                                objectName: 'learn_train_split'
                                 text: "split randomly"
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                             }
                             SpinBox {
+                                id: learn_train_split_value
+                                objectName: 'learn_train_split_value'
                                 minimumValue: 1
                                 maximumValue: 99
                                 suffix: " %"
-                                enabled: splitRandomly.checked
+                                enabled: learn_train_split.checked
+                                value: get_prop(objectName) * 100
+                                onValueChanged: set_prop(objectName) / 100
                             }
                             Label {
                                 text: "dataset for train and remaining for self-test"
@@ -598,12 +605,30 @@ ApplicationWindow {
                                                 width: 100
                                                 id: learn_lda_solver
                                                 objectName: 'learn_lda_solver'
-                                                model: ['Singular value decomposition', 'Least squares solution', 'Eigenvalue decomposition']
+                                                model: ListModel {
+                                                    ListElement {
+                                                        text: 'Singular value decomposition'
+                                                        value: 'svd'
+                                                    }
+
+                                                    ListElement {
+                                                        text: 'Least squares solution'
+                                                        value: 'lsqr'
+                                                    }
+                                                    ListElement {
+                                                        text: 'Eigenvalue decomposition'
+                                                        value: 'eigen'
+                                                    }
+                                                }
                                                 currentIndex: get_prop(
-                                                                  objectName)
-                                                onCurrentIndexChanged: set_prop(
-                                                                           objectName,
-                                                                           currentIndex)
+                                                                  objectName + '_idx')
+                                                onCurrentIndexChanged: {
+                                                    set_prop(objectName + '_idx',
+                                                             currentIndex)
+                                                    set_prop(objectName,
+                                                             learn_lda_solver.model.get(
+                                                                 currentIndex).value)
+                                                }
                                             }
                                         }
                                         RowLayout {
@@ -715,7 +740,8 @@ ApplicationWindow {
                             id: learn_button_run
                             objectName: 'learn_button_run'
                             text: "RUN"
-                            onClicked: mainPfcsamrApp.learn_button_run_on_clicked(learn_tabs.currentIndex)
+                            onClicked: mainPfcsamrApp.learn_button_run_on_clicked(
+                                           learn_tabs.currentIndex)
                         }
                     }
                 }

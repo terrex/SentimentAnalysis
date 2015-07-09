@@ -13,6 +13,7 @@ import re
 from PyQt5.QtSql import QSqlTableModel
 from nltk.corpus import stopwords
 import nltk
+import numpy as np
 
 english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
 
@@ -158,6 +159,7 @@ class Orchestrator(object):
         self.feature_union = None
         """:type: FeatureUnion"""
         self.featured_headings = []
+        self.estimators = {}
 
     def do_load_train_tsv(self, file_path:str=None, max_rows=None):
         if file_path.startswith('file:///'):
@@ -243,7 +245,8 @@ class Orchestrator(object):
         ])))
         for column_i, column_is_text in enumerate(columns_is_text):
             if columns_is_class[column_i]:
-                train_y = map(lambda x: x[column_i], self.preprocessed_rows)
+                train_y = map(lambda x: float(x[column_i]), self.preprocessed_rows)
+                train_y = np.array(list(train_y))
             else:
                 if column_is_text:
                     steps.append((columns_names[column_i], MyPipeline([
@@ -256,3 +259,7 @@ class Orchestrator(object):
         self.featured_headings = self.feature_union.get_feature_names()
         self.train_y = train_y
         self.main_pfcsamr_app.enable_tab('learn_tab')
+
+    def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
+        self.estimators[estimator_klazz.__name__] = estimator_klazz(**estimator_klazz_params)
+        self.estimators[estimator_klazz.__name__].fit(self.featured_rows, self.train_y)

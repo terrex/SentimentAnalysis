@@ -67,9 +67,12 @@ class MainPfcsamrApp(QObject):
             'features_only_most_significant_feats': 300,
             'features_remove_less_than': False,
             'features_remove_less_than_variance': 0.10,
+            'learn_train_split': False,
+            'learn_train_split_value': 0.75,
             'learn_multinomialnb_alpha': 1.00,
             'learn_multinomialnb_fit_prior': False,
-            'learn_lda_solver': 0,  # 0: svd, 1: lsqr, 2: eigen
+            'learn_lda_solver_idx': 0,  # 0: svd, 1: lsqr, 2: eigen
+            'learn_lda_solver': 'svd',  # 0: svd, 1: lsqr, 2: eigen
             'learn_lda_n_components': False,
             'learn_lda_n_components_value': 3,
             'learn_lda_store_covariance': False,
@@ -80,7 +83,7 @@ class MainPfcsamrApp(QObject):
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         """:type: QSqlDatabase"""
-        self.db.setDatabaseName('temp.sqlite')
+        self.db.setDatabaseName(':memory:')  # TODO: temp.sqlite
         self.db.open()
 
         self.orchestrator = None
@@ -159,14 +162,23 @@ class MainPfcsamrApp(QObject):
         klazz = methods[learn_method]
         prop_prefix = 'learn_' + klazz.__name__.lower() + '_'
         klazz_params = {}
-        for k,v  in self._config.items():
-            if k.startswith(prop_prefix):
-                klazz_params[k[len(prop_prefix):]] = v
+        for k, v in self._config.items():
+            # exceptions
+            if k == 'learn_lda_n_components':
+                continue
+            elif k == 'learn_lda_n_components_value':
+                if self._config['learn_lda_n_components']:
+                    klazz_params['n_components'] = int(v)
+            # normal rule
+            elif k.startswith(prop_prefix):
+                if not k.endswith('_idx'):
+                    klazz_params[k[len(prop_prefix):]] = v
 
         print(klazz)
         print(klazz_params)
         print(klazz(**klazz_params))
-        pass
+        # TODO
+        self.orchestrator.do_learn(klazz, train_split=self._config['learn_train_split_value'], **klazz_params)
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
