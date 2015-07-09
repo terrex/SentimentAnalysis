@@ -1,4 +1,9 @@
 from PyQt5.QtSql import QSqlDatabase
+from sklearn.lda import LDA
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import GaussianNB
+from sklearn.qda import QDA
+from sklearn.svm import LinearSVC
 
 __author__ = 'terrex'
 
@@ -30,6 +35,13 @@ class MainPfcsamrApp(QObject):
         """:type: QTableView"""
         self.status_bar_label = None
         """:type: QLabel"""
+        self.load_tab = None
+        self.preproc_tab = None
+        self.features_tab = None
+        self.learn_tab = None
+        self.classify_tab = None
+        self.test_tab = None
+        self.evaluate_tab = None
 
         self._config = {
             'load_train_file': 'No file selected',
@@ -55,6 +67,15 @@ class MainPfcsamrApp(QObject):
             'features_only_most_significant_feats': 300,
             'features_remove_less_than': False,
             'features_remove_less_than_variance': 0.10,
+            'learn_multinomialnb_alpha': 1.00,
+            'learn_multinomialnb_fit_prior': False,
+            'learn_lda_solver': 0,  # 0: svd, 1: lsqr, 2: eigen
+            'learn_lda_n_components': False,
+            'learn_lda_n_components_value': 3,
+            'learn_lda_store_covariance': False,
+            'learn_qda_reg_param': 0.00,
+            'learn_linearsvc_dual': True,
+            'learn_linearsvc_max_iter': 100,
         }
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
@@ -88,7 +109,7 @@ class MainPfcsamrApp(QObject):
         max_rows = None
         if self._config['load_only_first']:
             max_rows = self._config['load_only_first_rows']
-        self.orchestrator.load_train_tsv(self._config['load_train_file'], max_rows=max_rows)
+        self.orchestrator.do_load_train_tsv(self._config['load_train_file'], max_rows=max_rows)
         self.data_table_view.setProperty('model', self.orchestrator.update_model_load())
 
     @pyqtSlot()
@@ -126,10 +147,38 @@ class MainPfcsamrApp(QObject):
         self.set_status_text("Feature extraction done. Shape of model ndarray: ")  # TODO
         self.data_table_view.setProperty('model', self.orchestrator.update_model_featured())
 
+    @pyqtSlot(int)
+    def learn_button_run_on_clicked(self, learn_method: int):
+        methods = {
+            0: MultinomialNB,
+            1: GaussianNB,
+            2: LDA,
+            3: QDA,
+            4: LinearSVC,
+        }
+        klazz = methods[learn_method]
+        prop_prefix = 'learn_' + klazz.__name__.lower() + '_'
+        klazz_params = {}
+        for k,v  in self._config.items():
+            if k.startswith(prop_prefix):
+                klazz_params[k[len(prop_prefix):]] = v
+
+        print(klazz)
+        print(klazz_params)
+        print(klazz(**klazz_params))
+        pass
+
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
         self.data_table_view = self.win.findChild(QQuickItem, "data_table_view")
         self.status_bar_label = self.win.findChild(QQuickItem, "status_bar_label")
+        self.load_tab = self.win.findChild(QQuickItem, "load_tab")
+        self.preproc_tab = self.win.findChild(QQuickItem, "preproc_tab")
+        self.features_tab = self.win.findChild(QQuickItem, "features_tab")
+        self.learn_tab = self.win.findChild(QQuickItem, "learn_tab")
+        self.classify_tab = self.win.findChild(QQuickItem, "classify_tab")
+        self.test_tab = self.win.findChild(QQuickItem, "test_tab")
+        self.evaluate_tab = self.win.findChild(QQuickItem, "evaluate_tab")
 
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
@@ -146,6 +195,9 @@ class MainPfcsamrApp(QObject):
     def set_status_text(self, text: str):
         self.status_bar_label.setProperty('text', text)
         logger.debug(text)
+
+    def enable_tab(self, tabname: str):
+        getattr(self, tabname).setProperty('enabled', True)
 
 
 if __name__ == '__main__':

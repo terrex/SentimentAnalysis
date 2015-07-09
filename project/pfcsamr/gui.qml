@@ -11,6 +11,15 @@ ApplicationWindow {
     height: 560
     minimumWidth: 720
     minimumHeight: 560
+    title: "Sentiment Analysis"
+
+    function set_prop(name, value) {
+        mainPfcsamrApp.set_config_prop_value(name, value)
+    }
+
+    function get_prop(name, value) {
+        return mainPfcsamrApp.get_config_prop(name)
+    }
 
     menuBar: MenuBar {
         Menu {
@@ -174,6 +183,7 @@ ApplicationWindow {
                     objectName: "preproc_tab"
                     title: "Preprocess"
                     anchors.margins: 10
+                    enabled: false
                     ColumnLayout {
                         CheckBox {
                             id: preproc_unsplit_contractions
@@ -279,6 +289,7 @@ ApplicationWindow {
                     objectName: "features_tab"
                     title: "Features"
                     anchors.margins: 10
+                    enabled: false
                     ColumnLayout {
                         RowLayout {
                             CheckBox {
@@ -493,6 +504,7 @@ ApplicationWindow {
                     objectName: "learn_tab"
                     title: "Learn"
                     anchors.margins: 10
+                    enabled: false
                     ColumnLayout {
                         RowLayout {
                             id: splitRandomlyRowLayout
@@ -512,33 +524,198 @@ ApplicationWindow {
                         }
 
                         RowLayout {
-                            height: parent.height - splitRandomlyRowLayout.height - learnRUN.height
+                            height: parent.height - splitRandomlyRowLayout.height
+                                    - learn_button_run.height
                             TabView {
+                                id: learn_tabs
+                                objectName: 'learn_tabs'
                                 anchors.fill: parent
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
 
                                 Tab {
+                                    id: learn_multinomialnb
+                                    objectName: 'learn_multinomialnb'
                                     title: "MultinomialNB"
+                                    anchors.margins: 10
+                                    ColumnLayout {
+                                        RowLayout {
+                                            Label {
+                                                text: "alpha smoothing (LaPlace/Lidstone)"
+                                            }
+                                            SpinBox {
+                                                minimumValue: 0.00
+                                                maximumValue: 1.00
+                                                decimals: 2
+                                                stepSize: 0.01
+                                                value: get_prop(
+                                                           'learn_multinomialnb_alpha')
+                                                onValueChanged: set_prop(
+                                                                    'learn_multinomialnb_alpha',
+                                                                    value)
+                                            }
+                                        }
+                                        CheckBox {
+                                            text: "learn class priors"
+                                            checked: get_prop(
+                                                         'learn_multinomialnb_fit_prior')
+                                            onCheckedChanged: set_prop(
+                                                                  'learn_multinomialnb_fit_prior',
+                                                                  checked)
+                                        }
+
+                                        RowLayout {
+                                            anchors.fill: parent
+                                        }
+                                    }
                                 }
                                 Tab {
+                                    id: learn_gaussiannb
+                                    objectName: 'learn_gaussiannb'
                                     title: "GaussianNB"
+                                    anchors.margins: 10
+                                    ColumnLayout {
+                                        Label {
+                                            text: "No configurable parameters"
+                                        }
+
+                                        RowLayout {
+                                            anchors.fill: parent
+                                        }
+                                    }
                                 }
                                 Tab {
+                                    id: learn_lda
+                                    objectName: 'learn_lda'
                                     title: "LDA"
+                                    anchors.margins: 10
+                                    ColumnLayout {
+                                        RowLayout {
+                                            Label {
+                                                text: 'Solver'
+                                            }
+                                            ComboBox {
+                                                width: 100
+                                                id: learn_lda_solver
+                                                objectName: 'learn_lda_solver'
+                                                model: ['Singular value decomposition', 'Least squares solution', 'Eigenvalue decomposition']
+                                                currentIndex: get_prop(
+                                                                  objectName)
+                                                onCurrentIndexChanged: set_prop(
+                                                                           objectName,
+                                                                           currentIndex)
+                                            }
+                                        }
+                                        RowLayout {
+                                            CheckBox {
+                                                id: learn_lda_n_components
+                                                objectName: 'learn_lda_n_components'
+                                                text: "Number of components"
+                                                checked: get_prop(objectName)
+                                                onCheckedChanged: set_prop(
+                                                                      objectName,
+                                                                      checked)
+                                            }
+                                            SpinBox {
+                                                id: learn_lda_n_components_value
+                                                objectName: 'learn_lda_n_components_value'
+                                                minimumValue: 1
+                                                maximumValue: 3
+                                                enabled: learn_lda_n_components.checked
+                                                value: get_prop(objectName)
+                                                onValueChanged: set_prop(
+                                                                    objectName,
+                                                                    value)
+                                            }
+                                        }
+                                        CheckBox {
+                                            id: learn_lda_store_covariance
+                                            objectName: 'learn_lda_store_covariance'
+                                            text: "Additionally compute class covariance matrix"
+                                            checked: get_prop(objectName)
+                                            onCheckedChanged: set_prop(
+                                                                  objectName,
+                                                                  checked)
+                                        }
+
+                                        RowLayout {
+                                            anchors.fill: parent
+                                        }
+                                    }
                                 }
                                 Tab {
+                                    id: learn_qda
+                                    objectName: 'learn_qda'
                                     title: "QDA"
+                                    anchors.margins: 10
+                                    ColumnLayout {
+                                        RowLayout {
+                                            Text {
+                                                text: "Regularize covariance estimate"
+                                            }
+                                            SpinBox {
+                                                id: learn_qda_reg_param
+                                                objectName: 'learn_qda_reg_param'
+                                                minimumValue: 0.00
+                                                maximumValue: 1.00
+                                                stepSize: 0.01
+                                                decimals: 2
+                                                value: get_prop(objectName)
+                                                onValueChanged: set_prop(
+                                                                    objectName,
+                                                                    value)
+                                            }
+                                        }
+
+                                        RowLayout {
+                                            anchors.fill: parent
+                                        }
+                                    }
                                 }
                                 Tab {
-                                    title: "LinearSVM"
+                                    id: learn_linearsvc
+                                    objectName: 'learn_linearsvc'
+                                    title: "LinearSVC"
+                                    anchors.margins: 10
+                                    ColumnLayout {
+                                        CheckBox {
+                                            id: learn_linearsvc_dual
+                                            objectName: 'learn_linearsvc_dual'
+                                            text: "Solve dual instead of the primal problem"
+                                            checked: get_prop(objectName)
+                                            onCheckedChanged: set_prop(
+                                                                  objectName,
+                                                                  checked)
+                                        }
+                                        RowLayout {
+                                            Label {
+                                                text: "Max iterations"
+                                            }
+                                            SpinBox {
+                                                id: learn_linearsvc_max_iter
+                                                objectName: 'learn_linearsvc_max_iter'
+                                                minimumValue: 0
+                                                maximumValue: 1000
+                                                value: get_prop(objectName)
+                                                onValueChanged: set_prop(
+                                                                    objectName,
+                                                                    value)
+                                            }
+                                        }
+
+                                        RowLayout {
+                                            anchors.fill: parent
+                                        }
+                                    }
                                 }
                             }
                         }
 
                         Button {
-                            id: learnRUN
+                            id: learn_button_run
+                            objectName: 'learn_button_run'
                             text: "RUN"
+                            onClicked: mainPfcsamrApp.learn_button_run_on_clicked(learn_tabs.currentIndex)
                         }
                     }
                 }
@@ -548,6 +725,7 @@ ApplicationWindow {
                     objectName: "classify_tab"
                     title: "Classify"
                     anchors.margins: 10
+                    enabled: false
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {
@@ -561,6 +739,7 @@ ApplicationWindow {
                     objectName: "test_tab"
                     title: "Test"
                     anchors.margins: 10
+                    enabled: false
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {
@@ -574,6 +753,7 @@ ApplicationWindow {
                     objectName: "evaluate_tab"
                     title: "Evaluate"
                     anchors.margins: 10
+                    enabled: false
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {

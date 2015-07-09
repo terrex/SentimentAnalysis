@@ -159,7 +159,7 @@ class Orchestrator(object):
         """:type: FeatureUnion"""
         self.featured_headings = []
 
-    def load_train_tsv(self, file_path:str=None, max_rows=None):
+    def do_load_train_tsv(self, file_path:str=None, max_rows=None):
         if file_path.startswith('file:///'):
             file_path = file_path[7:]
         self.file_path = file_path
@@ -172,6 +172,8 @@ class Orchestrator(object):
                     break
 
         self.main_pfcsamr_app.set_status_text("Read {0} train samples".format(len(self.rows)))
+        self.main_pfcsamr_app.enable_tab('preproc_tab')
+        self.main_pfcsamr_app.enable_tab('features_tab')
         return self
 
     def update_model_load(self) -> QSqlTableModel:
@@ -221,6 +223,7 @@ class Orchestrator(object):
             self.preprocessed_rows.append(new_row)
 
         self.main_pfcsamr_app.set_status_text("Preprocessed done")
+        self.main_pfcsamr_app.enable_tab('features_tab')
 
     def do_features_countvectorizer(self, **kwargs):
         if not self.preprocessed_rows:
@@ -252,3 +255,4 @@ class Orchestrator(object):
         self.featured_rows = self.feature_union.fit_transform(self.preprocessed_rows, train_y)
         self.featured_headings = self.feature_union.get_feature_names()
         self.train_y = train_y
+        self.main_pfcsamr_app.enable_tab('learn_tab')
