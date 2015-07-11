@@ -187,8 +187,8 @@ class Orchestrator(object):
             self.main_pfcsamr_app.status_count_text = no
 
         self.main_pfcsamr_app.status_text = "Read {0} train samples".format(len(self.rows))
-        self.main_pfcsamr_app.enable_tab('preproc_tab')
-        self.main_pfcsamr_app.enable_tab('features_tab')
+        self.main_pfcsamr_app.preproc_tab_enabled = True
+        self.main_pfcsamr_app.features_tab_enabled = True
         self.current_model = make_model_from_python_table_load(self)
         self.main_pfcsamr_app.current_model_changed.emit()
         self.current_model_headings = self.headings
@@ -236,8 +236,8 @@ class Orchestrator(object):
 
             self.preprocessed_rows.append(new_row)
 
-        self.main_pfcsamr_app.set_status_text("Preprocessed done")
-        self.main_pfcsamr_app.enable_tab('features_tab')
+        self.main_pfcsamr_app.status_text = "Preprocessed done"
+        self.main_pfcsamr_app.features_tab_enabled = True
 
     def do_features_countvectorizer(self, **kwargs):
         if not self.preprocessed_rows:
@@ -270,7 +270,7 @@ class Orchestrator(object):
         self.featured_rows = self.feature_union.fit_transform(self.preprocessed_rows, train_y)
         self.featured_headings = self.feature_union.get_feature_names()
         self.train_y = train_y
-        self.main_pfcsamr_app.enable_tab('learn_tab')
+        self.main_pfcsamr_app.learn_tab_enabled = True
 
     def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
         if not self.already_splitted:

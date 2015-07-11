@@ -127,7 +127,7 @@ ApplicationWindow {
                     objectName: "load_tab"
                     title: "Load"
                     anchors.margins: 10
-
+                    enabled: mainPfcsamrApp.load_tab_enabled
                     ColumnLayout {
                         RowLayout {
                             Button {
@@ -192,7 +192,7 @@ ApplicationWindow {
                     objectName: "preproc_tab"
                     title: "Preprocess"
                     anchors.margins: 10
-                    enabled: false
+                    enabled: mainPfcsamrApp.preproc_tab_enabled
                     ColumnLayout {
                         CheckBox {
                             id: preproc_unsplit_contractions
@@ -298,7 +298,7 @@ ApplicationWindow {
                     objectName: "features_tab"
                     title: "Features"
                     anchors.margins: 10
-                    enabled: false
+                    enabled: mainPfcsamrApp.features_tab_enabled
                     ColumnLayout {
                         RowLayout {
                             CheckBox {
@@ -513,7 +513,7 @@ ApplicationWindow {
                     objectName: "learn_tab"
                     title: "Learn"
                     anchors.margins: 10
-                    enabled: false
+                    enabled: mainPfcsamrApp.learn_tab_enabled
                     ColumnLayout {
                         RowLayout {
                             id: splitRandomlyRowLayout
@@ -773,7 +773,7 @@ ApplicationWindow {
                     objectName: "classify_tab"
                     title: "Classify"
                     anchors.margins: 10
-                    enabled: false
+                    enabled: mainPfcsamrApp.classify_tab_enabled
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {
@@ -787,7 +787,7 @@ ApplicationWindow {
                     objectName: "test_tab"
                     title: "Test"
                     anchors.margins: 10
-                    enabled: false
+                    enabled: mainPfcsamrApp.test_tab_enabled
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {
@@ -801,7 +801,7 @@ ApplicationWindow {
                     objectName: "evaluate_tab"
                     title: "Evaluate"
                     anchors.margins: 10
-                    enabled: false
+                    enabled: mainPfcsamrApp.evaluate_tab_enabled
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {
