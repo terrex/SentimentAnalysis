@@ -137,12 +137,10 @@ ApplicationWindow {
                             TextEdit {
                                 id: load_train_file
                                 objectName: "load_train_file"
-                                text: mainPfcsamrApp.get_config_prop(
-                                          'load_train_file')
+                                text: get_prop(objectName)
                                 Layout.fillWidth: true
                                 readOnly: true
-                                onTextChanged: mainPfcsamrApp.set_config_prop_value(
-                                                   'load_train_file', text)
+                                onTextChanged: set_prop(objectName, text)
                             }
                         }
                         RowLayout {
@@ -150,11 +148,8 @@ ApplicationWindow {
                                 id: load_only_first
                                 objectName: 'load_only_first'
                                 text: "Load only first"
-                                checked: mainPfcsamrApp.get_config_prop(
-                                             'load_only_first')
-                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                      'load_only_first',
-                                                      checked)
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                             }
                             SpinBox {
                                 id: load_only_first_rows
@@ -162,11 +157,8 @@ ApplicationWindow {
                                 enabled: load_only_first.checked
                                 minimumValue: 0
                                 maximumValue: 99999999 //Actualizar por código
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'load_only_first_rows')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'load_only_first_rows',
-                                                    value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                             }
                             Label {
                                 text: "samples"
@@ -198,11 +190,8 @@ ApplicationWindow {
                             id: preproc_unsplit_contractions
                             objectName: 'preproc_unsplit_contractions'
                             text: "unsplit contractions"
-                            checked: mainPfcsamrApp.get_config_prop(
-                                         'preproc_unsplit_contractions')
-                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                  'preproc_unsplit_contractions',
-                                                  checked)
+                            checked: get_prop(objectName)
+                            onCheckedChanged: set_prop(objectName, checked)
                         }
                         CheckBox {
                             id: preproc_expand_contractions
@@ -216,32 +205,23 @@ ApplicationWindow {
                                     checked = false
                                 }
                             }
-                            checked: mainPfcsamrApp.get_config_prop(
-                                         'preproc_expand_contractions')
-                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                  'preproc_expand_contractions',
-                                                  checked)
+                            checked: get_prop(objectName)
+                            onCheckedChanged: set_prop(objectName, checked)
                         }
                         CheckBox {
                             id: preproc_remove_stopwords
                             objectName: 'preproc_remove_stopwords'
                             text: "remove stopwords"
-                            checked: mainPfcsamrApp.get_config_prop(
-                                         'preproc_remove_stopwords')
-                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                  'preproc_remove_stopwords',
-                                                  checked)
+                            checked: get_prop(objectName)
+                            onCheckedChanged: set_prop(objectName, checked)
                         }
                         GroupBox {
                             id: preproc_word_replacement
                             objectName: 'preproc_word_replacement'
                             checkable: true
                             title: "word replacement"
-                            checked: mainPfcsamrApp.get_config_prop(
-                                         'preproc_word_replacement')
-                            onCheckableChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'preproc_word_replacement',
-                                                    checked)
+                            checked: get_prop(objectName)
+                            onCheckedChanged: set_prop(objectName, checked)
                             ExclusiveGroup {
                                 id: stemmizeLemmatizeExclusiveGroup
                             }
@@ -251,22 +231,18 @@ ApplicationWindow {
                                     objectName: 'preproc_stemmize'
                                     text: "stemmize"
                                     exclusiveGroup: stemmizeLemmatizeExclusiveGroup
-                                    checked: mainPfcsamrApp.get_config_prop(
-                                                 'preproc_stemmize')
-                                    onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                          'preproc_stemmize',
-                                                          checked)
+                                    checked: get_prop(objectName)
+                                    onCheckedChanged: set_prop(objectName,
+                                                               checked)
                                 }
                                 RadioButton {
                                     id: preproc_lemmatize
                                     objectName: 'preproc_lemmatize'
                                     text: "lemmatize"
                                     exclusiveGroup: stemmizeLemmatizeExclusiveGroup
-                                    checked: mainPfcsamrApp.get_config_prop(
-                                                 'preproc_lemmatize')
-                                    onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                          'preproc_lemmatize',
-                                                          checked)
+                                    checked: get_prop(objectName)
+                                    onCheckedChanged: set_prop(objectName,
+                                                               checked)
                                 }
                             }
                         }
@@ -274,11 +250,8 @@ ApplicationWindow {
                             id: preproc_pos_tag_words
                             objectName: 'preproc_pos_tag_words'
                             text: "POS tag words"
-                            checked: mainPfcsamrApp.get_config_prop(
-                                         'preproc_pos_tag_words')
-                            onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                  'preproc_pos_tag_words',
-                                                  checked)
+                            checked: get_prop(objectName)
+                            onCheckedChanged: set_prop(objectName, checked)
                         }
                         Button {
                             id: preproc_button_run
@@ -305,11 +278,8 @@ ApplicationWindow {
                                 id: features_ngrams
                                 objectName: 'features_ngrams'
                                 text: "n-grams from"
-                                checked: mainPfcsamrApp.get_config_prop(
-                                             'features_ngrams')
-                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                      'features_ngrams',
-                                                      checked)
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                             }
                             SpinBox {
                                 id: features_ngrams_from
@@ -318,11 +288,8 @@ ApplicationWindow {
                                 maximumValue: Math.min(20,
                                                        features_ngrams_to.value)
                                 enabled: features_ngrams.checked
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'features_ngrams_from')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'features_ngrams_from',
-                                                    value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                             }
                             Label {
                                 text: "to"
@@ -334,10 +301,8 @@ ApplicationWindow {
                                 minimumValue: Math.max(
                                                   1, features_ngrams_from.value)
                                 maximumValue: 20
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'features_ngrams_to')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'features_ngrams_to', value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                                 enabled: features_ngrams.checked
                             }
                         }
@@ -357,11 +322,8 @@ ApplicationWindow {
                                 objectName: 'features_minimum_df'
                                 text: "a minimum of"
                                 enabled: features_ngrams.checked
-                                checked: mainPfcsamrApp.get_config_prop(
-                                             'features_minimum_df')
-                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                      'features_minimum_df',
-                                                      checked)
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                                 onEnabledChanged: if (!enabled)
                                                       checked = false
                             }
@@ -371,20 +333,15 @@ ApplicationWindow {
                                 minimumValue: 1
                                 maximumValue: 99999999
                                 enabled: features_minimum_df.checked
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'features_minimum_df_value')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'features_minimum_df_value',
-                                                    value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                             }
                             ComboBox {
                                 model: ["no. of documents", "% of documents"]
                                 enabled: features_minimum_df.checked
-                                currentIndex: mainPfcsamrApp.get_config_prop(
-                                                  'features_minimum_df_unit')
-                                onCurrentIndexChanged: mainPfcsamrApp.set_config_prop_value(
-                                                           'features_minimum_df_unit',
-                                                           currentIndex)
+                                currentIndex: get_prop(objectName)
+                                onCurrentIndexChanged: set_prop(objectName,
+                                                                currentIndex)
                             }
                         }
                         RowLayout {
@@ -397,11 +354,8 @@ ApplicationWindow {
                                 enabled: features_ngrams.checked
                                 onEnabledChanged: if (!enabled)
                                                       checked = false
-                                checked: mainPfcsamrApp.get_config_prop(
-                                             'features_maximum_df')
-                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                      'features_maximum_df',
-                                                      checked)
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                             }
                             SpinBox {
                                 id: features_maximum_df_value
@@ -409,22 +363,17 @@ ApplicationWindow {
                                 minimumValue: 1
                                 maximumValue: 99999999
                                 enabled: features_maximum_df.checked
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'features_maximum_df_value')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'features_maximum_df_value',
-                                                    value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                             }
                             ComboBox {
                                 id: features_maximum_df_unit
                                 objectName: 'features_maximum_df_unit'
                                 model: ["no. of documents", "% of documents"]
                                 enabled: features_maximum_df.checked
-                                currentIndex: mainPfcsamrApp.get_config_prop(
-                                                  'features_maximum_df_unit')
-                                onCurrentIndexChanged: mainPfcsamrApp.set_config_prop_value(
-                                                           'features_maximum_df_unit',
-                                                           currentIndex)
+                                currentIndex: get_prop(objectName)
+                                onCurrentIndexChanged: set_prop(objectName,
+                                                                currentIndex)
                             }
                         }
                         RowLayout {
@@ -437,11 +386,8 @@ ApplicationWindow {
                                 enabled: features_ngrams.checked
                                 onEnabledChanged: if (!enabled)
                                                       checked = false
-                                checked: mainPfcsamrApp.get_config_prop(
-                                             'features_only_most_significant')
-                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                      'features_only_most_significant',
-                                                      checked)
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                             }
                             SpinBox {
                                 id: features_only_most_significant_feats
@@ -449,11 +395,8 @@ ApplicationWindow {
                                 minimumValue: 1
                                 maximumValue: 1000
                                 enabled: features_only_most_significant.checked
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'features_only_most_significant_feats')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'features_only_most_significant_feats',
-                                                    value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                             }
                             Label {
                                 text: "features"
@@ -465,11 +408,8 @@ ApplicationWindow {
                                 id: features_remove_less_than
                                 objectName: 'features_remove_less_than'
                                 text: "remove features with less than"
-                                checked: mainPfcsamrApp.get_config_prop(
-                                             'features_remove_less_than')
-                                onCheckedChanged: mainPfcsamrApp.set_config_prop_value(
-                                                      'features_remove_less_than',
-                                                      checked)
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
                             }
                             SpinBox {
                                 id: features_remove_less_than_variance
@@ -479,11 +419,8 @@ ApplicationWindow {
                                 minimumValue: 0
                                 maximumValue: 99999999
                                 enabled: features_remove_less_than.checked
-                                value: mainPfcsamrApp.get_config_prop(
-                                           'features_remove_less_than_variance')
-                                onValueChanged: mainPfcsamrApp.set_config_prop_value(
-                                                    'features_remove_less_than_variance',
-                                                    value)
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
                             }
                             Label {
                                 text: "variance"
@@ -564,19 +501,19 @@ ApplicationWindow {
                                                 maximumValue: 1.00
                                                 decimals: 2
                                                 stepSize: 0.01
-                                                value: get_prop(
-                                                           'learn_multinomialnb_alpha')
+                                                value: get_prop(objectName)
                                                 onValueChanged: set_prop(
-                                                                    'learn_multinomialnb_alpha',
+                                                                    objectName,
                                                                     value)
                                             }
                                         }
                                         CheckBox {
+                                            id: learn_multinomialnb_fit_prior
+                                            objectName: 'learn_multinomialnb_fit_prior'
                                             text: "learn class priors"
-                                            checked: get_prop(
-                                                         'learn_multinomialnb_fit_prior')
+                                            checked: get_prop(objectName)
                                             onCheckedChanged: set_prop(
-                                                                  'learn_multinomialnb_fit_prior',
+                                                                  objectName,
                                                                   checked)
                                         }
 
@@ -643,7 +580,7 @@ ApplicationWindow {
                                                     }
                                                 }
                                                 currentIndex: get_prop(
-                                                                  objectName + '_idx')
+                                                                  bjectName + '_idx')
                                                 onCurrentIndexChanged: {
                                                     set_prop(objectName + '_idx',
                                                              currentIndex)

@@ -39,6 +39,8 @@ class MainPfcsamrApp(QObject):
         # pyqtProperties
         self._status_count_text = '0'
         self._status_text = "N/A"
+        self._current_model = None
+        self._table_headings = []
         self._load_tab_enabled = True
         self._preproc_tab_enabled = False
         self._features_tab_enabled = False
@@ -132,13 +134,25 @@ class MainPfcsamrApp(QObject):
     status_text_changed = pyqtSignal()
     status_text = pyqtProperty(QVariant, _get_status_text, _set_status_text, notify=status_text_changed)
 
+    # *** current_model *** #
+
+    def _get_current_model(self):
+        return self._current_model
+
+    def _set_current_model(self, value):
+        self._current_model = value
+        self.current_model_changed.emit()
+
+    current_model_changed = pyqtSignal()
+    current_model = pyqtProperty(QVariant, _get_current_model, _set_current_model, notify=current_model_changed)
+
     # *** table_headings *** #
 
     def _get_table_headings(self):
-        return self.orchestrator.current_model_headings
+        return self._table_headings
 
     def _set_table_headings(self, value):
-        self.orchestrator.current_model_headings = value
+        self._table_headings = value
         self.table_headings_changed.emit()
 
     table_headings_changed = pyqtSignal()
@@ -148,10 +162,10 @@ class MainPfcsamrApp(QObject):
     # *** load_tab_enabled *** #
 
     def _get_load_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._load_tab_enabled
 
     def _set_load_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._load_tab_enabled = value
         self.load_tab_enabled_changed.emit()
 
     load_tab_enabled_changed = pyqtSignal()
@@ -161,10 +175,10 @@ class MainPfcsamrApp(QObject):
     # *** preproc_tab_enabled *** #
 
     def _get_preproc_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._preproc_tab_enabled
 
     def _set_preproc_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._preproc_tab_enabled = value
         self.preproc_tab_enabled_changed.emit()
 
     preproc_tab_enabled_changed = pyqtSignal()
@@ -174,10 +188,10 @@ class MainPfcsamrApp(QObject):
     # *** features_tab_enabled *** #
 
     def _get_features_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._features_tab_enabled
 
     def _set_features_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._features_tab_enabled = value
         self.features_tab_enabled_changed.emit()
 
     features_tab_enabled_changed = pyqtSignal()
@@ -187,10 +201,10 @@ class MainPfcsamrApp(QObject):
     # *** learn_tab_enabled *** #
 
     def _get_learn_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._learn_tab_enabled
 
     def _set_learn_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._learn_tab_enabled = value
         self.learn_tab_enabled_changed.emit()
 
     learn_tab_enabled_changed = pyqtSignal()
@@ -200,10 +214,10 @@ class MainPfcsamrApp(QObject):
     # *** classify_tab_enabled *** #
 
     def _get_classify_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._classify_tab_enabled
 
     def _set_classify_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._classify_tab_enabled = value
         self.classify_tab_enabled_changed.emit()
 
     classify_tab_enabled_changed = pyqtSignal()
@@ -213,10 +227,10 @@ class MainPfcsamrApp(QObject):
     # *** test_tab_enabled *** #
 
     def _get_test_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._test_tab_enabled
 
     def _set_test_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._test_tab_enabled = value
         self.test_tab_enabled_changed.emit()
 
     test_tab_enabled_changed = pyqtSignal()
@@ -226,10 +240,10 @@ class MainPfcsamrApp(QObject):
     # *** evaluate_tab_enabled *** #
 
     def _get_evaluate_tab_enabled(self):
-        return self.orchestrator.current_model_headings
+        return self._evaluate_tab_enabled
 
     def _set_evaluate_tab_enabled(self, value):
-        self.orchestrator.current_model_headings = value
+        self._evaluate_tab_enabled = value
         self.evaluate_tab_enabled_changed.emit()
 
     evaluate_tab_enabled_changed = pyqtSignal()
@@ -244,6 +258,7 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot(str, QVariant)
     def set_config_prop_value(self, propname: str, value: QVariant):
+        logger.debug("{0} set to {1}".format(propname, str(value)))
         self._config[propname] = value
 
     @pyqtSlot()
@@ -255,19 +270,9 @@ class MainPfcsamrApp(QObject):
         start_new_thread(
             lambda: self.orchestrator.do_load_train_tsv(self._config['load_train_file'], max_rows=max_rows), ())
 
-    def _get_current_model(self):
-        return self.orchestrator.current_model
-
-    def _set_current_model(self, value):
-        self.orchestrator.current_model = value
-
-    current_model_changed = pyqtSignal()
-    current_model = pyqtProperty(QVariant, _get_current_model, _set_current_model, notify=current_model_changed)
-
     @pyqtSlot()
     def preproc_button_run_on_clicked(self):
-        self.orchestrator.do_preprocess()
-        self.data_table_view.setProperty('model', self.orchestrator.update_model_preproc())
+        start_new_thread(lambda: self.orchestrator.do_preprocess(), ())
 
     @pyqtSlot()
     def features_button_run_on_clicked(self):
@@ -290,14 +295,17 @@ class MainPfcsamrApp(QObject):
                 count_vectorizer_options['max_features'] = int(self._config['features_only_most_significant_feats'])
                 # TODO count vectorizer on text fields
 
-        self.orchestrator.do_features_countvectorizer(**count_vectorizer_options)
+        print(count_vectorizer_options)
         if self._config['features_remove_less_than']:
             # TODO feature selection
             pass
 
-        print(count_vectorizer_options)
-        self.status_text = "Feature extraction done. Shape of model ndarray: "  # TODO
-        self.data_table_view.setProperty('model', self.orchestrator.update_model_featured())
+        def _temp_func():
+            self.orchestrator.do_features_countvectorizer(**count_vectorizer_options)
+            # TODO call feature selection
+            self.status_text = "Feature extraction done. No. of features: SHAPE"  # TODO
+
+        start_new_thread(_temp_func(), ())
 
     @pyqtSlot(int)
     def learn_button_run_on_clicked(self, learn_method: int):
@@ -343,7 +351,7 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot(int, int, result=str)
     def get_current_model_cell(self, row: int, column: int):
-        return str(self.orchestrator.current_model.record(row).value(column))
+        return str(self._current_model.record(row).value(column))
 
     def set_label_text(self, object_name: str, text: str):
         self.win.findChild(QQuickItem, object_name).setProperty('text', text)

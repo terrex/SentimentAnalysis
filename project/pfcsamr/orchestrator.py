@@ -1,3 +1,4 @@
+from copy import copy
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -24,9 +25,12 @@ logger = logging.getLogger(__name__)
 def make_model_from_python_table_load(orchestrator) -> QSqlTableModel:
     columns = ["{0} text".format(h) for h in orchestrator.headings]
     orchestrator.main_pfcsamr_app.db.exec("drop table if EXISTS loadtab")
+    logger.debug("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
+    print("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
     query = "create table loadtab ({0})".format(",".join(columns))
     orchestrator.main_pfcsamr_app.db.exec(query)
-    logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
+    logger.debug("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
+    print("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
     no = 0
     for no, row in enumerate(orchestrator.rows, 1):
         values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
@@ -50,12 +54,16 @@ def make_model_from_python_table_preproc(orchestrator) -> QSqlTableModel:
     query = "create table preproctab ({0})".format(",".join(columns))
     orchestrator.main_pfcsamr_app.db.exec(query)
     logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-    for row in orchestrator.preprocessed_rows:
+    no = 0
+    for no, row in enumerate(orchestrator.preprocessed_rows, 1):
         values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
         query = "insert into preproctab values ({0})".format(",".join(values))
         orchestrator.main_pfcsamr_app.db.exec(query)
         logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
+        if no % 512 == 0:
+            orchestrator.main_pfcsamr_app.status_count_text = no
 
+    orchestrator.main_pfcsamr_app.status_count_text = no
     result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
     result.setTable("preproctab")
     result.select()
@@ -69,11 +77,15 @@ def make_model_from_python_table_featured(orchestrator) -> QSqlTableModel:
     query = "create table featurestab ({0})".format(",".join(c.replace(' ', '_') for c in columns))
     orchestrator.main_pfcsamr_app.db.exec(query)
     logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-    for values in orchestrator.featured_rows:
+    no = 0
+    for no, values in enumerate(orchestrator.featured_rows, 1):
         query = "insert into featurestab values ({0})".format(",".join(str(v) for v in values.toarray()[0]))
         orchestrator.main_pfcsamr_app.db.exec(query)
         logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
+        if no % 512 == 0:
+            orchestrator.main_pfcsamr_app.status_count_text = no
 
+    orchestrator.main_pfcsamr_app.status_count_text = no
     result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
     result.setTable("featurestab")
     result.select()
@@ -154,8 +166,6 @@ class Orchestrator(object):
         self.headings = []
         self.rows = []
         self.preprocessed_rows = []
-        self.current_model = None
-        self.current_model_headings = []
         self.main_pfcsamr_app = mainPfcsamrApp
         """:type: MainPfcsamr2App"""
         self.featured_rows = []
@@ -189,21 +199,9 @@ class Orchestrator(object):
         self.main_pfcsamr_app.status_text = "Read {0} train samples".format(len(self.rows))
         self.main_pfcsamr_app.preproc_tab_enabled = True
         self.main_pfcsamr_app.features_tab_enabled = True
-        self.current_model = make_model_from_python_table_load(self)
-        self.main_pfcsamr_app.current_model_changed.emit()
-        self.current_model_headings = self.headings
-        self.main_pfcsamr_app.table_headings_changed.emit()
+        self.main_pfcsamr_app.current_model = make_model_from_python_table_load(self)
+        self.main_pfcsamr_app.table_headings = self.headings
         return self
-
-    def update_model_preproc(self) -> QSqlTableModel:
-        self.current_model = make_model_from_python_table_preproc(self)
-        self.current_model_headings = self.headings
-        return self.current_model
-
-    def update_model_featured(self) -> QSqlTableModel:
-        self.current_model = make_model_from_python_table_featured(self)
-        self.current_model_headings = self.featured_headings
-        return self.current_model
 
     def do_preprocess(self):
         from .replacers import RegexpReplacer as ContractionsExpander
@@ -213,7 +211,8 @@ class Orchestrator(object):
         stemmer = nltk.PorterStemmer()
         lemmatizer = nltk.WordNetLemmatizer()
         self.preprocessed_rows = []
-        for row in self.rows:
+        no = 0
+        for no, row in enumerate(self.rows, 1):
             new_row = []
             for column in row:
                 if is_text(column):
@@ -235,13 +234,19 @@ class Orchestrator(object):
                 new_row.append(column)
 
             self.preprocessed_rows.append(new_row)
+            if no % 512 == 0:
+                self.main_pfcsamr_app.status_count_text = no
 
+        self.main_pfcsamr_app.status_count_text = no
         self.main_pfcsamr_app.status_text = "Preprocessed done"
         self.main_pfcsamr_app.features_tab_enabled = True
+        self.main_pfcsamr_app.current_model = make_model_from_python_table_preproc(self)
+        self.main_pfcsamr_app.table_headings = self.headings
+        return self
 
     def do_features_countvectorizer(self, **kwargs):
         if not self.preprocessed_rows:
-            self.preprocessed_rows = self.rows
+            self.preprocessed_rows = copy(self.rows)
 
         # TODO No hardcodear
         columns_names = self.headings
@@ -271,6 +276,9 @@ class Orchestrator(object):
         self.featured_headings = self.feature_union.get_feature_names()
         self.train_y = train_y
         self.main_pfcsamr_app.learn_tab_enabled = True
+        self.main_pfcsamr_app.current_model = make_model_from_python_table_featured(self)
+        self.main_pfcsamr_app.table_headings = self.featured_headings
+        return self
 
     def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
         if not self.already_splitted:
