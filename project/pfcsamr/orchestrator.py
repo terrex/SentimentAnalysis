@@ -1,5 +1,5 @@
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.feature_extraction import DictVectorizer
+from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline, FeatureUnion
 
@@ -27,12 +27,16 @@ def make_model_from_python_table_load(orchestrator) -> QSqlTableModel:
     query = "create table loadtab ({0})".format(",".join(columns))
     orchestrator.main_pfcsamr_app.db.exec(query)
     logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-    for row in orchestrator.rows:
+    no = 0
+    for no, row in enumerate(orchestrator.rows, 1):
         values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
         query = "insert into loadtab values ({0})".format(",".join(values))
         orchestrator.main_pfcsamr_app.db.exec(query)
         logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
+        if no % 512 == 0:
+            orchestrator.main_pfcsamr_app.status_count_text = no
 
+    orchestrator.main_pfcsamr_app.status_count_text = no
     result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
     result.setTable("loadtab")
     result.select()
@@ -155,33 +159,41 @@ class Orchestrator(object):
         self.main_pfcsamr_app = mainPfcsamrApp
         """:type: MainPfcsamr2App"""
         self.featured_rows = []
+        self.featured_rows_train = []
+        self.featured_rows_test = []
         self.train_y = []
+        self.train_y_train = []
+        self.train_y_test = []
         self.feature_union = None
         """:type: FeatureUnion"""
         self.featured_headings = []
         self.estimators = {}
+        self.already_splitted = False
 
-    def do_load_train_tsv(self, file_path:str=None, max_rows=None):
+    def do_load_train_tsv(self, file_path: str=None, max_rows=None):
         if file_path.startswith('file:///'):
             file_path = file_path[7:]
         self.file_path = file_path
         with open(file_path, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')
             self.headings = next(rdr)
+            no = 0
             for no, row in enumerate(rdr, 1):
+                if no % 512 == 0:
+                    self.main_pfcsamr_app.status_count_text = no
                 self.rows.append(row)
                 if max_rows is not None and no >= max_rows:
                     break
+            self.main_pfcsamr_app.status_count_text = no
 
-        self.main_pfcsamr_app.set_status_text("Read {0} train samples".format(len(self.rows)))
+        self.main_pfcsamr_app.status_text = "Read {0} train samples".format(len(self.rows))
         self.main_pfcsamr_app.enable_tab('preproc_tab')
         self.main_pfcsamr_app.enable_tab('features_tab')
-        return self
-
-    def update_model_load(self) -> QSqlTableModel:
         self.current_model = make_model_from_python_table_load(self)
+        self.main_pfcsamr_app.current_model_changed.emit()
         self.current_model_headings = self.headings
-        return self.current_model
+        self.main_pfcsamr_app.table_headings_changed.emit()
+        return self
 
     def update_model_preproc(self) -> QSqlTableModel:
         self.current_model = make_model_from_python_table_preproc(self)
@@ -239,10 +251,10 @@ class Orchestrator(object):
         train_y = []
 
         steps = []
-        steps.append(('numeric_feats', MyPipeline([
-            ('selector', SelectNumerics(columns_is_text, columns_names, columns_is_class)),
-            ('dict', DictVectorizer()),
-        ])))
+        # steps.append(('numeric_feats', MyPipeline([
+        #     ('selector', SelectNumerics(columns_is_text, columns_names, columns_is_class)),
+        #     ('dict', DictVectorizer()),
+        # ])))
         for column_i, column_is_text in enumerate(columns_is_text):
             if columns_is_class[column_i]:
                 train_y = map(lambda x: float(x[column_i]), self.preprocessed_rows)
@@ -261,5 +273,21 @@ class Orchestrator(object):
         self.main_pfcsamr_app.enable_tab('learn_tab')
 
     def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
+        if not self.already_splitted:
+            if train_split:
+                self.featured_rows_train, self.featured_rows_test, \
+                    self.train_y_train, self.train_y_test = train_test_split(self.featured_rows,
+                    self.train_y, train_size=train_split)
+            else:
+                self.featured_rows_train, self.featured_rows_test, \
+                    self.train_y_train, self.train_y_test = self.featured_rows, [], self.train_y, []
+            self.already_splitted = True
+
         self.estimators[estimator_klazz.__name__] = estimator_klazz(**estimator_klazz_params)
-        self.estimators[estimator_klazz.__name__].fit(self.featured_rows, self.train_y)
+        self.estimators[estimator_klazz.__name__].fit(self.featured_rows_train, self.train_y_train)
+
+        if train_split:
+            score_name = 'selftest_score_' + estimator_klazz.__name__.lower()
+            self.main_pfcsamr_app.config[score_name] = self.estimators[estimator_klazz.__name__].score(
+                self.featured_rows_test, self.train_y_test)
+            self.main_pfcsamr_app.set_label_text(score_name, str(self.main_pfcsamr_app.config[score_name]))

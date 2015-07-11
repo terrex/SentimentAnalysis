@@ -1,4 +1,6 @@
-from PyQt5.QtSql import QSqlDatabase
+from _thread import start_new_thread
+
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 from sklearn.lda import LDA
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.naive_bayes import GaussianNB
@@ -12,7 +14,7 @@ import logging
 import logging.config
 import os
 
-from PyQt5.QtCore import QObject, pyqtSlot, QVariant
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
@@ -42,6 +44,9 @@ class MainPfcsamrApp(QObject):
         self.classify_tab = None
         self.test_tab = None
         self.evaluate_tab = None
+        self.status_bar_count = None
+        self._status_count_text = '0'
+        self._status_text = "N/A"
 
         self._config = {
             'load_train_file': 'No file selected',
@@ -79,6 +84,11 @@ class MainPfcsamrApp(QObject):
             'learn_qda_reg_param': 0.00,
             'learn_linearsvc_dual': True,
             'learn_linearsvc_max_iter': 100,
+            'selftest_score_multinomialnb': 'N/A',
+            'selftest_score_guassiannb': 'N/A',
+            'selftest_score_lda': 'N/A',
+            'selftest_score_qda': 'N/A',
+            'selftest_score_linearsvc': 'N/A',
         }
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
@@ -86,7 +96,7 @@ class MainPfcsamrApp(QObject):
         self.db.setDatabaseName(':memory:')  # TODO: temp.sqlite
         self.db.open()
 
-        self.orchestrator = None
+        self.orchestrator = Orchestrator(self)
         """:type: Orchestrator"""
 
     def _get_config(self) -> dict:
@@ -97,6 +107,45 @@ class MainPfcsamrApp(QObject):
 
     config = property(_get_config, _set_config)
     """:type: dict"""
+
+    # *** status_count_text *** #
+
+    def _get_status_count_text(self):
+        return self._status_count_text
+
+    def _set_status_count_text(self, value):
+        self._status_count_text = str(value)
+        self.status_count_text_changed.emit()
+
+    status_count_text_changed = pyqtSignal()
+    status_count_text = pyqtProperty(str, _get_status_count_text, _set_status_count_text,
+        notify=status_count_text_changed)
+
+    # *** status_text *** #
+
+    def _get_status_text(self):
+        return self._status_text
+
+    def _set_status_text(self, value):
+        self._status_text = str(value)
+        self.status_text_changed.emit()
+
+    status_text_changed = pyqtSignal()
+    status_text = pyqtProperty(str, _get_status_text, _set_status_text,
+        notify=status_text_changed)
+
+    # *** table_headings *** #
+
+    def _get_table_headings(self):
+        return self.orchestrator.current_model_headings
+
+    def _set_table_headings(self, value):
+        self.orchestrator.current_model_headings = value
+        self.table_headings_changed.emit()
+
+    table_headings_changed = pyqtSignal()
+    table_headings = pyqtProperty('QStringList', _get_table_headings, _set_table_headings,
+        notify=table_headings_changed)
 
     @pyqtSlot(str, result=QVariant)
     def get_config_prop(self, propname: str):
@@ -112,8 +161,17 @@ class MainPfcsamrApp(QObject):
         max_rows = None
         if self._config['load_only_first']:
             max_rows = self._config['load_only_first_rows']
-        self.orchestrator.do_load_train_tsv(self._config['load_train_file'], max_rows=max_rows)
-        self.data_table_view.setProperty('model', self.orchestrator.update_model_load())
+        start_new_thread(
+            lambda: self.orchestrator.do_load_train_tsv(self._config['load_train_file'], max_rows=max_rows), ())
+
+    def _get_current_model(self):
+        return self.orchestrator.current_model
+
+    def _set_current_model(self, value):
+        self.orchestrator.current_model = value
+
+    current_model_changed = pyqtSignal()
+    current_model = pyqtProperty(QSqlTableModel, _get_current_model, _set_current_model, notify=current_model_changed)
 
     @pyqtSlot()
     def preproc_button_run_on_clicked(self):
@@ -178,7 +236,11 @@ class MainPfcsamrApp(QObject):
         print(klazz_params)
         print(klazz(**klazz_params))
         # TODO
-        self.orchestrator.do_learn(klazz, train_split=self._config['learn_train_split_value'], **klazz_params)
+        train_split = None
+        if self._config['learn_train_split']:
+            train_split = self._config['learn_train_split_value']
+
+        self.orchestrator.do_learn(klazz, train_split=train_split, **klazz_params)
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
@@ -191,14 +253,11 @@ class MainPfcsamrApp(QObject):
         self.classify_tab = self.win.findChild(QQuickItem, "classify_tab")
         self.test_tab = self.win.findChild(QQuickItem, "test_tab")
         self.evaluate_tab = self.win.findChild(QQuickItem, "evaluate_tab")
+        self.status_bar_count = self.win.findChild(QQuickItem, "status_bar_count")
 
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
         return self.win.findChild(QQuickItem, item_name)
-
-    @pyqtSlot(result='QStringList')
-    def get_table_headings(self):
-        return self.orchestrator.current_model_headings
 
     @pyqtSlot(int, int, result=str)
     def get_current_model_cell(self, row: int, column: int):
@@ -207,6 +266,12 @@ class MainPfcsamrApp(QObject):
     def set_status_text(self, text: str):
         self.status_bar_label.setProperty('text', text)
         logger.debug(text)
+
+    def set_label_text(self, object_name: str, text: str):
+        self.win.findChild(QQuickItem, object_name).setProperty('text', text)
+
+    def set_count_text(self, text):
+        self.status_bar_count.setProperty('text', str(text))
 
     def enable_tab(self, tabname: str):
         getattr(self, tabname).setProperty('enabled', True)

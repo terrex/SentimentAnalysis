@@ -89,10 +89,19 @@ ApplicationWindow {
 
     statusBar: StatusBar {
         RowLayout {
+            anchors.fill: parent
             Label {
                 id: status_bar_label
                 objectName: "status_bar_label"
-                text: "Done"
+                text: mainPfcsamrApp.status_text
+            }
+            Label {
+                anchors.right: parent.right
+                id: status_bar_count
+                objectName: "status_bar_count"
+                text: mainPfcsamrApp.status_count_text
+                width: 150
+                horizontalAlignment: Label.AlignRight
             }
         }
     }
@@ -574,6 +583,19 @@ ApplicationWindow {
                                         RowLayout {
                                             anchors.fill: parent
                                         }
+                                        RowLayout {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            width: parent.width
+                                            anchors.bottomMargin: 0
+                                            Label {
+                                                text: "SCORE: "
+                                            }
+                                            Label {
+                                                id: selftest_score_multinomialnb
+                                                objectName: 'selftest_score_multinomialnb'
+                                                text: get_prop(objectName)
+                                            }
+                                        }
                                     }
                                 }
                                 Tab {
@@ -797,12 +819,14 @@ ApplicationWindow {
                 id: data_table_view
                 objectName: 'data_table_view'
                 anchors.fill: parent
+                model: mainPfcsamrApp.current_model
 
                 onModelChanged: {
+                    console.log("onModelChanged")
                     while (columnCount > 0) {
                         removeColumn(0)
                     }
-                    var table_headings = mainPfcsamrApp.get_table_headings()
+                    var table_headings = mainPfcsamrApp.table_headings
                     for (var j = 0; j < table_headings.length; j++) {
                         addColumn(Qt.createQmlObject(
                                       'import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;'
