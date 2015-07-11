@@ -276,7 +276,6 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot()
     def features_button_run_on_clicked(self):
-        # TODO join all text fields and flat others except Sentiment
         count_vectorizer_options = {}
         if self._config['features_ngrams']:
             count_vectorizer_options['ngram_range'] = (
@@ -293,19 +292,14 @@ class MainPfcsamrApp(QObject):
                     count_vectorizer_options['max_df'] = int(self._config['features_maximum_df_value']) / 100.0
             if self._config['features_only_most_significant']:
                 count_vectorizer_options['max_features'] = int(self._config['features_only_most_significant_feats'])
-                # TODO count vectorizer on text fields
 
         print(count_vectorizer_options)
+        variance_threshold = None
         if self._config['features_remove_less_than']:
-            # TODO feature selection
-            pass
+            variance_threshold = float(self._config['features_remove_less_than_variance'])
 
-        def _temp_func():
-            self.orchestrator.do_features_countvectorizer(**count_vectorizer_options)
-            # TODO call feature selection
-            self.status_text = "Feature extraction done. No. of features: SHAPE"  # TODO
-
-        start_new_thread(_temp_func(), ())
+        start_new_thread(lambda: self.orchestrator.do_features_countvectorizer(variance_threshold=variance_threshold,
+            **count_vectorizer_options), ())
 
     @pyqtSlot(int)
     def learn_button_run_on_clicked(self, learn_method: int):

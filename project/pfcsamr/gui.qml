@@ -337,6 +337,8 @@ ApplicationWindow {
                                 onValueChanged: set_prop(objectName, value)
                             }
                             ComboBox {
+                                id: features_minimum_df_unit
+                                objectName: 'features_minimum_df_unit'
                                 model: ["no. of documents", "% of documents"]
                                 enabled: features_minimum_df.checked
                                 currentIndex: get_prop(objectName)

@@ -1,7 +1,9 @@
 from copy import copy
+
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_selection import VarianceThreshold
 from sklearn.pipeline import Pipeline, FeatureUnion
 
 __author__ = 'terrex'
@@ -72,7 +74,7 @@ def make_model_from_python_table_preproc(orchestrator) -> QSqlTableModel:
 
 
 def make_model_from_python_table_featured(orchestrator) -> QSqlTableModel:
-    columns = ["{0} float".format(h) for h in orchestrator.featured_headings]
+    columns = ["{0} float".format(h) for h in orchestrator.featured_selected_headings]
     orchestrator.main_pfcsamr_app.db.exec("drop table if EXISTS featurestab")
     query = "create table featurestab ({0})".format(",".join(c.replace(' ', '_') for c in columns))
     orchestrator.main_pfcsamr_app.db.exec(query)
@@ -179,6 +181,8 @@ class Orchestrator(object):
         self.featured_headings = []
         self.estimators = {}
         self.already_splitted = False
+        self.featured_support = []
+        self.featured_selected_headings = []
 
     def do_load_train_tsv(self, file_path: str=None, max_rows=None):
         if file_path.startswith('file:///'):
@@ -244,7 +248,7 @@ class Orchestrator(object):
         self.main_pfcsamr_app.table_headings = self.headings
         return self
 
-    def do_features_countvectorizer(self, **kwargs):
+    def do_features_countvectorizer(self, variance_threshold=None, **kwargs):
         if not self.preprocessed_rows:
             self.preprocessed_rows = copy(self.rows)
 
@@ -275,9 +279,23 @@ class Orchestrator(object):
         self.featured_rows = self.feature_union.fit_transform(self.preprocessed_rows, train_y)
         self.featured_headings = self.feature_union.get_feature_names()
         self.train_y = train_y
+
+        if variance_threshold is not None:
+            thresholder = VarianceThreshold(threshold=variance_threshold)
+            self.featured_rows = thresholder.fit_transform(self.featured_rows)
+            self.featured_support = thresholder.get_support()
+            self.featured_selected_headings = [self.featured_headings[i] for i, v in enumerate(self.featured_support) if True]
+        else:
+            self.featured_support = [True] * self.featured_rows.shape[1]
+            self.featured_selected_headings = copy(self.featured_headings)
+
         self.main_pfcsamr_app.learn_tab_enabled = True
         self.main_pfcsamr_app.current_model = make_model_from_python_table_featured(self)
-        self.main_pfcsamr_app.table_headings = self.featured_headings
+        self.main_pfcsamr_app.table_headings = self.featured_selected_headings
+        self.main_pfcsamr_app.status_text = "Feature extraction done. Shape of useful features: %s. Removed %d." % (
+            str(self.featured_rows.shape),
+            len(self.featured_headings) - len(self.featured_selected_headings),
+        )
         return self
 
     def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
