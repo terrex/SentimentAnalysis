@@ -36,7 +36,7 @@ class MainPfcsamrApp(QObject):
         """:type: QTableView"""
 
         # pyqtProperties
-        self._status_count_text = '0'
+        self._status_count_text = 0
         self._status_text = "N/A"
         self._current_model = None
         self._table_headings = []
@@ -111,11 +111,11 @@ class MainPfcsamrApp(QObject):
         return self._status_count_text
 
     def _set_status_count_text(self, value):
-        self._status_count_text = str(value)
+        self._status_count_text = value
         self.status_count_text_changed.emit()
 
     status_count_text_changed = pyqtSignal()
-    status_count_text = pyqtProperty(str, _get_status_count_text, _set_status_count_text,
+    status_count_text = pyqtProperty(int, _get_status_count_text, _set_status_count_text,
         notify=status_count_text_changed)
 
     # *** status_text *** #

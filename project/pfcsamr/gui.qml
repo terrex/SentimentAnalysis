@@ -95,6 +95,16 @@ ApplicationWindow {
                 objectName: "status_bar_label"
                 text: mainPfcsamrApp.status_text
             }
+            ProgressBar {
+                anchors.right: status_bar_count.left
+                id: status_bar_progress
+                objectName: 'status_bar_progress'
+                width: 100
+                minimumValue: 0
+                maximumValue: 100
+                value: mainPfcsamrApp.status_count_text
+                onValueChanged: maximumValue = Math.max(maximumValue, value)
+            }
             Label {
                 anchors.right: parent.right
                 id: status_bar_count
@@ -169,7 +179,10 @@ ApplicationWindow {
                                 id: load_button_load
                                 objectName: 'load_button_load'
                                 text: "LOAD"
-                                onClicked: mainPfcsamrApp.load_button_load_on_clicked()
+                                onClicked: {
+                                    status_bar_progress.maximumValue = 100
+                                    mainPfcsamrApp.load_button_load_on_clicked()
+                                }
                                 enabled: false
                             }
                         }
