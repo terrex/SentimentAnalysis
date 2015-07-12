@@ -69,7 +69,7 @@ class MainPfcsamrApp(QObject):
             'features_maximum_df': False,
             'features_maximum_df_value': 100,
             'features_maximum_df_unit': 1,  # 1 means % of documents
-            'features_only_most_significant': False,
+            'features_only_most_significant': True,
             'features_only_most_significant_feats': 300,
             'features_remove_less_than': False,
             'features_remove_less_than_variance': 0.03,
