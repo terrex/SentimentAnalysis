@@ -1,7 +1,7 @@
 from copy import copy, deepcopy
 import traceback
 
-from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtProperty
+from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtSlot, QModelIndex
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -33,22 +33,28 @@ class MyTableModel(QAbstractTableModel):
             data = np.array(data)
         self.my_data = data
 
+    @pyqtSlot(QModelIndex, result=int)
+    @pyqtSlot(result=int)
     def rowCount(self, QModelIndex_parent=None, *args, **kwargs):
         return self.my_data.shape[0]
 
-    @pyqtProperty(int)
-    def columnCount(self):
-        return len(self.my_headings)
+    @pyqtSlot(QModelIndex, result=int)
+    @pyqtSlot(result=int)
+    def columnCount(self, QModelIndex_parent=None, *args, **kwargs):
+        return self.my_data.shape[1]
 
-    def data(self, QModelIndex, int_role=None) -> QVariant:
-        return self.my_data[QModelIndex.row()][int_role]
+    @pyqtSlot(QModelIndex, int, result=QVariant)
+    @pyqtSlot(QModelIndex, result=QVariant)
+    def data(self, index: QModelIndex, role: int=None) -> QVariant:
+        return str(self.my_data[index.row(), role - 32])
 
-    @pyqtProperty('QStringList')
-    def headerData(self):
-        return self.my_headings
+    @pyqtSlot(int, int, int, result=str)
+    @pyqtSlot(int, int, result=str)
+    def headerData(self, section: int, orientation: int, role: int=None):
+        return self.my_headings[section]
 
     def roleNames(self):
-        return dict(enumerate(self.my_headings))
+        return dict(enumerate(self.my_headings, 32))
 
 
 def is_text(value):

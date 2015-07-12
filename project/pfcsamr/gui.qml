@@ -795,27 +795,17 @@ ApplicationWindow {
                     }
 
                     if (model !== undefined) {
-                        console.log("model.columnCount is " + model.columnCount)
-                        for (var j = 0; j < model.columnCount; j++) {
+                        for (var j = 0; j < model.columnCount(); j++) {
+                            var roleName = model.headerData(j, Qt.Horizontal)
                             addColumn(Qt.createQmlObject(
                                           'import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;'
-                                          + 'TableViewColumn{role:"display";title:"'
-                                          + model.headerData[j] + '";width:100;}',
+                                          + 'TableViewColumn{role:"' + roleName
+                                          + '";title:"' + roleName + '";width:100;}',
                                           data_table_view))
                         }
+                        resizeColumnsToContents()
                     } else {
                         console.log("model is undefined")
-                    }
-                }
-
-                itemDelegate: Item {
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.fill: parent
-                        color: styleData.textColor
-                        elide: Text.ElideRight
-                        text: mainPfcsamrApp.get_current_model_cell(
-                                  styleData.row, styleData.column)
                     }
                 }
             }

@@ -339,14 +339,6 @@ class MainPfcsamrApp(QObject):
     def findChild(self, item_name: str) -> QQuickItem:
         return self.win.findChild(QQuickItem, item_name)
 
-    @pyqtSlot(int, int, result=str)
-    def get_current_model_cell(self, row: int, column: int):
-        try:
-            return str(self._current_model.my_data[row, column])
-        except IndexError:
-            # logger.debug("not found cell ({0}, {1})".format(row, column))
-            return "N/A"
-
 
 def set_label_text(self, object_name: str, text: str):
     self.win.findChild(QQuickItem, object_name).setProperty('text', text)
