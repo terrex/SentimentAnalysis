@@ -793,15 +793,21 @@ ApplicationWindow {
                     while (columnCount > 0) {
                         removeColumn(0)
                     }
-                    var table_headings = mainPfcsamrApp.table_headings
-                    for (var j = 0; j < table_headings.length; j++) {
-                        addColumn(Qt.createQmlObject(
-                                      'import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;'
-                                      + 'TableViewColumn{role:"' + table_headings[j]
-                                      + '";title:"' + table_headings[j] + '";width:100;}',
-                                      data_table_view))
+
+                    if (model !== undefined) {
+                        console.log("model.columnCount is " + model.columnCount)
+                        for (var j = 0; j < model.columnCount; j++) {
+                            addColumn(Qt.createQmlObject(
+                                          'import QtQuick 2.2; import QtQuick.Controls 1.3; import QtQuick.Layouts 1.1;'
+                                          + 'TableViewColumn{role:"display";title:"'
+                                          + model.headerData[j] + '";width:100;}',
+                                          data_table_view))
+                        }
+                    } else {
+                        console.log("model is undefined")
                     }
                 }
+
                 itemDelegate: Item {
                     Text {
                         anchors.verticalCenter: parent.verticalCenter

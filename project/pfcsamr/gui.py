@@ -1,6 +1,5 @@
 from _thread import start_new_thread
 
-from PyQt5.QtSql import QSqlDatabase
 from sklearn.lda import LDA
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.naive_bayes import GaussianNB
@@ -73,7 +72,7 @@ class MainPfcsamrApp(QObject):
             'features_only_most_significant': False,
             'features_only_most_significant_feats': 300,
             'features_remove_less_than': False,
-            'features_remove_less_than_variance': 0.10,
+            'features_remove_less_than_variance': 0.03,
             'learn_train_split': False,
             'learn_train_split_value': 0.75,
             'learn_multinomialnb_alpha': 1.00,
@@ -92,11 +91,6 @@ class MainPfcsamrApp(QObject):
             'selftest_score_qda': 'N/A',
             'selftest_score_linearsvc': 'N/A',
         }
-
-        self.db = QSqlDatabase.addDatabase('QSQLITE')
-        """:type: QSqlDatabase"""
-        self.db.setDatabaseName(':memory:')  # TODO: temp.sqlite
-        self.db.open()
 
         from pfcsamr.orchestrator import Orchestrator
         self.orchestrator = Orchestrator(self)
@@ -147,19 +141,6 @@ class MainPfcsamrApp(QObject):
 
     current_model_changed = pyqtSignal()
     current_model = pyqtProperty(QVariant, _get_current_model, _set_current_model, notify=current_model_changed)
-
-    # *** table_headings *** #
-
-    def _get_table_headings(self):
-        return self._table_headings
-
-    def _set_table_headings(self, value):
-        self._table_headings = value
-        self.table_headings_changed.emit()
-
-    table_headings_changed = pyqtSignal()
-    table_headings = pyqtProperty(QVariant, _get_table_headings, _set_table_headings,
-        notify=table_headings_changed)
 
     # *** load_tab_enabled *** #
 
@@ -360,13 +341,19 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot(int, int, result=str)
     def get_current_model_cell(self, row: int, column: int):
-        return str(self._current_model.record(row).value(column))
+        try:
+            return str(self._current_model.my_data[row, column])
+        except IndexError:
+            # logger.debug("not found cell ({0}, {1})".format(row, column))
+            return "N/A"
 
-    def set_label_text(self, object_name: str, text: str):
-        self.win.findChild(QQuickItem, object_name).setProperty('text', text)
 
-    def enable_tab(self, tabname: str):
-        getattr(self, tabname).setProperty('enabled', True)
+def set_label_text(self, object_name: str, text: str):
+    self.win.findChild(QQuickItem, object_name).setProperty('text', text)
+
+
+def enable_tab(self, tabname: str):
+    getattr(self, tabname).setProperty('enabled', True)
 
 
 if __name__ == '__main__':

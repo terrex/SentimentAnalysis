@@ -1,6 +1,7 @@
 from copy import copy, deepcopy
 import traceback
 
+from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtProperty
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -14,7 +15,6 @@ import logging
 import logging.config
 import re
 
-from PyQt5.QtSql import QSqlTableModel
 from nltk.corpus import stopwords
 import nltk
 import numpy as np
@@ -25,75 +25,30 @@ logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
 
-def make_model_from_python_table_load(orchestrator) -> QSqlTableModel:
-    columns = ["{0} text".format(h) for h in orchestrator.headings]
-    orchestrator.main_pfcsamr_app.db.exec("drop table if EXISTS loadtab")
-    logger.debug("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
-    print("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
-    query = "create table loadtab ({0})".format(",".join(columns))
-    orchestrator.main_pfcsamr_app.db.exec(query)
-    logger.debug("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
-    print("last error: " + orchestrator.main_pfcsamr_app.db.lastError().text())
-    no = 0
-    for no, row in enumerate(orchestrator.rows, 1):
-        values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
-        query = "insert into loadtab values ({0})".format(",".join(values))
-        orchestrator.main_pfcsamr_app.db.exec(query)
-        logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-        if no % 512 == 0:
-            orchestrator.main_pfcsamr_app.status_count_text = no
+class MyTableModel(QAbstractTableModel):
+    def __init__(self, headings, data):
+        super().__init__()
+        self.my_headings = headings
+        if not hasattr(data, 'shape'):
+            data = np.array(data)
+        self.my_data = data
 
-    orchestrator.main_pfcsamr_app.status_count_text = no
-    result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
-    result.setTable("loadtab")
-    result.select()
+    def rowCount(self, QModelIndex_parent=None, *args, **kwargs):
+        return self.my_data.shape[0]
 
-    return result
+    @pyqtProperty(int)
+    def columnCount(self):
+        return len(self.my_headings)
 
+    def data(self, QModelIndex, int_role=None) -> QVariant:
+        return self.my_data[QModelIndex.row()][int_role]
 
-def make_model_from_python_table_preproc(orchestrator) -> QSqlTableModel:
-    columns = ["{0} text".format(h) for h in orchestrator.headings]
-    orchestrator.main_pfcsamr_app.db.exec("drop table if EXISTS preproctab")
-    query = "create table preproctab ({0})".format(",".join(columns))
-    orchestrator.main_pfcsamr_app.db.exec(query)
-    logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-    no = 0
-    for no, row in enumerate(orchestrator.preprocessed_rows, 1):
-        values = ["'{0}'".format(val.replace(r"'", r"''")) for val in row]
-        query = "insert into preproctab values ({0})".format(",".join(values))
-        orchestrator.main_pfcsamr_app.db.exec(query)
-        logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-        if no % 512 == 0:
-            orchestrator.main_pfcsamr_app.status_count_text = no
+    @pyqtProperty('QStringList')
+    def headerData(self):
+        return self.my_headings
 
-    orchestrator.main_pfcsamr_app.status_count_text = no
-    result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
-    result.setTable("preproctab")
-    result.select()
-
-    return result
-
-
-def make_model_from_python_table_featured(orchestrator) -> QSqlTableModel:
-    columns = ["{0} float".format(h) for h in orchestrator.featured_selected_headings]
-    orchestrator.main_pfcsamr_app.db.exec("drop table if EXISTS featurestab")
-    query = "create table featurestab ({0})".format(",".join(c.replace(' ', '_') for c in columns))
-    orchestrator.main_pfcsamr_app.db.exec(query)
-    logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-    no = 0
-    for no, values in enumerate(orchestrator.featured_rows, 1):
-        query = "insert into featurestab values ({0})".format(",".join(str(v) for v in values.toarray()[0]))
-        orchestrator.main_pfcsamr_app.db.exec(query)
-        logger.debug(orchestrator.main_pfcsamr_app.db.lastError().text())
-        if no % 512 == 0:
-            orchestrator.main_pfcsamr_app.status_count_text = no
-
-    orchestrator.main_pfcsamr_app.status_count_text = no
-    result = QSqlTableModel(db=orchestrator.main_pfcsamr_app.db)
-    result.setTable("featurestab")
-    result.select()
-
-    return result
+    def roleNames(self):
+        return dict(enumerate(self.my_headings))
 
 
 def is_text(value):
@@ -205,8 +160,7 @@ class Orchestrator(object):
         self.main_pfcsamr_app.status_text = "Read {0} train samples".format(len(self.rows))
         self.main_pfcsamr_app.preproc_tab_enabled = True
         self.main_pfcsamr_app.features_tab_enabled = True
-        self.main_pfcsamr_app.current_model = make_model_from_python_table_load(self)
-        self.main_pfcsamr_app.table_headings = self.headings
+        self.main_pfcsamr_app.current_model = MyTableModel(self.headings, self.rows)
         return self
 
     def do_preprocess(self):
@@ -246,8 +200,7 @@ class Orchestrator(object):
         self.main_pfcsamr_app.status_count_text = no
         self.main_pfcsamr_app.status_text = "Preprocessed done"
         self.main_pfcsamr_app.features_tab_enabled = True
-        self.main_pfcsamr_app.current_model = make_model_from_python_table_preproc(self)
-        self.main_pfcsamr_app.table_headings = self.headings
+        self.main_pfcsamr_app.current_model = MyTableModel(self.headings, self.preprocessed_rows)
         return self
 
     def do_features_countvectorizer(self, variance_threshold=None, **kwargs):
@@ -306,8 +259,7 @@ class Orchestrator(object):
 
         if not variance_too_high:
             self.main_pfcsamr_app.learn_tab_enabled = True
-            self.main_pfcsamr_app.current_model = make_model_from_python_table_featured(self)
-            self.main_pfcsamr_app.table_headings = self.featured_selected_headings
+            self.main_pfcsamr_app.current_model = MyTableModel(self.featured_selected_headings, self.featured_rows)
             self.main_pfcsamr_app.status_text = "Feature extraction done. Shape of useful features: %s. Removed %d." % (
                 str(self.featured_rows.shape),
                 len(self.featured_headings) - len(self.featured_selected_headings),
