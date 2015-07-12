@@ -428,6 +428,32 @@ ApplicationWindow {
                                 text: "variance"
                                 enabled: features_remove_less_than.checked
                             }
+                            Label {
+                                id: variance_warn_message_id
+                                text: mainPfcsamrApp.variance_warn_message
+                                color: "red"
+                                font.capitalization: Font.AllUppercase
+                                Behavior on text {
+                                    SequentialAnimation {
+                                        running: false
+                                        loops: 5
+                                        ColorAnimation {
+                                            target: variance_warn_message_id
+                                            property: "color"
+                                            from: "red"
+                                            to: "white"
+                                            duration: 500
+                                        }
+                                        ColorAnimation {
+                                            target: variance_warn_message_id
+                                            property: "color"
+                                            from: "white"
+                                            to: "red"
+                                            duration: 500
+                                        }
+                                    }
+                                }
+                            }
                         }
                         RowLayout {
                             Button {
@@ -499,10 +525,12 @@ ApplicationWindow {
                                                 text: "alpha smoothing (LaPlace/Lidstone)"
                                             }
                                             SpinBox {
+                                                id: learn_multinomialnb_alpha
+                                                objectName: 'learn_multinomialnb_alpha'
                                                 minimumValue: 0.00
                                                 maximumValue: 1.00
                                                 decimals: 2
-                                                stepSize: 0.01
+                                                stepSize: 0.1
                                                 value: get_prop(objectName)
                                                 onValueChanged: set_prop(
                                                                     objectName,

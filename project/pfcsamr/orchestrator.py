@@ -1,4 +1,5 @@
-from copy import copy
+from copy import copy, deepcopy
+import traceback
 
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
@@ -142,16 +143,17 @@ class SelectNumerics(BaseEstimator, TransformerMixin):
 
 
 class SelectText(BaseEstimator, TransformerMixin):
-    def __init__(self, column_i):
+    def __init__(self, column_i=None):
         self.column_i = column_i
 
     def fit(self, x, y=None):
         return self
 
     def transform(self, data):
-        result = []
-        for d in data:
-            result.append(d[self.column_i])
+        if not isinstance(data, np.ndarray):
+            result = np.array(data)
+
+        result = result[:, self.column_i]
         return result
 
 
@@ -249,6 +251,7 @@ class Orchestrator(object):
         return self
 
     def do_features_countvectorizer(self, variance_threshold=None, **kwargs):
+        self.main_pfcsamr_app.variance_warn_message = ""
         if not self.preprocessed_rows:
             self.preprocessed_rows = copy(self.rows)
 
@@ -277,25 +280,39 @@ class Orchestrator(object):
 
         self.feature_union = FeatureUnion(steps)
         self.featured_rows = self.feature_union.fit_transform(self.preprocessed_rows, train_y)
-        self.featured_headings = self.feature_union.get_feature_names()
+        self.featured_headings = deepcopy(self.feature_union.get_feature_names())
         self.train_y = train_y
 
+        variance_too_high = False
         if variance_threshold is not None:
             thresholder = VarianceThreshold(threshold=variance_threshold)
-            self.featured_rows = thresholder.fit_transform(self.featured_rows)
-            self.featured_support = thresholder.get_support()
-            self.featured_selected_headings = [self.featured_headings[i] for i, v in enumerate(self.featured_support) if True]
+            try:
+                self.featured_rows = thresholder.fit_transform(self.featured_rows)
+                self.featured_support = thresholder.get_support()
+                self.featured_selected_headings = [self.featured_headings[i] for i, v in
+                    enumerate(self.featured_support) if v]
+                self.main_pfcsamr_app.variance_warn_message = ""
+            except ValueError:
+                traceback.print_exc()
+                self.featured_rows = np.empty_like(self.featured_rows)
+                self.featured_support = []
+                self.featured_selected_headings = []
+                self.main_pfcsamr_app.variance_warn_message = "threshold too high!!!"
+                variance_too_high = True
         else:
+            self.main_pfcsamr_app.variance_warn_message = ""
             self.featured_support = [True] * self.featured_rows.shape[1]
-            self.featured_selected_headings = copy(self.featured_headings)
+            self.featured_selected_headings = deepcopy(self.featured_headings)
 
-        self.main_pfcsamr_app.learn_tab_enabled = True
-        self.main_pfcsamr_app.current_model = make_model_from_python_table_featured(self)
-        self.main_pfcsamr_app.table_headings = self.featured_selected_headings
-        self.main_pfcsamr_app.status_text = "Feature extraction done. Shape of useful features: %s. Removed %d." % (
-            str(self.featured_rows.shape),
-            len(self.featured_headings) - len(self.featured_selected_headings),
-        )
+        if not variance_too_high:
+            self.main_pfcsamr_app.learn_tab_enabled = True
+            self.main_pfcsamr_app.current_model = make_model_from_python_table_featured(self)
+            self.main_pfcsamr_app.table_headings = self.featured_selected_headings
+            self.main_pfcsamr_app.status_text = "Feature extraction done. Shape of useful features: %s. Removed %d." % (
+                str(self.featured_rows.shape),
+                len(self.featured_headings) - len(self.featured_selected_headings),
+            )
+
         return self
 
     def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):

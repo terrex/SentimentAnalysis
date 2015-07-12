@@ -7,6 +7,8 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.qda import QDA
 from sklearn.svm import LinearSVC
 
+from pfcsamr.orchestrator import Orchestrator
+
 __author__ = 'terrex'
 
 import sys
@@ -18,8 +20,6 @@ from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
-
-from pfcsamr.orchestrator import Orchestrator
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
@@ -48,6 +48,7 @@ class MainPfcsamrApp(QObject):
         self._classify_tab_enabled = False
         self._test_tab_enabled = False
         self._evaluate_tab_enabled = False
+        self._variance_warn_message = ""
 
         self._config = {
             'load_train_file': 'No file selected',
@@ -97,6 +98,7 @@ class MainPfcsamrApp(QObject):
         self.db.setDatabaseName(':memory:')  # TODO: temp.sqlite
         self.db.open()
 
+        from pfcsamr.orchestrator import Orchestrator
         self.orchestrator = Orchestrator(self)
         """:type: Orchestrator"""
 
@@ -249,6 +251,19 @@ class MainPfcsamrApp(QObject):
     evaluate_tab_enabled_changed = pyqtSignal()
     evaluate_tab_enabled = pyqtProperty(QVariant, _get_evaluate_tab_enabled, _set_evaluate_tab_enabled,
         notify=evaluate_tab_enabled_changed)
+
+    # *** variance_warn_message *** #
+
+    def _get_variance_warn_message(self):
+        return self._variance_warn_message
+
+    def _set_variance_warn_message(self, value):
+        self._variance_warn_message = value
+        self.variance_warn_message_changed.emit()
+
+    variance_warn_message_changed = pyqtSignal()
+    variance_warn_message = pyqtProperty(QVariant, _get_variance_warn_message, _set_variance_warn_message,
+        notify=variance_warn_message_changed)
 
     # *** end of pyqtProperties *** #
 
