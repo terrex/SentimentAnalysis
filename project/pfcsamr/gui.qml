@@ -27,14 +27,17 @@ ApplicationWindow {
             MenuItem {
                 text: qsTr("New")
                 shortcut: StandardKey.New
+                onTriggered: mainPfcsamrApp.do_menu_file_new()
             }
             MenuItem {
                 text: qsTr("Open...")
                 shortcut: StandardKey.Open
+                onTriggered: file_dialog_choose_open.open()
             }
             MenuItem {
                 text: qsTr("Save...")
                 shortcut: StandardKey.Save
+                onTriggered: file_dialog_choose_save.open()
             }
             MenuSeparator {
             }
@@ -77,14 +80,36 @@ ApplicationWindow {
     }
 
     FileDialog {
-        id: fileDialogChooseTSV
-        objectName: "fileDialogChooseTSV"
+        id: file_dialog_choose_train_tsv
+        objectName: "file_dialog_choose_train_tsv"
         nameFilters: ["Tab-separated files (*.tsv)"]
-        onAccepted: {
-            mainPfcsamrApp.findChild('load_train_file').text = fileUrl.toString(
-                        ).replace("file://", "")
-            mainPfcsamrApp.findChild('load_button_load').enabled = true
-        }
+        onAccepted: mainPfcsamrApp.findChild(
+                        'load_train_file').text = fileUrl.toString().replace(
+                        "file://", "")
+        sidebarVisible: true
+        title: "Open train.tsv"
+    }
+
+    FileDialog {
+        id: file_dialog_choose_save
+        objectName: "file_dialog_choose_save"
+        selectExisting: false
+        nameFilters: ["Sentiment Analysis config (*.yaml)"]
+        onAccepted: mainPfcsamrApp.do_menu_file_save(fileUrl.toString().replace(
+                                                         "file://", ""))
+        sidebarVisible: true
+        title: "Save current config"
+    }
+
+    FileDialog {
+        id: file_dialog_choose_open
+        objectName: "file_dialog_choose_open"
+        selectExisting: true
+        nameFilters: ["Sentiment Analysis config (*.yaml)"]
+        onAccepted: mainPfcsamrApp.do_menu_file_open(fileUrl.toString().replace(
+                                                         "file://", ""))
+        sidebarVisible: true
+        title: "Open config"
     }
 
     statusBar: StatusBar {
@@ -146,7 +171,7 @@ ApplicationWindow {
                         RowLayout {
                             Button {
                                 text: "Select file"
-                                onClicked: fileDialogChooseTSV.open()
+                                onClicked: file_dialog_choose_train_tsv.open()
                             }
                             TextEdit {
                                 id: load_train_file
@@ -154,7 +179,15 @@ ApplicationWindow {
                                 text: get_prop(objectName)
                                 Layout.fillWidth: true
                                 readOnly: true
-                                onTextChanged: set_prop(objectName, text)
+                                onTextChanged: {
+                                    set_prop(objectName, text)
+                                    if (text.indexOf("/") == 0) {
+                                        mainPfcsamrApp.findChild(
+                                                    'load_button_load').enabled = true
+                                    } else {
+                                        load_button_load.enabled = false
+                                    }
+                                }
                             }
                         }
                         RowLayout {

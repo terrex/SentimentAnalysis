@@ -5,6 +5,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.naive_bayes import GaussianNB
 from sklearn.qda import QDA
 from sklearn.svm import LinearSVC
+import yaml
 
 from pfcsamr.orchestrator import Orchestrator
 
@@ -49,7 +50,39 @@ class MainPfcsamrApp(QObject):
         self._evaluate_tab_enabled = False
         self._variance_warn_message = ""
 
-        self._config = {
+        self._config = self.default_config()
+
+        from pfcsamr.orchestrator import Orchestrator
+        self.orchestrator = Orchestrator(self)
+        """:type: Orchestrator"""
+
+    def _get_config(self) -> dict:
+        return self._config
+
+    def _set_config(self, config: dict) -> None:
+        self._config.update(config)
+        for k, v in config.items():
+            el = self.win.findChild(QQuickItem, k)
+            if el is not None:
+                if (hasattr(el, 'checkedChanged')):
+                    el.setProperty('checked', v)
+                    el.checkedChanged.emit()
+                elif (hasattr(el, 'valueChanged')):
+                    el.setProperty('value', v)
+                    el.valueChanged.emit()
+                elif (hasattr(el, 'textChanged')):
+                    el.setProperty('text', v)
+                    try:
+                        el.textChanged.emit(v)
+                    except TypeError:
+                        el.textChanged.emit()
+
+    config = property(_get_config, _set_config)
+    """:type: dict"""
+
+    @staticmethod
+    def default_config():
+        return {
             'load_train_file': 'No file selected',
             'load_only_first': True,
             'load_only_first_rows': 100,
@@ -91,31 +124,6 @@ class MainPfcsamrApp(QObject):
             'selftest_score_qda': 'N/A',
             'selftest_score_linearsvc': 'N/A',
         }
-
-        from pfcsamr.orchestrator import Orchestrator
-        self.orchestrator = Orchestrator(self)
-        """:type: Orchestrator"""
-
-    def _get_config(self) -> dict:
-        return self._config
-
-    def _set_config(self, config: dict) -> None:
-        self._config.update(config)
-        for k, v in config.items():
-            el = self.win.findChild(QQuickItem, k)
-            if el is not None:
-                if (hasattr(el, 'textChanged')):
-                    el.setProperty('text', v)
-                    el.textChanged.emit(v)
-                elif (hasattr(el, 'valueChanged')):
-                    el.setProperty('value', v)
-                    el.valueChanged.emit(v)
-                elif (hasattr(el, 'checkedChanged')):
-                    el.setProperty('checked', v)
-                    el.checkedChanged.emit(v)
-
-    config = property(_get_config, _set_config)
-    """:type: dict"""
 
     # *** status_count *** #
 
@@ -352,6 +360,25 @@ class MainPfcsamrApp(QObject):
     @pyqtSlot(str, result=QQuickItem)
     def findChild(self, item_name: str) -> QQuickItem:
         return self.win.findChild(QQuickItem, item_name)
+
+    @pyqtSlot(str)
+    def do_menu_file_save(self, filename: str):
+        yaml.dump(self._config, open(filename, "wt"), default_flow_style=False)
+        self.status_text = "Saved to {0}.".format(filename)
+
+    @pyqtSlot(str)
+    def do_menu_file_open(self, filename: str):
+        saved = yaml.load(open(filename, "rt"))
+        self.config = saved
+        self.status_text = "Loaded from {0}.".format(filename)
+        self.current_model = None
+
+    @pyqtSlot()
+    def do_menu_file_new(self):
+        self.current_model = None
+        self.config = self.default_config()
+        self.status_text = "Session reset."
+        self.current_model = None
 
 
 def set_label_text(self, object_name: str, text: str):
