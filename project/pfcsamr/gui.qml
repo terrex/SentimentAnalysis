@@ -27,7 +27,16 @@ ApplicationWindow {
             MenuItem {
                 text: qsTr("New")
                 shortcut: StandardKey.New
-                onTriggered: mainPfcsamrApp.do_menu_file_new()
+                onTriggered: {
+                    mainPfcsamrApp.do_menu_file_new()
+                    upper_tab_view.currentIndex = 0
+                    mainPfcsamrApp.preproc_tab_enabled = false
+                    mainPfcsamrApp.features_tab_enabled = false
+                    mainPfcsamrApp.learn_tab_enabled = false
+                    mainPfcsamrApp.classify_tab_enabled = false
+                    mainPfcsamrApp.test_tab_enabled = false
+                    mainPfcsamrApp.evaluate_tab_enabled = false
+                }
             }
             MenuItem {
                 text: qsTr("Open...")
@@ -106,8 +115,17 @@ ApplicationWindow {
         objectName: "file_dialog_choose_open"
         selectExisting: true
         nameFilters: ["Sentiment Analysis config (*.yaml)"]
-        onAccepted: mainPfcsamrApp.do_menu_file_open(fileUrl.toString().replace(
-                                                         "file://", ""))
+        onAccepted: {
+            mainPfcsamrApp.do_menu_file_open(fileUrl.toString().replace(
+                                                 "file://", ""))
+            upper_tab_view.currentIndex = 0
+            mainPfcsamrApp.preproc_tab_enabled = false
+            mainPfcsamrApp.features_tab_enabled = false
+            mainPfcsamrApp.learn_tab_enabled = false
+            mainPfcsamrApp.classify_tab_enabled = false
+            mainPfcsamrApp.test_tab_enabled = false
+            mainPfcsamrApp.evaluate_tab_enabled = false
+        }
         sidebarVisible: true
         title: "Open config"
     }
@@ -547,10 +565,25 @@ ApplicationWindow {
                                 suffix: " %"
                                 enabled: learn_train_split.checked
                                 value: get_prop(objectName) * 100
-                                onValueChanged: set_prop(objectName) / 100
+                                onValueChanged: {
+                                    set_prop(objectName, value / 100)
+                                    learn_train_split_resplit.checked = true
+                                }
+                                onEnabledChanged: if (enabled) {
+                                                      learn_train_split_resplit.checked = true
+                                                  }
                             }
                             Label {
                                 text: "dataset for train and remaining for self-test"
+                            }
+                            Switch {
+                                id: learn_train_split_resplit
+                                objectName: 'learn_train_split_resplit'
+                                checked: mainPfcsamrApp.learn_train_split_resplit
+                                onCheckedChanged: mainPfcsamrApp.learn_train_split_resplit = checked
+                            }
+                            Label {
+                                text: "Re-split"
                             }
                         }
 
@@ -814,8 +847,13 @@ ApplicationWindow {
                             id: learn_button_run
                             objectName: 'learn_button_run'
                             text: "RUN"
-                            onClicked: mainPfcsamrApp.learn_button_run_on_clicked(
-                                           learn_tabs.currentIndex)
+                            onClicked: {
+                                mainPfcsamrApp.learn_button_run_on_clicked(
+                                            learn_tabs.currentIndex)
+                                mainPfcsamrApp.learn_train_split_resplit = false
+                                learn_train_split_resplit.checked
+                                        = mainPfcsamrApp.learn_train_split_resplit
+                            }
                         }
                     }
                 }

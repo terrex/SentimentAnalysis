@@ -49,6 +49,7 @@ class MainPfcsamrApp(QObject):
         self._test_tab_enabled = False
         self._evaluate_tab_enabled = False
         self._variance_warn_message = ""
+        self._learn_train_split_resplit = True
 
         self._config = self.default_config()
 
@@ -267,6 +268,19 @@ class MainPfcsamrApp(QObject):
     variance_warn_message = pyqtProperty(QVariant, _get_variance_warn_message, _set_variance_warn_message,
         notify=variance_warn_message_changed)
 
+    # *** learn_train_split_resplit *** #
+
+    def _get_learn_train_split_resplit(self):
+        return self._learn_train_split_resplit
+
+    def _set_learn_train_split_resplit(self, value):
+        self._learn_train_split_resplit = value
+        self.learn_train_split_resplit_changed.emit()
+
+    learn_train_split_resplit_changed = pyqtSignal()
+    learn_train_split_resplit = pyqtProperty(QVariant, _get_learn_train_split_resplit, _set_learn_train_split_resplit,
+        notify=learn_train_split_resplit_changed)
+
     # *** end of pyqtProperties *** #
 
     @pyqtSlot(str, result=QVariant)
@@ -379,14 +393,6 @@ class MainPfcsamrApp(QObject):
         self.config = self.default_config()
         self.status_text = "Session reset."
         self.current_model = None
-
-
-def set_label_text(self, object_name: str, text: str):
-    self.win.findChild(QQuickItem, object_name).setProperty('text', text)
-
-
-def enable_tab(self, tabname: str):
-    getattr(self, tabname).setProperty('enabled', True)
 
 
 if __name__ == '__main__':
