@@ -155,13 +155,14 @@ class Orchestrator(object):
             rdr = csv.reader(file, dialect='excel-tab')
             self.headings = next(rdr)
             no = 0
+            self.main_pfcsamr_app.status_count = no
             for no, row in enumerate(rdr, 1):
-                if no % 512 == 0:
-                    self.main_pfcsamr_app.status_count_text = no
+                if no % 32 == 0:
+                    self.main_pfcsamr_app.status_count = no
                 self.rows.append(row)
                 if max_rows is not None and no >= max_rows:
                     break
-            self.main_pfcsamr_app.status_count_text = no
+            self.main_pfcsamr_app.status_count = no
 
         self.main_pfcsamr_app.status_text = "Read {0} train samples".format(len(self.rows))
         self.main_pfcsamr_app.preproc_tab_enabled = True
@@ -178,6 +179,7 @@ class Orchestrator(object):
         lemmatizer = nltk.WordNetLemmatizer()
         self.preprocessed_rows = []
         no = 0
+        self.main_pfcsamr_app.status_count = no
         for no, row in enumerate(self.rows, 1):
             new_row = []
             for column in row:
@@ -200,10 +202,10 @@ class Orchestrator(object):
                 new_row.append(column)
 
             self.preprocessed_rows.append(new_row)
-            if no % 512 == 0:
-                self.main_pfcsamr_app.status_count_text = no
+            if no % 32 == 0:
+                self.main_pfcsamr_app.status_count = no
 
-        self.main_pfcsamr_app.status_count_text = no
+        self.main_pfcsamr_app.status_count = no
         self.main_pfcsamr_app.status_text = "Preprocessed done"
         self.main_pfcsamr_app.features_tab_enabled = True
         self.main_pfcsamr_app.current_model = MyTableModel(self.headings, self.preprocessed_rows)
@@ -291,4 +293,4 @@ class Orchestrator(object):
             score_name = 'selftest_score_' + estimator_klazz.__name__.lower()
             self.main_pfcsamr_app.config[score_name] = self.estimators[estimator_klazz.__name__].score(
                 self.featured_rows_test, self.train_y_test)
-            self.main_pfcsamr_app.set_label_text(score_name, str(self.main_pfcsamr_app.config[score_name]))
+            self.main_pfcsamr_app.config = {score_name: str(self.main_pfcsamr_app.config[score_name])}

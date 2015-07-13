@@ -102,16 +102,20 @@ ApplicationWindow {
                 width: 100
                 minimumValue: 0
                 maximumValue: 100
-                value: mainPfcsamrApp.status_count_text
-                onValueChanged: maximumValue = Math.max(maximumValue, value)
+                value: 0
             }
             Label {
                 anchors.right: parent.right
                 id: status_bar_count
                 objectName: "status_bar_count"
-                text: mainPfcsamrApp.status_count_text
+                text: mainPfcsamrApp.status_count
                 width: 150
                 horizontalAlignment: Label.AlignRight
+                onTextChanged: {
+                    status_bar_progress.maximumValue = Math.max(
+                                status_bar_progress.maximumValue, text)
+                    status_bar_progress.value = text
+                }
             }
         }
     }

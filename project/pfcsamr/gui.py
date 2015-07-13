@@ -36,7 +36,7 @@ class MainPfcsamrApp(QObject):
         """:type: QTableView"""
 
         # pyqtProperties
-        self._status_count_text = 0
+        self._status_count = 0
         self._status_text = "N/A"
         self._current_model = None
         self._table_headings = []
@@ -73,10 +73,10 @@ class MainPfcsamrApp(QObject):
             'features_only_most_significant_feats': 300,
             'features_remove_less_than': False,
             'features_remove_less_than_variance': 0.03,
-            'learn_train_split': False,
+            'learn_train_split': True,
             'learn_train_split_value': 0.75,
             'learn_multinomialnb_alpha': 1.00,
-            'learn_multinomialnb_fit_prior': False,
+            'learn_multinomialnb_fit_prior': True,
             'learn_lda_solver_idx': 0,  # 0: svd, 1: lsqr, 2: eigen
             'learn_lda_solver': 'svd',  # 0: svd, 1: lsqr, 2: eigen
             'learn_lda_n_components': False,
@@ -101,22 +101,35 @@ class MainPfcsamrApp(QObject):
 
     def _set_config(self, config: dict) -> None:
         self._config.update(config)
+        for k, v in config.items():
+            el = self.win.findChild(QQuickItem, k)
+            if el is not None:
+                if (hasattr(el, 'textChanged')):
+                    el.setProperty('text', v)
+                    el.textChanged.emit(v)
+                elif (hasattr(el, 'valueChanged')):
+                    el.setProperty('value', v)
+                    el.valueChanged.emit(v)
+                elif (hasattr(el, 'checkedChanged')):
+                    el.setProperty('checked', v)
+                    el.checkedChanged.emit(v)
 
     config = property(_get_config, _set_config)
     """:type: dict"""
 
-    # *** status_count_text *** #
+    # *** status_count *** #
 
-    def _get_status_count_text(self):
-        return self._status_count_text
+    def _get_status_count(self):
+        return self._status_count
 
-    def _set_status_count_text(self, value):
-        self._status_count_text = value
-        self.status_count_text_changed.emit()
+    def _set_status_count(self, value):
+        self._status_count = value
+        logger.debug("status count changed to " + str(value))
+        self.status_count_changed.emit()
 
-    status_count_text_changed = pyqtSignal()
-    status_count_text = pyqtProperty(int, _get_status_count_text, _set_status_count_text,
-        notify=status_count_text_changed)
+    status_count_changed = pyqtSignal()
+    status_count = pyqtProperty(int, _get_status_count, _set_status_count,
+        notify=status_count_changed)
 
     # *** status_text *** #
 
