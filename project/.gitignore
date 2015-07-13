@@ -10,3 +10,4 @@ word2vec_model*
 pfcsamr/text8
 pfcsamr/text8-phrases
 *.sqlite
+project.yaml
