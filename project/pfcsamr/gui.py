@@ -71,8 +71,8 @@ class MainPfcsamrApp(QObject):
             'features_maximum_df_unit': 1,  # 1 means % of documents
             'features_only_most_significant': True,
             'features_only_most_significant_feats': 300,
-            'features_remove_less_than': False,
-            'features_remove_less_than_variance': 0.03,
+            'features_remove_less_than': True,
+            'features_remove_less_than_variance': 0.02,
             'learn_train_split': True,
             'learn_train_split_value': 0.75,
             'learn_multinomialnb_alpha': 1.00,
@@ -86,7 +86,7 @@ class MainPfcsamrApp(QObject):
             'learn_linearsvc_dual': True,
             'learn_linearsvc_max_iter': 100,
             'selftest_score_multinomialnb': 'N/A',
-            'selftest_score_guassiannb': 'N/A',
+            'selftest_score_gaussiannb': 'N/A',
             'selftest_score_lda': 'N/A',
             'selftest_score_qda': 'N/A',
             'selftest_score_linearsvc': 'N/A',
@@ -324,11 +324,12 @@ class MainPfcsamrApp(QObject):
         klazz_params = {}
         for k, v in self._config.items():
             # exceptions
-            if k == 'learn_lda_n_components':
-                continue
-            elif k == 'learn_lda_n_components_value':
-                if self._config['learn_lda_n_components']:
-                    klazz_params['n_components'] = int(v)
+            if klazz == LDA:
+                if k == 'learn_lda_n_components':
+                    continue
+                elif k == 'learn_lda_n_components_value':
+                    if self._config['learn_lda_n_components']:
+                        klazz_params['n_components'] = int(v)
             # normal rule
             elif k.startswith(prop_prefix):
                 if not k.endswith('_idx'):
@@ -342,7 +343,7 @@ class MainPfcsamrApp(QObject):
         if self._config['learn_train_split']:
             train_split = self._config['learn_train_split_value']
 
-        self.orchestrator.do_learn(klazz, train_split=train_split, **klazz_params)
+        start_new_thread(lambda: self.orchestrator.do_learn(klazz, train_split=train_split, **klazz_params), ())
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win

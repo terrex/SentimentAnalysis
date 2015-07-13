@@ -6,7 +6,10 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_selection import VarianceThreshold
+from sklearn.lda import LDA
+from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.qda import QDA
 
 __author__ = 'terrex'
 
@@ -286,11 +289,18 @@ class Orchestrator(object):
                     self.train_y_train, self.train_y_test = self.featured_rows, [], self.train_y, []
             self.already_splitted = True
 
+        if estimator_klazz in [GaussianNB, LDA, QDA]:
+            x_train = self.featured_rows_train.toarray()
+            x_test = self.featured_rows_test.toarray()
+        else:
+            x_train = self.featured_rows_train
+            x_test = self.featured_rows_test
+
         self.estimators[estimator_klazz.__name__] = estimator_klazz(**estimator_klazz_params)
-        self.estimators[estimator_klazz.__name__].fit(self.featured_rows_train, self.train_y_train)
+        self.estimators[estimator_klazz.__name__].fit(x_train, self.train_y_train)
 
         if train_split:
             score_name = 'selftest_score_' + estimator_klazz.__name__.lower()
             self.main_pfcsamr_app.config[score_name] = self.estimators[estimator_klazz.__name__].score(
-                self.featured_rows_test, self.train_y_test)
+                x_test, self.train_y_test)
             self.main_pfcsamr_app.config = {score_name: str(self.main_pfcsamr_app.config[score_name])}

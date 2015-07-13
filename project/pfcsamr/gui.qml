@@ -563,14 +563,7 @@ ApplicationWindow {
                                                                   objectName,
                                                                   checked)
                                         }
-
                                         RowLayout {
-                                            anchors.fill: parent
-                                        }
-                                        RowLayout {
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            width: parent.width
-                                            anchors.bottomMargin: 0
                                             Label {
                                                 text: "SCORE: "
                                             }
@@ -579,6 +572,9 @@ ApplicationWindow {
                                                 objectName: 'selftest_score_multinomialnb'
                                                 text: get_prop(objectName)
                                             }
+                                        }
+                                        RowLayout {
+                                            anchors.fill: parent
                                         }
                                     }
                                 }
@@ -591,7 +587,16 @@ ApplicationWindow {
                                         Label {
                                             text: "No configurable parameters"
                                         }
-
+                                        RowLayout {
+                                            Label {
+                                                text: "SCORE: "
+                                            }
+                                            Label {
+                                                id: selftest_score_gaussiannb
+                                                objectName: 'selftest_score_gaussiannb'
+                                                text: get_prop(objectName)
+                                            }
+                                        }
                                         RowLayout {
                                             anchors.fill: parent
                                         }
@@ -668,7 +673,17 @@ ApplicationWindow {
                                                                   objectName,
                                                                   checked)
                                         }
+                                        RowLayout {
 
+                                            Label {
+                                                text: "SCORE: "
+                                            }
+                                            Label {
+                                                id: selftest_score_lda
+                                                objectName: 'selftest_score_lda'
+                                                text: get_prop(objectName)
+                                            }
+                                        }
                                         RowLayout {
                                             anchors.fill: parent
                                         }
@@ -697,7 +712,17 @@ ApplicationWindow {
                                                                     value)
                                             }
                                         }
+                                        RowLayout {
 
+                                            Label {
+                                                text: "SCORE: "
+                                            }
+                                            Label {
+                                                id: selftest_score_qda
+                                                objectName: 'selftest_score_qda'
+                                                text: get_prop(objectName)
+                                            }
+                                        }
                                         RowLayout {
                                             anchors.fill: parent
                                         }
@@ -733,7 +758,17 @@ ApplicationWindow {
                                                                     value)
                                             }
                                         }
+                                        RowLayout {
 
+                                            Label {
+                                                text: "SCORE: "
+                                            }
+                                            Label {
+                                                id: selftest_score_linearsvc
+                                                objectName: 'selftest_score_linearsvc'
+                                                text: get_prop(objectName)
+                                            }
+                                        }
                                         RowLayout {
                                             anchors.fill: parent
                                         }
