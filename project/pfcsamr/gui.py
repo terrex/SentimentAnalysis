@@ -1,4 +1,6 @@
-from _thread import start_new_thread
+from _thread import start_new_thread as start_new_thread_orig
+import queue
+import traceback
 
 from sklearn.lda import LDA
 from sklearn.naive_bayes import MultinomialNB
@@ -24,10 +26,42 @@ from PyQt5.QtQuick import QQuickItem, QQuickWindow
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
+SHARED_QUEUE = queue.Queue()
+SHARED_MainPfcsamrApp = None
+""":type: MainPfcsamrApp"""
+
+
+def start_new_thread(function, args, kwargs=None):
+    global SHARED_QUEUE
+
+    def myfunc(*args2, **kwargs2):
+        global SHARED_QUEUE
+        try:
+            function(*args2, **kwargs2)
+        except Exception as ex:
+            print("Excepción dentro del código de start_new_thread")
+            traceback.print_exc()
+
+            SHARED_MainPfcsamrApp.critical_message_detailed_text = traceback.format_exc()
+            SHARED_MainPfcsamrApp.critical_message_informative_text = ex.args[0]
+
+            def _show_critical_msg_text():
+                SHARED_MainPfcsamrApp.critical_message_text = "An exception occurred in background thread"
+
+            SHARED_QUEUE.put_nowait(_show_critical_msg_text)
+
+    if kwargs is not None:
+        start_new_thread_orig(myfunc, args, kwargs)
+    else:
+        start_new_thread_orig(myfunc, args)
+
 
 class MainPfcsamrApp(QObject):
     def __init__(self, parent: QObject=None):
+        global SHARED_QUEUE
         super().__init__(parent)
+        self.queue = queue.Queue()
+        SHARED_QUEUE = self.queue
         self.win = None
         """:type: QQuickWindow"""
         self.rootContext = None
@@ -46,10 +80,11 @@ class MainPfcsamrApp(QObject):
         self._features_tab_enabled = False
         self._learn_tab_enabled = False
         self._classify_tab_enabled = False
-        self._test_tab_enabled = False
-        self._evaluate_tab_enabled = False
         self._variance_warn_message = ""
         self._learn_train_split_resplit = True
+        self._critical_message_text = ""
+        self._critical_message_detailed_text = ""
+        self._critical_message_informative_text = ""
 
         self._config = self.default_config()
 
@@ -74,7 +109,7 @@ class MainPfcsamrApp(QObject):
                 elif (hasattr(el, 'textChanged')):
                     el.setProperty('text', v)
                     try:
-                        el.textChanged.emit(v)
+                        el.textChanged.emit(str(v))
                     except TypeError:
                         el.textChanged.emit()
 
@@ -229,32 +264,6 @@ class MainPfcsamrApp(QObject):
     classify_tab_enabled = pyqtProperty(QVariant, _get_classify_tab_enabled, _set_classify_tab_enabled,
         notify=classify_tab_enabled_changed)
 
-    # *** test_tab_enabled *** #
-
-    def _get_test_tab_enabled(self):
-        return self._test_tab_enabled
-
-    def _set_test_tab_enabled(self, value):
-        self._test_tab_enabled = value
-        self.test_tab_enabled_changed.emit()
-
-    test_tab_enabled_changed = pyqtSignal()
-    test_tab_enabled = pyqtProperty(QVariant, _get_test_tab_enabled, _set_test_tab_enabled,
-        notify=test_tab_enabled_changed)
-
-    # *** evaluate_tab_enabled *** #
-
-    def _get_evaluate_tab_enabled(self):
-        return self._evaluate_tab_enabled
-
-    def _set_evaluate_tab_enabled(self, value):
-        self._evaluate_tab_enabled = value
-        self.evaluate_tab_enabled_changed.emit()
-
-    evaluate_tab_enabled_changed = pyqtSignal()
-    evaluate_tab_enabled = pyqtProperty(QVariant, _get_evaluate_tab_enabled, _set_evaluate_tab_enabled,
-        notify=evaluate_tab_enabled_changed)
-
     # *** variance_warn_message *** #
 
     def _get_variance_warn_message(self):
@@ -274,14 +283,64 @@ class MainPfcsamrApp(QObject):
         return self._learn_train_split_resplit
 
     def _set_learn_train_split_resplit(self, value):
-        self._learn_train_split_resplit = value
-        self.learn_train_split_resplit_changed.emit()
+        if self._learn_train_split_resplit != value:
+            print("cambiado learn_train_split_resplit a {0}".format(value))
+            self._learn_train_split_resplit = value
+            self.learn_train_split_resplit_changed.emit()
+            print("Despues de emitir")
+        else:
+            print("son iguales")
 
     learn_train_split_resplit_changed = pyqtSignal()
     learn_train_split_resplit = pyqtProperty(QVariant, _get_learn_train_split_resplit, _set_learn_train_split_resplit,
         notify=learn_train_split_resplit_changed)
 
+    # *** critical_message_text *** #
+
+    def _get_critical_message_text(self):
+        return self._critical_message_text
+
+    def _set_critical_message_text(self, value):
+        self._critical_message_text = value
+        self.critical_message_text_changed.emit()
+
+    critical_message_text_changed = pyqtSignal()
+    critical_message_text = pyqtProperty(QVariant, _get_critical_message_text, _set_critical_message_text,
+        notify=critical_message_text_changed)
+
+    # *** critical_message_detailed_text *** #
+
+    def _get_critical_message_detailed_text(self):
+        return self._critical_message_detailed_text
+
+    def _set_critical_message_detailed_text(self, value):
+        self._critical_message_detailed_text = value
+        self.critical_message_detailed_text_changed.emit()
+
+    critical_message_detailed_text_changed = pyqtSignal()
+    critical_message_detailed_text = pyqtProperty(QVariant, _get_critical_message_detailed_text,
+        _set_critical_message_detailed_text,
+        notify=critical_message_detailed_text_changed)
+
+    # *** critical_message_informative_text *** #
+
+    def _get_critical_message_informative_text(self):
+        return self._critical_message_informative_text
+
+    def _set_critical_message_informative_text(self, value):
+        self._critical_message_informative_text = value
+        self.critical_message_informative_text_changed.emit()
+
+    critical_message_informative_text_changed = pyqtSignal()
+    critical_message_informative_text = pyqtProperty(QVariant, _get_critical_message_informative_text,
+        _set_critical_message_informative_text,
+        notify=critical_message_informative_text_changed)
+
     # *** end of pyqtProperties *** #
+
+    @pyqtSlot()
+    def critical_message_accepted(self):
+        self._critical_message_text = ""
 
     @pyqtSlot(str, result=QVariant)
     def get_config_prop(self, propname: str):
@@ -394,6 +453,20 @@ class MainPfcsamrApp(QObject):
         self.status_text = "Session reset."
         self.current_model = None
 
+    @pyqtSlot()
+    def run_pending_gui_updates(self):
+        # print(".")
+        try:
+            while not self.queue.empty():
+                gui_callback = self.queue.get_nowait()
+                try:
+                    gui_callback()
+                except:
+                    logger.debug("Exception in callback")
+                    traceback.print_exc()
+        except queue.Empty:
+            pass
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -401,6 +474,7 @@ if __name__ == '__main__':
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
     main_pfcsamr_app = MainPfcsamrApp()
+    SHARED_MainPfcsamrApp = main_pfcsamr_app
     ctx.setContextProperty("mainPfcsamrApp", main_pfcsamr_app)
     main_pfcsamr_app.rootContext = ctx
 

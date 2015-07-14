@@ -279,13 +279,18 @@ class Orchestrator(object):
         return self
 
     def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
-        if self.main_pfcsamr_app.learn_train_split_resplit:
+        if self.main_pfcsamr_app.learn_train_split_resplit and train_split is not None:
             self.already_splitted = False
             logger.debug("Re-Splitting")
-            # self.main_pfcsamr_app.learn_train_split_resplit = False
+
+            def gui_callback():
+                print("callback has been called")
+                self.main_pfcsamr_app.learn_train_split_resplit = False
+
+            self.main_pfcsamr_app.queue.put_nowait(gui_callback)
 
         if not self.already_splitted:
-            if train_split:
+            if train_split is not None:
                 self.featured_rows_train, self.featured_rows_test, \
                     self.train_y_train, self.train_y_test = train_test_split(self.featured_rows,
                     self.train_y, train_size=train_split)
@@ -308,6 +313,10 @@ class Orchestrator(object):
 
         if train_split:
             score_name = 'selftest_score_' + estimator_klazz.__name__.lower()
-            self.main_pfcsamr_app.config[score_name] = self.estimators[estimator_klazz.__name__].score(
-                x_test, self.train_y_test)
-            self.main_pfcsamr_app.config = {score_name: str(self.main_pfcsamr_app.config[score_name])}
+
+            def gui_callback():
+                self.main_pfcsamr_app.config[score_name] = self.estimators[estimator_klazz.__name__].score(
+                    x_test, self.train_y_test)
+                self.main_pfcsamr_app.config = {score_name: str(self.main_pfcsamr_app.config[score_name])}
+
+            self.main_pfcsamr_app.queue.put_nowait(gui_callback)

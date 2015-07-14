@@ -21,6 +21,22 @@ ApplicationWindow {
         return mainPfcsamrApp.get_config_prop(name)
     }
 
+    Timer {
+        id: update_gui
+        objectName: 'update_gui'
+        interval: 500
+        running: true
+        repeat: true
+        onTriggered: {
+            mainPfcsamrApp.run_pending_gui_updates()
+            //console.log("checking for GUI changes")
+            if (mainPfcsamrApp.critical_message_text != "") {
+                critical_message_dialog.open()
+                mainPfcsamrApp.critical_message_text = ""
+            }
+        }
+    }
+
     menuBar: MenuBar {
         Menu {
             title: "File"
@@ -34,8 +50,6 @@ ApplicationWindow {
                     mainPfcsamrApp.features_tab_enabled = false
                     mainPfcsamrApp.learn_tab_enabled = false
                     mainPfcsamrApp.classify_tab_enabled = false
-                    mainPfcsamrApp.test_tab_enabled = false
-                    mainPfcsamrApp.evaluate_tab_enabled = false
                 }
             }
             MenuItem {
@@ -123,11 +137,19 @@ ApplicationWindow {
             mainPfcsamrApp.features_tab_enabled = false
             mainPfcsamrApp.learn_tab_enabled = false
             mainPfcsamrApp.classify_tab_enabled = false
-            mainPfcsamrApp.test_tab_enabled = false
-            mainPfcsamrApp.evaluate_tab_enabled = false
         }
         sidebarVisible: true
         title: "Open config"
+    }
+
+    MessageDialog {
+        id: critical_message_dialog
+        objectName: 'critical_message_dialog'
+        icon: StandardIcon.Critical
+        text: mainPfcsamrApp.critical_message_text
+        informativeText: mainPfcsamrApp.critical_message_informative_text
+        detailedText: mainPfcsamrApp.critical_message_detailed_text
+        onAccepted: mainPfcsamrApp.critical_message_accepted
     }
 
     statusBar: StatusBar {
@@ -567,10 +589,11 @@ ApplicationWindow {
                                 value: get_prop(objectName) * 100
                                 onValueChanged: {
                                     set_prop(objectName, value / 100)
-                                    learn_train_split_resplit.checked = true
+                                    mainPfcsamrApp.learn_train_split_resplit = true
                                 }
                                 onEnabledChanged: if (enabled) {
-                                                      learn_train_split_resplit.checked = true
+                                                      mainPfcsamrApp.learn_train_split_resplit
+                                                              = true
                                                   }
                             }
                             Label {
@@ -580,7 +603,13 @@ ApplicationWindow {
                                 id: learn_train_split_resplit
                                 objectName: 'learn_train_split_resplit'
                                 checked: mainPfcsamrApp.learn_train_split_resplit
-                                onCheckedChanged: mainPfcsamrApp.learn_train_split_resplit = checked
+                                onClicked: {
+                                    mainPfcsamrApp.learn_train_split_resplit = checked
+                                    learn_train_split_resplit.checked = Qt.binding(
+                                                function () {
+                                                    return mainPfcsamrApp.learn_train_split_resplit
+                                                })
+                                }
                             }
                             Label {
                                 text: "Re-split"
@@ -847,13 +876,8 @@ ApplicationWindow {
                             id: learn_button_run
                             objectName: 'learn_button_run'
                             text: "RUN"
-                            onClicked: {
-                                mainPfcsamrApp.learn_button_run_on_clicked(
-                                            learn_tabs.currentIndex)
-                                mainPfcsamrApp.learn_train_split_resplit = false
-                                learn_train_split_resplit.checked
-                                        = mainPfcsamrApp.learn_train_split_resplit
-                            }
+                            onClicked: mainPfcsamrApp.learn_button_run_on_clicked(
+                                           learn_tabs.currentIndex)
                         }
                     }
                 }
@@ -864,34 +888,6 @@ ApplicationWindow {
                     title: "Classify"
                     anchors.margins: 10
                     enabled: mainPfcsamrApp.classify_tab_enabled
-                    ColumnLayout {
-                        //Aqui van los demás
-                        RowLayout {
-                            anchors.fill: parent
-                        }
-                    }
-                }
-
-                Tab {
-                    id: test_tab
-                    objectName: "test_tab"
-                    title: "Test"
-                    anchors.margins: 10
-                    enabled: mainPfcsamrApp.test_tab_enabled
-                    ColumnLayout {
-                        //Aqui van los demás
-                        RowLayout {
-                            anchors.fill: parent
-                        }
-                    }
-                }
-
-                Tab {
-                    id: evaluate_tab
-                    objectName: "evaluate_tab"
-                    title: "Evaluate"
-                    anchors.margins: 10
-                    enabled: mainPfcsamrApp.evaluate_tab_enabled
                     ColumnLayout {
                         //Aqui van los demás
                         RowLayout {
