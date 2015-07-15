@@ -114,6 +114,17 @@ ApplicationWindow {
     }
 
     FileDialog {
+        id: file_dialog_choose_classify_tsv
+        objectName: "file_dialog_choose_classify_tsv"
+        nameFilters: ["Tab-separated files (*.tsv)"]
+        onAccepted: mainPfcsamrApp.findChild(
+                        'classify_file').text = fileUrl.toString().replace(
+                        "file://", "")
+        sidebarVisible: true
+        title: "Open test.tsv"
+    }
+
+    FileDialog {
         id: file_dialog_choose_save
         objectName: "file_dialog_choose_save"
         selectExisting: false
@@ -732,7 +743,7 @@ ApplicationWindow {
                                                     set_prop(objectName + '_idx',
                                                              currentIndex)
                                                     set_prop(objectName,
-                                                             learn_lda_solver.model.get(
+                                                             model.get(
                                                                  currentIndex).value)
                                                 }
                                             }
@@ -889,7 +900,132 @@ ApplicationWindow {
                     anchors.margins: 10
                     enabled: mainPfcsamrApp.classify_tab_enabled
                     ColumnLayout {
-                        //Aqui van los demás
+                        RowLayout {
+                            Button {
+                                text: "Select file"
+                                onClicked: file_dialog_choose_classify_tsv.open(
+                                               )
+                            }
+                            TextEdit {
+                                id: classify_file
+                                objectName: "classify_file"
+                                text: get_prop(objectName)
+                                Layout.fillWidth: true
+                                readOnly: true
+                                onTextChanged: {
+                                    set_prop(objectName, text)
+                                    if (text.indexOf("/") == 0) {
+                                        mainPfcsamrApp.findChild(
+                                                    'classify_button_load').enabled = true
+                                    } else {
+                                        mainPfcsamrApp.findChild(
+                                                    'classify_button_load').enabled = false
+                                    }
+                                }
+                            }
+                        }
+                        RowLayout {
+                            CheckBox {
+                                id: classify_only_first
+                                objectName: 'classify_only_first'
+                                text: "Load only first"
+                                checked: get_prop(objectName)
+                                onCheckedChanged: set_prop(objectName, checked)
+                            }
+                            SpinBox {
+                                id: classify_only_first_rows
+                                objectName: 'classify_only_first_rows'
+                                enabled: classify_only_first.checked
+                                minimumValue: 0
+                                maximumValue: 99999999 //Actualizar por código
+                                value: get_prop(objectName)
+                                onValueChanged: set_prop(objectName, value)
+                            }
+                            Label {
+                                text: "samples"
+                            }
+                        }
+                        RowLayout {
+                            Button {
+                                id: classify_button_load
+                                objectName: 'classify_button_load'
+                                text: "LOAD"
+                                onClicked: {
+                                    status_bar_progress.maximumValue = 100
+                                    mainPfcsamrApp.classify_button_load_on_clicked()
+                                    classify_button_preproc.enabled = true
+                                }
+                                enabled: false
+                            }
+                        }
+                        Button {
+                            id: classify_button_preproc
+                            objectName: 'classify_button_preproc'
+                            text: "1. PREPROCESS"
+                            enabled: false
+                            onClicked: {
+                                mainPfcsamrApp.classify_button_preproc_on_clicked()
+                                classify_button_features.enabled = true
+                            }
+                        }
+                        Button {
+                            id: classify_button_features
+                            objectName: 'classify_button_features'
+                            text: "2. FEATURES"
+                            enabled: false
+                            onClicked: {
+                                mainPfcsamrApp.classify_button_features_on_clicked()
+                                classify_button_classify.enabled = true
+                            }
+                        }
+                        RowLayout {
+                            Button {
+                                id: classify_button_classify
+                                objectName: 'classify_button_classify'
+                                text: "3. CLASSIFY"
+                                enabled: false
+                                onClicked: {
+                                    mainPfcsamrApp.classify_button_classify_on_clicked()
+                                }
+                            }
+                            Label {
+                                text: "using"
+                            }
+                            ComboBox {
+                                width: 100
+                                id: classify_evaluate_using
+                                objectName: 'classify_evaluate_using'
+                                model: ListModel {
+                                    ListElement {
+                                        text: 'MultinomialNB'
+                                        value: 'multinomialnb'
+                                    }
+                                    ListElement {
+                                        text: 'GaussianNB'
+                                        value: 'gaussiannb'
+                                    }
+                                    ListElement {
+                                        text: 'LDA'
+                                        value: 'lda'
+                                    }
+                                    ListElement {
+                                        text: 'QDA'
+                                        value: 'qda'
+                                    }
+                                    ListElement {
+                                        text: 'LinearSVC'
+                                        value: 'linearsvc'
+                                    }
+                                }
+                                currentIndex: get_prop(bjectName + '_idx')
+                                onCurrentIndexChanged: {
+                                    set_prop(objectName + '_idx', currentIndex)
+                                    set_prop(objectName,
+                                             model.get(currentIndex).value)
+                                }
+                            }
+                        }
+
                         RowLayout {
                             anchors.fill: parent
                         }

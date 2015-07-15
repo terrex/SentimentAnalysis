@@ -159,6 +159,11 @@ class MainPfcsamrApp(QObject):
             'selftest_score_lda': 'N/A',
             'selftest_score_qda': 'N/A',
             'selftest_score_linearsvc': 'N/A',
+            'classify_file': 'No file selected',
+            'classify_only_first': True,
+            'classify_only_first_rows': 10,
+            'classify_evaluate_using': 'multinomialnb',
+            'classify_evaluate_using_idx': 0,
         }
 
     # *** status_count *** #
@@ -350,6 +355,26 @@ class MainPfcsamrApp(QObject):
     def set_config_prop_value(self, propname: str, value: QVariant):
         logger.debug("{0} set to {1}".format(propname, str(value)))
         self._config[propname] = value
+
+    @pyqtSlot()
+    def classify_button_load_on_clicked(self):
+        max_rows = None
+        if self._config['classify_only_first']:
+            max_rows = self._config['classify_only_first_rows']
+        start_new_thread(
+            lambda: self.orchestrator.do_classify_test_tsv(self._config['classify_file'], max_rows=max_rows), ())
+
+    @pyqtSlot()
+    def classify_button_preproc_on_clicked(self):
+        pass
+
+    @pyqtSlot()
+    def classify_button_features_on_clicked(self):
+        pass
+
+    @pyqtSlot()
+    def classify_button_classify_on_clicked(self):
+        pass
 
     @pyqtSlot()
     def load_button_load_on_clicked(self):

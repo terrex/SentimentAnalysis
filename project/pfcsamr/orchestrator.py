@@ -318,5 +318,6 @@ class Orchestrator(object):
                 self.main_pfcsamr_app.config[score_name] = self.estimators[estimator_klazz.__name__].score(
                     x_test, self.train_y_test)
                 self.main_pfcsamr_app.config = {score_name: str(self.main_pfcsamr_app.config[score_name])}
+                self.main_pfcsamr_app.classify_tab_enabled = True
 
             self.main_pfcsamr_app.queue.put_nowait(gui_callback)
