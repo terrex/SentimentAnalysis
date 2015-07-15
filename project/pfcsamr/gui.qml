@@ -653,7 +653,7 @@ ApplicationWindow {
                                                 minimumValue: 0.00
                                                 maximumValue: 1.00
                                                 decimals: 2
-                                                stepSize: 0.1
+                                                stepSize: 0.05
                                                 value: get_prop(objectName)
                                                 onValueChanged: set_prop(
                                                                     objectName,
@@ -998,23 +998,23 @@ ApplicationWindow {
                                 model: ListModel {
                                     ListElement {
                                         text: 'MultinomialNB'
-                                        value: 'multinomialnb'
+                                        value: 'MultinomialNB'
                                     }
                                     ListElement {
                                         text: 'GaussianNB'
-                                        value: 'gaussiannb'
+                                        value: 'GaussianNB'
                                     }
                                     ListElement {
                                         text: 'LDA'
-                                        value: 'lda'
+                                        value: 'LDA'
                                     }
                                     ListElement {
                                         text: 'QDA'
-                                        value: 'qda'
+                                        value: 'QDA'
                                     }
                                     ListElement {
                                         text: 'LinearSVC'
-                                        value: 'linearsvc'
+                                        value: 'LinearSVC'
                                     }
                                 }
                                 currentIndex: get_prop(bjectName + '_idx')

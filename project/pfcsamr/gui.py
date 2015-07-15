@@ -173,7 +173,6 @@ class MainPfcsamrApp(QObject):
 
     def _set_status_count(self, value):
         self._status_count = value
-        logger.debug("status count changed to " + str(value))
         self.status_count_changed.emit()
 
     status_count_changed = pyqtSignal()
@@ -374,7 +373,7 @@ class MainPfcsamrApp(QObject):
 
     @pyqtSlot()
     def classify_button_classify_on_clicked(self):
-        pass
+        start_new_thread(self.orchestrator.do_classify_classify, (self._config['classify_evaluate_using'],))
 
     @pyqtSlot()
     def load_button_load_on_clicked(self):

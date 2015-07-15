@@ -153,6 +153,8 @@ class Orchestrator(object):
         self.classify_rows = []
         self.classify_preprocessed_rows = []
         self.classify_featured_rows = []
+        self.predictions_headings = []
+        self.predictions_rows = []
 
     def do_load_train_tsv(self, file_path: str=None, max_rows=None):
         if file_path.startswith('file:///'):
@@ -400,5 +402,17 @@ class Orchestrator(object):
                     x_test, self.train_y_test)
                 self.main_pfcsamr_app.config = {score_name: str(self.main_pfcsamr_app.config[score_name])}
                 self.main_pfcsamr_app.classify_tab_enabled = True
+                self.main_pfcsamr_app.status_text = "Learned using {0}".format(estimator_klazz.__name__)
 
             self.main_pfcsamr_app.queue.put_nowait(gui_callback)
+
+    def do_classify_classify(self, evaluate_using: str):
+        my_estimator = self.estimators[evaluate_using]
+        """:type: LinearClassifierMixin"""
+        predictions = my_estimator.predict(self.classify_featured_rows)
+        # PhraseId, SentenceId, Phrase, *Sentiment*, **Features**
+        self.predictions_headings = self.headings + self.featured_headings
+        self.predictions_rows = np.c_[np.array(self.classify_rows), predictions.T.astype(int)]
+        self.main_pfcsamr_app.current_model = MyTableModel(self.predictions_headings, self.predictions_rows)
+        self.main_pfcsamr_app.status_text = "Predictions done using {0}".format(my_estimator.__class__.__name__)
+        return self
