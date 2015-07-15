@@ -177,7 +177,7 @@ ApplicationWindow {
                 objectName: 'status_bar_progress'
                 width: 100
                 minimumValue: 0
-                maximumValue: 100
+                maximumValue: 1
                 value: 0
             }
             Label {
@@ -268,7 +268,7 @@ ApplicationWindow {
                                 objectName: 'load_button_load'
                                 text: "LOAD"
                                 onClicked: {
-                                    status_bar_progress.maximumValue = 100
+                                    status_bar_progress.maximumValue = 1
                                     mainPfcsamrApp.load_button_load_on_clicked()
                                 }
                                 enabled: false
@@ -951,7 +951,7 @@ ApplicationWindow {
                                 objectName: 'classify_button_load'
                                 text: "LOAD"
                                 onClicked: {
-                                    status_bar_progress.maximumValue = 100
+                                    status_bar_progress.maximumValue = 1
                                     mainPfcsamrApp.classify_button_load_on_clicked()
                                     classify_button_preproc.enabled = true
                                 }

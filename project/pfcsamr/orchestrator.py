@@ -149,6 +149,10 @@ class Orchestrator(object):
         self.already_splitted = False
         self.featured_support = []
         self.featured_selected_headings = []
+        self.classify_headings = []
+        self.classify_rows = []
+        self.classify_preprocessed_rows = []
+        self.classify_featured_rows = []
 
     def do_load_train_tsv(self, file_path: str=None, max_rows=None):
         if file_path.startswith('file:///'):
@@ -171,6 +175,27 @@ class Orchestrator(object):
         self.main_pfcsamr_app.preproc_tab_enabled = True
         self.main_pfcsamr_app.features_tab_enabled = True
         self.main_pfcsamr_app.current_model = MyTableModel(self.headings, self.rows)
+        return self
+
+    def do_classify_test_tsv(self, file_path: str=None, max_rows=None):
+        if file_path.startswith('file:///'):
+            file_path = file_path[7:]
+        self.file_path = file_path
+        with open(file_path, 'rt') as file:
+            rdr = csv.reader(file, dialect='excel-tab')
+            self.classify_headings = next(rdr)
+            no = 0
+            self.main_pfcsamr_app.status_count = no
+            for no, row in enumerate(rdr, 1):
+                if no % 32 == 0:
+                    self.main_pfcsamr_app.status_count = no
+                self.classify_rows.append(row)
+                if max_rows is not None and no >= max_rows:
+                    break
+            self.main_pfcsamr_app.status_count = no
+
+        self.main_pfcsamr_app.status_text = "Read {0} test samples".format(len(self.classify_rows))
+        self.main_pfcsamr_app.current_model = MyTableModel(self.classify_headings, self.classify_rows)
         return self
 
     def do_preprocess(self):
@@ -212,6 +237,46 @@ class Orchestrator(object):
         self.main_pfcsamr_app.status_text = "Preprocessed done"
         self.main_pfcsamr_app.features_tab_enabled = True
         self.main_pfcsamr_app.current_model = MyTableModel(self.headings, self.preprocessed_rows)
+        return self
+
+    def do_classify_preprocess(self):
+        from .replacers import RegexpReplacer as ContractionsExpander
+
+        expander = ContractionsExpander()
+        ws_tokenizer = nltk.WhitespaceTokenizer()
+        stemmer = nltk.PorterStemmer()
+        lemmatizer = nltk.WordNetLemmatizer()
+        self.classify_preprocessed_rows = []
+        no = 0
+        self.main_pfcsamr_app.status_count = no
+        for no, row in enumerate(self.classify_rows, 1):
+            new_row = []
+            for column in row:
+                if is_text(column):
+                    if self.main_pfcsamr_app.config['preproc_unsplit_contractions']:
+                        column = unsplit_contractions(column)
+                    if self.main_pfcsamr_app.config['preproc_expand_contractions']:
+                        column = expander.replace(column)
+                    if self.main_pfcsamr_app.config['preproc_remove_stopwords']:
+                        column = remove_stopwords(column)
+                    if self.main_pfcsamr_app.config['preproc_word_replacement'] and self.main_pfcsamr_app.config[
+                        'preproc_stemmize']:
+                        column = ' '.join([stemmer.stem(w) for w in ws_tokenizer.tokenize(column)])
+                    if self.main_pfcsamr_app.config['preproc_word_replacement'] and self.main_pfcsamr_app.config[
+                        'preproc_lemmatize']:
+                        column = ' '.join([lemmatizer.lemmatize(w) for w in ws_tokenizer.tokenize(column)])
+                    if self.main_pfcsamr_app.config['preproc_pos_tag_words']:
+                        column = postag(column)
+
+                new_row.append(column)
+
+            self.classify_preprocessed_rows.append(new_row)
+            if no % 32 == 0:
+                self.main_pfcsamr_app.status_count = no
+
+        self.main_pfcsamr_app.status_count = no
+        self.main_pfcsamr_app.status_text = "Preprocessed done"
+        self.main_pfcsamr_app.current_model = MyTableModel(self.classify_headings, self.classify_preprocessed_rows)
         return self
 
     def do_features_countvectorizer(self, variance_threshold=None, **kwargs):
@@ -275,6 +340,22 @@ class Orchestrator(object):
                 str(self.featured_rows.shape),
                 len(self.featured_headings) - len(self.featured_selected_headings),
             )
+
+        return self
+
+    def do_classify_features_countvectorizer(self):
+        if not self.classify_preprocessed_rows:
+            self.classify_preprocessed_rows = copy(self.classify_rows)
+
+        self.classify_featured_rows = self.feature_union.transform(self.classify_preprocessed_rows)
+
+        # apply feature support
+        self.classify_featured_rows = self.classify_featured_rows[:, self.featured_support]
+
+        self.main_pfcsamr_app.current_model = MyTableModel(self.featured_selected_headings, self.classify_featured_rows)
+        self.main_pfcsamr_app.status_text = "Feature extraction done. Shape of useful features: %s." % (
+            str(self.classify_featured_rows.shape),
+        )
 
         return self
 

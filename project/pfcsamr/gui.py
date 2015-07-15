@@ -361,16 +361,16 @@ class MainPfcsamrApp(QObject):
         max_rows = None
         if self._config['classify_only_first']:
             max_rows = self._config['classify_only_first_rows']
-        start_new_thread(
-            lambda: self.orchestrator.do_classify_test_tsv(self._config['classify_file'], max_rows=max_rows), ())
+        start_new_thread(self.orchestrator.do_classify_test_tsv, (self._config['classify_file'],),
+            {'max_rows': max_rows})
 
     @pyqtSlot()
     def classify_button_preproc_on_clicked(self):
-        pass
+        start_new_thread(self.orchestrator.do_classify_preprocess, ())
 
     @pyqtSlot()
     def classify_button_features_on_clicked(self):
-        pass
+        start_new_thread(self.orchestrator.do_classify_features_countvectorizer, ())
 
     @pyqtSlot()
     def classify_button_classify_on_clicked(self):
