@@ -381,12 +381,13 @@ class MainPfcsamrApp(QObject):
         max_rows = None
         if self._config['load_only_first']:
             max_rows = self._config['load_only_first_rows']
-        start_new_thread(
-            lambda: self.orchestrator.do_load_train_tsv(self._config['load_train_file'], max_rows=max_rows), ())
+        start_new_thread(self.orchestrator.do_load_train_tsv, (self._config['load_train_file'],), {
+            'max_rows': max_rows,
+        })
 
     @pyqtSlot()
     def preproc_button_run_on_clicked(self):
-        start_new_thread(lambda: self.orchestrator.do_preprocess(), ())
+        start_new_thread(self.orchestrator.do_preprocess, ())
 
     @pyqtSlot()
     def features_button_run_on_clicked(self):
@@ -412,8 +413,8 @@ class MainPfcsamrApp(QObject):
         if self._config['features_remove_less_than']:
             variance_threshold = float(self._config['features_remove_less_than_variance'])
 
-        start_new_thread(lambda: self.orchestrator.do_features_countvectorizer(variance_threshold=variance_threshold,
-            **count_vectorizer_options), ())
+        count_vectorizer_options.update({'variance_threshold': variance_threshold})
+        start_new_thread(self.orchestrator.do_features_countvectorizer, (), count_vectorizer_options)
 
     @pyqtSlot(int)
     def learn_button_run_on_clicked(self, learn_method: int):
@@ -448,7 +449,8 @@ class MainPfcsamrApp(QObject):
         if self._config['learn_train_split']:
             train_split = self._config['learn_train_split_value']
 
-        start_new_thread(lambda: self.orchestrator.do_learn(klazz, train_split=train_split, **klazz_params), ())
+        klazz_params.update({'train_split': train_split})
+        start_new_thread(self.orchestrator.do_learn, (klazz,), klazz_params)
 
     def connect_widgets(self, win: QQuickWindow):
         self.win = win
@@ -469,6 +471,10 @@ class MainPfcsamrApp(QObject):
         self.config = saved
         self.status_text = "Loaded from {0}.".format(filename)
         self.current_model = None
+
+    @pyqtSlot(str)
+    def classify_save_csv(self, filename: str):
+        start_new_thread(self.orchestrator.classify_save_csv, (filename,))
 
     @pyqtSlot()
     def do_menu_file_new(self):

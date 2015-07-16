@@ -136,6 +136,17 @@ ApplicationWindow {
     }
 
     FileDialog {
+        id: file_dialog_choose_save_submission_csv
+        objectName: "file_dialog_choose_save_submission_csv"
+        selectExisting: false
+        nameFilters: ["Sentiment Predictions for submission (*.csv)"]
+        onAccepted: mainPfcsamrApp.classify_save_csv(fileUrl.toString().replace(
+                                                         "file://", ""))
+        sidebarVisible: true
+        title: "Save current config"
+    }
+
+    FileDialog {
         id: file_dialog_choose_open
         objectName: "file_dialog_choose_open"
         selectExisting: true
@@ -170,28 +181,54 @@ ApplicationWindow {
                 id: status_bar_label
                 objectName: "status_bar_label"
                 text: mainPfcsamrApp.status_text
+                Layout.fillWidth: true
+                Behavior on text {
+                    SequentialAnimation {
+                        running: false
+                        loops: 1
+                        ColorAnimation {
+                            target: status_bar_label
+                            property: "color"
+                            from: "black"
+                            to: "red"
+                            duration: 500
+                        }
+                        ColorAnimation {
+                            target: status_bar_label
+                            property: "color"
+                            from: "red"
+                            to: "red"
+                            duration: 1000
+                        }
+                        ColorAnimation {
+                            target: status_bar_label
+                            property: "color"
+                            from: "red"
+                            to: "black"
+                            duration: 500
+                        }
+                    }
+                }
             }
             ProgressBar {
-                anchors.right: status_bar_count.left
                 id: status_bar_progress
                 objectName: 'status_bar_progress'
-                width: 100
                 minimumValue: 0
                 maximumValue: 1
                 value: 0
+                Layout.preferredWidth: 100
             }
             Label {
-                anchors.right: parent.right
                 id: status_bar_count
                 objectName: "status_bar_count"
                 text: mainPfcsamrApp.status_count
-                width: 150
-                horizontalAlignment: Label.AlignRight
                 onTextChanged: {
                     status_bar_progress.maximumValue = Math.max(
                                 status_bar_progress.maximumValue, text)
                     status_bar_progress.value = text
                 }
+                horizontalAlignment: Text.AlignRight
+                Layout.preferredWidth: 50
             }
         }
     }
@@ -517,10 +554,10 @@ ApplicationWindow {
                             SpinBox {
                                 id: features_remove_less_than_variance
                                 objectName: 'features_remove_less_than_variance'
-                                decimals: 2
-                                stepSize: 0.01
+                                decimals: 5
+                                stepSize: 0.005
                                 minimumValue: 0
-                                maximumValue: 99999999
+                                maximumValue: 10
                                 enabled: features_remove_less_than.checked
                                 value: get_prop(objectName)
                                 onValueChanged: set_prop(objectName, value)
@@ -1024,6 +1061,12 @@ ApplicationWindow {
                                              model.get(currentIndex).value)
                                 }
                             }
+                        }
+                        Button {
+                            id: classify_save_for_submission
+                            objectName: 'classify_save_for_submission'
+                            text: "Save file for submission to kaggle"
+                            onClicked: file_dialog_choose_save_submission_csv.open()
                         }
 
                         RowLayout {
