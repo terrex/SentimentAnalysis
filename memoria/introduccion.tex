@@ -7,5 +7,55 @@ Durante la carrera tenemos asignaturas que tratan sobre procesamiento de lenguaj
 
 
 \begin{definition}[NLP]\index{NLP}\index{procesamiento del lenguaje natural}\index{natural language processing@\emph{natural language processing}}
-El procesamiento de lenguaje natural es...
+El procesamiento de lenguaje natural (PLN, o NLP del inglés \emph{Natural Language Processing}) es el campo de ciencias de la computación inteligencia artificial y lingüística que estudia las interacciones entre las computadoras y el lenguaje humano \citep[Procesamiento de lenguajes naturales]{wikipedia-es}.
 \end{definition}
+
+Para conseguir procesar el lenguaje natural de forma eficiente se debe proveer a las computadoras de herramientas para comprender el conocimiento humano expresado en lenguaje natural (voz o texto, principalmente), y saber representarlo.
+
+En regla general, el lenguaje natural es abierto a interpretaciones, de manera que los resultados de estas técnicas no pueden ser 100\% exactos siempre, y aceptaremos resultados parciales y aproximaciones.
+
+Con la aparición del denominado \nombrebf{Web 2.0}, las páginas dinámicas, y los gestores de contenido web, los consumidores de información (usuarios o visitantes de páginas web) son también productores de la información. Estos usuarios producen en su mayoría contenido de tipo texto, obviamente en lenguaje entendible por otros humanos, con poca capacidad para el \emph{software} de realizar cualquier cálculo o modificación al mismo en documentos no estructurados ni preparados para ser consumido por la máquinas. En el estudio de \cite{Hilbert2011}, se estima cual es la capacidad global de información generada, en su tramo analógico y digital a lo largo del tiempo, observando una explosión digital a partir del año 2002 (\autoref{fig:InfoGrowth}).
+
+De esta manera, ha suscitado un mayor interés por la comunidad científica en aprovechar esa vasta cantidad de información disponible para comprender los datos y extraer información útil resumida de ellos y con alguna aplicabilidad, en las llamadas tareas de \nombrebf{minería de datos}.
+
+En el caso de textos: \nombrebf{minería de textos}.
+
+\begin{landscape}
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=0.85\textwidth]{Hilbert-InfoGrowth}
+\caption[Explosión de información digital]{Gracias a la \nombrebf{explosión de información digital}, existe actualmente gran cantidad de información disponible para extraer el conocimiento humano, inclusive el lenguaje natural, de manera automática, por las máquinas \citep{Hilbert2011}. \\
+{\footnotesize ``Hilbert InfoGrowth'' by Myworkforwiki - Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons - \url{https://commons.wikimedia.org/wiki/File:Hilbert_InfoGrowth.png\#/media/File:Hilbert_InfoGrowth.png}}}
+\label{fig:InfoGrowth}
+\end{figure}
+\end{landscape}
+
+\section{Sentimiento o polaridad de las opiniones}
+
+En los documentos de tipo crítico, o comentarios de opinión acerca de una película, un artículo o un servicio, la información que se extrae de su lectura es si la película, el artículo o el servicio le ha parecido bueno o malo. A esto se le llama la \nombrebf{polaridad del sentimiento}\index{polaridad!sentimiento}\index{sentimiento}\index{polaridad} (o simplemente sentimiento) de la crítica.
+
+En las páginas dedicadas a opiniones de productos como \nombre{ciao.es}\footnote{\url{http://www.ciao.es/}} o críticas de cine como \nombre{filmaffinity}\footnote{\url{http://www.filmaffinity.com/}}, se suele proporcionar al visitante de un formulario con la crítica, y además un elemento para que etiquete su valoración, con estrellitas.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{filmaffinity}
+\caption[Introducción de la valoración en FilmAffinity]{En FilmAffinity han optado por el desplegable de 1 a 10 puntos etiquetados para introducir la valoración.}
+\label{fig:filmaffinity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{ciao}
+\caption[Introducción de la valoración en ciao.es]{Introducción de la valoración en ciao.es, con estrellitas.}
+\label{fig:ciao}
+\end{figure}
+
+En este tipo de documentos es fácil determinar cual es la polaridad del texto de la crítica, pues tenemos disponible además un campo de tipo numérico o enumerado (numérico en el sentido de ser inmediatamente procesable por la máquina, sin mayor tratamiento que quizás un cambio de escala o conversión de tipo entero a coma flotante) con la valoración, y podemos asociar valoraciones altas con polaridad buena o muy buena, y las valoraciones bajas con polaridad mala o muy mala. Las valoraciones medias se asociarían a comentarios cuya polaridad del sentimiento será neutra.
+
+\todo{Por aquí}
+
+\section{Motivación}
+
+Con el amplio uso de las plataformas de twitter y Facebook, los consumidores de productos y servicios pueden criticar abiertamente mediante un comentario a las marcas de las empresas cuyos productos han gustado o no. En la vida virtual, al igual en la vida real, las personas comentamos con nuestros amigos, y recomendamos o no recomendamos estos productos, y contribuimos con nuestras experiencias a mejorar o no la \nombrebf{reputación}\index{reputación} de las marcas.
+
+

@@ -33,7 +33,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage{epigraph}
 \usepackage{framed}
 \usepackage{dcolumn}
-
+\usepackage{pdflscape}
 \usepackage{booktabs}
 \usepackage{subcaption}
 \usepackage{hhline}
@@ -95,6 +95,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %\DefineBibliographyStrings{spanish}{andothers={et~al\adddot}}
 \newfontfamily\nombrefont{Futura}[Scale=0.94]
 \newcommand{\nombrebf}[1]{\textbf{\sffamily #1}}
+\newcommand{\nombre}[1]{\begingroup\nombrefont #1\endgroup}
 \setromanfont[Mapping=tex-text]{Hoefler Text}
 %\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
 %\setmonofont[Scale=0.9]{Courier New}
@@ -118,7 +119,7 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 %% doc info %%
 \newcommand{\pfctitle}{Procesamiento del Lenguaje Natural aplicado al Análisis del Sentimiento de opiniones}
 \newcommand{\pfcauthor}{Guillermo Gutiérrez-Herrera}
-\newcommand{\pfcdate}{julio de 2015}
+\newcommand{\pfcdate}{septiembre de 2015}
 
 \title{\pfctitle}
 \author{\pfcauthor}
