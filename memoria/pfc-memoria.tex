@@ -15,7 +15,8 @@
 \usepackage[Bjornstrup]{fncychap}
 \usepackage{graphicx}
 \usepackage{amssymb}
-\usepackage{hyperref}
+\usepackage[breaklinks=true]{hyperref}
+\def\UrlBreaks{\do\/\do-}
 \usepackage{hyperxmp}
 \usepackage{enumerate}
 \usepackage{siunitx}
@@ -38,6 +39,8 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \usepackage{subcaption}
 \usepackage{hhline}
 \usepackage{multirow}
+\usepackage{afterpage}
+\usepackage[multiple]{footmisc}
 
 \usepackage[section]{placeins}
 
@@ -85,6 +88,8 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \providecommand*{\listingautorefname}{\listingscaption}
 \renewcommand{\listoflistingscaption}{Índice de códigos}
 \setminted{breaklines=true,linenos=true}
+
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: ``\nameref*{#1}''}}
 
 %% estilo %%
 
