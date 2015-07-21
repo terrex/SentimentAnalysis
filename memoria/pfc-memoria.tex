@@ -5,7 +5,7 @@
 
 \documentclass[a4paper,11pt,twoside,headsepline]{scrbook}
 
-\usepackage[spanish,es-tabla]{babel}
+\usepackage[spanish,es-tabla,es-noshorthands,es-ucroman]{babel}
 \usepackage{xltxtra}
 \usepackage{fontspec}
 \usepackage{xunicode}
@@ -59,11 +59,17 @@ citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
 \theoremstyle{definition}
 \newtheorem{example}{Ejemplo}[chapter]
 
+\usepackage{csvsimple}
+
 %% plantuml %%
 \usepackage{filecontents}
 \usepackage{tikz}
+\usetikzlibrary{calc}
 
 \sisetup{output-decimal-marker={.},
+	group-digits=true,
+	group-minimum-digits={3},
+	group-separator = \text{\,},
 	product-units=single,
 	detect-all, detect-inline-family=text, detect-inline-weight=text,
   detect-display-math=true}
