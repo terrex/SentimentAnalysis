@@ -1,0 +1,27 @@
+%!TEX root = pfc-memoria.tex
+%!TEX encoding = UTF-8 Unicode
+
+\ProvidesPackage{txstd830}[2015/07/22 package txstd830]
+\RequirePackage{tocloft}
+\RequirePackage{fmtcount}
+\RequirePackage{xkeyval}
+
+\define@key{SRSActor}{title}[Título del actor en blanco]{}
+\define@key{SRSActor}{label}[etiqueta-del-actor-en-blanco]{}
+\define@key{SRSActor}{desc}[Descripción del actor en blanco]{}
+\define@key{SRSActor}{stability}[Alta]{}
+\newcommand{\SRSActor}[1]{%
+  \setkeys{SRSActor}{#1}
+  \refstepcounter{SRSActor}
+  \par
+  \textbf{AC-\padzeroes[2]{\decimal{SRSActor}}: \XKV@SRSActor@title@value}\\
+  %Descripción: \KV@SRSActor@desc{}\\
+  %Estabilidad: \KV@SRSActor@stability{}\\
+  %\par
+  %\label{SRSAct:\KV@SRSActor@label}  %\addcontentsline{srsactors}{SRSActor}{\protect\numberline{AC-\padzeroes[2]{\decimal{SRSActor}}}\KV@SRSActor@title}
+  }
+
+
+\newcommand{\listSRSActorname}{Lista de Actores}
+
+\newlistof{SRSActor}{srsactors}{\listSRSActorname}
