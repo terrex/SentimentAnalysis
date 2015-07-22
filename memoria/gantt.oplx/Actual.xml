@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <scenario xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2" xmlns:opns="http://www.omnigroup.com/namespace/OmniPlan/v2" id="fXDR6CZccy4">
-  <start-date>2015-04-12T22:00:00.000Z</start-date>
+  <start-date>2015-04-30T22:00:00.000Z</start-date>
   <granularity>days</granularity>
   <prototype-task>
     <task id="t-2">
@@ -112,74 +112,58 @@
   <task id="t7">
     <title>NLP</title>
     <type>group</type>
-    <child-task idref="t10"/>
     <child-task idref="t11"/>
     <child-task idref="t13"/>
   </task>
   <task id="t9">
     <title>ML</title>
     <type>group</type>
-    <child-task idref="t14"/>
     <child-task idref="t15"/>
     <child-task idref="t17"/>
   </task>
-  <task id="t10">
-    <title>Búsqueda de bibliografía</title>
-    <leveled-start>2015-04-16T07:00:00.000Z</leveled-start>
-    <effort>28800</effort>
-    <assignment idref="r1"/>
-  </task>
   <task id="t11">
-    <title>Lectura y estudio</title>
-    <leveled-start>2015-04-17T07:00:00.000Z</leveled-start>
+    <title>Lectura y estudio de la bibliografía</title>
+    <leveled-start>2015-05-04T07:00:00.000Z</leveled-start>
     <effort>86400</effort>
-    <prerequisite-task idref="t10"/>
     <assignment idref="r1"/>
   </task>
   <task id="t13">
     <title>Redacción de la memoria</title>
-    <leveled-start>2015-04-22T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-05-07T07:00:00.000Z</leveled-start>
     <effort>144000</effort>
     <prerequisite-task idref="t11"/>
     <assignment idref="r1"/>
   </task>
-  <task id="t14">
-    <title>Búsqueda de bibliografía</title>
-    <leveled-start>2015-04-28T18:00:00.000Z</leveled-start>
-    <effort>28800</effort>
-    <assignment idref="r1"/>
-  </task>
   <task id="t15">
-    <title>Lectura y estudio</title>
-    <leveled-start>2015-04-30T07:00:00.000Z</leveled-start>
-    <effort>57600</effort>
-    <prerequisite-task idref="t14"/>
+    <title>Lectura y estudio de la bibliografía</title>
+    <leveled-start>2015-05-13T18:00:00.000Z</leveled-start>
+    <effort>86400</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t17">
     <title>Redacción de la memoria</title>
-    <leveled-start>2015-05-04T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-05-19T07:00:00.000Z</leveled-start>
     <effort>144000</effort>
     <prerequisite-task idref="t15"/>
     <assignment idref="r1"/>
   </task>
   <task id="t18">
     <title>Búsqueda de frameworks</title>
-    <leveled-start>2015-05-18T07:00:00.000Z</leveled-start>
-    <effort>115200</effort>
+    <leveled-start>2015-06-01T07:00:00.000Z</leveled-start>
+    <effort>57600</effort>
     <prerequisite-task idref="t22"/>
     <assignment idref="r1"/>
   </task>
   <task id="t19">
     <title>Pruebas y análisis de frameworks</title>
-    <leveled-start>2015-05-22T07:00:00.000Z</leveled-start>
-    <effort>288000</effort>
+    <leveled-start>2015-06-03T07:00:00.000Z</leveled-start>
+    <effort>230400</effort>
     <prerequisite-task idref="t18"/>
     <assignment idref="r1"/>
   </task>
   <task id="t20">
     <title>Redacción de la memoria</title>
-    <leveled-start>2015-07-07T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-15T07:00:00.000Z</leveled-start>
     <effort>288000</effort>
     <end-constraint-date>2015-07-28T22:00:00.000Z</end-constraint-date>
     <prerequisite-task idref="t28"/>
@@ -194,27 +178,27 @@
   </task>
   <task id="t21">
     <title>Definición y objetivos del proyecto</title>
-    <leveled-start>2015-04-13T07:00:00.000Z</leveled-start>
-    <effort>86400</effort>
-    <start-constraint-date>2015-04-13T07:00:00.000Z</start-constraint-date>
+    <leveled-start>2015-05-01T07:00:00.000Z</leveled-start>
+    <effort>28800</effort>
+    <start-constraint-date>2015-05-01T07:00:00.000Z</start-constraint-date>
     <assignment idref="r1"/>
-    <start-no-earlier-than>2015-04-13T07:00:00.000Z</start-no-earlier-than>
+    <start-no-earlier-than>2015-05-01T07:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t22">
     <title>Especificación y análisis de requisitos</title>
-    <leveled-start>2015-05-11T07:00:00.000Z</leveled-start>
-    <effort>144000</effort>
+    <leveled-start>2015-05-26T07:00:00.000Z</leveled-start>
+    <effort>115200</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t23">
     <title>Captura de la demostración de uso</title>
-    <leveled-start>2015-07-21T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-29T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t24">
     <title>Redacción de las diapositivas</title>
-    <leveled-start>2015-07-22T18:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-30T18:00:00.000Z</leveled-start>
     <effort>86400</effort>
     <end-constraint-date>2015-09-13T22:00:00.000Z</end-constraint-date>
     <assignment idref="r1"/>
@@ -234,7 +218,7 @@
   </task>
   <task id="t26">
     <title>Ensayos</title>
-    <leveled-start>2015-07-28T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-08-05T07:00:00.000Z</leveled-start>
     <effort>57600</effort>
     <end-constraint-date>2015-09-14T22:00:00.000Z</end-constraint-date>
     <prerequisite-task idref="t24"/>
@@ -244,7 +228,7 @@
   <task id="t27">
     <title>Exposición pública</title>
     <leveled-start>2015-09-16T07:00:00.000Z</leveled-start>
-    <effort>14400</effort>
+    <effort>3600</effort>
     <start-constraint-date>2015-09-15T22:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t26"/>
     <prerequisite-task idref="t36"/>
@@ -253,7 +237,7 @@
   </task>
   <task id="t28">
     <title>Diseño del sistema</title>
-    <leveled-start>2015-06-05T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-15T07:00:00.000Z</leveled-start>
     <effort>86400</effort>
     <prerequisite-task idref="t19"/>
     <prerequisite-task idref="t22"/>
@@ -261,7 +245,7 @@
   </task>
   <task id="t29">
     <title>Wireframes del GUI</title>
-    <leveled-start>2015-06-10T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-18T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t28"/>
     <assignment idref="r1"/>
@@ -316,7 +300,7 @@
   </task>
   <task id="t36">
     <title>Preparación CD y libro</title>
-    <leveled-start>2015-07-22T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-30T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <end-constraint-date>2015-09-02T22:00:00.000Z</end-constraint-date>
     <prerequisite-task idref="t23"/>
@@ -325,120 +309,120 @@
   </task>
   <task id="t38">
     <title>Implementación QML</title>
-    <leveled-start>2015-06-16T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-24T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t39">
     <title>Implementación Python</title>
-    <leveled-start>2015-06-17T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-25T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t38"/>
     <assignment idref="r1"/>
   </task>
   <task id="t40">
     <title>Implementación QML</title>
-    <leveled-start>2015-06-18T18:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-26T18:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t41">
     <title>Implementación Python</title>
-    <leveled-start>2015-06-22T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-30T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t40"/>
     <assignment idref="r1"/>
   </task>
   <task id="t42">
     <title>Implementación QML</title>
-    <leveled-start>2015-06-23T18:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-01T18:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t43">
     <title>Implementación Python</title>
-    <leveled-start>2015-06-25T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-03T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t42"/>
     <assignment idref="r1"/>
   </task>
   <task id="t44">
     <title>Implementación QML</title>
-    <leveled-start>2015-06-26T18:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-06T18:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t45">
     <title>Implementación Python</title>
-    <leveled-start>2015-06-30T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-08T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t44"/>
     <assignment idref="r1"/>
   </task>
   <task id="t46">
     <title>Implementación QML</title>
-    <leveled-start>2015-07-02T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-10T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t47">
     <title>Implementación Python</title>
-    <leveled-start>2015-07-03T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-13T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t46"/>
     <assignment idref="r1"/>
   </task>
   <task id="t48">
     <title>Pruebas</title>
-    <leveled-start>2015-06-18T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-26T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t39"/>
     <assignment idref="r1"/>
   </task>
   <task id="t49">
     <title>Pruebas</title>
-    <leveled-start>2015-06-23T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-01T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t41"/>
     <assignment idref="r1"/>
   </task>
   <task id="t50">
     <title>Pruebas</title>
-    <leveled-start>2015-06-26T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-06T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t43"/>
     <assignment idref="r1"/>
   </task>
   <task id="t51">
     <title>Pruebas</title>
-    <leveled-start>2015-07-01T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-09T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t45"/>
     <assignment idref="r1"/>
   </task>
   <task id="t52">
     <title>Pruebas</title>
-    <leveled-start>2015-07-06T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-07-14T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t47"/>
     <assignment idref="r1"/>
   </task>
   <task id="t53">
     <title>Implementación QML</title>
-    <leveled-start>2015-06-11T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-19T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <assignment idref="r1"/>
   </task>
   <task id="t54">
     <title>Implementación Python</title>
-    <leveled-start>2015-06-12T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-22T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t53"/>
     <assignment idref="r1"/>
   </task>
   <task id="t55">
     <title>Pruebas</title>
-    <leveled-start>2015-06-15T07:00:00.000Z</leveled-start>
+    <leveled-start>2015-06-23T07:00:00.000Z</leveled-start>
     <effort>28800</effort>
     <prerequisite-task idref="t54"/>
     <assignment idref="r1"/>

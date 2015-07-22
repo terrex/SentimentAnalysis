@@ -5,7 +5,7 @@
     <view>task</view>
     <change-tracking/>
     <draw-folded/>
-    <status-display>basic</status-display>
+    <status-display>extended</status-display>
     <task-view>
       <split-view-divider-position>424</split-view-divider-position>
       <outline x="0" y="0" w="424" h="522">
@@ -13,10 +13,10 @@
         <column name="Notes" width="20"/>
         <column name="Title" width="309"/>
         <column name="Effort" width="70"/>
-        <expanded-items idrefs="t30 t33 t9 t5 t31 t25 t56 t6 t34 t32 t7 t35"/>
-        <selected-items-at-filter-time idrefs="t26 t8 t13 t32 t9 t27 t14 t33 t20 t28 t15 t34 t21 t29 t48 t16 t35 t22 t17 t36 t2 t23 t10 t18 t3 t37 t56 t24 t4 t11 t19 t30 t38 t5 t25 t6 t12 t31 t39 t7"/>
+        <expanded-items idrefs="t30 t33 t9 t5 t31 t25 t56 t34 t6 t32 t7 t35"/>
+        <selected-items-at-filter-time idrefs="t26 t13 t32 t9 t27 t14 t33 t20 t28 t15 t34 t21 t29 t48 t35 t22 t17 t36 t23 t10 t18 t56 t24 t11 t19 t30 t38 t5 t25 t6 t31 t39 t7"/>
       </outline>
-      <gantt-view x="-29" y="0" w="815" h="522">
+      <gantt-view x="-43" y="0" w="815" h="522">
         <view-mode>actual</view-mode>
         <dependency-lines/>
         <constraints/>
@@ -69,7 +69,7 @@
         <column name="Resource" width="135"/>
         <column name="#" width="75"/>
       </outline>
-      <timeline x="-232" y="0" w="689" h="522">
+      <timeline x="-232" y="0" w="877.840300107181" h="522">
         <offtime-display>none</offtime-display>
         <show-project-end/>
         <task-bar-label task-type="group" position="left">
