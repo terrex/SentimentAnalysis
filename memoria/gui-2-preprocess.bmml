@@ -10,10 +10,11 @@
         <text>Sentiment%20Analysis</text>
       </controlProperties>
     </control>
-    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="406" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="328" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>1</selectedIndex>
-        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify%2C%20Test%2C%20Evaluate</text>
+        <tabHPosition>center</tabHPosition>
+        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify</text>
       </controlProperties>
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::MenuBar" x="39" y="4" w="609" h="29" measuredW="189" measuredH="29" zOrder="3" locked="false" isInGroup="-1">
@@ -65,7 +66,22 @@
     </control>
     <control controlID="37" controlTypeID="com.balsamiq.mockups::FieldSet" x="54" y="182" w="260" h="67" measuredW="200" measuredH="170" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%5C%5Bv%5C%5D%20word%20replacement</text>
+        <text>%5C%5B%u2714%5C%5D%20word%20replacement</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <scrollBarValue>100</scrollBarValue>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="21" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>100</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="119" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Preprocessing%20done</text>
       </controlProperties>
     </control>
   </controls>

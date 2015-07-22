@@ -10,10 +10,11 @@
         <text>Sentiment%20Analysis</text>
       </controlProperties>
     </control>
-    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="406" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="328" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>2</selectedIndex>
-        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify%2C%20Test%2C%20Evaluate</text>
+        <tabHPosition>center</tabHPosition>
+        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify</text>
       </controlProperties>
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::MenuBar" x="39" y="4" w="609" h="29" measuredW="189" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
@@ -82,12 +83,12 @@
         <text>%25%20of%20documents</text>
       </controlProperties>
     </control>
-    <control controlID="51" controlTypeID="com.balsamiq.mockups::NumericStepper" x="270" y="258" w="54" h="-1" measuredW="49" measuredH="24" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::NumericStepper" x="270" y="258" w="80" h="-1" measuredW="76" measuredH="24" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>0.1</text>
+        <text>0.0200</text>
       </controlProperties>
     </control>
-    <control controlID="52" controlTypeID="com.balsamiq.mockups::Label" x="339" y="260" w="-1" h="-1" measuredW="51" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Label" x="357" y="260" w="-1" h="-1" measuredW="51" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
       <controlProperties>
         <text>variance</text>
       </controlProperties>
@@ -120,6 +121,21 @@
     <control controlID="59" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="196" w="-1" h="-1" measuredW="103" measuredH="22" zOrder="23" locked="false" isInGroup="-1">
       <controlProperties>
         <text>a%20maximum%20of</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <scrollBarValue>21</scrollBarValue>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="16" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>27</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="395" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Feature%20extration%20done.%20Shape%20of%20useful%20feats%20%28100%2C%2059%29%20removed%2030</text>
       </controlProperties>
     </control>
   </controls>

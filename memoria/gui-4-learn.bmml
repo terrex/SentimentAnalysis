@@ -10,10 +10,11 @@
         <text>Sentiment%20Analysis</text>
       </controlProperties>
     </control>
-    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="399" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="328" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>3</selectedIndex>
-        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify%2C%20Test%2C%20Evaluate</text>
+        <tabHPosition>center</tabHPosition>
+        <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify</text>
       </controlProperties>
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::MenuBar" x="39" y="4" w="609" h="29" measuredW="189" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
@@ -21,10 +22,10 @@
         <text>File%2C%20Edit%2C%20View%2C%20Help</text>
       </controlProperties>
     </control>
-    <control controlID="6" controlTypeID="com.balsamiq.mockups::DataGrid" x="39" y="337" w="608" h="183" measuredW="576" measuredH="245" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::DataGrid" x="39" y="337" w="608" h="183" measuredW="334" measuredH="245" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <rowHeight>16</rowHeight>
-        <text>PhraseID%2C%20SentenceID%2C%20Phrase%2C%20Sentiment%0A3%2C1%2Cseries%2C2%0A4%2C1%2C%2C2%0A5%2C1%2Cseries%2C2%0A6%2C1%2Cescapades%20demonstrating%20adage%20%20what%20is%20good%20%20goose%2C2%0A7%2C1%2Cof%2C2%0A8%2C1%2Cescapades%20demonstrating%20%20adage%20%20what%20is%20good%20%20goose%2C2%0A9%2C1%2Cescapades%2C2%0A10%2C1%2Cdemonstrating%20%20adage%20%20what%20is%20good%20%20%20goose%2C2%0A11%2C1%2Cdemonstrating%20%20adage%2C2%0A12%2C1%2Cdemonstrating%2C2%0A13%2C1%2C%20adage%2C2%0A14%2C1%2C%2C2%0A15%2C1%2Cadage%2C2%0A16%2C1%2C%20what%20is%20good%20%20%20goose%2C2</text>
+        <text>PhraseID%2C%20SentenceID%2C%20n-grams%2C%20Sentiment%0A3%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A4%2C1%2C%5B1%5C%2C2%5C%2C1%5C%2C1%5C%2C1%5C%2C2%5C%2C...%2C2%0A5%2C1%2C%5B0%5C%2C3%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A6%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C2%5C%2C...%2C2%0A7%2C1%2C%5B1%5C%2C5%5C%2C1%5C%2C6%5C%2C3%5C%2C4%5C%2C...%2C2%0A8%2C1%2C%5B0%5C%2C2%5C%2C5%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A9%2C1%2C%5B2%5C%2C2%5C%2C1%5C%2C1%5C%2C2%5C%2C1%5C%2C...%2C2%0A10%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A11%2C1%2C%5B0%5C%2C2%5C%2C0%5C%2C1%5C%2C1%5C%2C6%5C%2C...%2C2%0A12%2C1%2C%5B4%5C%2C2%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2%0A13%2C1%2C%5B0%5C%2C2%5C%2C1%5C%2C1%5C%2C6%5C%2C1%5C%2C...%2C2%0A14%2C1%2C%5B0%5C%2C3%5C%2C1%5C%2C1%5C%2C2%5C%2C0%5C%2C...%2C2%0A15%2C1%2C%5B8%5C%2C0%5C%2C0%5C%2C0%5C%2C0%5C%2C0%5C%2C...%2C2%0A16%2C1%2C%5B0%5C%2C0%5C%2C1%5C%2C1%5C%2C3%5C%2C4%5C%2C...%2C2</text>
         <value>10</value>
         <verticalScrollbar>true</verticalScrollbar>
       </controlProperties>
@@ -38,11 +39,13 @@
     <control controlID="35" controlTypeID="com.balsamiq.mockups::TabBar" x="54" y="151" w="572" h="122" measuredW="368" measuredH="100" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>0</selectedIndex>
+        <tabHPosition>center</tabHPosition>
         <text>MultinomialNB%2C%20GaussianNB%2C%20LDA%2C%20QDA%2C%20LinearSVM</text>
       </controlProperties>
     </control>
     <control controlID="36" controlTypeID="com.balsamiq.mockups::CheckBox" x="54" y="114" w="-1" h="-1" measuredW="107" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
+        <state>selected</state>
         <text>Split%20randomly%20</text>
       </controlProperties>
     </control>
@@ -54,6 +57,52 @@
     <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="218" y="115" w="-1" h="-1" measuredW="274" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
         <text>%25%20dataset%20for%20train%20and%20remaining%20for%20self-test</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <scrollBarValue>100</scrollBarValue>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="21" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>100</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="172" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Learned%20using%20MultinomialNB</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Switch" x="505" y="114" w="-1" h="-1" measuredW="68" measuredH="28" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <onOffState>on</onOffState>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Label" x="581" y="115" w="-1" h="-1" measuredW="46" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Re-split</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Label" x="68" y="188" w="-1" h="-1" measuredW="215" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Alpha%20smoothing%20%28Laplace/Lidstone%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::NumericStepper" x="298" y="186" w="-1" h="-1" measuredW="57" measuredH="24" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1.00</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::CheckBox" x="68" y="209" w="-1" h="-1" measuredW="127" measuredH="22" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Learn%20class%20priors</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Label" x="68" y="237" w="-1" h="-1" measuredW="82" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SCORE%3A%200.76%20</text>
       </controlProperties>
     </control>
   </controls>

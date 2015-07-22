@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="766" measuredH="542" mockupW="727" mockupH="538">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="648" measuredH="542" mockupW="609" mockupH="538">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="39" y="48" w="608" h="494" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -12,7 +12,7 @@
     </control>
     <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="39" y="71" w="608" h="255" measuredW="328" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
-        <selectedIndex>0</selectedIndex>
+        <selectedIndex>4</selectedIndex>
         <tabHPosition>center</tabHPosition>
         <text>Load%2C%20Preprocess%2C%20Features%2C%20Learn%2C%20Classify</text>
       </controlProperties>
@@ -31,73 +31,74 @@
       </controlProperties>
     </control>
     <control controlID="7" controlTypeID="com.balsamiq.mockups::VSplitter" x="39" y="326" w="608" h="-1" measuredW="100" measuredH="11" zOrder="4" locked="false" isInGroup="-1"/>
-    <control controlID="10" controlTypeID="com.balsamiq.mockups::Button" x="54" y="117" w="104" h="27" measuredW="82" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Button" x="54" y="170" w="-1" h="-1" measuredW="57" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Select%20file</text>
+        <text>LOAD</text>
       </controlProperties>
     </control>
-    <control controlID="12" controlTypeID="com.balsamiq.mockups::NumericStepper" x="173" y="156" w="-1" h="-1" measuredW="54" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <scrollBarValue>100</scrollBarValue>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="21" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
         <text>100</text>
       </controlProperties>
     </control>
-    <control controlID="14" controlTypeID="com.balsamiq.mockups::Label" x="239" y="158" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="221" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>samples</text>
+        <text>Predictions%20done%20using%20MultinomialNB</text>
       </controlProperties>
     </control>
-    <control controlID="15" controlTypeID="com.balsamiq.mockups::TextInput" x="173" y="117" w="226" h="-1" measuredW="219" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Button" x="54" y="117" w="104" h="27" measuredW="82" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>/Users/terrex/Downloads/train.tsv</text>
+        <text>Select%20file</text>
       </controlProperties>
     </control>
-    <control controlID="16" controlTypeID="com.balsamiq.mockups::Button" x="54" y="204" w="104" h="27" measuredW="57" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::NumericStepper" x="173" y="146" w="-1" h="-1" measuredW="54" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
-        <menuIcon>false</menuIcon>
-        <state>up</state>
-        <text>LOAD</text>
+        <text>100</text>
       </controlProperties>
     </control>
-    <control controlID="18" controlTypeID="com.balsamiq.mockups::Arrow" x="544" y="337" w="134" h="83" measuredW="150" measuredH="100" zOrder="10" locked="false" isInGroup="-1">
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::TextInput" x="173" y="117" w="226" h="-1" measuredW="217" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
-        <direction>bottom</direction>
-        <rightArrow>false</rightArrow>
+        <text>/Users/terrex/Downloads/test.tsv</text>
       </controlProperties>
     </control>
-    <control controlID="21" controlTypeID="com.balsamiq.mockups::Paragraph" x="685" y="326" w="81" h="40" measuredW="200" measuredH="80" zOrder="11" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*data%20output*%0A*explorer*</text>
-      </controlProperties>
-    </control>
-    <control controlID="22" controlTypeID="com.balsamiq.mockups::Arrow" x="612" y="156" w="97" h="58" measuredW="150" measuredH="100" zOrder="12" locked="false" isInGroup="-1">
-      <controlProperties>
-        <rightArrow>false</rightArrow>
-        <text/>
-      </controlProperties>
-    </control>
-    <control controlID="23" controlTypeID="com.balsamiq.mockups::Paragraph" x="685" y="222" w="81" h="40" measuredW="200" measuredH="80" zOrder="13" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*settings*%0A*pane*</text>
-      </controlProperties>
-    </control>
-    <control controlID="24" controlTypeID="com.balsamiq.mockups::CheckBox" x="54" y="157" w="-1" h="-1" measuredW="104" measuredH="22" zOrder="14" locked="false" isInGroup="-1">
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::CheckBox" x="54" y="147" w="-1" h="-1" measuredW="104" measuredH="22" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Load%20only%20first</text>
       </controlProperties>
     </control>
-    <control controlID="25" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::Button" x="54" y="197" w="-1" h="-1" measuredW="121" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
-        <scrollBarValue>21</scrollBarValue>
+        <text>1.%20PREPROCESS</text>
       </controlProperties>
     </control>
-    <control controlID="26" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="16" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Button" x="54" y="224" w="-1" h="-1" measuredW="103" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>27</text>
+        <text>2.%20FEATURES</text>
       </controlProperties>
     </control>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="81" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Button" x="54" y="251" w="-1" h="-1" measuredW="101" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Reading%20file....</text>
+        <text>3.%20CLASSIFY</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Label" x="173" y="254" w="-1" h="-1" measuredW="33" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>using</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::ComboBox" x="227" y="253" w="-1" h="-1" measuredW="112" measuredH="24" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>MultinomialNB</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Button" x="54" y="282" w="-1" h="-1" measuredW="221" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save%20file%20for%20submission%20to%20kaggle</text>
       </controlProperties>
     </control>
   </controls>
