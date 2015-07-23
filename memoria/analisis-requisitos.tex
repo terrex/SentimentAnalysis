@@ -3,16 +3,38 @@
 
 \chapter{Análisis de requisitos}
 
-Este capítulo es la Especificación de Requisitos del Sistema (ERS en español, ó SRS del inglés \emph{System Requirements Specification})\index{ERS}\index{SRS} siguiendo las directrices de la norma IEEE~Std~830-1998 \citep{std830-1998} usando la notación de UML~2.5. \todo{pendiente de cita}
+Este capítulo contiene la Especificación de Requisitos del Sistema (ERS en español, ó SRS del inglés \emph{System Requirements Specification})\index{ERS}\index{SRS} siguiendo las directrices de la norma IEEE~Std~830-1998 \citep{std830-1998} usando la notación de UML~2.5 \citep{UML2.5}
 
 \section{Actores del sistema}
 
-\SRSActor{title={Usuario},%
-label=usuario,%
-desc={Usuario de la aplicación, alumno.}%
-}
+\SRSActor{title={Usuario},
+label=usuario,
+desc={Usuario normal de la aplicación, comúnmente un alumno en un puesto informático con la aplicación gráfica instalada, pantalla, procesador, teclado y ratón.},
+comments={-/-},
+stability=Alta}
 
 \section{Objetivos}
+
+\SRSObj{title={Biblioteca unificada de NLP y ML},
+label=biblioteca-nlp-ml,
+desc={Desarrollar una biblioteca unificada de NLP y ML para el análisis del sentimiento o polaridad de opiniones. La biblioteca debe proporcionar la funcionalidad necesaria para
+\begin{enumerate}[a)]
+\item procesar texto mediante diversos filtros (en la etapa de entrenamiento y la de clasificación),
+\item aprender a clasificar el sentimiento automáticamente mediante algoritmos parametrizables de aprendizaje automático.
+\end{enumerate}
+Ambos grupos de funcionalidad deberán permitir la colaboración entre sí, en secuencia.},
+comments={-/-},
+stability=Alta}
+
+
+Desarrollar un asistente con una Interfaz Gráfica de Usuario (IGU ó GUI) para usar en el aula.
+
+\SRSObj{title={GUI para el análisis de sentimiento},
+label=gui,
+desc={Desarrollar una aplicación de escritorio, con Interfaz Gráfica de Usuario multiplataforma, que haga uso del \refSRSObj{biblioteca-nlp-ml} para guiar al alumno en el análisis del sentimiento de opiniones sin necesidad de programar nada.},
+comments={-/-},
+stability=Alta}
+
 
 \section{Requisitos de información}
 

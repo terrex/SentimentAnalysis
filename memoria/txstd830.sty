@@ -2,26 +2,62 @@
 %!TEX encoding = UTF-8 Unicode
 
 \ProvidesPackage{txstd830}[2015/07/22 package txstd830]
-\RequirePackage{tocloft}
+\RequirePackage[titles]{tocloft}
 \RequirePackage{fmtcount}
 \RequirePackage{xkeyval}
 
-\define@key{SRSActor}{title}[Título del actor en blanco]{}
-\define@key{SRSActor}{label}[etiqueta-del-actor-en-blanco]{}
-\define@key{SRSActor}{desc}[Descripción del actor en blanco]{}
-\define@key{SRSActor}{stability}[Alta]{}
+%% SRSActor
+
+\define@key{SRSActor}{title}[Título del actor en blanco]{\def\KV@SRSActor@title@value{#1}}
+\define@key{SRSActor}{label}[etiqueta-del-actor-en-blanco]{\def\KV@SRSActor@label@value{#1}}
+\define@key{SRSActor}{desc}[Descripción del actor en blanco]{\def\KV@SRSActor@desc@value{#1}}
+\define@key{SRSActor}{comments}[Comentarios del actor en blanco]{\def\KV@SRSActor@comments@value{#1}}
+\define@key{SRSActor}{stability}[Alta]{\def\KV@SRSActor@stability@value{#1}}
 \newcommand{\SRSActor}[1]{%
   \setkeys{SRSActor}{#1}
   \refstepcounter{SRSActor}
   \par
-  \textbf{AC-\padzeroes[2]{\decimal{SRSActor}}: \XKV@SRSActor@title@value}\\
-  %Descripción: \KV@SRSActor@desc{}\\
-  %Estabilidad: \KV@SRSActor@stability{}\\
-  %\par
-  %\label{SRSAct:\KV@SRSActor@label}  %\addcontentsline{srsactors}{SRSActor}{\protect\numberline{AC-\padzeroes[2]{\decimal{SRSActor}}}\KV@SRSActor@title}
-  }
+  \begin{tabular}{p{0.15\textwidth}p{0.77\textwidth}}
+  \multicolumn{2}{l}{\label{SRSActor:\KV@SRSActor@label@value}\nombrebf{ACT-\padzeroes[2]{\decimal{SRSActor}}: \KV@SRSActor@title@value}} \\ \hline
+  Descripción: & \KV@SRSActor@desc@value \\
+  Comentarios: & \KV@SRSActor@comments@value \\
+  Estabilidad: & \KV@SRSActor@stability@value
+  \end{tabular}
+  \addcontentsline{srsactors}{SRSActor}{\protect\makebox[3.5em][l]{\numberline{ACT-\padzeroes[2]{\decimal{SRSActor}}}} \KV@SRSActor@title@value}
+}
 
-
-\newcommand{\listSRSActorname}{Lista de Actores}
+\newcommand{\listSRSActorname}{Lista de actores}
 
 \newlistof{SRSActor}{srsactors}{\listSRSActorname}
+
+\newcommand{\refSRSActor}[1]{%
+	\hyperref[SRSActor:#1]{ACT-\ref*{SRSActor:#1}}
+}
+
+%% SRSObj
+
+\define@key{SRSObj}{title}[Título del objetivo en blanco]{\def\KV@SRSObj@title@value{#1}}
+\define@key{SRSObj}{label}[etiqueta-del-objetivo-en-blanco]{\def\KV@SRSObj@label@value{#1}}
+\define@key{SRSObj}{desc}[Descripción del objetivo en blanco]{\def\KV@SRSObj@desc@value{#1}}
+\define@key{SRSObj}{comments}[Comentarios del objetivo en blanco]{\def\KV@SRSObj@comments@value{#1}}
+\define@key{SRSObj}{stability}[Alta]{\def\KV@SRSObj@stability@value{#1}}
+\newcommand{\SRSObj}[1]{%
+  \setkeys{SRSObj}{#1}
+  \refstepcounter{SRSObj}
+  \par
+  \begin{tabular}{p{0.15\textwidth}p{0.77\textwidth}}
+  \multicolumn{2}{l}{\label{SRSObj:\KV@SRSObj@label@value}\nombrebf{OBJ-\padzeroes[2]{\decimal{SRSObj}}: \KV@SRSObj@title@value}} \\ \hline
+  Descripción: & \KV@SRSObj@desc@value \\
+  Comentarios: & \KV@SRSActor@comments@value \\
+  Estabilidad: & \KV@SRSObj@stability@value
+  \end{tabular}
+  \addcontentsline{srsobjs}{SRSObj}{\protect\makebox[3.5em][l]{\numberline{OBJ-\padzeroes[2]{\decimal{SRSObj}}}} \KV@SRSObj@title@value}
+}
+
+\newcommand{\listSRSObjname}{Lista de objetivos}
+
+\newlistof{SRSObj}{srsobjs}{\listSRSObjname}
+
+\newcommand{\refSRSObj}[1]{%
+	\hyperref[SRSObj:#1]{OBJ-\ref*{SRSObj:#1}}
+}
