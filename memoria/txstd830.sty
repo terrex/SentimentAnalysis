@@ -113,3 +113,42 @@
 	\hyperref[SRSIrq:#1]{IRQ-\ref*{SRSIrq:#1}: ``\nameref{SRSIrq:#1}''}
 }
 
+%% SRSNfr
+
+\define@key{SRSNfr}{title}[-/-]{\def\KV@SRSNfr@title@value{#1}}
+\define@key{SRSNfr}{label}[UNK]{\def\KV@SRSNfr@label@value{#1}}
+\define@key{SRSNfr}{desc}[-/-]{\def\KV@SRSNfr@desc@value{#1}}
+\define@key{SRSNfr}{comments}[-/-]{\def\KV@SRSNfr@comments@value{#1}}
+\define@key{SRSNfr}{stability}[Alta]{\def\KV@SRSNfr@stability@value{#1}}
+\define@key{SRSNfr}{objasoc}[-/-]{\def\KV@SRSNfr@objasoc@value{#1}}
+\define@key{SRSNfr}{reqasoc}[-/-]{\def\KV@SRSNfr@reqasoc@value{#1}}
+\define@key{SRSNfr}{priority}[Alta]{\def\KV@SRSNfr@priority@value{#1}}
+\newcommand{\SRSNfr}[1]{%
+  \setkeys{SRSNfr}{#1}
+  \refstepcounter{SRSNfr}
+  \edef\@currentlabelname{\KV@SRSNfr@title@value}
+  \par\noindent
+  \begin{tabular}{p{0.21\textwidth}p{0.738\textwidth}}
+  \multicolumn{2}{l}{\label{SRSNfr:\KV@SRSNfr@label@value}\nombrebf{NFR-\padzeroes[2]{\decimal{SRSNfr}}: \KV@SRSNfr@title@value}} \\ \hline
+  Descripción: & \KV@SRSNfr@desc@value \\
+  Objetivos asociados: & \KV@SRSNfr@objasoc@value \\
+  Req. asociados: & \KV@SRSNfr@reqasoc@value \\
+  Estabilidad: & \KV@SRSNfr@stability@value \\
+  Prioridad: & \KV@SRSNfr@priority@value \\
+  Comentarios: & \KV@SRSNfr@comments@value
+  \end{tabular}
+  \addcontentsline{srsnfrs}{SRSNfr}{\protect\makebox[3.7em][l]{\numberline{NFR-\padzeroes[2]{\decimal{SRSNfr}}}} \KV@SRSNfr@title@value}
+}
+
+\newcommand{\listSRSNfrname}{Lista de requisitos no funcionales}
+
+\newlistof{SRSNfr}{srsnfrs}{\listSRSNfrname}
+
+\newcommand{\refSRSNfr}[1]{%
+	\hyperref[SRSNfr:#1]{IRQ-\ref*{SRSNfr:#1}}
+}
+
+\newcommand{\fullrefSRSNfr}[1]{%
+	\hyperref[SRSNfr:#1]{IRQ-\ref*{SRSNfr:#1}: ``\nameref{SRSNfr:#1}''}
+}
+

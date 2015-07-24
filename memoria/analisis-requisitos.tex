@@ -39,7 +39,8 @@ stability=Alta}
 \SRSIrq{title={Fichero de configuración de sesión},
 label=yaml,
 desc={El sistema deberá proporcionar una manera de guardar y recuperar un fichero con la información necesaria para establecer la configuración de opciones de la sesión de trabajo actual con el programa.},
-comments={Se recomienda un formato consumible por máquina y humano, sencillo, de tipo YAML.},
+comments={Fichero de entrada y de salida.
+Se recomienda un formato consumible por máquina y humano, sencillo, de tipo YAML.},
 objasoc={\fullrefSRSObj{gui}},
 reqasoc={-/-},
 data={Datos de los parámetros ajustables presentes en los elementos del GUI:
@@ -57,8 +58,8 @@ stability=Alta}
 \newpage
 \SRSIrq{title={Formato del fichero de entrenamiento},
 label=traintsv,
-desc={Es un fichero de texto plano, en formato TSV (tab-separated values) de cuatro columnas, sin adorno de los literales de cadena.},
-comments={El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
+desc={Es un fichero de texto plano, en formato TSV (tab-separated values), con línea de cabeceras y de cuatro columnas, sin adorno de los literales de cadena.},
+comments={Fichero de entrada. El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
 objasoc={\fullrefSRSObj{gui}},
 reqasoc={-/-},
 data={Las columnas son: \begin{enumerate}
@@ -80,17 +81,56 @@ stability=Alta}
 
 \SRSIrq{title={Formato del fichero de evaluación},
 label=testtsv,
-desc={Es un fichero de texto plano, en formato TSV (tab-separated values) de tres columnas, sin adorno de los literales de cadena.},
-comments={El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
+desc={Es un fichero de texto plano, en formato TSV (tab-separated values), con línea de cabeceras y de tres columnas, sin adorno de los literales de cadena.},
+comments={Fichero de entrada. El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
 objasoc={\fullrefSRSObj{gui}},
 reqasoc={\fullrefSRSIrq{traintsv}},
 data={Análogo al \refSRSIrq{traintsv}, pero sin la última columna del sentimiento.},
 priority=Alta,
 stability=Alta}
 
-\todo{IRQ: Formato del fichero de submisión}
+\newpage
+\SRSIrq{title={Formato del fichero de envío},
+label=testtsv,
+desc={Es un fichero de texto plano, en formato CSV (comma-separated values), con línea de cabeceras y de dos columnas},
+comments={Fichero de salida. El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{traintsv}},
+data={Las columnas son: \begin{enumerate}
+\item PhraseId (numérico y único)
+\item Sentiment (numérico). Análoga correspondencia que en \refSRSIrq{traintsv}.
+\end{enumerate}},
+priority=Media,
+stability=Alta}
+
 
 \section{Requisitos funcionales}
 
 \section{Requisitos no funcionales}
 
+\SRSNfr{title={Multiplataforma},
+label=multiplataforma,
+desc={La aplicación será multiplataforma, al menos para los sistemas Mac~OS~X, Windows y GNU/Linux.},
+comments={La estética del GUI no es determinante.},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={},
+priority=Alta,
+stability=Alta}
+
+\SRSNfr{title={Con visualización de la tabla de datos},
+label=tabla-datos,
+desc={En la medida de lo posible, debe verse una tabla de datos para examinar cómo se van aplicando las sucesivas transformaciones.},
+comments={Es para promover el uso didáctico de la aplicación.},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={},
+priority=Media,
+stability=Alta}
+
+\SRSNfr{title={Con visualización del progreso},
+label=progreso,
+desc={En la medida de lo posible, debe verse una indicación del progreso en cada función que se realice sobre los datos.},
+comments={Es para no dar la impresión al usuario de que la aplicación se haya bloqueado, al tratar con tablas de datos grandes.},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={},
+priority=Media,
+stability=Alta}
