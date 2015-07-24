@@ -36,6 +36,60 @@ stability=Alta}
 
 \section{Requisitos de información}
 
+\SRSIrq{title={Fichero de configuración de sesión},
+label=yaml,
+desc={El sistema deberá proporcionar una manera de guardar y recuperar un fichero con la información necesaria para establecer la configuración de opciones de la sesión de trabajo actual con el programa.},
+comments={Se recomienda un formato consumible por máquina y humano, sencillo, de tipo YAML.},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={-/-},
+data={Datos de los parámetros ajustables presentes en los elementos del GUI:
+\begin{itemize}
+\item ruta a los ficheros de entrada,
+\item opciones activas de preprocesamiento de texto,
+\item opciones de la extracción de características,
+\item parámetros establecidos en cada método de aprendizaje automático,
+\item puntuaciones relativas obtenidas ($f$-values),
+\item cualquier otro dato necesario para poder repetir el experimento y obtener los mismo resultados.
+\end{itemize}},
+priority=Media,
+stability=Alta}
+
+\newpage
+\SRSIrq{title={Formato del fichero de entrenamiento},
+label=traintsv,
+desc={Es un fichero de texto plano, en formato TSV (tab-separated values) de cuatro columnas, sin adorno de los literales de cadena.},
+comments={El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={-/-},
+data={Las columnas son: \begin{enumerate}
+\item PhraseId (numérico y único)
+\item SentenceId (numérico)
+\item Phrase (cadena con el texto)
+\item Sentiment (numérico).
+\end{enumerate}
+La clasificación del sentimiento corresponde de la siguiente manera:
+\begin{eqnarray*}
+0 & \longrightarrow & \text{negativo} \\
+1 & \longrightarrow & \text{algo negativo} \\
+2 & \longrightarrow & \text{neutro} \\
+3 & \longrightarrow & \text{algo positivo} \\
+4 & \longrightarrow & \text{positivo}
+\end{eqnarray*}},
+priority=Alta,
+stability=Alta}
+
+\SRSIrq{title={Formato del fichero de evaluación},
+label=testtsv,
+desc={Es un fichero de texto plano, en formato TSV (tab-separated values) de tres columnas, sin adorno de los literales de cadena.},
+comments={El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{traintsv}},
+data={Análogo al \refSRSIrq{traintsv}, pero sin la última columna del sentimiento.},
+priority=Alta,
+stability=Alta}
+
+\todo{IRQ: Formato del fichero de submisión}
+
 \section{Requisitos funcionales}
 
 \section{Requisitos no funcionales}

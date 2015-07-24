@@ -8,20 +8,21 @@
 
 %% SRSActor
 
-\define@key{SRSActor}{title}[Título del actor en blanco]{\def\KV@SRSActor@title@value{#1}}
-\define@key{SRSActor}{label}[etiqueta-del-actor-en-blanco]{\def\KV@SRSActor@label@value{#1}}
-\define@key{SRSActor}{desc}[Descripción del actor en blanco]{\def\KV@SRSActor@desc@value{#1}}
-\define@key{SRSActor}{comments}[Comentarios del actor en blanco]{\def\KV@SRSActor@comments@value{#1}}
+\define@key{SRSActor}{title}[-/-]{\def\KV@SRSActor@title@value{#1}}
+\define@key{SRSActor}{label}[UNK]{\def\KV@SRSActor@label@value{#1}}
+\define@key{SRSActor}{desc}[-/-]{\def\KV@SRSActor@desc@value{#1}}
+\define@key{SRSActor}{comments}[-/-]{\def\KV@SRSActor@comments@value{#1}}
 \define@key{SRSActor}{stability}[Alta]{\def\KV@SRSActor@stability@value{#1}}
 \newcommand{\SRSActor}[1]{%
   \setkeys{SRSActor}{#1}
   \refstepcounter{SRSActor}
-  \par
-  \begin{tabular}{p{0.15\textwidth}p{0.77\textwidth}}
+  \edef\@currentlabelname{\KV@SRSActor@title@value}
+  \par\noindent
+  \begin{tabular}{p{0.21\textwidth}p{0.738\textwidth}}
   \multicolumn{2}{l}{\label{SRSActor:\KV@SRSActor@label@value}\nombrebf{ACT-\padzeroes[2]{\decimal{SRSActor}}: \KV@SRSActor@title@value}} \\ \hline
   Descripción: & \KV@SRSActor@desc@value \\
-  Comentarios: & \KV@SRSActor@comments@value \\
-  Estabilidad: & \KV@SRSActor@stability@value
+  Estabilidad: & \KV@SRSActor@stability@value \\
+  Comentarios: & \KV@SRSActor@comments@value
   \end{tabular}
   \addcontentsline{srsactors}{SRSActor}{\protect\makebox[3.5em][l]{\numberline{ACT-\padzeroes[2]{\decimal{SRSActor}}}} \KV@SRSActor@title@value}
 }
@@ -34,22 +35,27 @@
 	\hyperref[SRSActor:#1]{ACT-\ref*{SRSActor:#1}}
 }
 
+\newcommand{\fullrefSRSActor}[1]{%
+	\hyperref[SRSActor:#1]{ACT-\ref*{SRSActor:#1}: ``\nameref{SRSActor:#1}''}
+}
+
 %% SRSObj
 
-\define@key{SRSObj}{title}[Título del objetivo en blanco]{\def\KV@SRSObj@title@value{#1}}
-\define@key{SRSObj}{label}[etiqueta-del-objetivo-en-blanco]{\def\KV@SRSObj@label@value{#1}}
-\define@key{SRSObj}{desc}[Descripción del objetivo en blanco]{\def\KV@SRSObj@desc@value{#1}}
-\define@key{SRSObj}{comments}[Comentarios del objetivo en blanco]{\def\KV@SRSObj@comments@value{#1}}
+\define@key{SRSObj}{title}[-/-]{\def\KV@SRSObj@title@value{#1}}
+\define@key{SRSObj}{label}[UNK]{\def\KV@SRSObj@label@value{#1}}
+\define@key{SRSObj}{desc}[-/-]{\def\KV@SRSObj@desc@value{#1}}
+\define@key{SRSObj}{comments}[-/-]{\def\KV@SRSObj@comments@value{#1}}
 \define@key{SRSObj}{stability}[Alta]{\def\KV@SRSObj@stability@value{#1}}
 \newcommand{\SRSObj}[1]{%
   \setkeys{SRSObj}{#1}
   \refstepcounter{SRSObj}
-  \par
-  \begin{tabular}{p{0.15\textwidth}p{0.77\textwidth}}
+  \edef\@currentlabelname{\KV@SRSObj@title@value}
+  \par\noindent
+  \begin{tabular}{p{0.21\textwidth}p{0.738\textwidth}}
   \multicolumn{2}{l}{\label{SRSObj:\KV@SRSObj@label@value}\nombrebf{OBJ-\padzeroes[2]{\decimal{SRSObj}}: \KV@SRSObj@title@value}} \\ \hline
   Descripción: & \KV@SRSObj@desc@value \\
-  Comentarios: & \KV@SRSActor@comments@value \\
-  Estabilidad: & \KV@SRSObj@stability@value
+  Estabilidad: & \KV@SRSObj@stability@value \\
+  Comentarios: & \KV@SRSObj@comments@value
   \end{tabular}
   \addcontentsline{srsobjs}{SRSObj}{\protect\makebox[3.5em][l]{\numberline{OBJ-\padzeroes[2]{\decimal{SRSObj}}}} \KV@SRSObj@title@value}
 }
@@ -59,5 +65,51 @@
 \newlistof{SRSObj}{srsobjs}{\listSRSObjname}
 
 \newcommand{\refSRSObj}[1]{%
-	\hyperref[SRSObj:#1]{OBJ-\ref*{SRSObj:#1}}
+    \hyperref[SRSObj:#1]{OBJ-\ref*{SRSObj:#1}}
 }
+
+\newcommand{\fullrefSRSObj}[1]{%
+    \hyperref[SRSObj:#1]{OBJ-\ref*{SRSObj:#1}: ``\nameref{SRSObj:#1}''}
+}
+
+%% SRSIrq
+
+\define@key{SRSIrq}{title}[-/-]{\def\KV@SRSIrq@title@value{#1}}
+\define@key{SRSIrq}{label}[UNK]{\def\KV@SRSIrq@label@value{#1}}
+\define@key{SRSIrq}{desc}[-/-]{\def\KV@SRSIrq@desc@value{#1}}
+\define@key{SRSIrq}{comments}[-/-]{\def\KV@SRSIrq@comments@value{#1}}
+\define@key{SRSIrq}{stability}[Alta]{\def\KV@SRSIrq@stability@value{#1}}
+\define@key{SRSIrq}{objasoc}[-/-]{\def\KV@SRSIrq@objasoc@value{#1}}
+\define@key{SRSIrq}{reqasoc}[-/-]{\def\KV@SRSIrq@reqasoc@value{#1}}
+\define@key{SRSIrq}{data}[-/-]{\def\KV@SRSIrq@data@value{#1}}
+\define@key{SRSIrq}{priority}[Alta]{\def\KV@SRSIrq@priority@value{#1}}
+\newcommand{\SRSIrq}[1]{%
+  \setkeys{SRSIrq}{#1}
+  \refstepcounter{SRSIrq}
+  \edef\@currentlabelname{\KV@SRSIrq@title@value}
+  \par\noindent
+  \begin{tabular}{p{0.21\textwidth}p{0.738\textwidth}}
+  \multicolumn{2}{l}{\label{SRSIrq:\KV@SRSIrq@label@value}\nombrebf{IRQ-\padzeroes[2]{\decimal{SRSIrq}}: \KV@SRSIrq@title@value}} \\ \hline
+  Descripción: & \KV@SRSIrq@desc@value \\
+  Objetivos asociados: & \KV@SRSIrq@objasoc@value \\
+  Req. asociados: & \KV@SRSIrq@reqasoc@value \\
+  Datos específicos: & \KV@SRSIrq@data@value \\
+  Estabilidad: & \KV@SRSIrq@stability@value \\
+  Prioridad: & \KV@SRSIrq@priority@value \\
+  Comentarios: & \KV@SRSIrq@comments@value
+  \end{tabular}
+  \addcontentsline{srsirqs}{SRSIrq}{\protect\makebox[3.5em][l]{\numberline{OBJ-\padzeroes[2]{\decimal{SRSIrq}}}} \KV@SRSIrq@title@value}
+}
+
+\newcommand{\listSRSIrqname}{Lista de requisitos de información}
+
+\newlistof{SRSIrq}{srsirqs}{\listSRSIrqname}
+
+\newcommand{\refSRSIrq}[1]{%
+	\hyperref[SRSIrq:#1]{IRQ-\ref*{SRSIrq:#1}}
+}
+
+\newcommand{\fullrefSRSIrq}[1]{%
+	\hyperref[SRSIrq:#1]{IRQ-\ref*{SRSIrq:#1}: ``\nameref{SRSIrq:#1}''}
+}
+
