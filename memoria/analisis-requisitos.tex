@@ -5,7 +5,6 @@
 
 \flushbottom
 
-
 Este capítulo contiene la Especificación de Requisitos del Sistema (ERS en español, ó SRS del inglés \emph{System Requirements Specification})\index{ERS}\index{SRS} siguiendo las directrices de la norma IEEE~Std~830-1998 \citep{std830-1998} usando la notación de UML~2.5 \citep{UML2.5}
 
 \section{Actores del sistema}
@@ -20,7 +19,7 @@ stability=Alta}
 
 \SRSObj{title={Biblioteca unificada de NLP y ML},
 label=biblioteca-nlp-ml,
-desc={Desarrollar una biblioteca unificada de NLP y ML para el análisis del sentimiento o polaridad de opiniones. La biblioteca debe proporcionar la funcionalidad necesaria para
+desc={Desarrollar una biblioteca unificada de NLP y ML para el análisis del sentimiento o polaridad de opiniones. La biblioteca debe proporcionar la funcionalidad necesaria para:
 \begin{enumerate}[a)]
 \item procesar texto mediante diversos filtros (en la etapa de entrenamiento y la de clasificación),
 \item aprender a clasificar el sentimiento automáticamente mediante algoritmos parametrizables de aprendizaje automático.
@@ -99,18 +98,22 @@ desc={Es un fichero de texto plano, en formato CSV (comma-separated values), con
 comments={Fichero de salida. El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
 objasoc={\fullrefSRSObj{gui}},
 reqasoc={\fullrefSRSIrq{traintsv}},
-data={Las columnas son: \begin{enumerate}
+data={Las columnas son:\begin{enumerate}
 \item PhraseId (numérico y único)
 \item Sentiment (numérico). Análoga correspondencia que en \refSRSIrq{traintsv}.
 \end{enumerate}},
 priority=Media,
 stability=Alta}
 
-
+\newpage
 \section{Requisitos funcionales}
 
+Se puede ver un diagrama completo de casos de uso en la \autoref{fig:uml-uc} (página~\pageref{fig:uml-uc}).
+
+\subsection{Grupo funcional E/S}
+
 \SRSUc{title={Cargar fichero de entrenamiento},
-label={loadtraintsv},
+label=loadtraintsv,
 desc={Mediante esta función, el usuario cargará un fichero de entrenamiento (\path{train.tsv}).},
 precond={-/-},
 steps={\begin{enumerate}
@@ -155,6 +158,138 @@ stability=Alta}
 %\label{fig:uml-uc-sentanal}
 %\end{figure}
 
+\SRSUc{title={Cargar fichero de evaluación},
+label=loadtesttsv,
+desc={Mediante esta función, el usuario cargará un fichero de evaluación (\path{test.tsv}).},
+precond={-/-},
+steps={\begin{enumerate}
+\item El usuario solicita cargar un nuevo fichero de evaluación.
+\item El sistema ofrece un cuadro de diálogo para que el usuario seleccione el fichero.
+\item El usuario selecciona el fichero.
+\item El sistema ofrece la posibilidad de cargar sólo un número concreto de las primeras líneas.
+\item El usuario escoge si se carga sólo un número concreto de las primeras líneas, o todas las del fichero.
+\item El sistema lee el fichero a memoria y muestra el contenido del mismo en la tabla de resultados.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item Se asocia en el diccionario de configuración la ruta al fichero de evaluación y la opción de carga parcial de las primeras líneas.
+\item El contenido del fichero se encuentra visible de forma tabulada en la tabla de datos.
+\end{enumerate}},
+exceptions={Si el formato de fichero no concuerda con el especificado en \refSRSIrq{testtsv}, se produce un error.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{testtsv}},
+priority=Alta,
+stability=Alta}
+
+\newpage
+\SRSUc{title={Cargar fichero de configuración de sesión},
+label=loadyaml,
+desc={Mediante esta función, el usuario cargará un fichero de configuración de la sesión.},
+precond={El fichero de configuración seleccionado habrá sido previamente creado mediante \refSRSUc{saveyaml}, o escrito manualmente siguiendo un formato compatible.},
+steps={\begin{enumerate}
+\item El usuario solicita cargar un fichero de configuración de sesión.
+\item El sistema ofrece un cuadro de diálogo para que el usuario seleccione el fichero.
+\item El usuario selecciona el fichero.
+\item El sistema lee el fichero de configuración de sesión y establece todos los parámetros del diccionario de configuración actual a los valores especificados en el fichero de configuración de sesión seleccionado. El sistema muestra activa la primera pestaña del flujo de trabajo.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item Se asocia en el diccionario de configuración todos parámetros y valores indicados en el fichero.
+\item Se actualiza el GUI para reflejar estos cambios, y se activa la primera pestaña del flujo de trabajo.
+\end{enumerate}},
+exceptions={Si el formato de fichero no concuerda con el generado mediante \refSRSUc{saveyaml}, se produce un error.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{yaml}, \makebox[10em]{} \mbox{\fullrefSRSUc{saveyaml}}},
+priority=Alta,
+stability=Alta}
+
+\newpage
+\SRSUc{title={Salvar fichero de configuración de sesión},
+label=saveyaml,
+desc={Mediante esta función, el usuario creará y guardará un fichero de configuración de la sesión actual.},
+precond={-/-},
+steps={\begin{enumerate}
+\item El usuario solicita savar un fichero de configuración de sesión.
+\item El sistema ofrece un cuadro de diálogo para que el usuario indique el nombre de fichero.
+\item El usuario selecciona el fichero.
+\item El sistema lee todos los parámetros con sus valores actuales del diccionario de configuración y los escribe en un nuevo fichero con la ruta y nombre seleccionados.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item Se ha creado o actualizado el fichero con los valores de la configuración de la sesión actual; capaz de ser interpretado por \refSRSUc{loadyaml}.
+\end{enumerate}},
+exceptions={Si el fichero ya existía, se pregunta si se desea sobreescribir o no; en cuyo negativo caso el sistema solicitará un nuevo nombre único del fichero a crear.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{yaml}, \makebox[10em]{} \mbox{\fullrefSRSUc{loadyaml}}},
+priority=Alta,
+stability=Alta}
+
+\newpage
+\SRSUc{title={Salvar fichero de resultado de la clasificación},
+label=savesubmissioncsv,
+desc={Mediante esta función, el usuario creará y guardará un fichero de resultado de la clasificación predicha para el conjunto de evaluación.},
+precond={El sistema ha clasificado automáticamente el conjunto de evaluación.},
+steps={\begin{enumerate}
+\item El usuario solicita salvar el fichero de resultado de la clasificación.
+\item El sistema ofrece un cuadro de diálogo para que el usuario indique el nombre de fichero.
+\item El usuario selecciona el fichero.
+\item El sistema produce un fichero de resultado de la clasificación siguiendo el formato especificado en \refSRSIrq{submissioncsv}.
+\end{enumerate}},
+postcond={Se ha creado o actualizado el fichero con el resultado de la clasificación.},
+exceptions={Si el fichero ya existía, se pregunta si se desea sobreescribir o no; en cuyo negativo caso el sistema solicitará un nuevo nombre único del fichero a crear.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{submissioncsv}},
+priority=Alta,
+stability=Alta}
+
+\newpage
+\subsection{Grupo funcional Análisis del sentimiento}
+
+\SRSUc{title={Preprocesar texto},
+label=preproc,
+desc={El usuario establece opciones de procesamiento del texto de los documentos de entrada y el sistema aplica los filtros indicados sobre los datos.},
+precond={El fichero de entrenamiento ha sido cargado haciendo uso del \refSRSUc{loadtraintsv}.},
+steps={\begin{enumerate}
+\item El usuario selecciona la pestaña de preprocesamiento de texto.
+\item El sistema ofrece un conjunto de opciones y filtros ajustables para el procesamiento: a) volver a unir contracciones, b) expandir contracciones, c) suprimir palabras vacías d) reemplazar con la raíz e) reemplazar con el lema, f) anotar la parte-de-la-oración
+\item El usuario establece los parámetros deseados y confirma.
+\item El sistema modifica los documentos de entrada aplicando los filtros indicados y actualiza la tabla de datos de resultados.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
+\item El sistema ha procesado el texto de los documentos de entrada y actualizado la tabla de resultados.
+\end{enumerate}},
+exceptions={-/-},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={-/-},
+priority=Alta,
+stability=Alta}
+
+\newpage
+\SRSUc{title={Extraer características},
+label=features,
+desc={El usuario establece opciones de extracción y selección de características del texto de los documentos de entrada preprocesados y el sistema vectoriza las características del conjunto de entramiento.},
+precond={El conjunto de entrenamiento ha sido preprocesado mediante el \refSRSUc{preproc}.},
+steps={\begin{enumerate}
+\item El usuario selecciona la pestaña de extracción de características.
+\item El sistema ofrece un conjunto de opciones de extracción y selección de características: a) extracción de conjuntos de $n$-gramas con \mbox{$1\leq n\leq 20$}, b) $n$-gramas con un mínimo de frecuencia documental absoluta o relativa en el conjunto de entrada, c) $n$-gramas con un máximo de frecuencia documental absoluta o relativa en el conjunto de entrada, d) número de características más significativas, e) eliminar características con poca varianza.
+\item El usuario establece los parámetros deseados y confirma.
+\item El sistema extrae y selecciona las características siguiendo los parámetros indicados, vectoriza cada documento y actualiza la tabla de resultados con una columna por cada característica.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item El sistema ha actualizado el diccionario de configuración de sesión con lo parámetros indicados.
+\item El sistema ha procesado y actualizado el texto de los documentos de entrada.
+\end{enumerate}},
+exceptions={Si el texto de los documentos de entrenamiento no han sido preprocesados, se utilizar el conjunto de entrenamiento de manera literal y original, sin alterar; como punto de partida para la extracción y selección de características.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={-/-},
+priority=Alta,
+stability=Alta}
+
+
 \section{Requisitos no funcionales}
 
 \SRSNfr{title={Multiplataforma},
@@ -185,4 +320,3 @@ priority=Media,
 stability=Alta}
 
 \raggedbottom
-
