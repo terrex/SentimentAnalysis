@@ -8,7 +8,7 @@ rectangle "Análisis del sentimiento" {
   (Preprocesar texto) as preproc
   (Extraer características) as features
   (Iniciar \n aprendizaje automático) as learn
-  (Clasificar \n documentos de evaluación) as classify
+  (Clasificar \n conjunto de evaluación) as classify
 }
 :Usuario: -> preproc
 :Usuario: -> features

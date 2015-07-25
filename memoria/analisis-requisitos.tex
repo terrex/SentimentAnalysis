@@ -51,7 +51,7 @@ data={Datos de los parámetros ajustables presentes en los elementos del GUI:
 \item opciones activas de preprocesamiento de texto,
 \item opciones de la extracción de características,
 \item parámetros establecidos en cada método de aprendizaje automático,
-\item puntuaciones relativas obtenidas ($f$-values),
+\item puntuaciones relativas obtenidas (valor-F),\index{valor-F}
 \item cualquier otro dato necesario para poder repetir el experimento y obtener los mismos resultados.
 \end{itemize}},
 priority=Media,
@@ -190,7 +190,7 @@ steps={\begin{enumerate}
 \item El usuario solicita cargar un fichero de configuración de sesión.
 \item El sistema ofrece un cuadro de diálogo para que el usuario seleccione el fichero.
 \item El usuario selecciona el fichero.
-\item El sistema lee el fichero de configuración de sesión y establece todos los parámetros del diccionario de configuración actual a los valores especificados en el fichero de configuración de sesión seleccionado. El sistema muestra activa la primera pestaña del flujo de trabajo.
+\item El sistema lee el fichero de configuración de sesión y establece todos los parámetros del diccionario de configuración actual a los valores especificados en el fichero de configuración de sesión seleccionado, actualizando los controles del GUI de forma consistente; y se muestra activa la primera pestaña del flujo de trabajo.
 \end{enumerate}},
 postcond={\begin{enumerate}
 \item Se asocia en el diccionario de configuración todos parámetros y valores indicados en el fichero.
@@ -199,7 +199,7 @@ postcond={\begin{enumerate}
 exceptions={Si el formato de fichero no concuerda con el generado mediante \refSRSUc{saveyaml}, se produce un error.},
 comments={-/-},
 objasoc={\fullrefSRSObj{gui}},
-reqasoc={\fullrefSRSIrq{yaml}, \makebox[10em]{} \mbox{\fullrefSRSUc{saveyaml}}},
+reqasoc={\mbox{\fullrefSRSIrq{yaml},} \makebox[10em]{} \mbox{\fullrefSRSUc{saveyaml}}},
 priority=Alta,
 stability=Alta}
 
@@ -220,7 +220,7 @@ postcond={\begin{enumerate}
 exceptions={Si el fichero ya existía, se pregunta si se desea sobreescribir o no; en cuyo negativo caso el sistema solicitará un nuevo nombre único del fichero a crear.},
 comments={-/-},
 objasoc={\fullrefSRSObj{gui}},
-reqasoc={\fullrefSRSIrq{yaml}, \makebox[10em]{} \mbox{\fullrefSRSUc{loadyaml}}},
+reqasoc={\mbox{\fullrefSRSIrq{yaml},} \makebox[10em]{} \mbox{\fullrefSRSUc{loadyaml}}},
 priority=Alta,
 stability=Alta}
 
@@ -279,17 +279,67 @@ steps={\begin{enumerate}
 \item El sistema extrae y selecciona las características siguiendo los parámetros indicados, vectoriza cada documento y actualiza la tabla de resultados con una columna por cada característica.
 \end{enumerate}},
 postcond={\begin{enumerate}
-\item El sistema ha actualizado el diccionario de configuración de sesión con lo parámetros indicados.
-\item El sistema ha procesado y actualizado el texto de los documentos de entrada.
+\item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
+\item El sistema ha realizado la extracción y selección de características teniendo en cuenta los parámetros indicados, actualizado la información en la tabla de datos con los vectores de características de los documentos.
 \end{enumerate}},
-exceptions={Si el texto de los documentos de entrenamiento no han sido preprocesados, se utilizar el conjunto de entrenamiento de manera literal y original, sin alterar; como punto de partida para la extracción y selección de características.},
+exceptions={Si el texto de los documentos de entrenamiento no ha sido preprocesado por el \refSRSUc{preproc}, se utilizará el conjunto de entrenamiento de manera literal y original, sin alterar usando el resultado del \refSRSUc{loadtraintsv}; como punto de partida para la extracción y selección de características.},
 comments={-/-},
 objasoc={\fullrefSRSObj{gui}},
 reqasoc={-/-},
 priority=Alta,
 stability=Alta}
 
+\newpage
+\SRSUc{title={Iniciar aprendizaje automático},
+label=learn,
+desc={El usuario establece opciones de aprendizaje automático y el sistema entrena el modelo de aprendizaje seleccionado, autoevaluándose con un porcentaje de documentos sobre el tamaño de entrenamiento.},
+precond={El conjunto de entrenamiento ha sido vectorizado en características mediante el \refSRSUc{features}.},
+steps={\begin{enumerate}
+\item El usuario selecciona la pestaña de aprendizaje automático.
+\item El sistema ofrece un conjunto de opciones de aprendizaje: a) porcentaje de división del conjunto de entrenamiento en partes de entrenamiento y de autoevaluación, b) opción para re-dividir los subconjuntos, c) selección del modelo de entrenamiento, d) opciones del modelo de entrenamiento.
+\item El usuario establece los parámetros deseados y confirma.
+\item El sistema entrena el modelo deseado de aprendizaje usando la porción indicada de documentos vectorizados en características y autoevaluándose con la porción restante.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
+\item El sistema ha entrenado el modelo indicado y se ha autoevaluado usando la predicción proporcionada por el modelo, indicando la puntuación (valor-F).\index{valor-F}
+\end{enumerate}},
+exceptions={Si los parámetros indicados no son apropiados (insuficientes, incoherentes o fuera de rango) para el modelo y el subconjunto de prueba concretos, se muestra un error.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={-/-},
+priority=Alta,
+stability=Alta}
 
+\newpage
+\SRSUc{title={Clasificar conjunto de evaluación},
+label=classify,
+desc={El sistema clasifica el conjunto de evaluación indicado por el usuario.},
+precond={Al menos uno de los modelos de aprendizaje automático ha sido entrenado durante la sesión actual, mediante el \refSRSUc{learn}.},
+steps={\begin{enumerate*}
+\item El usuario selecciona la pestaña de clasificación.
+\item Se realiza el \fullrefSRSUc{loadtesttsv}.
+\item El sistema habilita el botón de preprocesamiento.
+\item El usuario pulsa el botón de preprocesamiento.
+\item El sistema aplica los mismos filtros de preprocesamiento que se usaron durante el entrenamiento, pero aplicado al conjunto de evaluación; actualiza la tabla de datos mostrando el texto de los documentos preprocesados, y habilita el botón de extracción de caracteristicas.
+\item El usuario pulsa el botón de extracción de características.
+\item El sistema aplica las misma opciones de extracción y selección de características que se usaron durante el entrenamiento, pero aplicados al conjunto de evaluación; actualiza la tabla de datos mostrando los vectores de características, y habilita el botón de calificación y la selección de modelo de aprendizaje.
+\item El usuario elige un modelo de aprendizaje y pulsa el botón de clasificación.
+\item El sistema clasifica los documentos de evaluación vectorizados mediante la predicción proporcionada por el modelo de aprendizaje entrenado; actualiza la tabla de datos con el formato de salida necesario (\refSRSIrq{submissioncsv}) con el sentimiento predicho; y habilita el botón de salvar fichero de resultados de la clasificación.
+\item Se realiza el \fullrefSRSUc{savesubmissioncsv}.
+\end{enumerate*}},
+postcond={\begin{enumerate*}
+\item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
+\item El sistema ha entrenado el modelo indicado y se ha autoevaluado usando la predicción proporcionada por el modelo, indicando la puntuación (valor-F).\index{valor-F}
+\end{enumerate*}},
+exceptions={El usuario puede abortar el proceso en cualquier momento, volver atrás y empezar de nuevo, sin obligación de completar exhaustivamente el flujo de secuencia normal especificado.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\mbox{\fullrefSRSIrq{submissioncsv},} \makebox[8em]{} \mbox{\fullrefSRSUc{loadtesttsv},} \makebox[8em]{} \mbox{\fullrefSRSUc{savesubmissioncsv}}},
+priority=Media,
+stability=Alta}
+
+\newpage
 \section{Requisitos no funcionales}
 
 \SRSNfr{title={Multiplataforma},
