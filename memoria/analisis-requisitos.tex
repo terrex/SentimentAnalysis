@@ -3,6 +3,9 @@
 
 \chapter{Análisis de requisitos}
 
+\flushbottom
+
+
 Este capítulo contiene la Especificación de Requisitos del Sistema (ERS en español, ó SRS del inglés \emph{System Requirements Specification})\index{ERS}\index{SRS} siguiendo las directrices de la norma IEEE~Std~830-1998 \citep{std830-1998} usando la notación de UML~2.5 \citep{UML2.5}
 
 \section{Actores del sistema}
@@ -50,7 +53,7 @@ data={Datos de los parámetros ajustables presentes en los elementos del GUI:
 \item opciones de la extracción de características,
 \item parámetros establecidos en cada método de aprendizaje automático,
 \item puntuaciones relativas obtenidas ($f$-values),
-\item cualquier otro dato necesario para poder repetir el experimento y obtener los mismo resultados.
+\item cualquier otro dato necesario para poder repetir el experimento y obtener los mismos resultados.
 \end{itemize}},
 priority=Media,
 stability=Alta}
@@ -91,7 +94,7 @@ stability=Alta}
 
 \newpage
 \SRSIrq{title={Formato del fichero de envío},
-label=testtsv,
+label=submissioncsv,
 desc={Es un fichero de texto plano, en formato CSV (comma-separated values), con línea de cabeceras y de dos columnas},
 comments={Fichero de salida. El detalle de los formatos de fichero se encuentra en \url{https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data}},
 objasoc={\fullrefSRSObj{gui}},
@@ -106,6 +109,52 @@ stability=Alta}
 
 \section{Requisitos funcionales}
 
+\SRSUc{title={Cargar fichero de entrenamiento},
+label={loadtraintsv},
+desc={Mediante esta función, el usuario cargará un fichero de entrenamiento (\path{train.tsv}).},
+precond={-/-},
+steps={\begin{enumerate}
+\item El usuario solicita cargar un nuevo fichero de entrenamiento.
+\item El sistema ofrece un cuadro de diálogo para que el usuario seleccione el fichero.
+\item El usuario selecciona el fichero.
+\item El sistema ofrece la posibilidad de cargar sólo un número concreto de las primeras líneas.
+\item El usuario escoge si se carga sólo un número concreto de las primeras líneas, o todas las del fichero.
+\item El sistema lee el fichero a memoria y muestra el contenido del mismo en la tabla de resultados.
+\end{enumerate}},
+postcond={\begin{enumerate}
+\item Se asocia en el diccionario de configuración la ruta al fichero de entrenamiento y la opción de carga parcial de las primeras líneas.
+\item El contenido del fichero se encuentra visible de forma tabulada en la tabla de datos.
+\end{enumerate}},
+exceptions={Si el formato de fichero no concuerda con el especificado en \refSRSIrq{traintsv}, se produce un error.},
+comments={-/-},
+objasoc={\fullrefSRSObj{gui}},
+reqasoc={\fullrefSRSIrq{traintsv}},
+priority=Alta,
+stability=Alta}
+
+\begin{landscape}
+\begin{figure}[htbp]
+\centering
+\resizebox{!}{0.76\textwidth}{\input{use-cases.puml}}
+\caption{Diagrama de casos de uso}
+\label{fig:uml-uc}
+\end{figure}
+\end{landscape}
+
+%\begin{figure}[htbp]
+%\centering
+%\resizebox{0.6\textwidth}{!}{\input{use-cases-es.puml}}
+%\caption{Diagrama de casos de uso (E/S)}
+%\label{fig:uml-uc-es}
+%\end{figure}
+%
+%\begin{figure}[htbp]
+%\centering
+%\resizebox{0.6\textwidth}{!}{\input{use-cases-sentanal.puml}}
+%\caption{Diagrama de casos de uso (Análisis del senimiento)}
+%\label{fig:uml-uc-sentanal}
+%\end{figure}
+
 \section{Requisitos no funcionales}
 
 \SRSNfr{title={Multiplataforma},
@@ -113,7 +162,7 @@ label=multiplataforma,
 desc={La aplicación será multiplataforma, al menos para los sistemas Mac~OS~X, Windows y GNU/Linux.},
 comments={La estética del GUI no es determinante.},
 objasoc={\fullrefSRSObj{gui}},
-reqasoc={},
+reqasoc={-/-},
 priority=Alta,
 stability=Alta}
 
@@ -122,7 +171,7 @@ label=tabla-datos,
 desc={En la medida de lo posible, debe verse una tabla de datos para examinar cómo se van aplicando las sucesivas transformaciones.},
 comments={Es para promover el uso didáctico de la aplicación.},
 objasoc={\fullrefSRSObj{gui}},
-reqasoc={},
+reqasoc={-/-},
 priority=Media,
 stability=Alta}
 
@@ -131,6 +180,9 @@ label=progreso,
 desc={En la medida de lo posible, debe verse una indicación del progreso en cada función que se realice sobre los datos.},
 comments={Es para no dar la impresión al usuario de que la aplicación se haya bloqueado, al tratar con tablas de datos grandes.},
 objasoc={\fullrefSRSObj{gui}},
-reqasoc={},
+reqasoc={-/-},
 priority=Media,
 stability=Alta}
+
+\raggedbottom
+

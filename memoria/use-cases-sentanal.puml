@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+skinparam DefaultFontSize 12
+skinparam DefaultFontName "Hoefler Text"
+:Usuario:
+rectangle "Análisis del sentimiento" {
+  (Preprocesar texto) as preproc
+  (Extraer características) as features
+  (Iniciar \n aprendizaje automático) as learn
+  (Clasificar \n documentos de evaluación) as classify
+}
+:Usuario: -> preproc
+:Usuario: -> features
+:Usuario: -> learn
+:Usuario: -> classify
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+skinparam DefaultFontSize 12
+skinparam DefaultFontName "Hoefler Text"
+rectangle "E/S" {
+  (Cargar fichero de entrenamiento) as loadtraintsv
+  (Cargar fichero de evaluación) as loadtesttsv
+  (Cargar fichero de \n configuración de sesión)  as loadyaml
+  (Salvar fichero de \n configuración de sesión) as saveyaml
+  (Salvar fichero de \n resultado de la clasificación) as savesubmissioncsv
+}
+:Usuario:
+loadtraintsv <- :Usuario:
+loadtesttsv <- :Usuario:
+loadyaml <- :Usuario:
+saveyaml <- :Usuario:
+savesubmissioncsv <- :Usuario:
+rectangle "Análisis del sentimiento" {
+  (Preprocesar texto) as preproc
+  (Extraer características) as features
+  (Iniciar \n aprendizaje automático) as learn
+  (Clasificar \n documentos de evaluación) as classify
+}
+:Usuario: -> preproc
+:Usuario: -> features
+:Usuario: -> learn
+:Usuario: -> classify
+@enduml

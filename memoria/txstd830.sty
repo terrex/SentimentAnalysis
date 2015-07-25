@@ -14,6 +14,7 @@
 \define@key{SRSActor}{comments}[-/-]{\def\KV@SRSActor@comments@value{#1}}
 \define@key{SRSActor}{stability}[Alta]{\def\KV@SRSActor@stability@value{#1}}
 \newcommand{\SRSActor}[1]{%
+  \setkeys{SRSActor}{title={-/-},label=UNK,desc={-/-},comments={-/-},stability=Alta}
   \setkeys{SRSActor}{#1}
   \refstepcounter{SRSActor}
   \edef\@currentlabelname{\KV@SRSActor@title@value}
@@ -47,6 +48,7 @@
 \define@key{SRSObj}{comments}[-/-]{\def\KV@SRSObj@comments@value{#1}}
 \define@key{SRSObj}{stability}[Alta]{\def\KV@SRSObj@stability@value{#1}}
 \newcommand{\SRSObj}[1]{%
+  \setkeys{SRSObj}{title={-/-},label=UNK,desc={-/-},comments={-/-},stability=Alta}
   \setkeys{SRSObj}{#1}
   \refstepcounter{SRSObj}
   \edef\@currentlabelname{\KV@SRSObj@title@value}
@@ -84,6 +86,7 @@
 \define@key{SRSIrq}{data}[-/-]{\def\KV@SRSIrq@data@value{#1}}
 \define@key{SRSIrq}{priority}[Alta]{\def\KV@SRSIrq@priority@value{#1}}
 \newcommand{\SRSIrq}[1]{%
+  \setkeys{SRSIrq}{title={-/-},label=UNK,desc={-/-},comments={-/-},objasoc={-/-},reqasoc={-/-},data={-/-},priority=Media,stability=Alta}
   \setkeys{SRSIrq}{#1}
   \refstepcounter{SRSIrq}
   \edef\@currentlabelname{\KV@SRSIrq@title@value}
@@ -98,7 +101,7 @@
   Prioridad: & \KV@SRSIrq@priority@value \\
   Comentarios: & \KV@SRSIrq@comments@value
   \end{tabular}
-  \addcontentsline{srsirqs}{SRSIrq}{\protect\makebox[3.5em][l]{\numberline{OBJ-\padzeroes[2]{\decimal{SRSIrq}}}} \KV@SRSIrq@title@value}
+  \addcontentsline{srsirqs}{SRSIrq}{\protect\makebox[3.5em][l]{\numberline{IRQ-\padzeroes[2]{\decimal{SRSIrq}}}} \KV@SRSIrq@title@value}
 }
 
 \newcommand{\listSRSIrqname}{Lista de requisitos de información}
@@ -124,6 +127,7 @@
 \define@key{SRSNfr}{reqasoc}[-/-]{\def\KV@SRSNfr@reqasoc@value{#1}}
 \define@key{SRSNfr}{priority}[Alta]{\def\KV@SRSNfr@priority@value{#1}}
 \newcommand{\SRSNfr}[1]{%
+  \setkeys{SRSNfr}{title={-/-},label=UNK,desc={-/-},comments={-/-},objasoc={-/-},reqasoc={-/-},priority=Alta,stability=Alta}
   \setkeys{SRSNfr}{#1}
   \refstepcounter{SRSNfr}
   \edef\@currentlabelname{\KV@SRSNfr@title@value}
@@ -145,10 +149,58 @@
 \newlistof{SRSNfr}{srsnfrs}{\listSRSNfrname}
 
 \newcommand{\refSRSNfr}[1]{%
-	\hyperref[SRSNfr:#1]{IRQ-\ref*{SRSNfr:#1}}
+	\hyperref[SRSNfr:#1]{NFR-\ref*{SRSNfr:#1}}
 }
 
 \newcommand{\fullrefSRSNfr}[1]{%
-	\hyperref[SRSNfr:#1]{IRQ-\ref*{SRSNfr:#1}: ``\nameref{SRSNfr:#1}''}
+	\hyperref[SRSNfr:#1]{NFR-\ref*{SRSNfr:#1}: ``\nameref{SRSNfr:#1}''}
+}
+
+%% SRSUc
+
+\define@key{SRSUc}{title}[-/-]{\def\KV@SRSUc@title@value{#1}}
+\define@key{SRSUc}{label}[UNK]{\def\KV@SRSUc@label@value{#1}}
+\define@key{SRSUc}{desc}[-/-]{\def\KV@SRSUc@desc@value{#1}}
+\define@key{SRSUc}{comments}[-/-]{\def\KV@SRSUc@comments@value{#1}}
+\define@key{SRSUc}{stability}[Alta]{\def\KV@SRSUc@stability@value{#1}}
+\define@key{SRSUc}{objasoc}[-/-]{\def\KV@SRSUc@objasoc@value{#1}}
+\define@key{SRSUc}{reqasoc}[-/-]{\def\KV@SRSUc@reqasoc@value{#1}}
+\define@key{SRSUc}{priority}[Alta]{\def\KV@SRSUc@priority@value{#1}}
+\define@key{SRSUc}{precond}[-/-]{\def\KV@SRSUc@precond@value{#1}}
+\define@key{SRSUc}{steps}[-/-]{\def\KV@SRSUc@steps@value{#1}}
+\define@key{SRSUc}{postcond}[-/-]{\def\KV@SRSUc@postcond@value{#1}}
+\define@key{SRSUc}{exceptions}[-/-]{\def\KV@SRSUc@exceptions@value{#1}}
+\newcommand{\SRSUc}[1]{%
+  \setkeys{SRSUc}{title={-/-},label=UNK,desc={-/-},precond={-/-},steps={-/-},postcond={-/-},exceptions={-/-},comments={-/-},objasoc={-/-},reqasoc={-/-},priority=Alta,stability=Alta}
+  \setkeys{SRSUc}{#1}
+  \refstepcounter{SRSUc}
+  \edef\@currentlabelname{\KV@SRSUc@title@value}
+  \par\noindent
+  \begin{tabular}{p{0.21\textwidth}p{0.738\textwidth}}
+  \multicolumn{2}{l}{\label{SRSUc:\KV@SRSUc@label@value}\nombrebf{UC-\padzeroes[2]{\decimal{SRSUc}}: \KV@SRSUc@title@value}} \\ \hline
+  Descripción: & \KV@SRSUc@desc@value \\
+  Objetivos asociados: & \KV@SRSUc@objasoc@value \\
+  Req. asociados: & \KV@SRSUc@reqasoc@value \\
+  Precondición: & \KV@SRSUc@precond@value \\
+  Secuencia normal: & \KV@SRSUc@steps@value \\
+  Postcondición: & \KV@SRSUc@postcond@value \\
+  Excepciones: & \KV@SRSUc@exceptions@value \\
+  Estabilidad: & \KV@SRSUc@stability@value \\
+  Prioridad: & \KV@SRSUc@priority@value \\
+  Comentarios: & \KV@SRSUc@comments@value
+  \end{tabular}
+  \addcontentsline{srsucs}{SRSUc}{\protect\makebox[3.7em][l]{\numberline{UC-\padzeroes[2]{\decimal{SRSUc}}}} \KV@SRSUc@title@value}
+}
+
+\newcommand{\listSRSUcname}{Lista de requisitos funcionales}
+
+\newlistof{SRSUc}{srsucs}{\listSRSUcname}
+
+\newcommand{\refSRSUc}[1]{%
+	\hyperref[SRSUc:#1]{UC-\ref*{SRSUc:#1}}
+}
+
+\newcommand{\fullrefSRSUc}[1]{%
+	\hyperref[SRSUc:#1]{UC-\ref*{SRSUc:#1}: ``\nameref{SRSUc:#1}''}
 }
 

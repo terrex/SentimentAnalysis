@@ -12,7 +12,7 @@ default: $(SHOULDDISTCLEAN)
 	latexmk
 	$(MAKE) viewpdf
 
-all: $(SHOULDDISTCLEAN) $(MASTER).bib $(MASTER).pdf $(PUMLS_TEXS)
+all: $(SHOULDDISTCLEAN) $(MASTER).bib $(PUMLS_TEXS) $(MASTER).pdf
 
 viewpdf: $(MASTER).pdf
 	open $<
