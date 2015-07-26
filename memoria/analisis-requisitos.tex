@@ -124,7 +124,7 @@ steps={\begin{enumerate}
 \item El usuario escoge si se carga sólo un número concreto de las primeras líneas, o todas las del fichero.
 \item El sistema lee el fichero a memoria y muestra el contenido del mismo en la tabla de resultados.
 \end{enumerate}},
-postcond={\begin{enumerate}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate}
 \item Se asocia en el diccionario de configuración la ruta al fichero de entrenamiento y la opción de carga parcial de las primeras líneas.
 \item El contenido del fichero se encuentra visible de forma tabulada en la tabla de datos.
 \end{enumerate}},
@@ -170,7 +170,7 @@ steps={\begin{enumerate}
 \item El usuario escoge si se carga sólo un número concreto de las primeras líneas, o todas las del fichero.
 \item El sistema lee el fichero a memoria y muestra el contenido del mismo en la tabla de resultados.
 \end{enumerate}},
-postcond={\begin{enumerate}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate}
 \item Se asocia en el diccionario de configuración la ruta al fichero de evaluación y la opción de carga parcial de las primeras líneas.
 \item El contenido del fichero se encuentra visible de forma tabulada en la tabla de datos.
 \end{enumerate}},
@@ -192,7 +192,7 @@ steps={\begin{enumerate}
 \item El usuario selecciona el fichero.
 \item El sistema lee el fichero de configuración de sesión y establece todos los parámetros del diccionario de configuración actual a los valores especificados en el fichero de configuración de sesión seleccionado, actualizando los controles del GUI de forma consistente; y se muestra activa la primera pestaña del flujo de trabajo.
 \end{enumerate}},
-postcond={\begin{enumerate}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate}
 \item Se asocia en el diccionario de configuración todos parámetros y valores indicados en el fichero.
 \item Se actualiza el GUI para reflejar estos cambios, y se activa la primera pestaña del flujo de trabajo.
 \end{enumerate}},
@@ -214,9 +214,7 @@ steps={\begin{enumerate}
 \item El usuario selecciona el fichero.
 \item El sistema lee todos los parámetros con sus valores actuales del diccionario de configuración y los escribe en un nuevo fichero con la ruta y nombre seleccionados.
 \end{enumerate}},
-postcond={\begin{enumerate}
-\item Se ha creado o actualizado el fichero con los valores de la configuración de la sesión actual; capaz de ser interpretado por \refSRSUc{loadyaml}.
-\end{enumerate}},
+postcond={Se ha creado o actualizado el fichero con los valores de la configuración de la sesión actual; capaz de ser interpretado por \refSRSUc{loadyaml}.},
 exceptions={Si el fichero ya existía, se pregunta si se desea sobreescribir o no; en cuyo negativo caso el sistema solicitará un nuevo nombre único del fichero a crear.},
 comments={-/-},
 objasoc={\fullrefSRSObj{gui}},
@@ -256,7 +254,7 @@ steps={\begin{enumerate}
 \item El usuario establece los parámetros deseados y confirma.
 \item El sistema modifica los documentos de entrada aplicando los filtros indicados y actualiza la tabla de datos de resultados.
 \end{enumerate}},
-postcond={\begin{enumerate}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate}
 \item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
 \item El sistema ha procesado el texto de los documentos de entrada y actualizado la tabla de resultados.
 \end{enumerate}},
@@ -278,7 +276,7 @@ steps={\begin{enumerate}
 \item El usuario establece los parámetros deseados y confirma.
 \item El sistema extrae y selecciona las características siguiendo los parámetros indicados, vectoriza cada documento y actualiza la tabla de resultados con una columna por cada característica.
 \end{enumerate}},
-postcond={\begin{enumerate}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate}
 \item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
 \item El sistema ha realizado la extracción y selección de características teniendo en cuenta los parámetros indicados, actualizado la información en la tabla de datos con los vectores de características de los documentos.
 \end{enumerate}},
@@ -300,7 +298,7 @@ steps={\begin{enumerate}
 \item El usuario establece los parámetros deseados y confirma.
 \item El sistema entrena el modelo deseado de aprendizaje usando la porción indicada de documentos vectorizados en características y autoevaluándose con la porción restante.
 \end{enumerate}},
-postcond={\begin{enumerate}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate}
 \item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
 \item El sistema ha entrenado el modelo indicado y se ha autoevaluado usando la predicción proporcionada por el modelo, indicando la puntuación (valor-F).\index{valor-F}
 \end{enumerate}},
@@ -328,11 +326,14 @@ steps={\begin{enumerate*}
 \item El sistema clasifica los documentos de evaluación vectorizados mediante la predicción proporcionada por el modelo de aprendizaje entrenado; actualiza la tabla de datos con el formato de salida necesario (\refSRSIrq{submissioncsv}) con el sentimiento predicho; y habilita el botón de salvar fichero de resultados de la clasificación.
 \item Se realiza el \fullrefSRSUc{savesubmissioncsv}.
 \end{enumerate*}},
-postcond={\begin{enumerate*}
+postcond={\vspace{-1.373\baselineskip}\begin{enumerate*}
 \item El sistema ha actualizado el diccionario de configuración de sesión con los parámetros indicados.
 \item El sistema ha entrenado el modelo indicado y se ha autoevaluado usando la predicción proporcionada por el modelo, indicando la puntuación (valor-F).\index{valor-F}
 \end{enumerate*}},
-exceptions={El usuario puede abortar el proceso en cualquier momento, volver atrás y empezar de nuevo, sin obligación de completar exhaustivamente el flujo de secuencia normal especificado.},
+exceptions={\vspace{-1.373\baselineskip}\begin{enumerate*}
+\item El usuario puede abortar el proceso en cualquier momento, volver atrás y empezar de nuevo, sin obligación de completar exhaustivamente el flujo de secuencia normal especificado.
+\item Si el modelo de aprendizaje seleccionado no ha sido entrenado previamente, se muestra un error.
+\end{enumerate*}},
 comments={-/-},
 objasoc={\fullrefSRSObj{gui}},
 reqasoc={\mbox{\fullrefSRSIrq{submissioncsv},} \makebox[8em]{} \mbox{\fullrefSRSUc{loadtesttsv},} \makebox[8em]{} \mbox{\fullrefSRSUc{savesubmissioncsv}}},
