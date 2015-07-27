@@ -1,0 +1,68 @@
+@startuml
+scale 100*66
+skinparam componentStyle uml2
+skinparam packageStyle rect
+skinparam DefaultFontSize 12
+skinparam DefaultFontName "Hoefler Text"
+
+class MainPfcsamrApp {
+  +classify_button_classify_on_clicked()
+  +classify_button_features_on_clicked()
+  +classify_button_load_on_clicked()
+  +classify_button_preproc_on_clicked()
+  +classify_save_csv(str)
+  +classify_tab_enabled : bool
+  +config : dict
+  +critical_message_accepted()
+  +critical_message_detailed_text : str
+  +critical_message_informative_text : str
+  +critical_message_text : str
+  +do_menu_file_new()
+  +do_menu_file_open(str)
+  +do_menu_file_save(str)
+  +features_button_run_on_clicked()
+  +features_tab_enabled : bool
+  +findChild() : QQuickItem
+  +get_config_prop(str) : QVariant
+  +learn_button_run_on_clicked(learn_method : int)
+  +learn_tab_enabled : bool
+  +learn_train_split_resplit : bool
+  +load_button_load_on_clicked()
+  +load_tab_enabled : bool
+  +preproc_button_run_on_clicked()
+  +preproc_tab_enabled : bool
+  +run_pending_gui_updates()
+  +set_config_prop_value(str, QVariant)
+  +status_count : int
+  +status_text : str
+  +variance_warn_message : str
+  {static} +default_config() : dict  
+}
+
+class Orchestrator {
+  +classify_save_csv(str)
+  +do_classify_classify(str)
+  +do_classify_features_countvectorizer()
+  +do_classify_preprocess()
+  +do_classify_test_tsv(str, int)
+  +do_features_countvectorizer(float, dict)
+  +do_learn(class, float, dict)
+  +do_load_train_tsv(str, int)
+  +do_preprocess()
+  +estimators : dict
+}
+
+class MyTableModel {
+  +__init__(headings, rows)
+  +columnCount() : int
+  +data(QModelIndex, int) : int
+  +headerData(int, int, int) : str
+  +roleNames() : dict
+  +rowCount() : int
+}
+
+QObject <|-- MainPfcsamrApp
+QAbstractTableModel <|-- MyTableModel
+MyTableModel "1" -  "1" MainPfcsamrApp
+MainPfcsamrApp "1" -  "1" Orchestrator
+@enduml

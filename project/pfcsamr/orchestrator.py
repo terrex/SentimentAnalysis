@@ -27,8 +27,12 @@ english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) +
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
+__all__ = ('MyTableModel', 'Orchestrator')
 
 class MyTableModel(QAbstractTableModel):
+    """Reimplement QAbstractTableModel for use with
+    """
+
     def __init__(self, headings, data):
         super().__init__()
         self.my_headings = headings
@@ -127,9 +131,12 @@ class MyPipeline(Pipeline):
 
 
 class Orchestrator(object):
+    """Orquestador principal, parte del Modelo en el MVP
+    """
+
     def __init__(self, mainPfcsamrApp):
         self.file_path = None
-        """:type:str"""
+        """:type: str"""
 
         self.headings = []
         self.rows = []

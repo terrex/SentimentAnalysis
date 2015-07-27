@@ -38,6 +38,7 @@ Se diseñará un sistema basado en el patrón Modelo-Vista-Presentador (MVP, \em
 La aplicación se desarrolla usando el lenguaje de programación Python~3.
 
 En la \fullref{fig:architecture} se encuentra un resumen visual de la situación de cada componente dentro del patrón MVP y la colaboración entre ellos.
+
 Los componentes (todos de software libre) que se reutilizan son:
 \begin{description}
 \item[Qt5]\index{Qt} Biblioteca de herramientas gráficas para la creación de interfaces de usuario ---con licencia de software libre--- en C++ que proporciona widgets y un framework de desarrollo de GUI compatible con la programación dirigida por eventos, soportado por las plataformas Windows, GNU/Linux y Mac~OS~X, entre otros \citep{Huang2015}. Actualmente mantenido por Digia.
@@ -48,7 +49,7 @@ Los componentes (todos de software libre) que se reutilizan son:
 \item[NumPy] Biblioteca en Python/C++ para el tratamiento de vectores/matrices numéricos y precisión arbitraria de manera eficiente desde Python \citep{Bressert2012}.
 \end{description}
 
-Los componentes a desarrollar son dos módulos en Python, uno para cubrir el \fullrefSRSObj{biblioteca-nlp-ml}, y el segundo módulo para el \fullrefSRSObj{gui}; y que se describen a continuación:
+Los componentes a desarrollar son dos módulos en Python, uno para cubrir el \fullrefSRSObj{gui}, y el segundo módulo para el \fullrefSRSObj{biblioteca-nlp-ml}; y que se describen a continuación:
 \begin{description}
 \item[\codep{pfcsamr.gui}] Implementa el Presentador que recibe y maneja los eventos generados por el usuario al interactuar en el GUI, y canaliza las operaciones comandadas hacia el Modelo. Así mismo, monitoriza los cambios que se produzcan en el Modelo y refleja estos cambios en el GUI actualizando el estado de la pantalla. Este modelo incluye también la descripción de la interfaz en el lenguaje declarativo QML.\index{QML}
 \item[\codep{pfcsamr.orchestrator}] Implementa el Modelo que actúa «orquestando» todo el proceso de análisis de sentimiento, coordinando de manera coherente los paquetes de NLTK3 y scikit-learn, y ofreciendo toda la funcionalidad de E/S.
@@ -66,6 +67,17 @@ Los componentes a desarrollar se indican en color verde en la \autoref{fig:archi
 
 
 \section{Clases}
+
+\begin{landscape}
+\begin{figure}[htbp]
+\centering
+\resizebox{!}{0.99\textwidth}{\input{classes.puml.tex}}
+\caption{Diagrama de clases}
+\label{fig:classes}
+\end{figure}
+\end{landscape}
+
+
 
 \section{Secuencias}
 

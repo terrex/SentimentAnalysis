@@ -30,6 +30,7 @@ SHARED_QUEUE = queue.Queue()
 SHARED_MainPfcsamrApp = None
 """:type: MainPfcsamrApp"""
 
+__all__ = ('MainPfcsamrApp', )
 
 def start_new_thread(function, args, kwargs=None):
     global SHARED_QUEUE
@@ -57,6 +58,8 @@ def start_new_thread(function, args, kwargs=None):
 
 
 class MainPfcsamrApp(QObject):
+    """Clase principal del GUI
+    """
     def __init__(self, parent: QObject=None):
         global SHARED_QUEUE
         super().__init__(parent)
