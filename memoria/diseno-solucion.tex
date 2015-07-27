@@ -116,7 +116,7 @@ La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{lo
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=14cm]{gui-1-load}
-\caption{Wireframe pestaña LOAD}
+\caption{Wireframe de la pestaña LOAD}
 \label{fig:gui-1-load}
 \end{figure}
 
@@ -145,7 +145,7 @@ La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{pr
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-2-preprocess}
-\caption{Wireframe pestaña PREPROCESS}
+\caption{Wireframe de la pestaña PREPROCESS}
 \label{fig:gui-2-preprocess}
 \end{figure}
 
@@ -153,12 +153,23 @@ La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{pr
 \newpage
 \subsection{Pestaña FEATURES}
 
-\todo{por aki}
+La tercera pestaña, \nombrebf{FEATURES} se utiliza para extraer características de los textos y vectorizar numéricamente los ejemplos del conjunto de entrenamiento (\autoref{fig:gui-3-features}).
+
+Contiene los siguientes elementos:
+\begin{enumerate}
+\item Casilla de verificación y selección de $n$-gramas, en un rango de límites inferior y superior indicados en los controles de selección numérico. Véase \autoref{subsec:n-bow}.
+\item Casillas de verificación para las restricciones de frecuencia documental de los $n$-gramas seleccionados, con límites mínimo y máximo, siendo las unidades el número de documentos o el porcentaje relativo.
+\item Casilla de verificación para seleccionar sólo el número especificado de $n$-gramas más representativos.
+\item Casilla de verificación y umbral para suprimir características con varianza despreciable (\autoref{subsec:reduccion-caracteristicas}).
+\item Botón de RUN para ejecutar la etapa.
+\end{enumerate}
+
+La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{features}.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-3-features}
-\caption{Wireframe pestaña FEATURES}
+\includegraphics[width=12cm]{gui-3-features}
+\caption{Wireframe de la pestaña FEATURES}
 \label{fig:gui-3-features}
 \end{figure}
 
@@ -166,10 +177,28 @@ La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{pr
 \newpage
 \subsection{Pestaña LEARN}
 
+La cuarta pestaña, \nombrebf{LEARN} se utiliza para extraer características de los textos y vectorizar numéricamente los ejemplos del conjunto de entrenamiento (\autoref{fig:gui-4-learn}).
+
+Contiene los siguientes elementos:
+\begin{enumerate}
+\item Selección de umbral de corte para aleatorio para el subconjunto de entrenamiento y el subconjunto de autoevaluación. Si se modifica este umbral de corte, o si se activa el interruptor de «volver a dividir», se volverá a dividir aleatoriamente el conjunto completo. En otro caso, se reutilizará la división última realizada.
+\item Pestañas de selección de modelo de aprendizaje. La pestaña activa es la que se utilizará para entrenar al pulsar el botón RUN, pudiendo seleccionar otra pestaña posteriormente para entrenar los demás modelos.
+\begin{enumerate}
+\item \codep{sklearn.MultinomialNB}. Incluye las opciones de suavizado de Laplace/Lidstone (0.00--1.00), y la opción de aprender las probabilidades a priori del conjunto de entrenamiento o bien aplicar una distribución de probabilidad a priori uniforme. Véase \fullref{subsec:MultinomialNB}.
+\item \codep{sklearn.GaussianNB}. No tiene parámetros configurables (véase \fullref{subsec:GaussianNB}). 
+\item \codep{sklearn.LDA}. Como opciones, contiene la selección del algoritmo de resolución, a elegir entre: a) descomposición de valores singulares, b) mínimos cuadrados, c) descomposición de autovalores. Además de la opción de número de componentes para la función (1--3) y la opción de calcular la matriz de covarianzas. Véase \fullref{subsec:lda-qda}.
+\item \codep{sklearn.QDA} Incluye la opción 0.00--1.00 de ajuste del estimador de la covarianza. Por defecto: 0.04. Véase \autoref{subsec:lda-qda}.
+\item \codep{sklearn.LinearSVC}. Incluye como opciones: la casilla de verificación para resolver el problema primal en lugar del dual, y el número de iteraciones máximas, por defecto 100. Véase \fullref{subsec:svm}.
+\end{enumerate}
+\item Botón de RUN para ejecutar la etapa. Una vez entrenado, se autoevalúa con el subconjunto de autoevaluación del umbral de corte indicado y se muestra la puntuación en la etiqueta SCORE presente al final de cada pestaña de modelo de aprendizaje.
+\end{enumerate}
+
+La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{learn}.
+
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-4-learn}
-\caption{Wireframe pestaña LEARN}
+\includegraphics[width=12cm]{gui-4-learn}
+\caption{Wireframe de la pestaña LEARN}
 \label{fig:gui-4-learn}
 \end{figure}
 
@@ -177,24 +206,33 @@ La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{pr
 \newpage
 \subsection{Pestaña CLASSIFY}
 
+La quinta y última pestaña, \nombrebf{CLASSIFY} sirve para clasificar el conjunto de prueba \path{test.tsv} (véase la \autoref{fig:gui-5-classify}).
+
+Contiene los siguientes elementos:
+\begin{enumerate}
+\item Botón para desplegar el selector de fichero.
+\item Etiqueta de texto para visualizar la ruta al fichero de prueba.
+\item Casilla de verificación para habilitar la carga parcial, con el selector numérico del número de primeras líneas para la carga parcial.
+\item Botón de carga, que realiza el \fullrefSRSUc{loadtesttsv}. Al completar, se habilita el siguiente.
+\item Botón de preprocesado del conjunto de prueba en los mismos términos que el preprocesado durante el entrenamiento. Al completar, se habilita el siguiente.
+\item Botón de extracción de características del conjunto de prueba en los mismos términos que la extracción y selección de características durante el entrenamiento. Al completar, se habilita el siguiente.
+\item Botón de clasificación del conjunto de prueba, usando las predicciones proporcionadas por el modelo aprendido indicado en el selector de modelos. Realiza el \fullrefSRSUc{classify}.
+\item Botón para exportar los resultados clasificados. Realiza el \fullrefSRSUc{savesubmissioncsv}.
+\end{enumerate}
+
+La funcionalidad de los elementos siguen la especificación de los casos de uso mencionados (\refSRSUc{loadtesttsv}, \refSRSUc{classify} y \refSRSUc{savesubmissioncsv}).
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-5-classify}
-\caption{Wireframe pestaña CLASSIFY}
+\caption{Wireframe de la pestaña CLASSIFY}
 \label{fig:gui-5-classify}
 \end{figure}
 
 
 \section{Clases}
 
-A continuación se describen las clases principales necesarias.
-
-\subsection{\codep{pfcsamr.gui.MainPfcsamrApp}}
-
-\subsection{\codep{pfcsamr.orchestrator.Orchestrator}}
-
-\subsection{\codep{pfcsamr.orchestrator.MyTableModel}}
-
+A continuación se describen las clases principales necesarias. Se puede ver un resumen completo de las clases en la \fullref{fig:classes} en la página \pageref{fig:classes}.
 
 \begin{landscape}
 \begin{figure}[htbp]
@@ -205,37 +243,9 @@ A continuación se describen las clases principales necesarias.
 \end{figure}
 \end{landscape}
 
+\subsection{\codep{pfcsamr.gui.MainPfcsamrApp}}
 
+\subsection{\codep{pfcsamr.orchestrator.Orchestrator}}
 
-\section{Secuencias}
+\subsection{\codep{pfcsamr.orchestrator.MyTableModel}}
 
-
-
-
-\resizebox{0.5\textwidth}{!}{\input{diag1.puml.tex}}
-
-\ldots
-
-\includegraphics[width=\textwidth]{bpmn-entrenamiento}
-
-\ldots
-
-\includegraphics[width=14cm]{gui-1-load}
-
-\ldots
-
-\includegraphics[width=12cm]{gui-2-preprocess}
-
-\ldots
-
-\includegraphics[width=12cm]{gui-3-features}
-
-\ldots
-
-\includegraphics[width=12cm]{gui-4-learn}
-
-\ldots
-
-\includegraphics[width=12cm]{gui-5-classify}
-
-\ldots

@@ -195,6 +195,7 @@ La solución al ejercicio la calculamos en el \autoref{lst:vocab-feat-2BOW}.
 
 \FloatBarrier
 \subsection{Saco de $n$-gramas (n-BOW)}
+\label{subsec:n-bow}
 
 Las técnicas explicadas anteriormente se pueden extender a cualquier número de $n$-gramas. Mostramos un ejemplo en el \autoref{lst:scikit-ngramas}, contando unigramas, bigramas y trigramas.
 
@@ -307,6 +308,7 @@ La manera de combinar varios extractores de características es concatenar los v
 
 \FloatBarrier
 \subsection{Reducción de características \emph{(feature selection)}}
+\label{subsec:reduccion-caracteristicas}
 
 Si nos encontramos con un espacio vectorial demasiado grande, podemos ir eliminando aquellas características que no aportan gran información o que no sirven para diferenciar la clase a la que pertenecen los ejemplos, para mejorar el rendimiento tanto en tiempo como en espacio de memoria. A este procedimiento se le llama \nombrebf{reducción de características} o \emph{feature selection}\index{feature selection@\emph{feature selection}}.
 
@@ -385,6 +387,7 @@ Supongamos un clasificador binario:
 
 \FloatBarrier
 \subsection{Naïve Bayes multinomial}
+\label{subsec:MultinomialNB}
 
 Éste es un clasificador de los llamados estadísticos o probabilísticos. En la fase de aprendizaje supervisado de este clasificador \citep{Jurafsky2015}:
 \begin{itemize}
@@ -517,6 +520,7 @@ MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
 
 \FloatBarrier
 \subsection{Naïve Bayes Gausiano}
+\label{subsec:GaussianNB}
 
 Este modelo es idéntico al modelo de predicción en Naïve Bayes multinomial, con la diferencia de que se puede aplicar en datos con variables continuas \citep[Naive Bayes classifier]{wikipedia-es}. Se asume que la variable se distribuye en una curva gausiana, entonces se calcula la media $\mu_c$ y la varianza $\sigma^2_c$ de cada característica $x_i$ en los ejemplos de cada clase $c$, y se toma como valor de verosimilitud el siguiente:
 \begin{equation}
@@ -525,6 +529,7 @@ Este modelo es idéntico al modelo de predicción en Naïve Bayes multinomial, c
 
 \FloatBarrier
 \subsection{Análisis de discriminante lineal y cuadrático (LDA, QDA)}
+\label{subsec:lda-qda}
 
 La técnica de \nombrebf{análisis del discriminante lineal}\index{discriminante!lineal} o \nombrebf{cuadrático}\index{discriminante!cuadrático} (\emph{Linear and quadratic discriminant analysis}, LDA, QDA)\index{LDA}\index{QDA} es una técnica que permite reducir el número de características que sean irrelevantes o que contribuyan poco a la diferenciación de las clases \citep[Discriminant function analysis]{wikipedia-en}.
 
@@ -577,6 +582,7 @@ LDA(n_components=None, priors=None, shrinkage=None, solver='svd',
 
 \FloatBarrier
 \subsection{Máquinas de vectores de soporte (SVM)}
+\label{subsec:svm}
 
 Las \nombrebf{máquinas de vectores de soporte}\index{vectores de soporte!máquinas de} (\emph{Support Vector Machines}, SVM)\index{SVM}\index{machines@\emph{machines}}\index{machines!support vector@\emph{support vector}} son algoritmos de aprendizaje supervisado que se pueden usar para clasificación, regresión y detección de valores atípicos\index{valor atípico} \emph{(outliers)}\index{outlier@\emph{outlier}} \citep{Pedregosa2011}.
 

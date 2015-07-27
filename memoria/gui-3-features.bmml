@@ -93,47 +93,42 @@
         <text>variance</text>
       </controlProperties>
     </control>
-    <control controlID="53" controlTypeID="com.balsamiq.mockups::Button" x="117" y="288" w="-1" h="-1" measuredW="161" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Show%20selected%20features</text>
-      </controlProperties>
-    </control>
-    <control controlID="55" controlTypeID="com.balsamiq.mockups::NumericStepper" x="232" y="227" w="-1" h="-1" measuredW="57" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::NumericStepper" x="232" y="227" w="-1" h="-1" measuredW="57" measuredH="24" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
         <text>300</text>
       </controlProperties>
     </control>
-    <control controlID="56" controlTypeID="com.balsamiq.mockups::Label" x="301" y="229" w="-1" h="-1" measuredW="49" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Label" x="301" y="229" w="-1" h="-1" measuredW="49" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
       <controlProperties>
         <text>features</text>
       </controlProperties>
     </control>
-    <control controlID="57" controlTypeID="com.balsamiq.mockups::CheckBox" x="75" y="228" w="-1" h="-1" measuredW="142" measuredH="22" zOrder="21" locked="false" isInGroup="-1">
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::CheckBox" x="75" y="228" w="-1" h="-1" measuredW="142" measuredH="22" zOrder="20" locked="false" isInGroup="-1">
       <controlProperties>
         <text>only%20most%20significant</text>
       </controlProperties>
     </control>
-    <control controlID="58" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="165" w="-1" h="-1" measuredW="98" measuredH="22" zOrder="22" locked="false" isInGroup="-1">
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="165" w="-1" h="-1" measuredW="98" measuredH="22" zOrder="21" locked="false" isInGroup="-1">
       <controlProperties>
         <text>a%20minimum%20of</text>
       </controlProperties>
     </control>
-    <control controlID="59" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="196" w="-1" h="-1" measuredW="103" measuredH="22" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::CheckBox" x="95" y="196" w="-1" h="-1" measuredW="103" measuredH="22" zOrder="22" locked="false" isInGroup="-1">
       <controlProperties>
         <text>a%20maximum%20of</text>
       </controlProperties>
     </control>
-    <control controlID="60" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="24" locked="false" isInGroup="-1">
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::ProgressBar" x="473" y="520" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="23" locked="false" isInGroup="-1">
       <controlProperties>
         <scrollBarValue>21</scrollBarValue>
       </controlProperties>
     </control>
-    <control controlID="61" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="16" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::Label" x="603" y="520" w="-1" h="-1" measuredW="16" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
       <controlProperties>
         <text>27</text>
       </controlProperties>
     </control>
-    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="395" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="47" y="520" w="-1" h="-1" measuredW="395" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Feature%20extration%20done.%20Shape%20of%20useful%20feats%20%28100%2C%2059%29%20removed%2030</text>
       </controlProperties>

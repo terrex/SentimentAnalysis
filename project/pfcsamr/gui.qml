@@ -600,9 +600,6 @@ ApplicationWindow {
                                 text: "RUN"
                                 onClicked: mainPfcsamrApp.features_button_run_on_clicked()
                             }
-                            Button {
-                                text: "Show selected features"
-                            }
                         }
 
                         RowLayout {
