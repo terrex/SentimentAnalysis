@@ -65,8 +65,136 @@ Los componentes a desarrollar se indican en color verde en la \autoref{fig:archi
 \label{fig:architecture}
 \end{figure}
 
+\section{Interfaz de usuario}
+
+A continuación se muestran los bocetos de las pantallas a crear.
+
+\subsection{Elementos comunes}
+
+La pantalla principal es una ventana formada por 5 pestañas que guían al alumno a lo largo de las etapas de una tarea de análisis de sentimiento, y en la parte inferior una tabla de los datos obtenidos en cada etapa (\autoref{fig:gui-1-load}).
+
+Todas las pantallas comparten los siguientes elementos:
+\begin{enumerate}
+\item Barra de menú, con las siguientes opciones:
+\begin{enumerate}
+\item \menu{File > New} (atajo de teclado: \keys{\cmd+N})\\
+Pulsando esta opción se reestablece toda la configuración con los valores por defecto para iniciar una nueva sesión con un documento nuevo.
+\item \menu{File > Open...} (atajo de teclado: \keys{\cmd+O})\\
+Pulsando esta opción se puede abrir un fichero \path{project.yaml} del que leer el diccionario de configuración de la sesión, y se actualiza la sesión con la información leída. Véase \fullrefSRSUc{loadyaml}.
+\item \menu{File > Save...} (atajo de teclado: \keys{\cmd+S})\\
+Pulsando esta opción se guarda un fichero \path{project.yaml} con el diccionario de la configuración de la sesión en curso. Véase \fullrefSRSUc{saveyaml}.
+\item \menu{File > Quit} (atajo de teclado: \keys{\cmd+Q})\\
+Cierra la aplicación.
+\end{enumerate}
+\item Mitad superior con las pestañas ordenadas para guiar en el proceso: Load, Preprocess, Features, Learn y Classify, y el panel de configuración de opciones de cada etapa.
+\item Mitad inferior con la tabla de datos de resultados de cada operación, en columnas y filas con controles de desplazamiento horizontal y vertical.
+\item Barra de estado con tres elementos:
+\begin{enumerate}
+\item Texto descriptivo para mostrar qué se está haciendo o qué operación se ha terminado.
+\item Barra de progreso de la operación.
+\item Contador de la iteración actual de la operación en curso. Se incrementa en pasos de 32 en 32 filas para no penalizar el rendimiento con actualizaciones constantes.
+\end{enumerate}
+\end{enumerate}
+
+\FloatBarrier
+\newpage
+\subsection{Pestaña LOAD}
+
+La primera pestaña, \nombrebf{LOAD} sirve para cargar el fichero de entrenamiento \path{train.tsv} (\autoref{fig:gui-1-load}).
+
+Contiene los siguientes elementos:
+\begin{enumerate}
+\item Botón para desplegar el selector de fichero.
+\item Etiqueta de texto para visualizar la ruta al fichero.
+\item Casilla de verificación para habilitar la carga parcial.
+\item Selector numérico del número de primeras líneas de la carga parcial.
+\item Botón de carga.
+\end{enumerate}
+
+La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{loadtraintsv}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=14cm]{gui-1-load}
+\caption{Wireframe pestaña LOAD}
+\label{fig:gui-1-load}
+\end{figure}
+
+\FloatBarrier
+\newpage
+\subsection{Pestaña PREPROCESS}
+
+La segunda pestaña, \nombrebf{PREPROCESS} sirve para preprocesar el texto de los documentos de entrenamiento aplicando los filtros y transformaciones indicados (\autoref{fig:gui-2-preprocess}).
+
+Contiene los siguientes elementos:
+\begin{enumerate}
+\item Casilla de verificación para volver a unir las contracciones separadas.
+\item Casilla de verificación para expandir las contracciones en sus palabras equivalentes sin contracción. Véase \autoref{subsec:tokenizacion}.
+\item Casilla de verificación para suprimir palabras vacías (\emph{stopwords}, véase \autoref{subsec:stopwords}).
+\item Casilla de verificación para habilitar el reemplazo de palabras, con una de las dos opciones excluyentes siguientes:
+\begin{enumerate}
+\item Radicar (\emph{stemming}, \autoref{subsec:stemming}).
+\item Lematizar (\autoref{subsec:lematizacion}).
+\end{enumerate}
+\item Casilla de verificación para anotar la parte-de-la-oración. Véase \autoref{subsec:postagging}.
+\item Botón de RUN para ejecutar la etapa.
+\end{enumerate}
+
+La funcionalidad de los elementos siguen la especificación del \fullrefSRSUc{preproc}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-2-preprocess}
+\caption{Wireframe pestaña PREPROCESS}
+\label{fig:gui-2-preprocess}
+\end{figure}
+
+\FloatBarrier
+\newpage
+\subsection{Pestaña FEATURES}
+
+\todo{por aki}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-3-features}
+\caption{Wireframe pestaña FEATURES}
+\label{fig:gui-3-features}
+\end{figure}
+
+\FloatBarrier
+\newpage
+\subsection{Pestaña LEARN}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-4-learn}
+\caption{Wireframe pestaña LEARN}
+\label{fig:gui-4-learn}
+\end{figure}
+
+\FloatBarrier
+\newpage
+\subsection{Pestaña CLASSIFY}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=12cm,clip=true,trim=0 0 0 38pt]{gui-5-classify}
+\caption{Wireframe pestaña CLASSIFY}
+\label{fig:gui-5-classify}
+\end{figure}
+
 
 \section{Clases}
+
+A continuación se describen las clases principales necesarias.
+
+\subsection{\codep{pfcsamr.gui.MainPfcsamrApp}}
+
+\subsection{\codep{pfcsamr.orchestrator.Orchestrator}}
+
+\subsection{\codep{pfcsamr.orchestrator.MyTableModel}}
+
 
 \begin{landscape}
 \begin{figure}[htbp]

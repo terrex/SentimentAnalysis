@@ -216,6 +216,7 @@ propósito: & Web semántica, ontologías, tesauros. \\ \hline
 
 \FloatBarrier
 \subsection{\emph{``Tokenización''}}
+\label{subsec:tokenizacion}
 
 La \nombrebf{tokenización}\index{tokenización}\index{tokenization@\emph{tokenization}} en NLP es normalmente el proceso de separar la cadena de entrada, frases en lenguaje natural, en las distintas palabras que componen la frase. Puede ser simplemente un separador que trocee la frase cada vez que se encuentre un espacio.
 \begin{listing}[H]
@@ -364,6 +365,7 @@ she'll & she will \\ \hline
 
 \FloatBarrier
 \subsection{Supresión de palabras vacías \emph{(stopwords)}}
+\label{subsec:stopwords}
 
 Las \nombrebf{stopwords}\index{stopword@\emph{stopword}} (o palabras vacías) son palabras que no contribuyen al significado de la frase, o al menos no son útiles para la recuperación de la información \citep{Perkins2010}. Ejemplos: «the», «thence», «th», «vs», «thereby», «c'mon», «clearly», \ldots
 
@@ -386,6 +388,7 @@ En el \autoref{lst:stopwords} se puede ver un ejemplo de cómo eliminar stopword
 
 \FloatBarrier
 \subsection{Radicación \emph{``Stemming''}}
+\label{subsec:stemming}
 
 La \nombrebf{decodificación primaria}\index{decodificación primaria} es la herramienta instintiva que permite a los hablantes de un idioma intuir el significado de una palabra desconocida del idioma ---siendo conocido el subconjunto común y más frecuente del mismo---, a partir de sus elementos léxicos \citep{Zubira2002}. Son tres:
 \nopagebreak
@@ -458,6 +461,7 @@ NLTK proporciona otros stemmers adicionales a \codep{PorterStemmer}:
 
 \FloatBarrier
 \subsection{Lematización}
+\label{subsec:lematizacion}
 
 La \nombrebf{lematización}\index{lematización} (\emph{lemmatizing}\index{lemmatizing@\emph{lemmatizing}} en inglés) es el proceso lingüístico que sustituye una palabra con forma \nombrebf{flexionada} (plural, femenino, verbo conjugado, etc.) por su \nombrebf{lema}. Tiene el mismo objetivo que la radicación, pero a diferencia de aquel, la lematización siempre produce una palabra válida en el idioma.
 
@@ -486,6 +490,7 @@ En el \autoref{lst:WordNetLemmatizer} se muestra un ejemplo de lematización usa
 
 \FloatBarrier
 \subsection{Anotación gramatical de la parte de la oración \emph{(Part-of-speech tagging)}}
+\label{subsec:postagging}
 
 En gramática tradicional, la clasificación según categorías gramaticales es de tipo semántico y no funcional. En la gramática española el término fue introducido por Antonio de Nebrija \citep[Categoría gramatical]{wikipedia-es}, aunque en otros idiomas se pueden establecer diferentes categorías gramaticales. La gramática tradicional distingue nueve \nombrebf{partes de la oración}\index{parte de la oración}\index{part-of-speech@\emph{part-of-speech}} (las ocho de Nebrija más el artículo):
 \nopagebreak
