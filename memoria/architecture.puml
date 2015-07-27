@@ -1,0 +1,32 @@
+@startuml
+skinparam componentStyle uml2
+skinparam packageStyle rect
+skinparam DefaultFontSize 12
+skinparam DefaultFontName "Hoefler Text"
+
+node "\bfseries VISTA" {
+  [PyQt5] as PyQt5
+  [Qt5] as Qt5
+}
+
+node "\bfseries PRESENTADOR" {
+  [QML] as QML
+  [pfcsamr.gui] as gui #lightgreen
+}
+
+node "\bfseries MODELO" {
+  [pfcsamr.orchestrator] as orchestrator #lightgreen
+  [NLTK3] as NLTK3
+  [scikit-learn] as sklearn
+  [NumPy] as np
+}
+
+PyQt5 - Qt5
+PyQt5 -- QML
+QML - gui
+gui - orchestrator
+orchestrator -- NLTK3
+orchestrator -- np
+sklearn - np
+orchestrator -- sklearn
+@enduml

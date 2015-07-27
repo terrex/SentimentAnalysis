@@ -1,5 +1,6 @@
 @startuml
 left to right direction
+skinparam componentStyle uml2
 skinparam packageStyle rect
 skinparam DefaultFontSize 12
 skinparam DefaultFontName "Hoefler Text"

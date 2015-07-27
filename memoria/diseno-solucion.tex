@@ -16,7 +16,7 @@ Se diseñará un sistema basado en el patrón Modelo-Vista-Presentador (MVP, \em
 \begin{itemize}
 \item En el MVP, el Controlador pasa a llamarse Presentador, y se define como un Controlador-supervisor, colocándose como hombre-en-el-medio (mitm, \emph{man-in-the-middle})\index{mitm}\index{man-in-the-middle@\emph{man-in-the-middle}} entre la Vista y el Modelo.
 \item Así, el Modelo no puede interactuar con la Vista de manera directa, sino sólo a través del Presentador.
-\item Esto permite mayor independencia de código y mayores oportunidades de reutilización, al ser más sencillo cambiar la Vista por otra sin tocar el Modelo, que contiene la información y la lógica de negocio.
+\item Esto permite mayor independencia de código y mayores oportunidades de reutilización, al ser más sencillo cambiar la Vista por otra sin afectar al Modelo, que contiene el acceso a la información y la lógica de negocio.
 \end{itemize}
 
 \begin{figure}[htbp]\centering
@@ -35,6 +35,36 @@ Se diseñará un sistema basado en el patrón Modelo-Vista-Presentador (MVP, \em
 
 \section{Arquitectura del sistema}
 
+La aplicación se desarrolla usando el lenguaje de programación Python~3.
+
+En la \fullref{fig:architecture} se encuentra un resumen visual de la situación de cada componente dentro del patrón MVP y la colaboración entre ellos.
+Los componentes (todos de software libre) que se reutilizan son:
+\begin{description}
+\item[Qt5]\index{Qt} Biblioteca de herramientas gráficas para la creación de interfaces de usuario ---con licencia de software libre--- en C++ que proporciona widgets y un framework de desarrollo de GUI compatible con la programación dirigida por eventos, soportado por las plataformas Windows, GNU/Linux y Mac~OS~X, entre otros \citep{Huang2015}. Actualmente mantenido por Digia.
+\item[PyQt5] Puente \emph{(binding)} entre Python~2/3 y la biblioteca Qt5, mantenido por Riverbank Computing \citep{Summerfield2008}.
+\item[QML] \emph{Qt Markup Language}\index{QML} es un motor declarativo de interfaces de usuario para Qt con sintaxis compatible con ECMAScript, integrado dentro de las versiones modernas de Qt5 \citep{web:QmlBook}.
+\item[NLTK3] \emph{Natural Language Toolkit}\index{NLKT} es una biblioteca de utilidades en procesamiento de texto para Python \citep{Perkins2014}.
+\item[scikit-learn] Biblioteca en Python para aprendizaje automático \citep{Pedregosa2011}.
+\item[NumPy] Biblioteca en Python/C++ para el tratamiento de vectores/matrices numéricos y precisión arbitraria de manera eficiente desde Python \citep{Bressert2012}.
+\end{description}
+
+Los componentes a desarrollar son dos módulos en Python, uno para cubrir el \fullrefSRSObj{biblioteca-nlp-ml}, y el segundo módulo para el \fullrefSRSObj{gui}; y que se describen a continuación:
+\begin{description}
+\item[\codep{pfcsamr.gui}] Implementa el Presentador que recibe y maneja los eventos generados por el usuario al interactuar en el GUI, y canaliza las operaciones comandadas hacia el Modelo. Así mismo, monitoriza los cambios que se produzcan en el Modelo y refleja estos cambios en el GUI actualizando el estado de la pantalla. Este modelo incluye también la descripción de la interfaz en el lenguaje declarativo QML.\index{QML}
+\item[\codep{pfcsamr.orchestrator}] Implementa el Modelo que actúa «orquestando» todo el proceso de análisis de sentimiento, coordinando de manera coherente los paquetes de NLTK3 y scikit-learn, y ofreciendo toda la funcionalidad de E/S.
+\end{description}
+
+Los componentes a desarrollar se indican en color verde en la \autoref{fig:architecture}, mientras el resto son componentes proporcionados por proyectos de software libre disponibles públicamente.
+
+\begin{figure}[htbp]
+\centering
+\vspace{0.5cm}
+\resizebox{0.75\textwidth}{!}{\input{architecture.puml.tex}}
+\caption{Diagrama de arquitectura de componentes}
+\label{fig:architecture}
+\end{figure}
+
+
 \section{Clases}
 
 \section{Secuencias}
@@ -42,7 +72,7 @@ Se diseñará un sistema basado en el patrón Modelo-Vista-Presentador (MVP, \em
 
 
 
-\resizebox{0.5\textwidth}{!}{\input{diag1.puml}}
+\resizebox{0.5\textwidth}{!}{\input{diag1.puml.tex}}
 
 \ldots
 

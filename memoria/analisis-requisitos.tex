@@ -4,7 +4,7 @@
 \chapter{Análisis de requisitos}
 \label{chap:analisis-requisitos}
 
-\flushbottom
+\raggedbottom
 
 Este capítulo contiene la Especificación de Requisitos del Sistema (ERS en español, ó SRS del inglés \emph{System Requirements Specification})\index{ERS}\index{SRS} siguiendo las directrices de la norma IEEE~Std~830-1998 \citep{std830-1998} usando la notación de UML~2.5 \citep{UML2.5}
 
@@ -139,7 +139,7 @@ stability=Alta}
 \begin{landscape}
 \begin{figure}[htbp]
 \centering
-\resizebox{!}{0.76\textwidth}{\input{use-cases.puml}}
+\resizebox{!}{0.76\textwidth}{\input{use-cases.puml.tex}}
 \caption{Diagrama de casos de uso}
 \label{fig:uml-uc}
 \end{figure}
@@ -147,14 +147,14 @@ stability=Alta}
 
 %\begin{figure}[htbp]
 %\centering
-%\resizebox{0.6\textwidth}{!}{\input{use-cases-es.puml}}
+%\resizebox{0.6\textwidth}{!}{\input{use-cases-es.puml.tex}}
 %\caption{Diagrama de casos de uso (E/S)}
 %\label{fig:uml-uc-es}
 %\end{figure}
 %
 %\begin{figure}[htbp]
 %\centering
-%\resizebox{0.6\textwidth}{!}{\input{use-cases-sentanal.puml}}
+%\resizebox{0.6\textwidth}{!}{\input{use-cases-sentanal.puml.tex}}
 %\caption{Diagrama de casos de uso (Análisis del senimiento)}
 %\label{fig:uml-uc-sentanal}
 %\end{figure}
@@ -371,4 +371,4 @@ reqasoc={-/-},
 priority=Media,
 stability=Alta}
 
-\raggedbottom
+\flushbottom

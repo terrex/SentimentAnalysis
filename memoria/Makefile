@@ -8,7 +8,7 @@ endif
 PUMLS = $(wildcard *.puml)
 PUMLS_TEXS = $(patsubst %.puml,%.puml.tex,$(PUMLS))
 
-default: $(SHOULDDISTCLEAN)
+default: $(SHOULDDISTCLEAN) $(PUMLS_TEXS)
 	latexmk
 	$(MAKE) viewpdf
 
@@ -28,7 +28,7 @@ distclean: clean
 
 %.puml.tex: %.puml
 	java -jar plantuml.jar -tlatex $<
-	sed -e 's,\\documentclass{article},,' -e 's,\\usepackage{tikz},,' -e 's,\\begin{document},,' -e 's,\\end{document},,' $*.latex > $@
+	sed -e 's,\\documentclass{article},,' -e 's,\\usepackage{tikz},,' -e 's,\\usepackage{aeguill},,' -e 's,\\begin{document},,' -e 's,\\end{document},,' $*.latex > $@
 	$(RM) $*.latex
 
 .PHONY: all

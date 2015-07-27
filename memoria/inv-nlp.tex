@@ -263,12 +263,13 @@ Pongamos algunos ejemplos de tokens, patrones y lexemas, de un lenguaje formal t
 
 En lenguaje natural, la unidad mínima de información textual será la palabra. De manera que token y lexema coinciden siempre, y no tiene sentido definir un patrón para cada token de las palabras de un diccionario de la lengua, ya que el patrón es la propia secuencia de letras de la palabra.
 
+\begin{samepage}
 Existen distintos niveles de tokenización de documentos \citep[ch.~1]{Perkins2010}:
-\nopagebreak
 \begin{itemize}
 \item Tokenizar textos en frases.
 \item Tokenizar frases en palabras.
 \end{itemize}
+\end{samepage}
 
 Simplemente para la primera tarea ya nos encontramos con dificultades, pues las frases no sólo terminan en punto. Pueden terminar en punto (\codep{.}), signo de exclamación (\codep[text]{!}), signo de interrogación (\codep[text]{?}), en algunos casos dos puntos (\codep{:}). Y en otros idiomas, como el español, también hay que tener en cuenta que en la separación entre frases puede haber signos de apertura de interrogación o exclamación, etc. Y también hay que tener en cuenta los puntos que separan unidades de millar en una cifra, o los puntos suspensivos, los puntos usados en acrónimos y abreviaturas, etc., para no interpretarlo como separador de frases en estos casos.
 
