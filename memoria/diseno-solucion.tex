@@ -245,6 +245,147 @@ A continuación se describen las clases principales necesarias. Se puede ver un 
 
 \subsection{\codep{pfcsamr.gui.MainPfcsamrApp}}
 
+Esta clase representa el objeto \emph{singleton} principal Presentador que sirve de interfaz con la declaración del GUI en QML para Qt; accesible desde QML con el nombre de \codep{mainPfcsamrApp}. A continuación se describen los contratos de los métodos, y las propiedades del objeto públicas.
+
+\subsubsection{Manejadores de pulsaciones de botón}
+
+\begin{itemize}
+\item \codep{def load_button_load_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón LOAD de la pestaña LOAD. Inicia un nuevo hilo sobre la operación de carga del fichero de entrenamiento del objeto \codep{Orchestrator}, argumentando la ruta al fichero y el número máximo de líneas de la carga parcial, si aplicable.
+\item \codep{def preproc_button_run_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón RUN de la pestaña PREPROCESS. Inicia un nuevo hilo sobre la operación de preprocesamiento del objeto \codep{Orchestrator}.
+\item \codep{def features_button_run_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón RUN de la pestaña FEATURES. Inicia un nuevo hilo sobre la operación de extracción y selección de características del objeto \codep{Orchestrator}.
+\item \codep{def learn_button_run_on_clicked(self, learn_method: int) -> None:}\\
+Manejador del evento de pulsación del botón RUN de la pestaña LEARN. Inicia un nuevo hilo sobre la operación de aprendizaje del objeto \codep{Orchestrator}, argumentando el modelo de aprendizaje seleccionado.
+\item \codep{def classify_button_load_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón LOAD de la pestaña CLASSIFY. Inicia un nuevo hilo sobre la operación de carga del fichero de evaluación del objeto \codep{Orchestrator}, argumentando la ruta al fichero y el número máximo de líneas de la carga parcial, si aplicable.
+\item \codep{def classify_button_preproc_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón PREPROCESS de la pestaña CLASSIFY. Inicia un nuevo hilo sobre la operación de preprocesamiento del objeto \codep{Orchestrator}.
+\item \codep{def classify_button_features_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón FEATURES de la pestaña CLASSIFY. Inicia un nuevo hilo sobre la operación de extracción de características del objeto \codep{Orchestrator}.
+\item \codep{def classify_button_classify_on_clicked(self) -> None:}\\
+Manejador del evento de pulsación del botón CLASSIFY de la pestaña CLASSIFY. Inicia un nuevo hilo sobre la operación de clasificar del objeto \codep{Orchestrator}, argumentando el modelo de aprendizaje seleccionado.
+\item \codep{def classify_save_csv(self, filename: str) -> None:}\\
+Manejador del evento de pulsación del botón «Save file for submission to kaggle» de la pestaña CLASSIFY. Inicia un nuevo hilo sobre la operación de guardar el fichero con el resultado de la clasificación del objeto \codep{Orchestrator}, argumentando la ruta al fichero.
+\end{itemize}
+
+\subsubsection{Propiedades ligadas al QML \emph{(bindings)}}
+
+\begin{itemize}
+\item \codep{load_tab_enabled = pyqtProperty(bool)}\\
+Propiedad Python ligada a la propiedad en QML que habilita la posibilidad de pulsar sobre la pestaña LOAD.
+\item \codep{preproc_tab_enabled = pyqtProperty(bool)}\\
+Propiedad Python ligada a la propiedad en QML que habilita la posibilidad de pulsar sobre la pestaña PREPROCESS.
+\item \codep{features_tab_enabled = pyqtProperty(bool)}\\
+Propiedad Python ligada a la propiedad en QML que habilita la posibilidad de pulsar sobre la pestaña FEATURES.
+\item \codep{learn_tab_enabled = pyqtProperty(bool)}\\
+Propiedad Python ligada a la propiedad en QML que habilita la posibilidad de pulsar sobre la pestaña LEARN.
+\item \codep{classify_tab_enabled = pyqtProperty(bool)}\\
+Propiedad Python ligada a la propiedad en QML que habilita la posibilidad de pulsar sobre la pestaña CLASSIFY.
+\item \codep{critical_message_detailed_text = pyqtProperty(str)}\\
+Propiedad Python ligada a la propiedad en QML con el texto detallado de error.
+\item \codep{critical_message_informative_text = pyqtProperty(str)}\\
+Propiedad Python ligada a la propiedad en QML con el texto informativo de error.
+\item \codep{critical_message_text = pyqtProperty(str)}\\
+Propiedad Python ligada a la propiedad en QML con el texto de error.
+\item \codep{learn_train_split_resplit = pyqtProperty(bool)}\\
+Propiedad Python ligada a la propiedad en QML del interruptor de volver a dividir subconjunto de entrenamiento y autoevaluación.
+\item \codep{status_count = pyqtProperty(int)}\\
+Propiedad Python ligada a la propiedad en QML con el número de contador visible en la barra de estado.
+\item \codep{status_text = pyqtProperty(str)}\\
+Propiedad Python ligada a la propiedad en QML con el texto de información de estado visible en la barra de estado.
+\item \codep{variance_warn_message = pyqtProperty(str)}\\
+Propiedad Python ligada a la propiedad en QML con el texto de información de varianza insuficiente para los modelos de aprendizaje que lo requieran.
+\end{itemize}
+
+\subsubsection{Slots invocables desde QML}
+
+\begin{itemize}
+\item \codep{def critical_message_accepted(self) -> None:}\\
+Invocado cuando el usuario confirma que ha leído la información de la excepción producida.
+\item \codep{def do_menu_file_new(self) -> None:}\\
+Invocado cuando se solicita resetear la configuración de la sesión.
+\item \codep{def do_menu_file_open(self, filename: str) -> None:}\\
+Carga un archivo de configuración de la sesión (\refSRSUc{loadyaml}).
+\item \codep{def do_menu_file_save(self, filename: str) -> None:}\\
+Guarda un archivo de configuración de la sesión (\refSRSUc{saveyaml}).
+\item \codep{def get_config_prop(self, propname: str) -> QVariant:}\\
+Devuelve el valor del parámetro de configuración indicado.
+\item \codep{def set_config_prop_value(self, propname: str, value: QVariant) -> None:}\\
+Estable el valor indicado del parámetro de configuración indicado.
+\item \codep{def run_pending_gui_updates(self) -> None:}\\
+Ejecuta las retrollamadas de actualizaciones del GUI pendientes de ejecutar en el hilo principal.
+\item \codep{def findChild(self, item_name: str) -> QQuickItem:}\\
+Encuentra y devuelve un widget de QML por nombre (propiedad \codep{objectName}).
+\end{itemize}
+
+\subsubsection{Propiedades del objeto}
+
+\begin{itemize}
+\item \codep{config = dict()}\\
+Diccionario de configuración de la sesión.
+\item \codep{@staticmethod def default_config() -> dict:}\\
+Devuelve el diccionario de configuración de sesión por defecto. Los parámetros de este diccionario se encuentran en el \autoref{lst:default-dict}.
+\end{itemize}
+
+\begin{listing}[H]
+\begin{minted}[fontsize=\small]{python}
+    @staticmethod
+    def default_config() -> dict:
+        return {
+            'load_train_file': 'No file selected',
+            'load_only_first': True,
+            'load_only_first_rows': 100,
+            'preproc_unsplit_contractions': False,
+            'preproc_expand_contractions': False,
+            'preproc_remove_stopwords': True,
+            'preproc_word_replacement': True,
+            'preproc_stemmize': False,
+            'preproc_lemmatize': True,
+            'preproc_pos_tag_words': False,
+            'features_ngrams': True,
+            'features_ngrams_from': 1,
+            'features_ngrams_to': 3,
+            'features_minimum_df': False,
+            'features_minimum_df_value': 1,
+            'features_minimum_df_unit': 0,  # 0 means Number of documents
+            'features_maximum_df': False,
+            'features_maximum_df_value': 100,
+            'features_maximum_df_unit': 1,  # 1 means % of documents
+            'features_only_most_significant': True,
+            'features_only_most_significant_feats': 300,
+            'features_remove_less_than': True,
+            'features_remove_less_than_variance': 0.02,
+            'learn_train_split': True,
+            'learn_train_split_value': 0.75,
+            'learn_multinomialnb_alpha': 1.00,
+            'learn_multinomialnb_fit_prior': True,
+            'learn_lda_solver_idx': 0,  # 0: svd, 1: lsqr, 2: eigen
+            'learn_lda_solver': 'svd',  # 0: svd, 1: lsqr, 2: eigen
+            'learn_lda_n_components': False,
+            'learn_lda_n_components_value': 3,
+            'learn_lda_store_covariance': False,
+            'learn_qda_reg_param': 0.00,
+            'learn_linearsvc_dual': True,
+            'learn_linearsvc_max_iter': 100,
+            'selftest_score_multinomialnb': 'N/A',
+            'selftest_score_gaussiannb': 'N/A',
+            'selftest_score_lda': 'N/A',
+            'selftest_score_qda': 'N/A',
+            'selftest_score_linearsvc': 'N/A',
+            'classify_file': 'No file selected',
+            'classify_only_first': True,
+            'classify_only_first_rows': 10,
+            'classify_evaluate_using': 'multinomialnb',
+            'classify_evaluate_using_idx': 0,
+        }
+\end{minted}
+\caption{Diccionario de configuración de la sesión por defecto}
+\label{lst:default-dict}
+\end{listing}
+
+\FloatBarrier
 \subsection{\codep{pfcsamr.orchestrator.Orchestrator}}
 
 \subsection{\codep{pfcsamr.orchestrator.MyTableModel}}
