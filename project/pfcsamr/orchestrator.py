@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 __all__ = ('MyTableModel', 'Orchestrator')
 
+
 class MyTableModel(QAbstractTableModel):
     """Reimplement QAbstractTableModel for use with
     """
@@ -368,7 +369,7 @@ class Orchestrator(object):
 
         return self
 
-    def do_learn(self, estimator_klazz, train_split=0.75, **estimator_klazz_params):
+    def do_learn(self, estimator_klazz: object, train_split: float=0.75, **estimator_klazz_params):
         if self.main_pfcsamr_app.learn_train_split_resplit and train_split is not None:
             self.already_splitted = False
             logger.debug("Re-Splitting")

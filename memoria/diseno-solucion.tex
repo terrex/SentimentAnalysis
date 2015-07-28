@@ -299,13 +299,13 @@ Propiedad Python ligada a la propiedad en QML con el texto de información de es
 Propiedad Python ligada a la propiedad en QML con el texto de información de varianza insuficiente para los modelos de aprendizaje que lo requieran.
 \end{itemize}
 
-\subsubsection{Slots invocables desde QML}
+\subsubsection{Slots disponibles para su invocación desde QML}
 
 \begin{itemize}
 \item \codep{def critical_message_accepted(self) -> None:}\\
 Invocado cuando el usuario confirma que ha leído la información de la excepción producida.
 \item \codep{def do_menu_file_new(self) -> None:}\\
-Invocado cuando se solicita resetear la configuración de la sesión.
+Invocado cuando se solicita restablecer la configuración de la sesión a los valores por defecto.
 \item \codep{def do_menu_file_open(self, filename: str) -> None:}\\
 Carga un archivo de configuración de la sesión (\refSRSUc{loadyaml}).
 \item \codep{def do_menu_file_save(self, filename: str) -> None:}\\
@@ -313,7 +313,7 @@ Guarda un archivo de configuración de la sesión (\refSRSUc{saveyaml}).
 \item \codep{def get_config_prop(self, propname: str) -> QVariant:}\\
 Devuelve el valor del parámetro de configuración indicado.
 \item \codep{def set_config_prop_value(self, propname: str, value: QVariant) -> None:}\\
-Estable el valor indicado del parámetro de configuración indicado.
+Establece el valor indicado del parámetro de configuración indicado.
 \item \codep{def run_pending_gui_updates(self) -> None:}\\
 Ejecuta las retrollamadas de actualizaciones del GUI pendientes de ejecutar en el hilo principal.
 \item \codep{def findChild(self, item_name: str) -> QQuickItem:}\\
@@ -329,7 +329,7 @@ Diccionario de configuración de la sesión.
 Devuelve el diccionario de configuración de sesión por defecto. Los parámetros de este diccionario se encuentran en el \autoref{lst:default-dict}.
 \end{itemize}
 
-\begin{listing}[H]
+\begin{listing}[phtb]
 \begin{minted}[fontsize=\small]{python}
     @staticmethod
     def default_config() -> dict:
@@ -388,5 +388,31 @@ Devuelve el diccionario de configuración de sesión por defecto. Los parámetro
 \FloatBarrier
 \subsection{\codep{pfcsamr.orchestrator.Orchestrator}}
 
+Este \emph{singleton} enlazado con el \emph{MainPfcsamrApp} es la implementación del Modelo, del patrón MVP. Realiza el trabajo duro aceptando las órdenes provenientes el GUI, reconducidas a través del objeto \emph{MainPfcsamrApp} y realiza las modificaciones a los datos y modelos principalmente haciendo uso de las bibliotecas NLTK, Scikit-Learn y NumPy.
+
+\begin{itemize}
+\item \codep{def do_load_train_tsv(self, file_path: str=None, max_rows=None) -> None:}\\
+Carga el fichero de entrenamiento, hasta un máximo del número de líneas especificado si se indica, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def do_preprocess(self) -> None:}\\
+Preprocesa los datos siguiendo las opciones presentes en el diccionario de configuración de sesión, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def do_features_countvectorizer(self, variance_threshold=None, **kwargs) -> None:}\\
+Extrae características usando las opciones del argumento libre, selecciona las de mayor varianza que el indicado, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def do_learn(self, estimator_klazz, train_split=0.75, **est_params) -> None:}\\
+Divide el subconjunto de autoevaluación con el umbral indicado, si no estaba ya hecho, y entrena el estimador con los parámetros indicados en el argumento libre, usando los datos del subconjunto de entrenamiento. Posteriormente almacena el estimador entrenado en la propiedad \codep{estimators} y se autoevalúa con el subconjunto de autoevaluación, actualizando el valor de la puntuación.
+\item \codep{def do_classify_test_tsv(self, file_path: str=None, max_rows=None) -> None:}\\
+Carga el fichero de evaluación, hasta un máximo del número de líneas especificado si se indica, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def do_classify_preprocess(self) -> None:}\\
+Preprocesa el conjunto de evaluación, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def do_classify_features_countvectorizer(self) -> None:}\\
+Extrae características del conjunto de evaluación, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def do_classify_classify(self, evaluate_using: str) -> None:}\\
+Clasifica las características extraídas y seleccionadas del conjunto de evaluación mediante el estimador indicado en el parámetro, y actualiza el modelo de tabla con la nueva información.
+\item \codep{def classify_save_csv(self, filename: str) -> None:}\\
+Escribe en el fichero de salida indicado, el resultado de la clasificación actual para el envío a kaggle, serializándolo en un formato CSV.
+\item \codep{estimators = dict()}\\
+Diccionario para guardar los estimadores entrenados.
+\end{itemize}
+
 \subsection{\codep{pfcsamr.orchestrator.MyTableModel}}
 
+Esta clase hereda la interfaz de \codep{QAbstractTableModel} reimplementando los métodos \codep{rowCount(), columnCount(), data(), headerData(), roleNames()} para gestionar los datos de una matriz de NumPy usada en el constructor, y una lista de cabeceras de columnas, para asociar este modelo al control de tabla del GUI.
