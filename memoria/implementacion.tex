@@ -228,9 +228,24 @@ AbstractCheckable {
 \end{listing}
 
 \FloatBarrier
-\section{Estructura del código}
+\section{Estructura y organización del código}
 
+A continuación describimos la estructura y organización de directorios del proyecto.
 
+\begin{itemize}
+\item[] \blackdirectory{/memoria}\\
+Ficheros fuentes \XeLaTeX, imágenes y scripts de recompilación de la memoria y presentación de diapositivas.
+\item[] \blackdirectory{/project}\\
+Ficheros fuentes raíz de Python. Incluye \path{logging.conf} y ficheros de ejemplo.
+\item[] \blackdirectory{/project/pfcsamr}\\
+Módulo principal.
+\item[] \blackdirectory{/project/pfcsamr/gui.py}\\
+Módulo \codep{pfcsamr.gui} con la implementación del Presentador del patrón MVP.
+\item[] \blackdirectory{/project/pfcsamr/orchestrator.py}\\
+Módulo \codep{pfcsamr.orchestrator} con la implementación del Modelo del patrón MVP.
+\item[] \blackdirectory{/project/pfcsamr/Doc}\\
+Documentación autogenerada del código usando el generador Sphinx.\footnote{\url{http://sphinx-doc.org}}
+\end{itemize}
 
 \FloatBarrier
 \section{Acerca del rendimiento en Python}
