@@ -3,13 +3,27 @@
 
 \chapter{Conclusiones}
 
-\chapter{Trabajo futuro}
+\epigraph{``El trabajo que nunca se empieza es el que tarda más en finalizarse.''}{\textsc{J. R. R. Tolkien} (1892--1973)}
 
-Posibles ampliaciones:
+Como conclusiones, quedamos satisfechos de haber cumplido los objetivos marcados para el proyecto (véase \fullref{sec:objetivos-generales}):
 
 \begin{itemize}
-\item Guardado y recuperación de la base de conocimiento entrenada.
-\item Añadir más métodos de aprendizaje
-\item Añadir más opciones de extracción de características
-\item Permitir formato de ficheros TSV y CSV con mayor libertad en el número de columnas y tipos de datos
+\item[\cmark] Se ha estudiado amplia bibliografía sobre lenguaje natural y las técnicas para su tratamiento informatizado. Hay un resumen de las más importantes en el \fullref{chap:nlp}.
+\item[\cmark] Se han estudiado los métodos de aprendizaje automático con aplicaciones de lenguaje natural, con un resumen en el \fullref{chap:ml}.
+\item[\cmark] Se ha desarrollado una aplicación para el aprendizaje automático en la clasificación del sentimiento, una biblioteca y una aplicación de escritorio, orientada a la experimentación en el laboratorio. Se detalla en los capítulos de la \fullref{part:desarrollo-proyecto}, y en el CD adjunto se encuentra la aplicación.
+\end{itemize}
+
+Además, la realización de este proyecto me ha servido para poner en práctica la gran mayoría de materias aprendidas durante la carrera. También me he iniciado en el campo de la investigación en Procesamiento de Lenguaje Natural y Aprendizaje Automático. He actualizado mi formación en Python~3 y comprendido el desarrollo dirigido por eventos usando lenguajes declarativos de la descripción de la interfaz de usuario.
+
+\chapter{Trabajo futuro}
+
+\epigraph{``Has alcanzado éxito en tu campo cuando no sabes si lo que estás haciendo es trabajar o jugar.''}{\textsc{Warren Beatty} (1937--)}
+
+Este proyecto termina con una aplicación completamente funcional para la experimentación en análisis de sentimiento. No obstante queda abierta la senda de la continuación del mismo con posibles ampliaciones interesantes de realizar, como por ejemplo:
+
+\begin{itemize}
+\item La capacidad de almacenar y recuperar la base de conocimiento generada en el modelo aprendido. De esta manera no sería necesario re-entrenar el sistema al retomar una sesión de trabajo guardada.
+\item Se pueden añadir más métodos de aprendizaje. Scikit-learn tiene muchos más de los que se han implementado en el GUI.
+\item También se pueden añadir más métodos de extracción de características, en especial los métodos de composicionalidad semántica \citep{Socher2013}.
+\item Se podría flexibilizar el formato TSV y CSV de los ficheros de entrada y salida, con columnas variables en número y tipo de dato, configurable por el usuario.
 \end{itemize}
