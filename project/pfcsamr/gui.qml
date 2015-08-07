@@ -111,6 +111,7 @@ ApplicationWindow {
                         "file://", "")
         sidebarVisible: true
         title: "Open train.tsv"
+        folder: mainPfcsamrApp.get_data_path()
     }
 
     FileDialog {
@@ -122,6 +123,7 @@ ApplicationWindow {
                         "file://", "")
         sidebarVisible: true
         title: "Open test.tsv"
+        folder: mainPfcsamrApp.get_data_path()
     }
 
     FileDialog {

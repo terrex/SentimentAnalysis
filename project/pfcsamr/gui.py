@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from _thread import start_new_thread as start_new_thread_orig
 import queue
 import traceback
@@ -9,6 +11,7 @@ from sklearn.qda import QDA
 from sklearn.svm import LinearSVC
 import yaml
 
+from pfcsamr import logging_path
 from pfcsamr.orchestrator import Orchestrator
 
 __author__ = 'terrex'
@@ -23,14 +26,15 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
 
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)
 
 SHARED_QUEUE = queue.Queue()
 SHARED_MainPfcsamrApp = None
 """:type: MainPfcsamrApp"""
 
-__all__ = ('MainPfcsamrApp', )
+__all__ = ('MainPfcsamrApp',)
+
 
 def start_new_thread(function, args, kwargs=None):
     global SHARED_QUEUE
@@ -60,6 +64,7 @@ def start_new_thread(function, args, kwargs=None):
 class MainPfcsamrApp(QObject):
     """Clase principal del GUI
     """
+
     def __init__(self, parent: QObject=None):
         global SHARED_QUEUE
         super().__init__(parent)
@@ -479,6 +484,11 @@ class MainPfcsamrApp(QObject):
     def classify_save_csv(self, filename: str):
         start_new_thread(self.orchestrator.classify_save_csv, (filename,))
 
+    @pyqtSlot(result=str)
+    def get_data_path(self):
+        from pfcsamr import data_path
+        return data_path
+
     @pyqtSlot()
     def do_menu_file_new(self):
         self.current_model = None
@@ -501,7 +511,8 @@ class MainPfcsamrApp(QObject):
             pass
 
 
-if __name__ == '__main__':
+def main():
+    global SHARED_MainPfcsamrApp
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
     ctx = engine.rootContext()
@@ -517,3 +528,6 @@ if __name__ == '__main__':
     main_pfcsamr_app.connect_widgets(win)
     win.show()
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()

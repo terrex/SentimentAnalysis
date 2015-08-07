@@ -11,6 +11,8 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.qda import QDA
 
+from pfcsamr import logging_path
+
 __author__ = 'terrex'
 
 import csv
@@ -24,7 +26,7 @@ import numpy as np
 
 english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
 
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)
 
 __all__ = ('MyTableModel', 'Orchestrator')

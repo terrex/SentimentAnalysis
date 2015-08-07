@@ -1,7 +1,7 @@
 .idea/
 *.pyc
 *~
-sampleSubmission.csv
+pfcsamr/data/sampleSubmission.csv
 *.pickle
 *.tsv*
 word2vec_model*
@@ -12,3 +12,6 @@ pfcsamr/text8-phrases
 *.sqlite
 project.yaml
 project.csv
+build/
+dist/
+pfcsamr.egg-info/
