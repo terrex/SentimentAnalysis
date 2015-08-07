@@ -1,7 +1,7 @@
 from copy import copy, deepcopy
 import traceback
 
-from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtSlot, QModelIndex
+from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtSlot, QModelIndex, QByteArray
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -64,7 +64,12 @@ class MyTableModel(QAbstractTableModel):
         return self.my_headings[section]
 
     def roleNames(self):
-        return dict(enumerate(self.my_headings, 32))
+        values = []
+        for v in self.my_headings:
+            vv = QVariant(v)
+            vv.convert(QVariant.ByteArray)
+            values.append(vv.value())
+        return dict(enumerate(values, 32))
 
 
 def is_text(value):

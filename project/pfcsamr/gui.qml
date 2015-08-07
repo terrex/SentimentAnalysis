@@ -135,6 +135,7 @@ ApplicationWindow {
                                                          "file://", ""))
         sidebarVisible: true
         title: "Save current config"
+        folder: shortcuts.documents
     }
 
     FileDialog {
@@ -146,6 +147,7 @@ ApplicationWindow {
                                                          "file://", ""))
         sidebarVisible: true
         title: "Save current config"
+        folder: shortcuts.documents
     }
 
     FileDialog {
@@ -164,6 +166,7 @@ ApplicationWindow {
         }
         sidebarVisible: true
         title: "Open config"
+        folder: shortcuts.documents
     }
 
     MessageDialog {

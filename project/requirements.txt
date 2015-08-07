@@ -8,7 +8,8 @@ nltk>=3.0.0
 -e git+https://github.com/stephenbalaban/word2vec.git#egg=word2vec
 nose
 gensim
-#PyQt5
-#sip
+#PyQt5>=5.5
+#SIP>=4.16.9
 PyYAML
 pyenchant
+cx_Freeze

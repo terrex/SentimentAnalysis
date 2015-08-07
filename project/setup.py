@@ -1,7 +1,18 @@
 from codecs import open
 from os import path
 
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from cx_Freeze import setup, Executable
+import glob
+
+# Dependencies are automatically detected, but it might need
+# fine tuning.
+buildOptions = dict(packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    excludes=[])
+
+import sys
+
+base = 'Win32GUI' if sys.platform == 'win32' else None
 
 import pfcsamr
 
@@ -10,6 +21,10 @@ here = path.abspath(path.dirname(__file__))
 # Get the long description from the relevant file
 with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
+
+executables = [
+    Executable('pfcsamr/gui.py', base=base)
+]
 
 setup(
     name='pfcsamr',
@@ -89,4 +104,13 @@ setup(
             'pfcsamr-gui = pfcsamr.gui:main',
         ],
     },
+
+    # cx_Freeze
+    options=dict(build_exe=buildOptions, bdist_mac={
+#        'bundle_name': 'Sentiment Analysis',
+#        'include_frameworks': [
+#            '/Library/Frameworks/Python.framework',
+#        ],# + list(glob.glob('/Users/terrex/Qt5.5.0/5.5/clang_64/lib/*.framework')),
+    }),
+    executables=executables,
 )
