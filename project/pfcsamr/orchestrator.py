@@ -63,6 +63,7 @@ class MyTableModel(QAbstractTableModel):
     def headerData(self, section: int, orientation: int, role: int=None):
         return self.my_headings[section]
 
+    @pyqtSlot(result='QHash<int, QByteArray>')
     def roleNames(self):
         values = []
         for v in self.my_headings:

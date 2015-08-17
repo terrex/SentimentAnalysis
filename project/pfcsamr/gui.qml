@@ -28,6 +28,7 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
+            console.log('on timer')
             mainPfcsamrApp.run_pending_gui_updates()
             //console.log("checking for GUI changes")
             if (mainPfcsamrApp.critical_message_text != "") {
@@ -35,6 +36,11 @@ ApplicationWindow {
                 mainPfcsamrApp.critical_message_text = ""
             }
         }
+    }
+
+    onClosing: {
+        console.log('closing....')
+        update_gui.stop()
     }
 
     menuBar: MenuBar {

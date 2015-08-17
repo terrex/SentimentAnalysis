@@ -107,10 +107,10 @@ setup(
 
     # cx_Freeze
     options=dict(build_exe=buildOptions, bdist_mac={
-#        'bundle_name': 'Sentiment Analysis',
+        'bundle_name': 'Sentiment Analysis',
 #        'include_frameworks': [
 #            '/Library/Frameworks/Python.framework',
-#        ],# + list(glob.glob('/Users/terrex/Qt5.5.0/5.5/clang_64/lib/*.framework')),
+#        ] + list(glob.glob('/Users/terrex/Qt5.5.0/5.5/clang_64/lib/*.framework')),
     }),
     executables=executables,
 )
