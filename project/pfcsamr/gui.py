@@ -514,10 +514,11 @@ class MainPfcsamrApp(QObject):
 def main():
     global SHARED_MainPfcsamrApp
     app = QApplication(sys.argv)
-    engine = QQmlApplicationEngine()
+    main_pfcsamr_app = MainPfcsamrApp()
+    #thanks to http://www.qtcentre.org/threads/12135-PyQt-QTimer-problem-FIXED
+    engine = QQmlApplicationEngine(main_pfcsamr_app)
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
-    main_pfcsamr_app = MainPfcsamrApp()
     SHARED_MainPfcsamrApp = main_pfcsamr_app
     ctx.setContextProperty("mainPfcsamrApp", main_pfcsamr_app)
     main_pfcsamr_app.rootContext = ctx
