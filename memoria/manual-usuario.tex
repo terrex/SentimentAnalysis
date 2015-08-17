@@ -2,10 +2,142 @@
 %!TEX encoding = UTF-8 Unicode
 
 \chapter{Manual de instalación}
+     
+\epigraph{``Tenemos que dejar de optimizar para programadores y comenzar a optimizar para usuarios.''}{\textsc{Jeff Atwood}}
+
+En este capítulo se describe el procedimiento de instalación de la aplicación y las bibliotecas de las que depende.
 
 \section{Instalación de prerrequisitos}
 
 
 
 \chapter{Manual de usuario}
+
+\epigraph{``Los ordenadores son buenos siguiendo instrucciones, no leyendo tu mente.''}{\textsc{Donald Knuth} (1938--)}
+
+\section{Carga del fichero de entrenamiento}
+
+La primera pantalla que se muestra al abrir la aplicación es la pestaña de carga (\autoref{fig:ss-01-load-tab}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-01-load-tab}
+\caption{Pantalla de carga del fichero de entrenamiento}
+\label{fig:ss-01-load-tab}
+\end{figure}
+
+
+Al pulsar sobre el botón \menu{Select file} aparece un cuadro de diálogo que permite seleccionar el fichero \path{train.tsv} de entrenamiento (\autoref{fig:ss-02-load-file}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-02-load-file}
+\caption{Pantalla de selección del fichero de entrenamiento}
+\label{fig:ss-02-load-file}
+\end{figure}
+
+\newpage
+Una vez seleccionado, marcar la opción de carga parcial si se desea, indicando el número de muestras. A continuación, pulsar el botón \menu{LOAD}, con lo que aparece el fichero en forma de tabla en el panel de datos (\autoref{fig:ss-03-file-loaded}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-03-file-loaded}
+\caption{Pantalla con el fichero de entrenamiento cargado}
+\label{fig:ss-03-file-loaded}
+\end{figure}
+
+\newpage
+\section{Opciones de preprocesamiento de texto}
+\label{sec:manual-preproc}
+
+Una vez cargado, pasamos a la siguiente pestaña de opciones de preprocesamiento. En esta pantalla, marcamos la opciones deseadas, y a continuación pulsamos el botón \menu{RUN} para proceder al preprocesamiento. Se muestra una barra de progreso a la derecha de la barra de estado, y al terminar, se actualiza el panel de datos con las muestras preprocesadas (\autoref{fig:ss-04-preproc-tab}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-04-preproc-tab}
+\caption{Pantalla de opciones de preprocesamiento}
+\label{fig:ss-04-preproc-tab}
+\end{figure}
+
+\newpage
+\section{Extracción de características}
+\label{sec:manual-features}
+
+El siguiente paso es la extracción de características. Pulsar en la pestaña y marcar las opciones deseadas para la extracción de n-gramas y su reducción. Pulsar en el botón \menu{RUN} para proceder con la transformación. Al finalizar, se muestra el panel de datos con una característica en cada columna, y su valor para cada muestra. El encabezado de la columna indica el n-grama concreto (\autoref{fig:ss-05-feat-tab}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-05-feat-tab}
+\caption{Pantalla de opciones de extracción de características}
+\label{fig:ss-05-feat-tab}
+\end{figure}
+
+\section{Aprendizaje automático del modelo}
+\label{sec:manual-learn}
+
+A continuación, avanzamos de pestaña para las opciones de aprendizaje. Se recomienda dejar marcado la división del conjunto en subconjunto de entrenamiento y subconjunto de autoevaluación, para poder obtener una puntuación del modelo aprendido.
+
+Elegir el modelo concreto en la segunda fila de pestañas y pulsar el botón \menu{RUN}. Cuando finalice el aprendizaje, se actualizará el valor de la puntuación (etiqueta \codet{SCORE: }). Hay cinco modelos a elegir, no es obligatorio entrenarlos todos, pero está bien hacerlo para comparar su puntuación y elegir el mejor.
+
+Se puede repetir tantas veces como se desee e ir alterando los parámetros para encontrar la mayor puntuación (\autoref{fig:ss-06-learn-tab}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-06-learn-tab}
+\caption{Pantalla de aprendizaje (\codep{MultinomialNB})}
+\label{fig:ss-06-learn-tab}
+\end{figure}
+
+\newpage
+\section{Clasificación del conjunto de clasificación}
+
+Una vez entrenado alguno de los modelos, avanzar pulsando la pestaña siguiente. Pulsar el botón \menu{Select file} para elegir el fichero \path{test.tsv} de evaluación.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-07-classify-tab}
+\caption{Pantalla de carga del conjunto de clasificación}
+\label{fig:ss-07-classify-tab}
+\end{figure}
+
+Se puede activar la opción de carga parcial e indicar el número de muestras, si se desea. A continuación pulsar \menu{LOAD} para realizar la carga y la visualización en el panel de datos (\autoref{fig:ss-07-classify-tab}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-08-classify-test-loaded}
+\caption{Pantalla }
+\label{fig:ss-08-classify-test-loaded}
+\end{figure}
+
+Pulsando el botón \menu{1. PREPROCESS} se realiza el preprocesamiento de texto de clasificación de manera análoga a como se preprocesó el texto de entrenamiento en la fase de entrenamiento (\autoref{sec:manual-preproc}). Se actualizará el panel de datos con el resultado (\autoref{fig:ss-08-classify-test-loaded}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-09-classify-test-preproccesed}
+\caption{Pantalla }
+\label{fig:ss-09-classify-test-preproccesed}
+\end{figure}
+
+Siguiendo con el procedimiento, pulsamos el botón \menu{2. FEATURES} para extraer las características del texto de clasificación preprocesado, de manera análoga a como se hizo en la fase de entrenamiento (\autoref{sec:manual-features}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-10-classify-test-featured}
+\caption{Pantalla }
+\label{fig:ss-10-classify-test-featured}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{ss-11-classify-test-predictions}
+\caption{Pantalla }
+\label{fig:ss-11-classify-test-predictions}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3cm]{ss-12-menu-file}
+\caption{Pantalla }
+\label{fig:ss-12-menu-file}
+\end{figure}
 
