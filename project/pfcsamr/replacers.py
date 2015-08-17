@@ -2,7 +2,6 @@ import re
 import csv
 
 import yaml
-import enchant
 from nltk.corpus import wordnet
 from nltk.metrics import edit_distance
 
@@ -93,6 +92,7 @@ class SpellingReplacer(object):
     """
 
     def __init__(self, dict_name='en', max_dist=2):
+        import enchant
         self.spell_dict = enchant.Dict(dict_name)
         self.max_dist = max_dist
 
