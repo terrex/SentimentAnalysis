@@ -28,7 +28,7 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
-            console.log('on timer')
+            //console.log('on timer')
             mainPfcsamrApp.run_pending_gui_updates()
             //console.log("checking for GUI changes")
             if (mainPfcsamrApp.critical_message_text != "") {
