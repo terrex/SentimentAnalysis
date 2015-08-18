@@ -84,8 +84,37 @@ En los métodos de aprendizaje que vemos en esta sección, por regla general hay
 
 \begin{figure}[htbp]
 \centering
-\todo{pendiente dibujar mejor}
-\includegraphics[width=0.6\textwidth]{feat-space}
+%\todo{pendiente dibujar mejor}
+%\includegraphics[width=0.6\textwidth]{feat-space}
+%
+\begin{tikzpicture}
+\begin{axis}[view={120}{40},grid=major,z buffer=sort,
+    width=250pt,height=250pt,
+	xmin=0,xmax=1,
+	ymin=0,ymax=1,
+	zmin=0,zmax=1,
+	xtick={0,0.25,...,1},xlabel={Feature 1},
+	ytick={0,0.25,...,1},ylabel={Feature 2},
+	ztick={0,0.25,...,1},zlabel={Feature 3}]
+	\addplot3[scatter,only marks]
+		coordinates {
+%for x in range(0,7):
+%...     print tuple([random.random() for i in range(0,3)])
+(0.8915922750183092, 0.483525735660012, 0.17200076380395768)
+(0.2736707979923445, 0.8677444043961265, 0.46169191335613824)
+(0.4803893963805267, 0.27362117126460017, 0.14596022340102865)
+(0.5431844028317933, 0.09568180340231314, 0.07262371928711664)
+(0.00017873827792391772, 0.711060324375095, 0.7120988400405096)
+(0.8515811762167189, 0.17998809780868552, 0.8869610429782216)
+(0.011283364521358363, 0.383456791025109, 0.8521302419991056)
+		}
+		node[pos=0.00000, pin=45:D1]{}
+		node[pos=0.14285, pin=45:D2]{}
+		node[pos=0.85714, pin=45:D7]{}
+		;
+\end{axis}
+\end{tikzpicture}
+%
 \caption{Espacio vectorial de las características de los documentos \emph{(feature document space)}}
 \label{fig:feat-space}
 \end{figure}
