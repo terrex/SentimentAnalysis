@@ -1,0 +1,11 @@
+--- PyQt-gpl-5.5/configure.py	2015-08-07 12:49:40.000000000 +0200
++++ PyQt-gpl-5.5/configure.py	2015-08-07 12:47:23.000000000 +0200
+@@ -697,7 +697,7 @@
+         lines = f.read().split('\n')
+         f.close()
+ 
+-        self.qt_licensee = lines[0]
++        self.qt_licensee = 'Open Source'
+         self.qt_shared = (lines[1] == 'shared')
+         self.pyqt_disabled_features = lines[2:-1]
+ 
