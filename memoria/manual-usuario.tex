@@ -9,6 +9,211 @@ En este capítulo se describe el procedimiento de instalación de la aplicación
 
 \section{Instalación de prerrequisitos}
 
+El primer conjunto de bibliotecas necesarias para instalar son:
+\begin{enumerate}
+\item El framework de desarrollo \nombrebf{Qt~5.5}
+\item El intérprete \nombrebf{Python~3.4}
+\end{enumerate}
+
+\subsection{Qt~5.5}
+
+Existen versiones de Qt~5.5 para Mac~OS~X, GNU/Linux y Windows (32 y 64 bit).
+En la dirección oficial de descarga para la modalidad de software libre \url{https://www.qt.io/download-open-source/} se puede obtener el fichero de instalación. Se puede realizar una instalación offline u online, pero recomiendo usar el instalador offline ya que necesitamos instalar todos los componentes, incluidos los opcionales.
+
+Proporciona un asistente de instalación de los que estamos acostumbrados, de siguiente-siguiente. Se recomienda usar la carpeta de instalación por defecto en el directorio de casa del usuario, en el caso de Mac~OS~X será \blackdirectory{/Users/USUARIO/Qt5.5.0}. También hace falta marcar la opción de instalación completa, incluido el paquete con el código fuente de Qt, para poder instalar PyQt5.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-1}
+\caption{Asistente de instalación de Qt~5.5: Página de bienvenida}
+\label{fig:qt-1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-2}
+\caption{Selección de ruta de instalación de Qt}
+\label{fig:qt-2}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-3}
+\caption{Seleccionar todos los componentes para instalar}
+\label{fig:qt-3}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-4}
+\caption{Aceptación de licencia}
+\label{fig:qt-4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-5}
+\caption{Inicio de instalación}
+\label{fig:qt-5}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-6}
+\caption{Progreso de instalación}
+\label{fig:qt-6}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-7}
+\caption{Instalación completada}
+\label{fig:qt-7}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=11.5cm]{qt-8}
+\caption{Finalización del asistente de instalación de Qt~5.5}
+\label{fig:qt-8}
+\end{figure}
+
+
+\subsection{Python~3.4}
+
+Python se encuentra actualmente en dos ``sabores'', versión 2 y versión 3, incompatibles entre sí. En este proyecto nos decantamos por usar el más moderno, y al momento de terminarse el proyecto, la versión concreta que se ha utilizado es Python~3.4.3, aunque debería funcionar en cualquier 3.4.x
+
+Descargar la versión apropiada para su sistema operativo desde la dirección oficial \url{https://www.python.org/downloads/} y seguir las instrucciones del asistente de instalación o de las instrucciones de instalación de la documentación. En el caso de sistemas Mac~OS~X y Windows, se proporciona un asistente de instalación de los binarios; sin embargo para sistemas GNU/Linux se ofrece el paquete del código fuente de Python~3.4.3 listo para compilar.
+
+Otra opción para usar en linux, es utilizar el intérprete Python de su distribución, si es que ésta proporciona alguna versión 3.4, incluyendo el módulo de entornos virtuales \path{venv} y el gestor de paquetes de Python \path{pip} (en Ubuntu son los paquetes \codet{python3-all-dev}, \codet{python3-venv} y \codet{python3-pip}).
+
+\section{Instalación de bibliotecas}
+
+A partir de este momento, tendremos disponibles en la consola el comando de Qt \path{qmake}, y los de Python \path{python3}, \path{pyvenv-3.4} y \path{pip3}.
+
+Es necesario instalar los paquetes de desarrollo. En el caso de Mac~OS~X, la última versión de Xcode; y para Ubuntu, los paquetes listados en el \fullref{lst:ubuntu-apt-get}.
+
+\begin{listing}[htbp]
+\begin{minted}{bash}
+$ sudo apt-get install ubuntu-dev-tools build-essential \
+                       python3-all-dev python3-venv python3-pip \
+                       xorg-dev libgl1-mesa-dev libglu1-mesa-dev \
+                       libopenblas-dev
+\end{minted}
+\caption{Paquetes adicionales en Ubuntu}
+\label{lst:ubuntu-apt-get}
+\end{listing}
+
+\FloatBarrier
+
+Necesitamos las siguientes bibliotecas:
+\begin{enumerate}
+\item El generador de código \nombrebf{SIP} de Riverbank para la correcta compilación de PyQt5.
+\item El \emph{binding} o adaptador de Qt5 para Python llamado \nombrebf{PyQt5} de Riverbank.
+\item Los paquetes de pip listados en \blackdirectory{project/requirements.txt}
+\end{enumerate}
+
+Los programas de Riverbank pueden descargarse de la página oficial (se pueden probar con versiones futuras sin ningún miedo a perder la compatibilidad hacia atrás):
+\begin{itemize}
+\item \url{https://riverbankcomputing.com/software/pyqt/download5},\\
+archivo \path{PyQt-gpl-5.5.tar.gz}
+\item \url{https://www.riverbankcomputing.com/software/sip/download},\\
+archivo \path{sip-4.16.9.tar.gz}
+\end{itemize}
+
+El primer paso es crear un entorno virtual de Python para evitar conflictos con otras aplicaciones en Python, como paso preventivo, y sin necesidad de tener permisos de superusuario (\autoref{lst:pyvenv}).
+
+\begin{listing}[htbp]
+\begin{minted}{bash}
+$ pyvenv-3.4 --clear py34
+$ source py34/bin/activate
+(py34) $ pip3 install -U pip
+\end{minted}
+\caption[Creación del entorno virtual (pyvenv)]{Creación del entorno virtual (pyvenv), activación y actualización local de \path{pip}}
+\label{lst:pyvenv}
+\end{listing}
+\FloatBarrier
+
+Una vez completado, compilamos e instalamos \path{sip} (\autoref{lst:sip}).
+
+\begin{listing}[htbp]
+\begin{minted}{bash}
+(py34) $ tar xzf sip-4.16.9.tar.gz
+(py34) $ cd sip-4.16.9
+(py34) $ python3.4 configure.py
+(py34) $ make
+(py34) $ make install
+(py34) $ cd ..
+\end{minted}
+\caption{Compilación e instalación de SIP}
+\label{lst:sip}
+\end{listing}
+\FloatBarrier
+
+Después de la instalación de \path{sip}, procedemos a instalar el binding. Nos hemos encontrado un bug en Qt~5.5.0, y necesitamos aplicar un parche previo (\autoref{lst:parche}).
+
+\begin{listing}[htbp]
+\begin{minted}{diff}
+--- PyQt-gpl-5.5/configure.py   2015-08-07 12:49:40.000000000 +0200
++++ PyQt-gpl-5.5/configure.py   2015-08-07 12:47:23.000000000 +0200
+@@ -697,7 +697,7 @@
+         lines = f.read().split('\n')
+         f.close()
+ 
+-        self.qt_licensee = lines[0]
++        self.qt_licensee = 'Open Source'
+         self.qt_shared = (lines[1] == 'shared')
+         self.pyqt_disabled_features = lines[2:-1]
+ 
+\end{minted}
+\caption[Corrección de bug en Qt~5.5.0]{Corrección de bug en Qt~5.5.0 (\path{PyQt-gpl-5.5-fix-license-typo.diff})}
+\label{lst:parche}
+\end{listing}
+\FloatBarrier
+
+\newpage
+Configuramos e instalamos PyQt5 (\autoref{lst:pyqt5}).
+
+\begin{listing}[htbp]
+\begin{minted}{bash}
+(py34) $ tar xzf PyQt-gpl-5.5.tar.gz
+(py34) $ patch -p0 < PyQt-gpl-5.5-fix-license-typo.diff
+(py34) $ cd PyQt-gpl-5.5
+(py34) $ python3.4 configure.py --qmake ~/Qt5.5.0/5.5/*/bin/qmake
+(py34) $ make
+(py34) $ make install
+(py34) $ cd ..
+\end{minted}
+\caption{Compilación e instalación de PyQt5}
+\label{lst:pyqt5}
+\end{listing}
+\FloatBarrier
+
+Como último paso, instalamos los paquetes listados como dependencias en el fichero \path{requirements.txt} (\autoref{lst:pip-requirements-txt}).
+
+\begin{listing}[htbp]
+\begin{minted}{bash}
+(py34) $ pip3 install -r project/requirements.txt
+(py34) $ python3.4 -m nltk.downloader all
+\end{minted}
+\caption{Instalación de paquetes de \codet{pip} de dependencias}.
+\label{lst:pip-requirements-txt}
+\end{listing}
+\FloatBarrier
+
+\section{Inicio del programa}
+
+Para iniciar la ejecución del programa, se puede hacer como se indica en el \autoref{lst:start-pfcsamr}.
+
+\begin{listing}[htbp]
+\begin{minted}{bash}
+(py34) $ cd project
+(py34) $ PYTHONPATH=. pfcsamr/gui.py
+\end{minted}
+\caption{Inicio del programa}.
+\label{lst:start-pfcsamr}
+\end{listing}
+\FloatBarrier
 
 
 \chapter{Manual de usuario}
