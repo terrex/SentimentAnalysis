@@ -12,6 +12,7 @@ except ImportError:
 # fine tuning.
 buildOptions = dict(packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     zip_includes=morefiles,
+    excludes=['tkinker', 'tcl', 'tk'],
 )
 
 import sys
@@ -40,7 +41,7 @@ setup(
 
     # Author details
     author='Guillermo Gutierrez-Herrera',
-    author_email='xiterrex@gmail.com',
+    author_email='guiguther@alum.us.es',
 
     # Choose your license
     license='GPLv3',
@@ -91,7 +92,7 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
         '': ['*.txt', '*.rst', 'logging.conf'],
-        'pfcsamr': ['*.qml', 'License.txt', 'logging.conf'],
+        'pfcsamr': ['*.qml', 'LICENSE.txt', 'logging.conf'],
         'pfcsamr.data': ['*.*'],
     },
 

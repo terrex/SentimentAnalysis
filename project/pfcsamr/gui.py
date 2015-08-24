@@ -1,45 +1,85 @@
 #!/usr/bin/env python3
 
-from _thread import start_new_thread as start_new_thread_orig
-import queue
-import traceback
-from PyQt5.QtGui import QGuiApplication
+# Copyright (C) 2015 Guillermo Gutierrez-Herrera <guiguther@alum.us.es>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from sklearn.lda import LDA
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.naive_bayes import GaussianNB
-from sklearn.qda import QDA
-from sklearn.svm import LinearSVC
-import yaml
+"""
+Presenter layer of Model-View-Presenter for Sentiment Analysis
 
-from pfcsamr import logging_path, here
-import pfcsamr
-from pfcsamr.orchestrator import Orchestrator
+:package: pfcsamr
+"""
 
-__author__ = 'terrex'
+__author__ = "Guillermo Gutierrez-Herrera"
+__version__ = '0.0.1'
+__license__ = "GPLv3"
+__copyright__ = "Copyright 2015, Guillermo Gutierrez-Herrera <guiguther@alum.us.es>"
 
 import sys
 import logging
 import logging.config
 import os
+from _thread import start_new_thread as start_new_thread_orig
+import queue
+import traceback
+
+import yaml
 
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
+
 from PyQt5.QtQml import QQmlApplicationEngine
+
 from PyQt5.QtWidgets import QApplication
+
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
+
+from sklearn.lda import LDA
+
+from sklearn.naive_bayes import MultinomialNB
+
+from sklearn.naive_bayes import GaussianNB
+
+from sklearn.qda import QDA
+
+from sklearn.svm import LinearSVC
+
+from pfcsamr import logging_path, here
+from pfcsamr import __version__ as projectversion
+from pfcsamr.orchestrator import Orchestrator
+
+__all__ = ('SHARED_QUEUE', 'SHARED_MainPfcsamrApp', 'MainPfcsamrApp')
+
+# Setup logger ##
 
 logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)
 
+## shared singletons ##
+
 SHARED_QUEUE = queue.Queue()
+"""GUI updating callbacks queue
+
+:type: queue.Queue"""
+
 SHARED_MainPfcsamrApp = None
 """Singleton for running MainPfcsamrApp object
 
 :type: MainPfcsamrApp"""
 
 
-
 def start_new_thread(function, args, kwargs=None):
+    """Wraps a new thread with exception handling for QML, and run that thread"""
     global SHARED_QUEUE
 
     def myfunc(*args2, **kwargs2):
@@ -47,7 +87,7 @@ def start_new_thread(function, args, kwargs=None):
         try:
             function(*args2, **kwargs2)
         except Exception as ex:
-            print("Excepción dentro del código de start_new_thread")
+            print("Exception caught inside start_new_thread()")
             traceback.print_exc()
 
             SHARED_MainPfcsamrApp.critical_message_detailed_text = traceback.format_exc()
@@ -65,13 +105,16 @@ def start_new_thread(function, args, kwargs=None):
 
 
 class MainPfcsamrApp(QObject):
-    """Clase principal del GUI
+    """Main class for GUI (Presenter layer)
     """
 
     def __init__(self, parent: QObject=None):
         global SHARED_QUEUE
         super().__init__(parent)
         self.queue = queue.Queue()
+        """GUI updating callbacks queue. Same as SHARED_QUEUE
+
+        :type: queue.Queue"""
         SHARED_QUEUE = self.queue
         self.win = None
         """:type: QQuickWindow"""
@@ -128,7 +171,8 @@ class MainPfcsamrApp(QObject):
     """:type: dict"""
 
     @staticmethod
-    def default_config():
+    def default_config() -> dict:
+        """Return default session configuration dict"""
         return {
             'load_train_file': 'No file selected',
             'load_only_first': True,
@@ -524,7 +568,7 @@ def main():
     app = QApplication(["-name", "Sentiment Analysis", "-title", "Sentiment Analysis"] + sys.argv)
     app.setApplicationName("Sentiment Analysis")
     app.setApplicationDisplayName("Sentiment Analysis")
-    app.setApplicationVersion(pfcsamr.__version__)
+    app.setApplicationVersion(projectversion)
     main_pfcsamr_app = MainPfcsamrApp()
     # thanks to http://www.qtcentre.org/threads/12135-PyQt-QTimer-problem-FIXED
     engine = QQmlApplicationEngine(main_pfcsamr_app)

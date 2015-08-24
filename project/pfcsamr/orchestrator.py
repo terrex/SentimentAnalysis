@@ -1,7 +1,37 @@
+# Copyright (C) 2015 Guillermo Gutierrez-Herrera <guiguther@alum.us.es>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+Model layer of Model-View-Presenter for Sentiment Analysis
+
+:package: pfcsamr
+"""
+
+__author__ = "Guillermo Gutierrez-Herrera"
+__version__ = '0.0.1'
+__license__ = "GPLv3"
+__copyright__ = "Copyright 2015, Guillermo Gutierrez-Herrera <guiguther@alum.us.es>"
+
 from copy import copy, deepcopy
 import traceback
+import csv
+import logging
+import logging.config
+import re
 
-from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtSlot, QModelIndex, QByteArray
+from PyQt5.QtCore import QAbstractTableModel, QVariant, pyqtSlot, QModelIndex
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -10,19 +40,11 @@ from sklearn.lda import LDA
 from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.qda import QDA
-
-from pfcsamr import logging_path
-
-__author__ = 'terrex'
-
-import csv
-import logging
-import logging.config
-import re
-
 from nltk.corpus import stopwords
 import nltk
 import numpy as np
+
+from pfcsamr import logging_path
 
 english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
 

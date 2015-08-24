@@ -16,7 +16,7 @@
 """
 Sentiment Analysis on Movie Reviews
 
-Package pfcsamr
+:package: pfcsamr
 """
 
 __author__ = "Guillermo Gutierrez-Herrera"
@@ -24,13 +24,19 @@ __version__ = '0.0.1'
 __license__ = "GPLv3"
 __copyright__ = "Copyright 2015, Guillermo Gutierrez-Herrera <guiguther@alum.us.es>"
 
+import logging
+import logging.config
 import os
 import os.path
+
+## here ##
 
 here = os.path.abspath(os.path.dirname(__file__))
 """Path to directory containing pfcsamr module (this file)
 
 :type: str"""
+
+## logging_path ##
 
 logging_path = ""
 """Path to ``logging.conf`` file in use
@@ -43,15 +49,15 @@ if not os.path.exists(_cwd_logging_path):
 else:
     logging_path = _cwd_logging_path
 
+## data_path ##
+
 data_path = os.path.join(here, 'data/')
 """Path to data directory
 
 :type: str"""
 
-import logging
-import logging.config
+## print current logging.conf file ##
 
 logging.config.fileConfig(logging_path)
-
 logger = logging.getLogger(__name__)
 logger.info("Using '%s' as logging config file" % logging_path)
