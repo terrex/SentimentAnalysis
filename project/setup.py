@@ -3,12 +3,16 @@ from os import path
 
 from setuptools import find_packages
 from cx_Freeze import setup, Executable
-import glob
+try:
+    from setup_morefiles import morefiles
+except ImportError:
+    morefiles = []
 
 # Dependencies are automatically detected, but it might need
 # fine tuning.
 buildOptions = dict(packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    excludes=[])
+    zip_includes=morefiles,
+)
 
 import sys
 
@@ -23,7 +27,8 @@ with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 executables = [
-    Executable('pfcsamr/gui.py', base=base)
+    Executable('pfcsamr/gui.py', base=base, targetName='Sentiment Analysis',
+        packages=['scipy', 'numpy', 'scikit-learn', 'nltk', 'PyYAML'])
 ]
 
 setup(
@@ -70,7 +75,6 @@ setup(
         'scikit-learn',
         'nltk>=3.0.0',
         'PyYAML',
-        'pyenchant',
     ],
 
     # List additional groups of dependencies here (e.g. development
@@ -78,8 +82,8 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        'dev': ['check-manifest', 'gensim'],
-        'test': ['coverage', 'nose'],
+        'dev': [],
+        'test': ['nose'],
     },
 
     # If there are data files included in your packages that need to be
@@ -87,7 +91,8 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
         '': ['*.txt', '*.rst', 'logging.conf'],
-        'pfcsamr': ['*.qml', 'data/*.*'],
+        'pfcsamr': ['*.qml', 'License.txt', 'logging.conf'],
+        'pfcsamr.data': ['*.*'],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
@@ -108,9 +113,9 @@ setup(
     # cx_Freeze
     options=dict(build_exe=buildOptions, bdist_mac={
         'bundle_name': 'Sentiment Analysis',
-#        'include_frameworks': [
-#            '/Library/Frameworks/Python.framework',
-#        ] + list(glob.glob('/Users/terrex/Qt5.5.0/5.5/clang_64/lib/*.framework')),
+        # 'include_frameworks': [
+        #     '/Library/Frameworks/Python.framework',
+        # ] + list(glob.glob('/Users/terrex/Qt5.5.0/5.5/clang_64/lib/*.framework')),
     }),
     executables=executables,
 )

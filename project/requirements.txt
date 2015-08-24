@@ -1,15 +1,17 @@
+#PyQt5>=5.5
+#SIP>=4.16.9
 numpy
 scipy
 scikit-learn
 nltk>=3.0.0
 PyYAML
 cx_Freeze
+
+# optional:
 #sudo port install word2vec
 #export PATH=$PATH:/opt/local/libexec/word2vec
 #word2vec==0.6.7
 #-e git+https://github.com/stephenbalaban/word2vec.git#egg=word2vec
 #nose
 #gensim
-#PyQt5>=5.5
-#SIP>=4.16.9
 #pyenchant

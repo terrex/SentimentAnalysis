@@ -3,6 +3,7 @@
 from _thread import start_new_thread as start_new_thread_orig
 import queue
 import traceback
+from PyQt5.QtGui import QGuiApplication
 
 from sklearn.lda import LDA
 from sklearn.naive_bayes import MultinomialNB
@@ -11,7 +12,8 @@ from sklearn.qda import QDA
 from sklearn.svm import LinearSVC
 import yaml
 
-from pfcsamr import logging_path
+from pfcsamr import logging_path, here
+import pfcsamr
 from pfcsamr.orchestrator import Orchestrator
 
 __author__ = 'terrex'
@@ -31,9 +33,10 @@ logger = logging.getLogger(__name__)
 
 SHARED_QUEUE = queue.Queue()
 SHARED_MainPfcsamrApp = None
-""":type: MainPfcsamrApp"""
+"""Singleton for running MainPfcsamrApp object
 
-__all__ = ('MainPfcsamrApp',)
+:type: MainPfcsamrApp"""
+
 
 
 def start_new_thread(function, args, kwargs=None):
@@ -350,6 +353,11 @@ class MainPfcsamrApp(QObject):
 
     # *** end of pyqtProperties *** #
 
+    @pyqtSlot(result=str)
+    def license_text(self):
+        with open(os.path.join(here, "LICENSE.txt"), "r") as f:
+            return "".join(f.readlines())
+
     @pyqtSlot()
     def critical_message_accepted(self):
         self._critical_message_text = ""
@@ -513,9 +521,12 @@ class MainPfcsamrApp(QObject):
 
 def main():
     global SHARED_MainPfcsamrApp
-    app = QApplication(sys.argv)
+    app = QApplication(["-name", "Sentiment Analysis", "-title", "Sentiment Analysis"] + sys.argv)
+    app.setApplicationName("Sentiment Analysis")
+    app.setApplicationDisplayName("Sentiment Analysis")
+    app.setApplicationVersion(pfcsamr.__version__)
     main_pfcsamr_app = MainPfcsamrApp()
-    #thanks to http://www.qtcentre.org/threads/12135-PyQt-QTimer-problem-FIXED
+    # thanks to http://www.qtcentre.org/threads/12135-PyQt-QTimer-problem-FIXED
     engine = QQmlApplicationEngine(main_pfcsamr_app)
     ctx = engine.rootContext()
     ctx.setContextProperty("main", engine)
@@ -529,6 +540,7 @@ def main():
     main_pfcsamr_app.connect_widgets(win)
     win.show()
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()

@@ -11,6 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+.. automodule:: pfcsamr
+   :members:
+
 .. automodule:: pfcsamr.gui
    :members:
 
