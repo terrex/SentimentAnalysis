@@ -11,11 +11,20 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+Module ``pfcsamr``
+------------------
+
 .. automodule:: pfcsamr
    :members:
 
+Module ``pfcsamr.gui``
+----------------------
+
 .. automodule:: pfcsamr.gui
    :members:
+
+Module ``pfcsamr.orchestrator``
+-------------------------------
 
 .. automodule:: pfcsamr.orchestrator
    :members:

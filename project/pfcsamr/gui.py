@@ -60,12 +60,12 @@ from pfcsamr.orchestrator import Orchestrator
 
 __all__ = ('SHARED_QUEUE', 'SHARED_MainPfcsamrApp', 'MainPfcsamrApp')
 
-# Setup logger ##
+# Setup logger #
 
 logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)
 
-## shared singletons ##
+# shared singletons #
 
 SHARED_QUEUE = queue.Queue()
 """GUI updating callbacks queue

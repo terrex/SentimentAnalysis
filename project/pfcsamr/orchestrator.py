@@ -46,19 +46,34 @@ import numpy as np
 
 from pfcsamr import logging_path
 
-english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
+__all__ = ('MyTableModel', 'Orchestrator')
+
+# Setup logger #
 
 logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)
 
-__all__ = ('MyTableModel', 'Orchestrator')
+english_words_re = re.compile(r'\b(?:' + r'|'.join(stopwords.words('english')) + r')\b')
+"""list of english badwords
+
+:type: str"""
 
 
 class MyTableModel(QAbstractTableModel):
-    """Reimplement QAbstractTableModel for use with
+    """Reimplement QAbstractTableModel for use with QML
+
+    :param headings: list of str for column headings
+    :param data: np.ndarray two-dimensional for table data (str or numerical)
+                 It should be has the same number of columns as items in headings list.
     """
 
     def __init__(self, headings, data):
+        """ Constructs a new MyTableModel
+
+        :param headings: list of str for column headings
+        :param data: np.ndarray two-dimensional for table data (str or numerical)
+                     It should be has the same number of columns as items in headings list.
+        """
         super().__init__()
         self.my_headings = headings
         if not hasattr(data, 'shape'):
@@ -67,48 +82,94 @@ class MyTableModel(QAbstractTableModel):
 
     @pyqtSlot(QModelIndex, result=int)
     @pyqtSlot(result=int)
-    def rowCount(self, QModelIndex_parent=None, *args, **kwargs):
+    def rowCount(self, parent: QModelIndex=None, *args, **kwargs) -> int:
+        """ Return the number of rows
+
+        :param parent: QModelIndex of parent for Qt compliance. It should be set as None.
+        :param args:
+        :param kwargs:
+        :return: int The number of rows
+        """
         return self.my_data.shape[0]
 
     @pyqtSlot(QModelIndex, result=int)
     @pyqtSlot(result=int)
-    def columnCount(self, QModelIndex_parent=None, *args, **kwargs):
+    def columnCount(self, parent: QModelIndex=None, *args, **kwargs) -> int:
+        """ Return the number of columns.
+
+        :param parent: QModelIndex of parent for Qt compliance. It should be set as None.
+        :param args:
+        :param kwargs:
+        :return: int The number of columns.
+        """
         return self.my_data.shape[1]
 
     @pyqtSlot(QModelIndex, int, result=QVariant)
     @pyqtSlot(QModelIndex, result=QVariant)
     def data(self, index: QModelIndex, role: int=None) -> QVariant:
+        """ Return cell data for data table (str or numerical).
+
+        :param index: QModelIndex with row number.
+        :param role: int with column number + 32 (where user-space roles begins)
+        :return: QVariant with the cell data (str / numerical)
+        """
         return str(self.my_data[index.row(), role - 32])
 
     @pyqtSlot(int, int, int, result=str)
     @pyqtSlot(int, int, result=str)
     def headerData(self, section: int, orientation: int, role: int=None):
+        """ Return column heading name string.
+
+        :param section: int Number of column
+        :param orientation: int Hardcoded to Qt.Horizontal
+        :param role: int Not used
+        :return: str Column heading title for column number passed in as section
+        """
         return self.my_headings[section]
 
     @pyqtSlot(result='QHash<int, QByteArray>')
     def roleNames(self):
+        """ Return a list of column heading titles.
+
+        :return: list of str column headings
+        """
         values = []
         for v in self.my_headings:
+            # explicit cast is needed on Qt 5.5.0
             vv = QVariant(v)
             vv.convert(QVariant.ByteArray)
             values.append(vv.value())
         return dict(enumerate(values, 32))
 
 
-def is_text(value):
+def is_text(value) -> bool:
+    """ Return True if value is text, False if it is float or int.
+
+    :param value: any object
+    :return: True if value is text (not able to cast to float)
+    """
     try:
         float(value)
-        int(value)
         return False
     except ValueError:
         return True
 
 
 def unsplit_contractions(text: str) -> str:
+    """ Join previously split contractions.
+
+    :param text: str line of text
+    :return: the same line with all split contractions joined
+    """
     return re.sub(r"(\w)\s+'(\w)", r"\1'\2", text)
 
 
 def remove_stopwords(text: str) -> str:
+    """ Remove english stopwords from text.
+
+    :param text: str Line of text
+    :return: the same line with all stopwords thrown away
+    """
     global english_words_re
     replaced = re.sub(english_words_re, r'', text)
     replaced = re.sub(r'\s+', r' ', replaced)
@@ -116,6 +177,11 @@ def remove_stopwords(text: str) -> str:
 
 
 def postag(text: str) -> str:
+    """ Tag every word with its guessed part-of-speech
+
+    :param text: line of text
+    :return: the same line with annotated words in the form ``word/TAG``
+    """
     tokens = nltk.word_tokenize(text)
     words_tags = nltk.pos_tag(tokens)
     return ' '.join(["{0}/{1}".format(w, t) for w, t in words_tags])
