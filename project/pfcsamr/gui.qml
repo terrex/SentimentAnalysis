@@ -164,7 +164,8 @@ This is free software, and you are welcome to redistribute it under certain cond
         nameFilters: ["Tab-separated files (*.tsv)"]
         onAccepted: mainPfcsamrApp.findChild(
                         'classify_file').text = fileUrl.toString().replace(
-                        "file://", "")
+                        (Qt.platform.os === "windows" ? "file:///" : "file://"),
+                        "")
         sidebarVisible: true
         title: "Open test.tsv"
         folder: mainPfcsamrApp.get_data_path()
@@ -175,8 +176,10 @@ This is free software, and you are welcome to redistribute it under certain cond
         objectName: "file_dialog_choose_save"
         selectExisting: false
         nameFilters: ["Sentiment Analysis config (*.yaml)"]
-        onAccepted: mainPfcsamrApp.do_menu_file_save(fileUrl.toString().replace(
-                                                         "file://", ""))
+        onAccepted: mainPfcsamrApp.do_menu_file_save(
+                        fileUrl.toString().replace(
+                            (Qt.platform.os === "windows" ? "file:///" : "file://"),
+                            ""))
         sidebarVisible: true
         title: "Save current config"
         folder: shortcuts.documents
@@ -187,8 +190,10 @@ This is free software, and you are welcome to redistribute it under certain cond
         objectName: "file_dialog_choose_save_submission_csv"
         selectExisting: false
         nameFilters: ["Sentiment Predictions for submission (*.csv)"]
-        onAccepted: mainPfcsamrApp.classify_save_csv(fileUrl.toString().replace(
-                                                         "file://", ""))
+        onAccepted: mainPfcsamrApp.classify_save_csv(
+                        fileUrl.toString().replace(
+                            (Qt.platform.os === "windows" ? "file:///" : "file://"),
+                            ""))
         sidebarVisible: true
         title: "Save current config"
         folder: shortcuts.documents
@@ -200,8 +205,10 @@ This is free software, and you are welcome to redistribute it under certain cond
         selectExisting: true
         nameFilters: ["Sentiment Analysis config (*.yaml)"]
         onAccepted: {
-            mainPfcsamrApp.do_menu_file_open(fileUrl.toString().replace(
-                                                 "file://", ""))
+            mainPfcsamrApp.do_menu_file_open(
+                        fileUrl.toString().replace(
+                            (Qt.platform.os === "windows" ? "file:///" : "file://"),
+                            ""))
             upper_tab_view.currentIndex = 0
             mainPfcsamrApp.preproc_tab_enabled = false
             mainPfcsamrApp.features_tab_enabled = false
@@ -998,7 +1005,8 @@ This is free software, and you are welcome to redistribute it under certain cond
                                 readOnly: true
                                 onTextChanged: {
                                     set_prop(objectName, text)
-                                    if (text.indexOf("/") == 0) {
+                                    if (text.indexOf(
+                                                "No file selected") == -1) {
                                         mainPfcsamrApp.findChild(
                                                     'classify_button_load').enabled = true
                                     } else {
