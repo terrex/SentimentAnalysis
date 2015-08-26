@@ -88,10 +88,7 @@ ApplicationWindow {
             }
             MenuItem {
                 text: qsTr("Close")
-                shortcut: if (Qt.platform === "osx")
-                              StandardKey.Close
-                          else
-                              StandardKey.Quit
+                shortcut: StandardKey.Close
                 onTriggered: rootWindow.close()
             }
         }
@@ -154,7 +151,7 @@ This is free software, and you are welcome to redistribute it under certain cond
         nameFilters: ["Tab-separated files (*.tsv)"]
         onAccepted: mainPfcsamrApp.findChild(
                         'load_train_file').text = fileUrl.toString().replace(
-                        (Qt.platform === "windows" ? "file:///" : "file://"),
+                        (Qt.platform.os === "windows" ? "file:///" : "file://"),
                         "")
         sidebarVisible: true
         title: "Open train.tsv"
