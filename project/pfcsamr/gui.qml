@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.3
@@ -89,7 +88,10 @@ ApplicationWindow {
             }
             MenuItem {
                 text: qsTr("Close")
-                shortcut: StandardKey.Close
+                shortcut: if (Qt.platform === "osx")
+                              StandardKey.Close
+                          else
+                              StandardKey.Quit
                 onTriggered: rootWindow.close()
             }
         }
@@ -152,7 +154,8 @@ This is free software, and you are welcome to redistribute it under certain cond
         nameFilters: ["Tab-separated files (*.tsv)"]
         onAccepted: mainPfcsamrApp.findChild(
                         'load_train_file').text = fileUrl.toString().replace(
-                        "file://", "")
+                        (Qt.platform === "windows" ? "file:///" : "file://"),
+                        "")
         sidebarVisible: true
         title: "Open train.tsv"
         folder: mainPfcsamrApp.get_data_path()
