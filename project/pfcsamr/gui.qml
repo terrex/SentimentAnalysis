@@ -136,11 +136,9 @@ ApplicationWindow {
         id: about_dialog
         objectName: 'about_dialog'
         text: "Sentiment Analysis v0.0.1  Copyright (C) 2015  Guillermo Gutierrez-Herrera <guiguther@alum.us.es>"
-        informativeText: "Final Degree Project on Computer Engineering. Departamento de Lenguajes y Sistemas Informáticos.
-Escuela Técnica Superior de Ingeniería Informática. Universidad de Sevilla.
+        informativeText: "Final Degree Project on Computer Engineering. Departamento de Lenguajes y Sistemas Informáticos. Escuela Técnica Superior de Ingeniería Informática. Universidad de Sevilla.
 
-This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details...' button.
-This is free software, and you are welcome to redistribute it under certain conditions."
+This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details...' button. This is free software, and you are welcome to redistribute it under certain conditions."
         detailedText: mainPfcsamrApp.license_text()
         onAccepted: close()
     }
