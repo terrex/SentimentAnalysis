@@ -318,7 +318,8 @@ This is free software, and you are welcome to redistribute it under certain cond
                                 readOnly: true
                                 onTextChanged: {
                                     set_prop(objectName, text)
-                                    if (text.indexOf("/") == 0) {
+                                    if (text.indexOf(
+                                                "No file selected") == -1) {
                                         mainPfcsamrApp.findChild(
                                                     'load_button_load').enabled = true
                                     } else {
