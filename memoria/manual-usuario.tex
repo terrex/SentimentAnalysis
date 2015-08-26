@@ -215,6 +215,50 @@ Para iniciar la ejecución del programa, se puede hacer como se indica en el \au
 \end{listing}
 \FloatBarrier
 
+\section{Instalación en Windows}
+
+En Mac~OS~X y GNU/Linux, son necesarios los pasos de compilación de NumPy, SciPy, SIP y PyQt5 porque no existen binarios oficiales para esos sistemas operativos.
+
+Sin embargo para Windows 32 bit sí que existen, y así podemos evitar la instalación de Microsoft Visual~C++, y el framework completo de Qt~5.5.0. Los ficheros necesarios a instalar son, en este orden:
+
+\begin{enumerate}
+\item \path{python-3.4.3.msi} \\
+MD5: \texttt{cb450d1cc616bfc8f7a2d6bd88780bf6} \\
+\url{https://www.python.org/ftp/python/3.4.3/python-3.4.3.msi}
+\item \path{numpy-1.9.2-win32-superpack-python3.4.exe} \\
+MD5: \texttt{0c06b7beabdc053ef63699ada0ee5e98} \\
+\url{http://sourceforge.net/projects/numpy/files/NumPy/1.9.2/numpy-1.9.2-win32-superpack-python3.4.exe}
+\item \path{scipy-0.16.0-win32-superpack-python3.4.exe} \\
+MD5: \texttt{9cef8bc882e21854791ec80140258bc9} \\
+\url{http://sourceforge.net/projects/scipy/files/scipy/0.16.0/scipy-0.16.0-win32-superpack-python3.4.exe}
+\item \path{PyQt5-5.5-gpl-Py3.4-Qt5.5.0-x32.exe} \\
+MD5: \texttt{7321f26a2c3ac673c991c90e443ee620} \\
+\url{http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.5/PyQt5-5.5-gpl-Py3.4-Qt5.5.0-x32.exe}
+\end{enumerate}
+
+En Windows es más sencillo no crear un entorno virtual \texttt{py34}, y usar la raíz común. Instalamos las dependencias como se ve en el \autoref{lst:windows-pip}:
+
+\begin{listing}[htbp]
+\begin{minted}{bat}
+C:\...> C:\Python34\Scripts\pip3.exe install -U pip
+C:\...> C:\Python34\Scripts\pip3.exe install scikit-learn "nltk>=3.0.0" PyYAML
+\end{minted}
+\caption{Instalación de dependencias en Windows}
+\label{lst:windows-pip}
+\end{listing}
+\FloatBarrier
+
+Y para iniciar el programa:
+
+\begin{listing}[htbp]
+\begin{minted}{bat}
+C:\...\project> set PYTHONPATH=.C:\...\project> c:\Python34\python.exe pfcsamr\gui.py
+\end{minted}
+\caption{Inicio del programa en Windows}
+\label{lst:windows-inicio}
+\end{listing}
+\FloatBarrier
+
 
 \chapter{Manual de usuario}
 
