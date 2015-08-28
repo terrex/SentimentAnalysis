@@ -1,0 +1,992 @@
+TY  - BOOK
+T1  - Modern Information Retrieval: The Concepts and Technology behind Search
+A1  - Baeza-Yates, Ricardo
+A1  - Ribeiro-Neto, Berthier
+Y1  - 2011///
+JF  - Information Retrieval
+VL  - 82
+SP  - 944
+EP  - 944
+SN  - 0321416910
+UR  - http://www.amazon.com/Modern-Information-Retrieval-Concepts-Technology/dp/0321416910
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Baeza-Yates, Ribeiro-Neto/2011/Baeza-Yates, Ribeiro-Neto - 2011 - Modern Information Retrieval The Concepts and Technology behind Search(2).pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Baeza-Yates, Ribeiro-Neto/2011/Baeza-Yates, Ribeiro-Neto - 2011 - Modern Information Retrieval The Concepts and Technology behind Search.pdf
+N2  - Comprehensive guide to information retrieval by leading international experts including web retrievel, web crawling, open source search engines and user interfaces.
+ER  - 
+TY  - BOOK
+T1  - Natural Language Processing with Python
+A1  - Bird, Steven
+A1  - Klein, Ewan
+A1  - Loper, Edward
+Y1  - 2009///
+JF  - Text
+VL  - 43
+SP  - 479
+EP  - 479
+SN  - 9780596516499
+UR  - http://www.nltk.org/book/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Bird, Klein, Loper/2009/Bird, Klein, Loper - 2009 - Natural Language Processing with Python.pdf
+N2  - This book offers a highly accessible introduction to natural language processing, the field that supports a variety of language technologies, from predictive text and email filtering to automatic summarization and translation. With it, you'll learn how to write Python programs that work with large collections of unstructured text. You'll access richly annotated datasets using a comprehensive range of linguistic data structures, and you'll understand the main algorithms for analyzing the content and structure of written communication. Packed with examples and exercises, Natural Language Processing with Python will help you:Extract information from unstructured text, either to guess the topic or identify "named entities" Analyze linguistic structure in text, including parsing and semantic analysis Access popular linguistic databases, including WordNet and treebanks Integrate techniques drawn from fields as diverse as linguistics and artificial intelligence This book will help you gain practical skills in natural language processing using the Python programming language and the Natural Language Toolkit (NLTK) open source library. If you're interested in developing web applications, analyzing multilingual news sources, or documenting endangered languages - or if you're simply curious to have a programmer's perspective on how human language works - you'll find Natural Language Processing with Python both fascinating and immensely useful.
+ER  - 
+TY  - THES
+T1  - Natural Language Input for a Computer Problem Solving System
+A1  - Bobrow, Daniel G.
+Y1  - 1964///
+PB  - MIT
+DO  - 1721.1/5922
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Bobrow/1964/Bobrow - 1964 - Natural Language Input for a Computer Problem Solving System.pdf
+N2  - This paper describes a computer program which accepts and «understands» a comfortable, but restricted set of one natural language, English. Certain difficulties are inherent in this problem of making a machine «understand» English. Within the limited framework of the subject matter understood by the program, many of these problems are solved or circumvented. I shall describe these problems and my solutions, and point out those solutions which I feel have general applicability. I will also indicate which must be replaced by more general methods to be really useful, and give my ideas about what general solutions to these particular problems might entail.
+ER  - 
+TY  - ICOMM
+T1  - QmlBook
+A1  - Bocklage-Ryannel, Jürgen
+A1  - Thelin, Johan
+UR  - https://qmlbook.github.io/index.html
+ER  - 
+TY  - JOUR
+T1  - A spiral model of software development and enhancement
+A1  - Boehm, Barry W
+Y1  - 1988///
+PB  - IEEE
+JF  - Computer
+VL  - 21
+IS  - 5
+SP  - 61
+EP  - 72
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Boehm/1988/Boehm - 1988 - A spiral model of software development and enhancement.pdf
+ER  - 
+TY  - GEN
+T1  - WEKA Manual for Version 3-7-2
+A1  - Bouckaert, Remco R.
+A1  - Frank, Eibe
+A1  - Kirkby, Richard
+A1  - Reutemann, Peter
+A1  - Seewald, Alex
+A1  - Scuse, David
+Y1  - 2002///
+UR  - http://netcologne.dl.sourceforge.net/project/weka/documentation/3.7.x/WekaManual-3-7-12.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Bouckaert et al/2002/Bouckaert et al. - 2002 - WEKA Manual for Version 3-7-2.pdf
+ER  - 
+TY  - BOOK
+T1  - SciPy and NumPy
+A1  - Bressert, E
+Y1  - 2012///
+PB  - O'Reilly
+T3  - Oreilly and Associate Series
+SN  - 9781449305468
+UR  - https://books.google.es/books?id=-N9ZBsjW3IIC
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Bressert/2012/Bressert - 2012 - SciPy and NumPy.pdf
+ER  - 
+TY  - BOOK
+T1  - Aspects of the Theory of Syntax
+A1  - Chomsky, Noam
+Y1  - 1965///
+JF  - Aspects of the Theory of Syntax
+VL  - 119
+IS  - no 11
+SP  - 251
+EP  - 251
+SN  - 0262530074
+DO  - 10.1016/0732-118X(86)90008-5
+N2  - Beginning in the mid-fifties and emanating largely form MIT, and approach was developed to linguistic theory and to the study of the structure of particular languages that diverges in many respects from modern linguistics. Although this approach is connected to the traditional study of languages, it differs enough in its specific conclusions about the structure and in its specific conclusions about the structure of language to warrant a name, "generative grammar."Various deficiencies have been discovered in the first attempts to formulate a theory of transformational generative grammar and in the descriptive analysis of particular languages that motivated these formulations. At the same time, it has become apparent that these formulations can be extended and deepened.The major purpose of this book is to review these developments and to propose a reformulation of the theory of transformational generative grammar that takes them into account. The emphasis in this study is syntax; semantic and phonological aspects of the language structure are discussed only insofar as they bear on syntactic theory.
+ER  - 
+TY  - BOOK
+T1  - Teoría de las seis lecturas
+A1  - De Zubira Samper, Miguel
+Y1  - 2002///
+PB  - Fondo de publicaciones Merani
+SN  - 9789589405062
+UR  - https://books.google.es/books?id=PFfmoAEACAAJ
+ER  - 
+TY  - ICOMM
+T1  - Text Mining Online | Text Analysis Online | Text Processing Online
+A1  - Desconocido
+Y1  - 2015///
+UR  - http://textminingonline.com
+ER  - 
+TY  - ICOMM
+T1  - Lenguaje natural, lenguaje artificial
+A1  - Díaz Santos, Rosa
+UR  - http://ficus.pntic.mec.es/rdis0006/lecciones/logica_proposicional/lecciones/lenguaje natural.htm
+ER  - 
+TY  - JOUR
+T1  - A few useful things to know about machine learning
+A1  - Domingos, Pedro
+Y1  - 2012/10//
+JF  - Communications of the ACM
+VL  - 55
+IS  - 10
+SP  - 78
+EP  - 78
+SN  - 0001-0782
+DO  - 10.1145/2347736.2347755
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Domingos/2012/Domingos - 2012 - A few useful things to know about machine learning.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Domingos/2012/Domingos - 2012 - A few useful things to know about machine learning(2).pdf
+N2  - MACHINE LEARNING SYSTEMS automatically learn programs from data. This is often a very attractive alternative to manually constructing them, and in the last decade the use of machine learning has spread rapidly throughout computer science and beyond. Machine learning is used in Web search, spam filters, recommender systems, ad placement, credit scoring, fraud detection, stock trading, drug design, and many other applications. A recent report from the McKinsey Global Institute asserts that machine learning (a.k.a. data mining or predictive analytics) will be the driver of the next big wave of innovation. Several fine textbooks are available to interested practitioners and researchers (for example, Mitchell and Witten et al.). However, much of the ``folk knowledge'' that is needed to successfully develop machine learning applications is not readily available in them. As a result, many machine learning projects take much longer than necessary or wind up producing less-than-ideal results. Yet much of this folk knowledge is fairly easy to communicate. This is the purpose of this article.
+ER  - 
+TY  - JOUR
+T1  - Formal Semantics of Natural Language (book review)
+A1  - Edmondson, Jerold A.
+Y1  - 1978/08//
+JF  - Lingua
+VL  - 45
+IS  - 3-4
+SP  - 355
+EP  - 374
+DO  - 10.1016/0024-3841(78)90031-1
+UR  - http://www.sciencedirect.com/science/article/pii/0024384178900311
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Edmondson/1978/Edmondson - 1978 - Formal Semantics of Natural Language (book review).pdf
+ER  - 
+TY  - ICOMM
+T1  - How to perform some common NLP tasks using NLTK
+A1  - Gabilondo, Michael
+UR  - http://www.cs.ucf.edu/courses/cap5636/fall2011/nltk.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Gabilondo/Unknown/Gabilondo - Unknown - How to perform some common NLP tasks using NLTK.pdf
+ER  - 
+TY  - CONF
+T1  - Feature Generation for Text Categorization Using World Knowledge
+A1  - Gabrilovich, Evgeniy
+A1  - Markovitch, Shaul
+Y1  - 2005///
+KW  - Common-Sense Knowledge
+KW  - Feature Generation
+KW  - Informat
+JF  - Proceedings of the 19th International Joint Conference for Artificial Intelligence
+SP  - 1048
+EP  - 1053
+UR  - http://www.cs.technion.ac.il/~shaulm/papers/pdf/Gabrilovich-Markovitch-ijcai2005.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Gabrilovich, Markovitch/2005/Gabrilovich, Markovitch - 2005 - Feature Generation for Text Categorization Using World Knowledge.pdf
+N2  - We enhance machine learning algorithms for text categorization with generated features based on domain-specific and common-sense knowledge. This knowledge is represented using publicly available ontologies that contain hundreds of thousands of concepts, such as the Open Directory; these ontologies are further enriched by several orders of magnitude through controlled Web crawling. Prior to text categorization, a feature generator analyzes the documents and maps them onto appropriate ontology concepts, which in turn induce a set of generated features that augment the standard bag of words. Feature generation is accomplished through contextual analysis of document text, implicitly performing word sense disambiguation. Coupled with the ability to generalize concepts using the ontology, this approach addresses the two main problems of natural language processing---synonymy and polysemy. Categorizing documents with the aid of knowledge-based features leverages information that cannot be deduced from the documents alone. Experimental results confirm improved performance, breaking through the plateau previously reached in the field.
+ER  - 
+TY  - GEN
+T1  - La jerarquía de Chomsky y la facultad del lenguaje: consecuencias para la variación y la evolución
+A1  - Gallego, Angel J.
+Y1  - 2008///
+KW  - Filosofía. Etica
+KW  - Grupo A
+KW  - Grupo B
+KW  - Humanidades
+PB  - KRK Ediciones
+JF  - Teorema: Revista internacional de filosofía
+VL  - 27
+LA  - spa
+IS  - 2
+SP  - 47
+EP  - 60
+UR  - http://dialnet.unirioja.es/servlet/articulo?codigo=2580734
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Gallego/2008/Gallego - 2008 - La jerarquía de Chomsky y la facultad del lenguaje consecuencias para la variación y la evolución.pdf
+ER  - 
+TY  - THES
+T1  - Semantic Role Labeling of Implicit Arguments for Nominal Predicates
+A1  - Gerber, Matthew
+Y1  - 2011/08//
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Gerber/2011/Gerber - 2011 - Semantic Role Labeling of Implicit Arguments for Nominal Predicates.pdf
+ER  - 
+TY  - ICOMM
+T1  - Creating a Sentiment Analysis Model - Prediction API — Google Cloud Platform
+A1  - Google
+Y1  - 2015///
+UR  - https://cloud.google.com/prediction/docs/sentiment_analysis
+ER  - 
+TY  - BOOK
+T1  - Natural Language Processing : Structure of the Lexicon : Human versus Machine
+A1  - Handke, Jürgen
+Y1  - 2012///
+KW  - Computational linguistics.
+KW  - Lexicology -- Data processing.
+PB  - Walter de Gruyter
+CY  - Tubingen, DEU
+SN  - 9783110907865
+UR  - http://site.ebrary.com/lib/bibucascb/docDetail.action?docID=10755060
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Handke/2012/Handke - 2012 - Natural Language Processing Structure of the Lexicon Human versus Machine.pdf
+ER  - 
+TY  - THES
+T1  - An empirical study of semantic similarity in WordNet and Word2Vec
+A1  - Handler, Abram
+Y1  - 2014/12//
+JF  - University of New Orleans Theses and Dissertations
+UR  - http://scholarworks.uno.edu/td/1922
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Handler/2014/Handler - 2014 - An empirical study of semantic similarity in WordNet and Word2Vec.pdf
+N2  - This thesis performs an empirical analysis of Word2Vec by comparing its output to WordNet, a well-known, human-curated lexical database. It finds that Word2Vec tends to uncover more of certain types of semantic relations than others -- with Word2Vec returning more hypernyms, synonomyns and hyponyms than hyponyms or holonyms. It also shows the probability that neighbors separated by a given cosine distance in Word2Vec are semantically related in WordNet. This result both adds to our understanding of the still-unknown Word2Vec and helps to benchmark new semantic tools built from word vectors.
+ER  - 
+TY  - BOOK
+T1  - Search User Interfaces
+A1  - Hearst, Marti A.
+Y1  - 2009///
+KW  - among others
+KW  - at
+KW  - face
+KW  - inter-
+KW  - is promoted by researchers
+KW  - microsoft
+KW  - natural inter-
+KW  - not sur-
+KW  - people are drawn to
+KW  - prisingly
+KW  - the term
+PB  - Search User Interfaces
+JF  - Search User Interfaces
+VL  - 54
+IS  - Ch 1
+SP  - 404
+EP  - 404
+SN  - 0521113792
+DO  - 10.1145/2018396.2018414
+UR  - http://searchuserinterfaces.com/book/
+N1  - http://people.ischool.berkeley.edu/~hearst/talks/upitt.pdf
+N2  - This book focuses on the human users of search engines and the tool they use to interact with them: the search user interface. The truly worldwide reach of the Web has brought with it a new realization among computer scientists and laypeople of the enormous importance of usability and user interface design. In the last ten years, much has become understood about what works in search interfaces from a usability perspective, and what does not. Researchers and practitioners have developed a wide range of innovative interface ideas, but only the most broadly acceptable make their way into major web search engines. This book summarizes these developments, presenting the state of the art of search interface design, both in academic research and in deployment in commercial systems. Many books describe the algorithms behind search engines and information retrieval systems, but the unique focus of this book is specifically on the user interface. It will be welcomed by industry professionals who design systems that use search interfaces as well as graduate students and academic researchers who investigate information systems.
+ER  - 
+TY  - CONF
+T1  - Automatic Acquisition of Hyponyms from Large Text Corpora
+A1  - Hearst, Marti A.
+Y1  - 1992///
+JF  - Proceedings of the 14th International Conference on Computational Linguistics
+SP  - 539
+EP  - 545
+DO  - 10.1.1.36.701
+UR  - http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.701
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hearst/1992/Hearst - 1992 - Automatic Acquisition of Hyponyms from Large Text Corpora.pdf
+N1  - http://people.ischool.berkeley.edu/~hearst/
+N2  - We describe a method for the automatic acquisition of the hyponymy lexical relation from unrestricted text. Two goals motivate the approach: (i) avoidance of the need for pre-encoded knowledge and (ii) applicability across a wide range of text. We identify a set of lexicosyntactic patterns that are easily recognizable, that occur frequently and across text genre boundaries, and that indisputably indicate the lexical relation of interest. We describe a method for discovering these patterns and suggest that other lexical relations will also be acquirable in this way. A subset of the acquisition algorithm is implemented and the results are used to augment and critique the structure of a large hand-built thesaurus. Extensions and applications to areas such as information retrieval are suggested. 1 Introduction Currently there is much interest in the automatic acquisition of lexical syntax and semantics, with the goal of building up large lexicons for natural language processing. Projects ...
+ER  - 
+TY  - JOUR
+T1  - The world's technological capacity to store, communicate, and compute information
+A1  - Hilbert, Martin
+A1  - López, Priscila
+Y1  - 2011///
+JF  - Science (New York, N.Y.)
+VL  - 332
+IS  - 6025
+SP  - 60
+EP  - 65
+SN  - 1095-9203
+DO  - 10.1126/science.1200970
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hilbert, López/2011/Hilbert, López - 2011 - The world's technological capacity to store, communicate, and compute information.pdf
+N2  - We estimated the world's technological capacity to store, communicate, and compute information, tracking 60 analog and digital technologies during the period from 1986 to 2007. In 2007, humankind was able to store 2.9 × 10(20) optimally compressed bytes, communicate almost 2 × 10(21) bytes, and carry out 6.4 × 10(18) instructions per second on general-purpose computers. General-purpose computing capacity grew at an annual rate of 58%. The world's capacity for bidirectional telecommunication grew at 28% per year, closely followed by the increase in globally stored information (23%). Humankind's capacity for unidirectional information diffusion through broadcasting channels has experienced comparatively modest annual growth (6%). Telecommunication has been dominated by digital technologies since 1990 (99.9% in digital format in 2007), and the majority of our technological memory has been in digital format since the early 2000s (94% digital in 2007).
+ER  - 
+TY  - GEN
+T1  - How to measure the world's technological capacity to communicate, store, and compute information, part I: Results and scope
+A1  - Hilbert, Martin
+A1  - López, Priscila
+Y1  - 2012///
+JF  - International Journal of Communication
+VL  - 6
+IS  - 1
+SP  - 956
+EP  - 979
+SN  - 1932-8036
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hilbert, López/2012/Hilbert, López - 2012 - How to measure the world's technological capacity to communicate, store, and compute information, part I Result.pdf
+N2  - This is Part I of a two-part article that reviews methodological and statistical challenges involved in the estimation of humanity’s technological capacity to communicate, store, and compute information. It is written from the perspective of the results of our recent inventory of 60 technological categories between 1986 and 2007 (measured in bits and MIPS [million-instructions-per-second]). In Part I, we summarize the results of our inventory, and explore a series of basic choices that must be made in the course of measuring information and communication capacities. The most basic underlying assumptions behind our estimates include—among others—decisions about what is counted as (1) communication, (2) storage, and (3) computation; if technological capacities or consumption of information is measured; and if unique information is distinguished from duplicate information. We compare our methodological choices with different approaches taken in similar studies. The article shows how the particular question on the researcher’s mind, as well as the availability of source data has and will influence most of the methodological choices in different exercises.
+ER  - 
+TY  - BOOK
+T1  - Qt 5 Blueprints
+A1  - Huang, S
+Y1  - 2015///
+PB  - Packt Publishing
+T3  - Community experience distilled
+SN  - 9781784390761
+UR  - https://books.google.es/books?id=oNe6BwAAQBAJ
+ER  - 
+TY  - JOUR
+T1  - Revisión de lenguajes declarativos para la descripción de interfaces de usuario independientes del dispositivo
+A1  - Hurtado Rodríguez, Nuria
+A1  - González Romano, J Mariano
+A1  - Torres Valderrama, Jesús
+Y1  - 2004///
+KW  - escuela superior de ingeniería
+KW  - informáticos
+KW  - universidad de cádiz
+JF  - Interface
+VL  - 3-7 mayo
+SP  - 223
+EP  - 226
+UR  - http://www.aipo.es/aipo/articulos/3/32.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hurtado Rodríguez, González Romano, Torres Valderrama/2004/Hurtado Rodríguez, González Romano, Torres Valderrama - 2004 - Revisión de lenguajes declarativos para la descripción de interfaces.pdf
+ER  - 
+TY  - BOOK
+T1  - NumPy Cookbook - Second Edition
+A1  - Idris, I
+Y1  - 2015///
+PB  - Packt Publishing
+T3  - Community experience distilled
+SN  - 9781784399825
+UR  - https://books.google.es/books?id=zWHCCAAAQBAJ
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Idris/2015/Idris - 2015 - NumPy Cookbook - Second Edition.pdf
+ER  - 
+TY  - BOOK
+T1  - IEEE Recommended Practice for Software Requirements Specifications 830-1998
+A1  - IEEE Software Engineering Standars Comitee
+Y1  - 1998///
+KW  - contract
+KW  - customer
+KW  - prototyping
+KW  - software requirements specification
+KW  - supplier
+KW  - system requirements specifications
+JF  - Electronics
+SN  - 0738103322
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/IEEE Software Engineering Standars Comitee/1998/IEEE Software Engineering Standars Comitee - 1998 - IEEE Recommended Practice for Software Requirements Specifications 830-1998.pdf
+N2  - The content and qualities of a good software requirements specification (SRS) are described and several sample SRS outlines are presented. This recommended practice is aimed at specifying requirements of software to be developed but also can be applied to assist in the selec- tion of in-house and commercial software products. Guidelines for compliance with IEEE/EIA 12207.1-1997 are also provided.
+ER  - 
+TY  - JOUR
+T1  - Twitter power: Tweets as electronic word of mouth
+A1  - Jansen, Bernard J
+A1  - Zhang, Mimi
+A1  - Sobel, Kate
+A1  - Chowdury, Abdur
+Y1  - 2009///
+PB  - Wiley Online Library
+JF  - Journal of the American society for information science and technology
+VL  - 60
+IS  - 11
+SP  - 2169
+EP  - 2188
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Jansen et al/2009/Jansen et al. - 2009 - Twitter power Tweets as electronic word of mouth.pdf
+ER  - 
+TY  - BOOK
+T1  - Compiladores y procesadores de lenguajes
+A1  - Jiménez Millán, José Antonio
+Y1  - 2004///
+PB  - Servicio de publicaciones de la Universidad de Cádiz
+SP  - 273
+EP  - 273
+SN  - 978-84-7786-383-0
+ER  - 
+TY  - ICOMM
+T1  - Natural Language Processing - Coursera class
+A1  - Jurafsky, Dan
+A1  - Manning, Christopher D.
+Y1  - 2015///
+UR  - https://class.coursera.org/nlp/lecture/25
+ER  - 
+TY  - JOUR
+T1  - Human-Computer Interaction: Overview on State of the Art
+A1  - Karray, Fakhreddine
+A1  - Alemzadeh, Milad
+A1  - Saleh, Jamil Abou
+A1  - Arab, Mo Nours
+Y1  - 2008/03//
+JF  - International Journal on Smart Sensing and Intelligent Systems
+VL  - 1
+IS  - 1
+UR  - http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.331.6558
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Karray et al/2008/Karray et al. - 2008 - Human-Computer Interaction Overview on State of the Art.pdf
+ER  - 
+TY  - BOOK
+T1  - Formal Semantics of Natural Language
+A1  - Keenan, Eduard L.
+Y1  - 2009///
+PB  - Cambridge University Press
+SP  - 492
+EP  - 492
+SN  - 9780521111119
+UR  - https://books.google.es/books?id=3o5bPwAACAAJ
+N2  - A volume of studies in natural language semantics which brings together work by philosophers, logicians and linguists. The main topics treated are: quantification and reference in natural language; the relations between formal logic, programming languages and natural language; pragmatics and discourse meaning; surface syntax and logical meaning. The volume derives from a colloquium organised in 1973 by the Kings College Research Centre, Cambridge and the papers have been edited for publication by Professor Keenan. It is hoped that the collection will make available some of the best work in this fast-moving field and will stimulate further progress by juxtaposing the different approaches and interests represented here.
+ER  - 
+TY  - CONF
+T1  - Distributed Representations of Sentences and Documents
+A1  - Le, Quoc V.
+A1  - Mikolov, Tomas
+Y1  - 2014///
+JF  - Proceedings of the 31st International Conference on Machine Learning
+VL  - 32
+T3  - ICML'14
+SP  - 1188
+EP  - 1196
+SN  - 9781634393973
+UR  - http://arxiv.org/abs/1405.4053
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Le, Mikolov/2014/Le, Mikolov - 2014 - Distributed Representations of Sentences and Documents.pdf
+N2  - Many machine learning algorithms require the input to be represented as a fixed-length feature vector. When it comes to texts, one of the most common fixed-length features is bag-of-words. Despite their popularity, bag-of-words features have two major weaknesses: they lose the ordering of the words and they also ignore semantics of the words. For example, "powerful," "strong" and "Paris" are equally distant. In this paper, we propose Paragraph Vector, an unsupervised algorithm that learns fixed-length feature representations from variable-length pieces of texts, such as sentences, paragraphs, and documents. Our algorithm represents each document by a dense vector which is trained to predict words in the document. Its construction gives our algorithm the potential to overcome the weaknesses of bag-of-words models. Empirical results show that Paragraph Vectors outperform bag-of-words models as well as other techniques for text representations. Finally, we achieve new state-of-the-art results on several text classification and sentiment analysis tasks.
+ER  - 
+TY  - BOOK
+T1  - Gestión de la reputación online
+A1  - Leiva-Aguilera, J
+Y1  - 2012///
+PB  - UOC
+T3  - El profesional de la información
+SN  - 9788497889902
+ER  - 
+TY  - BOOK
+T1  - PySide GUI application development
+A1  - Loganathan, Venkateshwaran
+Y1  - 2013///
+PB  - Packt Publishing Ltd
+SP  - 140
+EP  - 140
+SN  - 9781849699594
+UR  - http://www.it-ebooks.info/book/3704/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Loganathan/2013/Loganathan - 2013 - PySide GUI application development.pdf
+N2  - Elegantly built GUI applications are always a massive hit among users. PySide is an open source software project that provides Python bindings for the Qt cross-platform UI framework. Combining the power of Qt and Python, PySide provides easy access to the Qt framework for Python developers and also acts as an excellent rapid application development platform available on all major operating systems. This book aims to help you develop GUI applications easily using PySide. Python is easy to learn and use and its programs are relatively shorter than those written in other programming languages like C++ or Java. This book will introduce you to user interface programming in Python, allowing you to develop real-time applications in a shorter amount of time.
+ER  - 
+TY  - BOOK
+T1  - Introduction to Information Retrieval
+A1  - Manning, Christopher D.
+A1  - Raghavan, Prabhakar
+A1  - Schütze, Hinrich
+Y1  - 2008///
+PB  - Cambridge University Press
+JF  - Journal of the American Society for Information Science and Technology
+VL  - 1
+SP  - 496
+EP  - 496
+SN  - 0521865719
+DO  - 10.1002/asi.21234
+UR  - http://nlp.stanford.edu/IR-book/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Manning, Raghavan, Schütze/2008/Manning, Raghavan, Schütze - 2008 - Introduction to Information Retrieval.pdf
+N2  - Introduction to Information Retrieval is the first textbook with a coherent treatment of classical and web information retrieval, including web search and the related areas of text classification and text clustering. Written from a computer science perspective, it gives an up-to-date treatment of all aspects of the design and implementation of systems for gathering, indexing, and searching documents; methods for evaluating systems; and an introduction to the use of machine learning methods on text collections. Designed as the primary text for a graduate or advanced undergraduate course in information retrieval, the book will also interest researchers and professionals. A complete set of lecture slides and exercises that accompany the book are available on the web.
+ER  - 
+TY  - BOOK
+T1  - Foundations of Statistical Natural Language Processing
+A1  - Manning, Christopher D.
+A1  - Schütze, Hinrich
+Y1  - 1999///
+PB  - MIT press
+JF  - Reading
+SP  - 620
+EP  - 620
+SN  - 9780262133609
+UR  - http://nlp.stanford.edu/fsnlp/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Manning, Schütze/1999/Manning, Schütze - 1999 - Foundations of Statistical Natural Language Processing.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Manning, Schütze/1999/Manning, Schütze - 1999 - Foundations of Statistical Natural Language Processing(2).pdf
+N2  - The Handbook of Natural Language Processing, Second Edition presents practical tools and techniques for implementing natural language processing in computer systems. Along with removing outdated material, this edition updates every chapter and expands the content to include emerging areas, such as sentiment analysis. New to the Second Edition Greater prominence of statistical approaches New applications section Broader multilingual scope to include Asian and European languages, along with English An actively maintained wiki that provides online resources, supplementary information, and up-to-date developments Divided into three sections, the book first surveys classical techniques, including both symbolic and empirical approaches. The second section focuses on statistical approaches in natural language processing. In the final section of the book, each chapter describes a particular class of application, from Chinese machine translation to information visualization to ontology construction to biomedical text mining. Fully updated with the latest developments in the field, this comprehensive, modern handbook emphasizes how to implement practical language processing tools in computational systems.
+ER  - 
+TY  - GEN
+T1  - Procesamiento del lenguaje natural
+A1  - Martín Mateos, F. J.
+A1  - Ruiz Reina, J. L.
+Y1  - 2013///
+PB  - Dpto. Ciencias de la Computación e Inteligencia Artificial. Universidad de Sevilla
+UR  - http://www.cs.us.es/cursos/ia2/temas/tema-06.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Martín Mateos, Ruiz Reina/2013/Martín Mateos, Ruiz Reina - 2013 - Procesamiento del lenguaje natural.pdf
+ER  - 
+TY  - ICOMM
+T1  - word2vec - Tool for computing continuous distributed representations of words
+A1  - Mikolov, Tomas
+UR  - https://code.google.com/p/word2vec/
+ER  - 
+TY  - CONF
+T1  - Distributed Representations of Words and Phrases and their Compositionality
+A1  - Mikolov, Tomas
+A1  - Chen, Kai
+A1  - Corrado, Greg
+A1  - Dean, Jeffrey
+Y1  - 2013///
+JF  - NIPS
+VL  - abs/1310.4
+SP  - 1
+EP  - 9
+UR  - http://arxiv.org/abs/1310.4546
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Mikolov et al/2013/Mikolov et al. - 2013 - Distributed Representations of Words and Phrases and their Compositionality.pdf
+N2  - The recently introduced continuous Skip-gram model is an efficient method for learning high-quality distributed vector representations that capture a large num- ber of precise syntactic and semantic word relationships. In this paper we present several extensions that improve both the quality of the vectors and the training speed. By subsampling of the frequent words we obtain significant speedup and also learn more regular word representations. We also describe a simple alterna- tive to the hierarchical softmax called negative sampling. An inherent limitation of word representations is their indifference to word order and their inability to represent idiomatic phrases. For example, the meanings of “Canada” and “Air” cannot be easily combined to obtain “Air Canada”. Motivated by this example,we present a simplemethod for finding phrases in text, and show that learning good vector representations for millions of phrases is possible.
+ER  - 
+TY  - CONF
+T1  - Efficient Estimation of Word Representations in Vector Space
+A1  - Mikolov, Tomas
+A1  - Corrado, Greg
+A1  - Chen, Kai
+A1  - Dean, Jeffrey
+Y1  - 2013///
+JF  - Proceedings of the International Conference on Learning Representations (ICLR 2013)
+SP  - 1
+EP  - 12
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Mikolov et al/2013/Mikolov et al. - 2013 - Efficient Estimation of Word Representations in Vector Space.pdf
+N2  - We propose two novel model architectures for computing continuous vector representations of words from very large data sets. The quality of these representations is measured in a word similarity task, and the results are compared to the previously best performing techniques based on different types of neural networks. We observe large improvements in accuracy at much lower computational cost, i.e. it takes less than a day to learn high quality word vectors from a 1.6 billion words data set. Furthermore, we show that these vectors provide state-of-the-art performance on our test set for measuring syntactic and semantic word similarities.
+ER  - 
+TY  - CONF
+T1  - Extensions of recurrent neural network language model
+A1  - Mikolov, Tomas
+A1  - Kombrink, Stefan
+A1  - Burget, Lukas
+A1  - Cernocky, Jan
+A1  - Khudanpur, Sanjeev
+Y1  - 2011/05//
+KW  - Artificial neural networks
+KW  - Backpropagation
+KW  - Computational modeling
+KW  - Probability distribution
+KW  - Recurrent neural networks
+KW  - Training
+KW  - Vocabulary
+KW  - backpropagation
+KW  - competitive language modeling techniques
+KW  - computational complexity
+KW  - feedforward network
+KW  - feedforward neural nets
+KW  - language modeling
+KW  - natural language processing
+KW  - recurrent neural nets
+KW  - recurrent neural network language model
+KW  - recurrent neural networks
+KW  - speech recognition
+PB  - IEEE
+JF  - 2011 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)
+SP  - 5528
+EP  - 5531
+SN  - 978-1-4577-0538-0
+DO  - 10.1109/ICASSP.2011.5947611
+UR  - http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5947611
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Mikolov et al/2011/Mikolov et al. - 2011 - Extensions of recurrent neural network language model.pdf
+N2  - We present several modifications of the original recurrent neural net work language model (RNN LM). While this model has been shown to significantly outperform many competitive language modeling techniques in terms of accuracy, the remaining problem is the computational complexity. In this work, we show approaches that lead to more than 15 times speedup for both training and testing phases. Next, we show importance of using a backpropagation through time algorithm. An empirical comparison with feedforward networks is also provided. In the end, we discuss possibilities how to reduce the amount of parameters in the model. The resulting RNN model can thus be smaller, faster both during training and testing, and more accurate than the basic one.
+ER  - 
+TY  - ICOMM
+T1  - Tema 3: Fundamentos de la Teoría de Gramáticas Formales
+A1  - Moreno Velo, Francisco José
+Y1  - 2010///
+UR  - http://www.uhu.es/francisco.moreno/talf/docs/tema3.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Moreno Velo/2010/Moreno Velo - 2010 - Tema 3 Fundamentos de la Teoría de Gramáticas Formales.pdf
+ER  - 
+TY  - BOOK
+T1  - Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp
+A1  - Norvig, Peter
+Y1  - 2014///
+PB  - Elsevier Science
+SP  - 946
+EP  - 946
+SN  - 0080571158
+UR  - https://books.google.com/books?id=eH6jBQAAQBAJ&pgis=1
+N2  - Paradigms of AI Programming is the first text to teach advanced Common Lisp techniques in the context of building major AI systems. By reconstructing authentic, complex AI programs using state-of-the-art Common Lisp, the book teaches students and professionals how to build and debug robust practical programs, while demonstrating superior programming style and important AI concepts. The author strongly emphasizes the practical performance issues involved in writing real working programs of significant size. Chapters on troubleshooting and efficiency are included, along with a discussion of the fundamentals of object-oriented programming and a description of the main CLOS functions. This volume is an excellent text for a course on AI programming, a useful supplement for general AI courses and an indispensable reference for the professional programmer.
+ER  - 
+TY  - BOOK
+T1  - Unified Modeling Language (UML)
+A1  - OMG
+Y1  - 2015///
+SP  - 1
+EP  - 786
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/OMG/2015/OMG - 2015 - Unified Modeling Language (UML).pdf
+ER  - 
+TY  - CONF
+T1  - Seeing stars: Exploiting class relationships for sentiment categorization with respect to rating scales
+A1  - Pang, Bo
+A1  - Lee, Lillian
+Y1  - 2005/06//
+PB  - Association for Computational Linguistics
+JF  - Proceedings of the 43rd Annual Meeting of the Association for Computational Linguistics
+T3  - ACL'05
+SP  - 115
+EP  - 124
+SN  - 1932432515
+DO  - 10.3115/1219840.1219855
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pang, Lee/2005/Pang, Lee - 2005 - Seeing stars Exploiting class relationships for sentiment categorization with respect to rating scales.pdf
+N1  - http://www.aclweb.org/anthology/P05-1015
+N2  - We address the rating-inference problem, wherein rather than simply decide whether a review is "thumbs up" or "thumbs down", as in previous sentiment analysis work, one must determine an author's evaluation with respect to a multi-point scale (e.g., one to five "stars"). This task represents an interesting twist on standard multi-class text categorization because there are several different degrees of similarity between class labels; for example, "three stars" is intuitively closer to "four stars" than to "one star". We first evaluate human performance at the task. Then, we apply a meta-algorithm, based on a metric labeling formulation of the problem, that alters a given n-ary classifier's output in an explicit attempt to ensure that similar items receive similar labels. We show that the meta-algorithm can provide significant improvements over both multi-class and regression versions of SVMs when we employ a novel similarity measure appropriate to the problem.
+ER  - 
+TY  - CONF
+T1  - A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts
+A1  - Pang, Bo
+A1  - Lee, Lillian
+Y1  - 2004///
+KW  - analysis
+KW  - sentiment
+JF  - Proceedings of the 42nd Meeting of the Association for Computational Linguistics
+T3  - ACL'04
+SP  - 271
+EP  - -278
+DO  - 10.3115/1218955.1218990
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pang, Lee/2004/Pang, Lee - 2004 - A Sentimental Education Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts.pdf
+N2  - Sentiment analysis seeks to identify the viewpoint(s) underlying a text span; an example application is classifying a movie review as "thumbs up" or "thumbs down". To determine this sentiment polarity, we propose a novel machine-learning method that applies text-categorization techniques to just the subjective portions of the document. Extracting these portions can be implemented using efficient techniques for finding minimum cuts in graphs; this greatly facilitates incorporation of cross-sentence contextual constraints.
+ER  - 
+TY  - CONF
+T1  - Thumbs Up? Sentiment Classification Using Machine Learning Techniques
+A1  - Pang, Bo
+A1  - Lee, Lillian
+A1  - Vaithyanathan, Shivakumar
+Y1  - 2002///
+PB  - Association for Computational Linguistics
+JF  - Proceedings of the ACL-02 conference on Empirical Methods in Natural Language Processing
+VL  - 10
+T3  - EMNLP'02
+SP  - 79
+EP  - 86
+DO  - 10.3115/1118693.1118704
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pang, Lee, Vaithyanathan/2002/Pang, Lee, Vaithyanathan - 2002 - Thumbs Up Sentiment Classification Using Machine Learning Techniques.pdf
+N1  - http://www.cs.cornell.edu/home/llee/papers/sentiment.pdf
+N2  - We consider the problem of classifying documents not by topic, but by overall sentiment, e.g., determining whether a review is positive or negative. Using movie reviews as data, we find that standard machine learning techniques definitively outperform human-produced baselines. However, the three machine learning methods we employed (Naive Bayes, maximum entropy classification, and support vector machines) do not perform as well on sentiment classification as on traditional topic-based categorization. We conclude by examining factors that make the sentiment classification problem more challenging.
+ER  - 
+TY  - JOUR
+T1  - Scikit-learn: Machine Learning in Python
+A1  - Pedregosa, F.
+A1  - Varoquaux, G.
+A1  - Gramfort, A.
+A1  - Michel, V.
+A1  - Thirion, B.
+A1  - Grisel, O.
+A1  - Blondel, M.
+A1  - Prettenhofer, P.
+A1  - Weiss, R.
+A1  - Dubourg, V.
+A1  - Vanderplas, J.
+A1  - Passos, A.
+A1  - Cournapeau, D.
+A1  - Brucher, M.
+A1  - Perrot, M.
+A1  - Duchesnay, E.
+Y1  - 2011///
+JF  - Journal of Machine Learning Research
+VL  - 12
+SP  - 2825
+EP  - 2830
+UR  - http://scikit-learn.org/stable/user_guide.html
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pedregosa et al/2011/Pedregosa et al. - 2011 - Scikit-learn Machine Learning in Python.pdf
+ER  - 
+TY  - ICOMM
+T1  - Python NLTK Natural Language Processing | StreamHacker
+A1  - Perkins, Jacob
+UR  - http://streamhacker.com/
+ER  - 
+TY  - BOOK
+T1  - Python Text Processing with NLTK 2.0 Cookbook
+A1  - Perkins, Jacob
+Y1  - 2010///
+PB  - Packt Publishing Ltd
+JF  - Python
+SP  - 544
+EP  - 544
+SN  - 9781849513609
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Perkins/2010/Perkins - 2010 - Python Text Processing with NLTK 2.0 Cookbook.pdf
+N2  - Text Processing in Python describes techniques for manipulation of text using the Python programming language. At the broadest level, text processing is simply taking textual information and doing something with it. This might be restructuring or reformatting it, extracting smaller bits of information from it, or performing calculations that depend on the text. Text processing is arguably what most programmers spend most of their time doing. Because Python is clear, expressive, and object-oriented it is a perfect language for doing text processing, even better than Perl. As the amount of data everywhere continues to increase, this is more and more of a challenge for programmers. This book is not a tutorial on Python. It has two other goals: helping the programmer get the job done pragmatically and efficiently; and giving the reader an understanding - both theoretically and conceptually - of why what works and what doesnt work doesnt work. Mertz provides practical pointers and tips that emphasize efficient, flexible, and maintainable approaches to the text processing tasks that working programmers face daily.
+ER  - 
+TY  - BOOK
+T1  - Python 3 Text Processing with NLTK 3 Cookbook
+A1  - Perkins, Jacob
+Y1  - 2014///
+PB  - Packt Publishing Ltd
+SN  - 978-1-78216-785-3
+UR  - http://it-ebooks.info/book/4469/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Perkins/2014/Perkins - 2014 - Python 3 Text Processing with NLTK 3 Cookbook.pdf
+N2  - This book will show you the essential techniques of text and language processing. Starting with tokenization, stemming, and the WordNet dictionary, you'll progress to part-of-speech tagging, phrase chunking, and named entity recognition. You'll learn how various text corpora are organized, as well as how to create your own custom corpus. Then, you'll move onto text classification with a focus on sentiment analysis. And because NLP can be computationally expensive on large bodies of text, you'll try a few methods for distributed text processing. Finally, you'll be introduced to a number of other small but complementary Python libraries for text analysis, cleaning, and parsing.
+ER  - 
+TY  - JOUR
+T1  - An algorithm for suffix stripping
+A1  - Porter, Martin F.
+Y1  - 1980///
+PB  - MCB UP Ltd
+JF  - Program
+VL  - 14
+IS  - 3
+SP  - 130
+EP  - 137
+DO  - 10.1108/00330330610681286
+UR  - http://tartarus.org/martin/PorterStemmer/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Porter/1980/Porter - 1980 - An algorithm for suffix stripping.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Porter/1980/Porter - 1980 - An algorithm for suffix stripping(2).pdf
+ER  - 
+TY  - JOUR
+T1  - An algorithm for suffix stripping
+A1  - Porter, Martin F.
+Y1  - 2006///
+JF  - Program
+VL  - 40
+IS  - 3
+SP  - 211
+EP  - 218
+DO  - 10.1108/00330330610681286
+UR  - http://www.emeraldinsight.com/doi/abs/10.1108/00330330610681286
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Porter/1980/Porter - 1980 - An algorithm for suffix stripping(2).pdf
+N2  - Purpose – The automatic removal of suffixes from words in English is of particular interest in the field of information retrieval. This work was originally published in Program in 1980 and is republished as part of a series of articles commemorating the 40th anniversary of the journal.Design/methodology/approach – An algorithm for suffix stripping is described, which has been implemented as a short, fast program in BCPL.Findings – Although simple, it performs slightly better than a much more elaborate system with which it has been compared. It effectively works by treating complex suffixes as compounds made up of simple suffixes, and removing the simple suffixes in a number of steps. In each step the removal of the suffix is made to depend upon the form of the remaining stem, which usually involves a measure of its syllable length.Originality/value – The piece provides a useful historical document on information retrieval.
+ER  - 
+TY  - ICOMM
+T1  - Data Clustering: K-means and Hierarchical Clustering
+A1  - Rai, Piyush
+JF  - 2011
+UR  - http://www.cs.utah.edu/~piyush/teaching/4-10-print.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Rai/Unknown/Rai - Unknown - Data Clustering K-means and Hierarchical Clustering.pdf
+ER  - 
+TY  - ICOMM
+T1  - Performance Shootout of Nearest Neighbours: Querying
+A1  - Rehurek, Radim
+KW  - consulting
+KW  - gensim
+KW  - machine learning
+KW  - programming
+KW  - radim rehurek
+UR  - http://radimrehurek.com/2014/01/performance-shootout-of-nearest-neighbours-querying/
+ER  - 
+TY  - ICOMM
+T1  - Word2vec Tutorial
+A1  - Rehurek, Radim
+KW  - consulting
+KW  - gensim
+KW  - machine learning
+KW  - programming
+KW  - radim rehurek
+UR  - http://radimrehurek.com/2014/02/word2vec-tutorial/
+ER  - 
+TY  - ICOMM
+T1  - gensim: models.word2vec – Deep learning with word2vec
+A1  - Rehurek, Radim
+UR  - http://radimrehurek.com/gensim/models/word2vec.html
+ER  - 
+TY  - JOUR
+T1  - El control de la reputación on line para prevenir y gestionar una crisis
+A1  - Rodríguez, María del Mar
+A1  - Marauri, Íñigo
+Y1  - 2013///
+PB  - Fundación Telefónica Patronato de Fundación Telefónica
+JF  - TELOS
+VL  - 95
+IS  - Big Data
+SP  - 98
+EP  - 107
+UR  - http://telos.fundaciontelefonica.com/docs/2013/11/11/11400001_4_4_0.pdf#page=99
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Rodríguez, Marauri/2013/Rodríguez, Marauri - 2013 - El control de la reputación on line para prevenir y gestionar una crisis.pdf
+ER  - 
+TY  - ICOMM
+T1  - Aprendizaje de modelos probabilísticos
+A1  - Ruiz Reina, J. L.
+Y1  - 2013///
+PB  - Dpto. Ciencias de la Computación e Inteligencia Artificial. Universidad de Sevilla
+UR  - http://www.cs.us.es/cursos/ia2/temas/tema-04.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Ruiz Reina/2013/Ruiz Reina - 2013 - Aprendizaje de modelos probabilísticos.pdf
+ER  - 
+TY  - ICOMM
+T1  - Análisis discriminante: el procedimiento Discriminante
+A1  - Ruiz, Miguel Ángel
+A1  - Pardo, Antonio
+Y1  - 2001///
+UR  - http://pendientedemigracion.ucm.es/info/socivmyt/paginas/D_departamento/materiales/analisis_datosyMultivariable/23discr_SPSS.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Ruiz, Pardo/2001/Ruiz, Pardo - 2001 - Análisis discriminante el procedimiento Discriminante.pdf
+ER  - 
+TY  - BOOK
+T1  - Artificial Intelligence: A modern approach
+A1  - Russell, Stuart J.
+A1  - Norvig, Peter
+Y1  - 1995///
+PB  - Prentice-Hall
+ET  - 1st
+UR  - http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.259.8854&rep=rep1&type=pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Russell, Norvig/1995/Russell, Norvig - 1995 - Artificial Intelligence A modern approach(2).pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Russell, Norvig/1995/Russell, Norvig - 1995 - Artificial Intelligence A modern approach.pdf
+ER  - 
+TY  - BOOK
+T1  - Artificial Intelligence: A Modern Approach
+A1  - Russell, Stuart J.
+A1  - Norvig, Peter
+Y1  - 2009///
+PB  - Prentice Hall Press
+ET  - 3rd
+CY  - Upper Saddle River, NJ, USA
+SN  - 0136042597, 9780136042594
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Russell, Norvig/2009/Russell, Norvig - 2009 - Artificial Intelligence A Modern Approach.pdf
+ER  - 
+TY  - BOOK
+T1  - Artificial Intelligence: A Modern Approach
+A1  - Russell, Stuart J.
+A1  - Norvig, Peter
+Y1  - 2003///
+PB  - Pearson Education
+ET  - 2nd
+SN  - 0137903952
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Russell, Norvig/1996/Russell, Norvig - 1996 - Artificial Intelligence A Modern Approach.pdf
+ER  - 
+TY  - JOUR
+T1  - Part-of-Speech Tagging Guidelines for the Penn Treebank Project (3rd Revision)
+A1  - Santorini, Beatrice
+Y1  - 1990/07//
+JF  - Technical Reports (CIS)
+SP  - Paper 570
+EP  - Paper 570
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Santorini/1990/Santorini - 1990 - Part-of-Speech Tagging Guidelines for the Penn Treebank Project (3rd Revision).ps
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Santorini/1990/Santorini - 1990 - Part-of-Speech Tagging Guidelines for the Penn Treebank Project (3rd Revision).pdf
+N2  - This manual addresses the linguistic issues that arise in connection with annotating texts by part of speech ("tagging"). Section 2 is an alphabetical list of the parts of speech encoded in the annotation systems of the Penn Treebank Project, along with their corresponding abbreviations ("tags") and some information concerning their definition. This section allows you to find an unfamiliar tag by looking up a familiar part of speech. Section 3 recapitulates the information in Section 2, but this time the information is alphabetically ordered by tags. This is the section to consult in order to find out what an unfamiliar tag means. Since the parts of speech are probably familiar to you from high school English, you should have little difficulty in assimilating the tags themselves. However, it is often quite difficult to decide which tag is appropriate in a particular context. The two sections 4 and 5 therefore include examples and guidelines on how to tag problematic cases. If you are uncertain about whether a given tag is correct or not, refer to these sections in order to ensure a consistently annotated text. Section 4 discusses parts of speech that are easily confused and gives guidelines on how to tag such cases, while Section 5 contains an alphabetical list of specific problematic words and collocations. Finally, Section 6 discusses some general tagging conventions. One general rule, however, is so important that we state it here. Many texts are not models of good prose, and some contain outright errors and slips of the pen. Do not be tempted to correct a tag to what it would be if the text were correct; rather, it is the incorrect word that should be tagged correctly.
+ER  - 
+TY  - THES
+T1  - Recursive Deep Learning for Natural Language Processing and Computer Vision
+A1  - Socher, Richard
+Y1  - 2014/08//
+PB  - Stanford University
+UR  - http://nlp.stanford.edu/~socherr/thesis.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Socher/2014/Socher - 2014 - Recursive Deep Learning for Natural Language Processing and Computer Vision.pdf
+ER  - 
+TY  - CONF
+T1  - Semantic compositionality through recursive matrix-vector spaces
+A1  - Socher, Richard
+A1  - Huval, Brody
+A1  - Manning, Christopher D.
+A1  - Ng, Andrew Y.
+Y1  - 2012/07//
+PB  - Association for Computational Linguistics
+JF  - Proceedings of the 2012 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning
+T3  - EMNLP-CoNLL '12
+SP  - 1201
+EP  - 1211
+CY  - Stroudsburg, PA, USA
+SN  - 9781937284435
+UR  - http://dl.acm.org/citation.cfm?id=2391084
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Socher et al/2012/Socher et al. - 2012 - Semantic compositionality through recursive matrix-vector spaces.pdf
+N2  - Single-word vector space models have been very successful at learning lexical informa- tion. However, they cannot capture the com- positional meaning of longer phrases, prevent- ing them from a deeper understanding of lan- guage. We introduce a recursive neural net- work (RNN) model that learns compositional vector representations for phrases and sen- tences of arbitrary syntactic type and length. Our model assigns a vector and a matrix to ev- ery node in a parse tree: the vector captures the inherent meaning of the constituent, while the matrix captures how it changes the mean- ing of neighboring words or phrases. This matrix-vector RNN can learn the meaning of operators in propositional logic and natural language. The model obtains state of the art performance on three different experiments: predicting fine-grained sentiment distributions of adverb-adjective pairs; classifying senti- ment labels of movie reviews and classifying semantic relationships such as cause-effect or topic-message between nouns using the syn- tactic path between them.
+ER  - 
+TY  - CONF
+T1  - Parsing natural scenes and natural language with recursive neural networks
+A1  - Socher, Richard
+A1  - Lin, Cliff Chiung-yu C.C.-Y.
+A1  - Ng, Andrew Y.
+A1  - Manning, Christopher D.
+Y1  - 2011///
+JF  - Proceedings of the 28th International Conference on Machine Learning
+T3  - ICML'11
+SP  - 129
+EP  - 136
+CY  - Computer Science Department, Stanford University
+UR  - http://fur.ly/0/Socher2011
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Socher et al/2011/Socher et al. - 2011 - Parsing natural scenes and natural language with recursive neural networks.pdf
+ER  - 
+TY  - CONF
+T1  - Semi-supervised Recursive Autoencoders for Predicting Sentiment Distributions
+A1  - Socher, Richard
+A1  - Pennington, Jeffrey
+A1  - Huang, Eric H.
+A1  - Ng, Andrew Y.
+A1  - Manning, Christopher D.
+Y1  - 2011///
+PB  - Association for Computational Linguistics
+JF  - Proceedings of the 2011 Conference on Empirical Methods in Natural Language Processing
+T3  - EMNLP '11
+SP  - 151
+EP  - 161
+CY  - Stroudsburg, PA, USA
+SN  - 978-1-937284-11-4
+UR  - http://dl.acm.org/citation.cfm?id=2145450
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Socher et al/2011/Socher et al. - 2011 - Semi-supervised Recursive Autoencoders for Predicting Sentiment Distributions.pdf
+N1  - http://www.aclweb.org/anthology/D11-1014
+N2  - We introduce a novel machine learning framework based on recursive autoencoders for sentence-level prediction of sentiment label distributions. Our method learns vector space representations for multi-word phrases. In sentiment prediction tasks these representations outperform other state-of-the-art approaches on commonly used datasets, such as movie reviews, without using any pre-defined sentiment lexica or polarity shifting rules. We also evaluate the model's ability to predict sentiment distributions on a new dataset based on confessions from the experience project. The dataset consists of personal user stories annotated with multiple labels which, when aggregated, form a multinomial distribution that captures emotional reactions. Our algorithm can more accurately predict distributions over such labels compared to several competitive baselines.
+ER  - 
+TY  - CONF
+T1  - Recursive deep models for semantic compositionality over a sentiment treebank
+A1  - Socher, Richard
+A1  - Perelygin, Alex
+A1  - Wu, Jean Y.
+A1  - Chuang, Jason
+A1  - Manning, Christopher D.
+A1  - Ng, Andrew Y.
+A1  - Potts, Christopher
+Y1  - 2013/10//
+PB  - Association for Computational Linguistics
+JF  - Proceedings of the 2013 conference on Empirical Methods in Natural Language Processing
+T3  - EMNLP '13
+SP  - 1631
+EP  - 1642
+UR  - http://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Socher et al/2013/Socher et al. - 2013 - Recursive deep models for semantic compositionality over a sentiment treebank.pdf
+N2  - Semantic word spaces have been very useful but cannot express the meaning of longer phrases in a principled way. Further progress towards understanding compositionality in tasks such as sentiment detection requires richer supervised training and evaluation resources and more powerful models of composition. To remedy this, we introduce a Sentiment Treebank. It includes fine grained sentiment labels for 215,154 phrases in the parse trees of 11,855 sentences and presents new challenges for sentiment compositionality. To address them, we introduce the Recursive Neural Tensor Network. When trained on the new treebank, this model outperforms all previous methods on several metrics. It pushes the state of the art in single sentence positive/negative classification from 80% up to 85.4%. The accuracy of predicting fine-grained sentiment labels for all phrases reaches 80.7%, an improvement of 9.7% over bag of features baselines. Lastly, it is the only model that can accurately capture the effects of negation and its scope at various tree levels for both positive and negative phrases.
+ER  - 
+TY  - BOOK
+T1  - Rapid GUI programming with Python and Qt: the definitive guide to PyQt programming
+A1  - Summerfield, Mark
+Y1  - 2008///
+KW  - Användargränssnitt
+KW  - Python (programspråk)
+KW  - Qt (Electronic resource)
+PB  - Prentice Hall
+SN  - 9780132354189
+UR  - http://fp5qq3tk5q.search.serialssolutions.com?ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=book&rft.title=Rapid+GUI+programming+with+Python+and+Qt&rft.au=S
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Summerfield/2008/Summerfield - 2008 - Rapid GUI programming with Python and Qt the definitive guide to PyQt programming.pdf
+ER  - 
+TY  - ICOMM
+T1  - Machine Learning toolboxes feature comparision matrix
+A1  - The Shogun Toolbox Foundation
+Y1  - 2015///
+UR  - http://www.shogun-toolbox.org/page/features/
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/The Shogun Toolbox Foundation/2015/The Shogun Toolbox Foundation - 2015 - Machine Learning toolboxes feature comparision matrix.pdf
+ER  - 
+TY  - ICOMM
+T1  - The Stanford Parser: A statistical parser
+A1  - The Stanford Natural Language Processing Group
+UR  - http://nlp.stanford.edu/software/lex-parser.shtml
+ER  - 
+TY  - CONF
+T1  - Word Representations: A Simple and General Method for Semi-supervised Learning
+A1  - Turian, Joseph
+A1  - Ratinov, Lev
+A1  - Bengio, Yoshua
+Y1  - 2010///
+JF  - Proceedings of the 48th Annual Meeting of the Association for Computational Linguistics
+T3  - ACL'10
+SP  - 384
+EP  - 394
+SN  - 9781617388088
+UR  - http://www.iro.umontreal.ca/~lisa/pointeurs/turian-wordrepresentations-acl10.pdf
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Turian, Ratinov, Bengio/2010/Turian, Ratinov, Bengio - 2010 - Word Representations A Simple and General Method for Semi-supervised Learning.pdf
+N2  - If we take an existing supervised NLP system, a simple and general way to improve accuracy is to use unsupervised word representations as extra word features. We evaluate Brown clusters, Collobert and Weston (2008) embeddings, and HLBL (Mnih & Hinton, 2009) embeddings of words on both NER and chunking. We use near state-of-the-art supervised baselines, and find that each of the three word representations improves the accuracy of these baselines. We find further improvements by combining different word representations. You can download our word features, for off-the-shelf use in existing NLP systems, as well as our code, here: http://metaoptimize.com/projects/wordreprs/
+ER  - 
+TY  - JOUR
+T1  - From frequency to meaning: Vector space models of semantics
+A1  - Turney, Peter D.
+A1  - Pantel, Patrick
+Y1  - 2010///
+KW  - ALGORITHM
+KW  - CATEGORIZATION
+KW  - COMMUNICATION
+KW  - COOCCURRENCE
+KW  - DECOMPOSITION
+KW  - INFORMATION
+KW  - MATHEMATICAL-THEORY
+KW  - RETRIEVAL
+KW  - SIMILARITY
+KW  - TEXT
+PB  - AI ACCESS FOUNDATION
+JF  - Journal of Artificial Intelligence Research
+VL  - 37
+SP  - 141
+EP  - 188
+CY  - USC INFORMATION SCIENCES INST, 4676 ADMIRALITY WAY, MARINA DEL REY, CA 90292-6695 USA
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Turney, Pantel/2010/Turney, Pantel - 2010 - From frequency to meaning Vector space models of semantics.pdf
+N2  - Computers understand very little of the meaning of human language. This profoundly limits our ability to give instructions to computers, the ability of computers to explain their actions to us, and the ability of computers to analyse and process text. Vector space models (VSMs) of semantics are beginning to address these limits. This paper surveys the use of VSMs for semantic processing of text. We organize the literature on VSMs according to the structure of the matrix in a VSM. There are currently three broad classes of VSMs, based on term-document, word-context, and pair-pattern matrices, yielding three classes of applications. We survey a broad range of applications in these three categories and we take a detailed look at a specific open source project in each category. Our goal in this survey is to show the breadth of applications of VSMs for semantics, to provide a new perspective on VSMs for those who are already familiar with the area, and to provide pointers into the literature for those who are less familiar with the field.
+ER  - 
+TY  - BOOK
+T1  - New models in probabilistic information retrieval
+A1  - Van Rijsbergen, Cornelis J.
+A1  - Robertson, Stephen Edward
+A1  - Porter, Martin F.
+Y1  - 1980///
+PB  - Computer Laboratory, University of Cambridge
+UR  - http://www.sigir.org/files/museum/pub-21/
+ER  - 
+TY  - ICOMM
+T1  - Curse of dimensionality
+A1  - Wikipedia
+Y1  - 2014///
+UR  - http://en.wikipedia.org/wiki/Curse_of_dimensionality
+ER  - 
+TY  - ICOMM
+T1  - Wikipedia en Español
+A1  - Wikipedia
+Y1  - 2015///
+UR  - http://es.wikipedia.org/
+ER  - 
+TY  - ICOMM
+T1  - Wikipedia in English
+A1  - Wikipedia
+Y1  - 2015///
+UR  - http://en.wikipedia.org/
+ER  - 
+TY  - BOOK
+T1  - La danza de los signos: nociones de semiótica general
+A1  - Zecchetto, Victorino
+Y1  - 2003///
+PB  - La Cruj{í}a
+T3  - Colecci{ó}n Inclusiones: Serie Categor{í}as
+SN  - 9789871004195
+UR  - https://books.google.es/books?id=sbHjAAAAMAAJ
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Zecchetto/2003/Zecchetto - 2003 - La danza de los signos nociones de semiótica general.pdf
+ER  - 
+TY  - JOUR
+T1  - Chinese comments sentiment classification based on word2vec and SVMperf
+A1  - Zhang, Dongwen
+A1  - Xu, Hua
+A1  - Su, Zengcai
+A1  - Xu, Yunfeng
+Y1  - 2015///
+KW  - Semantic features
+KW  - Sentiment classification
+KW  - Word2vec
+KW  - {SVMperf}
+JF  - Expert Systems with Applications
+VL  - 42
+IS  - 4
+SP  - 1857
+EP  - 1863
+DO  - 10.1016/j.eswa.2014.09.011
+UR  - http://www.sciencedirect.com/science/article/pii/S0957417414005508
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Zhang et al/2015/Zhang et al. - 2015 - Chinese comments sentiment classification based on word2vec and SVMperf.pdf
+N2  - Since the booming development of e-commerce in the last decade, the researchers have begun to pay more attention to extract the valuable information from consumers comments. Sentiment classification, which focuses on classify the comments into positive class and negative class according to the polarity of sentiment, is one of the studies. Machine learning-based method for sentiment classification becomes mainstream due to its outstanding performance. Most of the existing researches are centered on the extraction of lexical features and syntactic features, while the semantic relationships between words are ignored. In this paper, in order to get the semantic features, we propose a method for sentiment classification based on word2vec and SVMperf. Our research consists of two parts of work. First of all, we use word2vec to cluster the similar features for purpose of showing the capability of word2vec to capture the semantic features in selected domain and Chinese language. And then, we train and classify the comment texts using word2vec again and SVMperf. In the process, the lexicon-based and part-of-speech-based feature selection methods are respectively adopted to generate the training file. We conduct the experiments on the data set of Chinese comments on clothing products. The experimental results show the superior performance of our method in sentiment classification.
+ER  - 
