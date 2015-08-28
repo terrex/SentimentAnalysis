@@ -22,3 +22,6 @@ pfc-memoria.mw
 _minted*
 mendeley.Data
 pfc-memoria.srs*s
+*.mintedcmd
+*.mintedmd5
+*.pyg
