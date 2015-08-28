@@ -23,6 +23,7 @@ viewpdf: $(MASTER).pdf
 clean:
 	latexmk -C -xelatex $(MASTER).tex
 	$(RM) $(MASTER).bbl $(MASTER).run.xml $(PUMLS_TEXS)
+	$(RM) -Rfv _minted-*/
 
 distclean: clean
 
