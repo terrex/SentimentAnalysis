@@ -182,6 +182,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
         title: "Save current config"
         folder: if (typeof shortcuts !== 'undefined')
                     shortcuts.documents
+                else
+                    "."
     }
 
     FileDialog {
@@ -197,6 +199,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
         title: "Save current config"
         folder: if (typeof shortcuts !== 'undefined')
                     shortcuts.documents
+                else
+                    "."
     }
 
     FileDialog {
@@ -219,6 +223,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
         title: "Open config"
         folder: if (typeof shortcuts !== 'undefined')
                     shortcuts.documents
+                else
+                    "."
     }
 
     MessageDialog {
