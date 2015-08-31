@@ -180,7 +180,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
                             ""))
         sidebarVisible: true
         title: "Save current config"
-        folder: shortcuts.documents
+        folder: if (shortcuts)
+                    shortcuts.documents
     }
 
     FileDialog {
@@ -194,7 +195,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
                             ""))
         sidebarVisible: true
         title: "Save current config"
-        folder: shortcuts.documents
+        folder: if (shortcuts)
+                    shortcuts.documents
     }
 
     FileDialog {
@@ -215,7 +217,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
         }
         sidebarVisible: true
         title: "Open config"
-        folder: shortcuts.documents
+        folder: if (shortcuts)
+                    shortcuts.documents
     }
 
     MessageDialog {
