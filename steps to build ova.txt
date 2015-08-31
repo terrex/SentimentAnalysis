@@ -1,0 +1,30 @@
+Steps to produce virtualbox appliance:
+
+1. Install ubuntu 15.04 minimal cd (netinst)
+   http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-i386/current/images/netboot/mini.iso
+
+2. Password for normal user:
+   pfc/pfc
+
+3. Install packages and fix misconfigured:
+   sudo apt-get install fluxbox xorg rox-filer xterm python3 python3-{pyqt5,pyqt5.qtquick,scipy,numpy,yaml,nltk,pip} libopenblas-dev libatlas-dev qml-module-qtquick2 qml-module-qtquick-{dialogs,controls,layouts}
+   sudo dpkg --configure -a
+   sudo apt-get clean
+   sudo pip3 install scikit-learn
+   python3 -m nltk.downloader stopwords wordnet punkt maxent_treebank_pos_tagger
+
+4. Create file /home/pfc/.xsession
+   xrandr --output default --mode 800x600
+   xterm -e /home/pfc/pfc.sh &
+   exec fluxbox
+   
+5. Create file /home/pfc/pfc.sh:
+   #!/bin/bash -x
+   cd Projects/pfc-sent-anal-movie-rev/project
+   PYTHONPATH=. python3 pfcsamr/gui.py
+
+6. Add line to file /etc/rc.local:
+   su - pfc -s /bin/bash -c startx &
+
+7. Set "Anybody" on X11 allowed users:
+   sudo dpkg-reconfigure x11-common
