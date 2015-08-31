@@ -23,26 +23,3 @@ __author__ = "Guillermo Gutierrez-Herrera"
 __version__ = '0.0.1'
 __license__ = "GPLv3"
 __copyright__ = "Copyright 2015, Guillermo Gutierrez-Herrera <guiguther@alum.us.es>"
-
-from pfcsamr import here
-import os.path
-from urllib.request import urlretrieve
-import zipfile
-
-file = os.path.join(here, 'data', 'sampleSubmission.csv')
-if not os.path.exists(file):
-    urlretrieve("https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/download/sampleSubmission.csv", filename=file)
-
-file = os.path.join(here, 'data', 'test.tsv')
-filezip = file + ".zip"
-if not os.path.exists(file):
-    urlretrieve("https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/download/test.tsv.zip", filename=filezip)
-    zipfile.ZipFile(filezip).extractall(os.path.dirname(file))
-
-file = os.path.join(here, 'data', 'train.tsv')
-filezip = file + ".zip"
-if not os.path.exists(file):
-    urlretrieve("https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/download/train.tsv.zip", filename=filezip)
-    zipfile.ZipFile(filezip).extractall(os.path.dirname(file))
-
-DATA_LOADED = True
