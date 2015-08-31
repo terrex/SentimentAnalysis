@@ -188,15 +188,35 @@ def postag(text: str) -> str:
 
 
 class SelectNumerics(BaseEstimator, TransformerMixin):
-    def __init__(self, columns_is_text, columns_names, columns_is_class):
+    """ Filter out non-numeric columns
+    """
+
+    def __init__(self, columns_is_text: list, columns_names: list, columns_is_class: list):
+        """
+        :param columns_is_text: list of boolean indicating True values for text-like valued column positions
+        :param columns_names: list of str with column headings
+        :param columns_is_class: list of boolean indicating True on classification column and False otherwise
+        :return:
+        """
         self.columns_is_text = columns_is_text
         self.columns_names = columns_names
         self.columns_is_class = columns_is_class
 
     def fit(self, x, y=None):
+        """ Do nothing.
+
+        :param x: not used
+        :param y: not used
+        :return: self
+        """
         return self
 
-    def transform(self, data):
+    def transform(self, data) -> list:
+        """ Strips out non-numeric columns from data two-dimensional array.
+
+        :param data: two-dimensional array-like for data table cell values
+        :return:
+        """
         result = []
         for d in data:
             e = {}
@@ -208,13 +228,32 @@ class SelectNumerics(BaseEstimator, TransformerMixin):
 
 
 class SelectText(BaseEstimator, TransformerMixin):
-    def __init__(self, column_i=None):
+    """ Selects only one column (column_i) for two-dimensional data.
+    """
+
+    def __init__(self, column_i: int=None):
+        """ Selects only one column (column_i) for two-dimensional data.
+
+        :param column_i: int index of column to select
+        :return: None
+        """
         self.column_i = column_i
 
     def fit(self, x, y=None):
+        """ Do nothing.
+
+        :param x: not used
+        :param y: not used
+        :return:
+        """
         return self
 
-    def transform(self, data):
+    def transform(self, data) -> np.ndarray:
+        """ Transform data of NxM to Nx1 two-dimensional array with selected column.
+
+        :param data: two-dimensional array-like object
+        :return: two-dimensional with same number of rows but only one column, the selected one specified by column_i.
+        """
         if not isinstance(data, np.ndarray):
             result = np.array(data)
 
@@ -223,44 +262,144 @@ class SelectText(BaseEstimator, TransformerMixin):
 
 
 class MyPipeline(Pipeline):
+    """ Pipeline respectful with feature names (for preserving column headings)
+    """
+
     def get_feature_names(self):
+        """ Return the feature names of the final estimator for this pipeline.
+
+        :return: list of str feature names of final estimator for the pipeline
+        """
         return self._final_estimator.get_feature_names()
 
 
 class Orchestrator(object):
-    """Orquestador principal, parte del Modelo en el MVP
+    """ Main singleton, implementing Model part on Model-View-Presenter
     """
 
     def __init__(self, mainPfcsamrApp):
+        """ Constructor
+        :param mainPfcsamrApp: singleton of MainPafcsmrApp
+        :return: None
+        """
         self.file_path = None
-        """:type: str"""
+        """ Current file path.
+
+        :type: str"""
 
         self.headings = []
+        """ List of column headings
+
+        :type: list[str]"""
+
         self.rows = []
-        self.preprocessed_rows = []
+        """ Full data table
+
+        :type: np.ndarray"""
+
+        self.preprocessed_rows = None
+        """ Preproc data table.
+
+        :type: np.ndarray"""
+
         self.main_pfcsamr_app = mainPfcsamrApp
         """:type: MainPfcsamr2App"""
+
         self.featured_rows = []
+        """ Featured data table.
+
+        :type: np.ndarray"""
+
         self.featured_rows_train = []
+        """ Featured data table (train subset)
+
+        :type: np.ndarray"""
+
         self.featured_rows_test = []
+        """ Featured data table (test subset)
+
+        :type: np.ndarray"""
+
         self.train_y = []
+        """ Vector of classes
+
+        :type: np.ndarray"""
+
         self.train_y_train = []
+        """ Vector of classes  (train subset)
+
+        :type: np.ndarray"""
+
         self.train_y_test = []
+        """ Vector of classes (test subset)
+
+        :type: np.ndarray"""
+
         self.feature_union = None
         """:type: FeatureUnion"""
+
         self.featured_headings = []
+        """ heading column names for features data table.
+
+        :type: list[str]"""
+
         self.estimators = {}
+        """ Map of trained estimators indexed by name.
+
+         :type: dict"""
+
         self.already_splitted = False
+        """ Boolean flag indicating if train set has been sub-split on train and test.
+
+        :type: bool"""
+
         self.featured_support = []
+        """ Support vector of selected features.
+
+        :type: list[bool]"""
+
         self.featured_selected_headings = []
+        """ Selected subset of feature headings.
+
+        :type: list[str]"""
+
         self.classify_headings = []
+        """ Heading of classify stage
+
+        :type: list[str]"""
+
         self.classify_rows = []
+        """ Data table of input classify stage
+
+        :type: np.ndarray"""
+
         self.classify_preprocessed_rows = []
+        """ Data table of preprocessed data on classify stage
+
+        :type: np.ndarray"""
+
         self.classify_featured_rows = []
+        """ Data table of vectorized data to features on classify stage
+
+        :type: np.ndarray"""
+
         self.predictions_headings = []
+        """ List of heading names for predictions
+
+        :type: list[str]"""
+
         self.predictions_rows = []
+        """ Data date of predictions to be saved and uploaded to kaggle.
+
+        :type: np.ndarray"""
 
     def do_load_train_tsv(self, file_path: str=None, max_rows=None):
+        """ Read and load ``train.tsv``
+
+        :param file_path: str - path to file
+        :param max_rows: int or None - max number of rows to read or everyone
+        :return:
+        """
         if file_path.startswith('file:///'):
             file_path = file_path[7:]
         self.file_path = file_path
@@ -284,9 +423,16 @@ class Orchestrator(object):
         return self
 
     def do_classify_test_tsv(self, file_path: str=None, max_rows=None):
+        """ Read and load ``test.tsv``.
+
+        :param file_path: str - path to file
+        :param max_rows: int or None - max number of rows to read or everyone
+        :return:
+        """
         if file_path.startswith('file:///'):
             file_path = file_path[7:]
         self.file_path = file_path
+        self.classify_rows = []
         with open(file_path, 'rt') as file:
             rdr = csv.reader(file, dialect='excel-tab')
             self.classify_headings = next(rdr)
@@ -305,6 +451,10 @@ class Orchestrator(object):
         return self
 
     def do_preprocess(self):
+        """ Do preprocess (train stage).
+
+        :return:
+        """
         from .replacers import RegexpReplacer as ContractionsExpander
 
         expander = ContractionsExpander()
@@ -346,6 +496,10 @@ class Orchestrator(object):
         return self
 
     def do_classify_preprocess(self):
+        """ Do preprocess (classify stage).
+
+        :return:
+        """
         from .replacers import RegexpReplacer as ContractionsExpander
 
         expander = ContractionsExpander()
@@ -386,6 +540,12 @@ class Orchestrator(object):
         return self
 
     def do_features_countvectorizer(self, variance_threshold=None, **kwargs):
+        """ Do feature extract and selection (train stage).
+
+        :param variance_threshold: float or None - threshold for feature selection
+        :param kwargs: dict - options passed to CountVectorizer
+        :return:
+        """
         self.main_pfcsamr_app.variance_warn_message = ""
         if not self.preprocessed_rows:
             self.preprocessed_rows = copy(self.rows)
@@ -450,6 +610,9 @@ class Orchestrator(object):
         return self
 
     def do_classify_features_countvectorizer(self):
+        """ Do feature extract and selection (classify stage).
+        :return:
+        """
         if not self.classify_preprocessed_rows:
             self.classify_preprocessed_rows = copy(self.classify_rows)
 
@@ -466,6 +629,13 @@ class Orchestrator(object):
         return self
 
     def do_learn(self, estimator_klazz: object, train_split: float=0.75, **estimator_klazz_params):
+        """ Do learn (train stage).
+
+        :param estimator_klazz: class - class object of sklearn estimator
+        :param train_split: float - percentage for train and test subsets split
+        :param estimator_klazz_params: kwargs passed to estimator_klazz constructor
+        :return:
+        """
         if self.main_pfcsamr_app.learn_train_split_resplit and train_split is not None:
             self.already_splitted = False
             logger.debug("Re-Splitting")
@@ -512,6 +682,11 @@ class Orchestrator(object):
             self.main_pfcsamr_app.queue.put_nowait(gui_callback)
 
     def do_classify_classify(self, evaluate_using: str):
+        """ Compute predictions (classify stage).
+
+        :param evaluate_using: str - fqcn of trained estimator
+        :return:
+        """
         my_estimator = self.estimators[evaluate_using]
         """:type: LinearClassifierMixin"""
         predictions = my_estimator.predict(self.classify_featured_rows.toarray())
@@ -523,6 +698,11 @@ class Orchestrator(object):
         return self
 
     def classify_save_csv(self, filename: str):
+        """ Save ``submission.csv`` for uploading it to kaggle
+
+        :param filename: str - path to file save to
+        :return:
+        """
         with open(filename, 'wt') as file:
             writer = csv.writer(file)
             writer.writerow(['PhraseId', 'Sentiment'])

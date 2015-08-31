@@ -29,14 +29,14 @@ import logging.config
 import os
 import os.path
 
-## here ##
+# here #
 
 here = os.path.abspath(os.path.dirname(__file__))
 """Path to directory containing pfcsamr module (this file)
 
 :type: str"""
 
-## logging_path ##
+# logging_path #
 
 logging_path = ""
 """Path to ``logging.conf`` file in use
@@ -49,14 +49,14 @@ if not os.path.exists(_cwd_logging_path):
 else:
     logging_path = _cwd_logging_path
 
-## data_path ##
+# data_path #
 
 data_path = os.path.join(here, 'data/')
 """Path to data directory
 
 :type: str"""
 
-## print current logging.conf file ##
+# print current logging.conf file #
 
 logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)

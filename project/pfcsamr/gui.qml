@@ -55,7 +55,7 @@ ApplicationWindow {
     }
 
     onClosing: {
-        console.log('closing....')
+        // console.log('closing....')
         update_gui.stop()
     }
 
@@ -1149,7 +1149,7 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
                 model: mainPfcsamrApp.current_model
 
                 onModelChanged: {
-                    console.log("onModelChanged")
+                    // console.log("onModelChanged")
                     while (columnCount > 0) {
                         removeColumn(0)
                     }
@@ -1165,7 +1165,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
                         }
                         resizeColumnsToContents()
                     } else {
-                        console.log("model is undefined")
+
+                        // console.log("model is undefined")
                     }
                 }
             }
