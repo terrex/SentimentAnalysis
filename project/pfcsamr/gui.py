@@ -35,19 +35,12 @@ import queue
 import traceback
 
 import yaml
-
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
-
 from PyQt5.QtQml import QQmlApplicationEngine
-
 from PyQt5.QtWidgets import QApplication
-
 from PyQt5.QtQuick import QQuickItem, QQuickWindow
-
 from sklearn.lda import LDA
-
 from sklearn.naive_bayes import MultinomialNB
-
 from sklearn.naive_bayes import GaussianNB
 
 from sklearn.qda import QDA
@@ -587,4 +580,8 @@ def main():
 
 
 if __name__ == '__main__':
+    from pfcsamr.data import DATA_LOADED
+
+    if DATA_LOADED:
+        pass
     main()
