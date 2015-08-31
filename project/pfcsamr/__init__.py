@@ -61,3 +61,8 @@ data_path = os.path.join(here, 'data/')
 logging.config.fileConfig(logging_path)
 logger = logging.getLogger(__name__)
 logger.info("Using '%s' as logging config file" % logging_path)
+
+import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('punkt')
