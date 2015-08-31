@@ -180,7 +180,7 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
                             ""))
         sidebarVisible: true
         title: "Save current config"
-        folder: if (shortcuts)
+        folder: if (typeof shortcuts !== 'undefined')
                     shortcuts.documents
     }
 
@@ -195,7 +195,7 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
                             ""))
         sidebarVisible: true
         title: "Save current config"
-        folder: if (shortcuts)
+        folder: if (typeof shortcuts !== 'undefined')
                     shortcuts.documents
     }
 
@@ -217,7 +217,7 @@ This program comes with ABSOLUTELY NO WARRANTY; for details click `Show Details.
         }
         sidebarVisible: true
         title: "Open config"
-        folder: if (shortcuts)
+        folder: if (typeof shortcuts !== 'undefined')
                     shortcuts.documents
     }
 
