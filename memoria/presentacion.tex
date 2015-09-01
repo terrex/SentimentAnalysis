@@ -5,6 +5,10 @@
 
 \documentclass[xetex,compress,spanish,tikz]{beamer}
 
+\setbeameroption{show notes}
+%\setbeameroption{show only notes}
+%\setbeameroption{hide notes}
+
 \mode<presentation>
 {
   \usetheme{Warsaw}
@@ -27,6 +31,11 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 
+%% bib %%
+\usepackage[style=authoryear,natbib=true,%
+maxbibnames=99,maxcitenames=2,%
+citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
+\bibliography{\jobname}
 %% style %%
 \defaultfontfeatures{Mapping=tex-text,Numbers={OldStyle}}
 \setmainfont[Mapping=tex-text]{Hoefler Text}
@@ -73,18 +82,33 @@ Universidad de Sevilla}
 \node[anchor=center] at ($(current page.south west)+(2.9,1.3)$) {
 \includegraphics[width=30pt]{logo-lsi}
 };
+
+\note{[Buenos días] / [Buenas tardes]. Mi nombre es Guillermo Gutiérrez y voy a presentar mi Proyecto Fin de Carrera titulado \emph{Procesamiento del Lenguaje Natural Aplicado al Análisis del Sentimiento de Opiniones} y dirigido por el profesor José Antonio Troyano.}
 }
 
 %\section[Índice]{}
 \frame{\frametitle{Índice}
 \tableofcontents
+
+\note[item]<1>{Empezaremos la presentación con una breve introducción y los objetivos del proyecto; y la planificación y metodología utilizados para su realización.}
+\note[item]<1>{En la siguiente parte resumiremos los métodos de Procesamiento de Lenguaje Natural y las técnicas de Aprendizaje Automático que se describen en la memoria.}
+\note[item]<1>{A continuación presentamos el problema concreto de clasificación automática del sentimiento; y el diseño de la solución propuesta.}
+\note[item]<1>{Y por último las conclusiones del proyecto y la bibliografía que se ha usado principalmente para la realización de este proyecto.}
 }
 
 \section[Introducción]{Introducción y objetivos}
 
 \frame{\frametitle{Introducción (I)}
 \begin{itemize}
-\item X
+\item Los compiladores, traductores y procesadores de lenguajes tradicionales procesan \textbf{lenguajes formales.}
+\item El lenguaje formal se diseña formalmente para evitar la ambigüedad.
+\item El \textbf{lenguaje natural} es ambiguo por naturaleza.
+\item Dentro del ámbito de la Inteligencia Artificial, se ha comprobado eficaz aplicar Aprendizaje Automático al tratamiento del lenguaje natural.
+\item En este proyecto
+\begin{itemize}
+\item se resumen estas técnicas
+\item se desarrolla una aplicación gráfica para usar como laboratorio de experimentación
+\end{itemize}
 \end{itemize}
 }
 
