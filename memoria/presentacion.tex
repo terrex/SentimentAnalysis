@@ -1,0 +1,131 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+%!BIB TS-program = biber
+%!BIB program = biber
+
+\documentclass[xetex,compress,spanish,tikz]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[rgb={.7,.2,.2}]{structure}
+  \setbeamercovered{transparent}
+}
+\useoutertheme[footline=authortitle,subsection=false]{miniframes}
+
+\usepackage[no-math]{fontspec}
+\usepackage[spanish]{babel}
+\usepackage{xltxtra}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+%% style %%
+\defaultfontfeatures{Mapping=tex-text,Numbers={OldStyle}}
+\setmainfont[Mapping=tex-text]{Hoefler Text}
+\setromanfont[Mapping=tex-text]{Hoefler Text}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+\setmonofont[Scale=0.9]{Courier New}
+\sisetup{output-decimal-marker={,},
+	product-units=single,
+	detect-all, detect-inline-family=text, detect-inline-weight=text,
+  detect-display-math=true}
+
+%% custom macros %%
+\newcommand{\email}[1]{%
+  \href{mailto:#1}{\nolinkurl{<#1>}}}
+
+\DeclareSIUnit[number-unit-product = {\,}]
+	\pixel{px}
+
+%% doc info %%
+\title{Procesamiento del Lenguaje Natural Aplicado al Análisis del Sentimiento de Opiniones}
+\author[Guillermo Gutiérrez-Herrera]{Proyecto Fin de Carrera\\Ingeniero en Informática (Plan 97)\\[1em]
+Realizado por: Guillermo Gutiérrez-Herrera\\[1em]
+Dirigido por: José Antonio Troyano}
+\institute{Departamento de Lenguajes y Sistemas Informáticos\\
+Escuela Técnica Superior de Ingeniería Informática\\
+Universidad de Sevilla}
+\date{Septiembre de 2015}
+\logo{\includegraphics[width=10pt]{logo-lsi}\hspace{2pt}\includegraphics[width=15pt]{logo-us}}
+\subject{Procesamiento de NLP aplicado al Análisis de Sentimiento}
+\keywords{Natural Language Processing, Machine Learning, Sentiment Analysis}
+
+%% documento %%
+\begin{document}
+
+\frame{
+\titlepage
+
+\tikz[overlay,remember picture]
+\node[anchor=center] at ($(current page.south west)+(1.3,1.3)$) {
+\includegraphics[width=40pt]{logo-us}
+};
+
+\tikz[overlay,remember picture]
+\node[anchor=center] at ($(current page.south west)+(2.9,1.3)$) {
+\includegraphics[width=30pt]{logo-lsi}
+};
+}
+
+%\section[Índice]{}
+\frame{\frametitle{Índice}
+\tableofcontents
+}
+
+\section[Introducción]{Introducción y objetivos}
+
+\frame{\frametitle{Introducción (I)}
+\begin{itemize}
+\item X
+\end{itemize}
+}
+
+\section[Planificación]{Planificación y metodología}
+
+\section[NLP]{Procesamiento del Lenguaje Natural}
+
+\section[ML]{Aprendizaje Automático}
+
+\section{Problema}
+
+\section[Diseño]{Diseño de la solución}
+
+\section[Conclusiones]{Conclusiones y continuidad}
+
+\section{Bibliografía}
+
+\appendix
+
+\frame{
+\Huge ¿Preguntas?
+\tikz[overlay,remember picture]
+\node[anchor=center] at ($(current page.center)+(2,0)$) {
+  \includegraphics[width=120pt]{preguntas}
+};
+}
+
+\frame{
+\centering
+\huge Gracias por su atención
+
+\vspace{0.2\textheight}
+
+\normalsize
+\begin{minipage}{5.3cm}
+Guillermo Gutiérrez-Herrera
+
+\email{guiguther@alum.us.es}
+
+\email{xiterrex@gmail.com}
+\end{minipage}
+}
+
+\end{document}
