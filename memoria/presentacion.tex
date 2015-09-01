@@ -5,9 +5,10 @@
 
 \documentclass[xetex,compress,spanish,tikz]{beamer}
 
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
+%\usepackage{pgfpages}\setbeameroption{show notes on second screen}
 %\setbeameroption{show only notes}
-%\setbeameroption{hide notes}
+\setbeameroption{hide notes}
 
 \mode<presentation>
 {
@@ -18,7 +19,7 @@
 \useoutertheme[footline=authortitle,subsection=false]{miniframes}
 
 \usepackage[no-math]{fontspec}
-\usepackage[spanish]{babel}
+\usepackage[spanish,es-tabla,es-noshorthands,es-ucroman]{babel}
 \usepackage{xltxtra}
 \usepackage{fontspec}
 \usepackage{xunicode}
@@ -30,12 +31,15 @@
 \usepackage{siunitx}
 \usepackage{tikz}
 \usetikzlibrary{calc}
+\usepackage{booktabs}
+\usepackage{subfigure}
+\usepackage{csvsimple}
 
 %% bib %%
 \usepackage[style=authoryear,natbib=true,%
 maxbibnames=99,maxcitenames=2,%
 citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
-\bibliography{\jobname}
+\bibliography{pfc-memoria.bib}
 %% style %%
 \defaultfontfeatures{Mapping=tex-text,Numbers={OldStyle}}
 \setmainfont[Mapping=tex-text]{Hoefler Text}
@@ -98,21 +102,84 @@ Universidad de Sevilla}
 
 \section[Introducción]{Introducción y objetivos}
 
-\frame{\frametitle{Introducción (I)}
+\frame{\frametitle{Introducción}
 \begin{itemize}
 \item Los compiladores, traductores y procesadores de lenguajes tradicionales procesan \textbf{lenguajes formales.}
 \item El lenguaje formal se diseña formalmente para evitar la ambigüedad.
 \item El \textbf{lenguaje natural} es ambiguo por naturaleza.
 \item Dentro del ámbito de la Inteligencia Artificial, se ha comprobado eficaz aplicar Aprendizaje Automático al tratamiento del lenguaje natural.
-\item En este proyecto
+\item En este proyecto:
 \begin{itemize}
-\item se resumen estas técnicas
-\item se desarrolla una aplicación gráfica para usar como laboratorio de experimentación
+\item Se resumen estas técnicas.
+\item Se desarrolla una aplicación gráfica para usar como laboratorio de experimentación.
+\end{itemize}
+\end{itemize}
+}
+
+\frame[plain]{\frametitle{Introducción. Explosión de información digital}
+\centering
+\pgfimage[height=0.98\textheight]{Hilbert-InfoGrowth}
+\nocite{Hilbert2011}
+
+\note[item]<1>{En el artículo de \citep{Hilbert2011} titulado \citetitle{Hilbert2011} se realiza una estimación de la capacidad global de almacenamiento en los últimos años.}
+\note[item]<1>{En el gráfico podemos observar un incremento exponencial a partir del año 2002 cuando Internet comienza a ser un elemento imprescindible en la mayoría de hogares.}
+\note[item]<1>{Esto demuestra la posibilidad real de aplicar herramientas de tratamiento automático de la información para sintetizar el conocimiento; en el caso de procesar información textual: se puede extraer conocimiento sobre los propios lenguajes (morfología, sintaxis, gramática, semántica), sin que tenga un coste excesivo pues existe gran cantidad de datos disponible en Internet gratuitamente, tan sólo hay que recogerlo y ordenarlo.}
+}
+
+\frame{\frametitle{Introducción. Polaridad del sentimiento}
+\begin{definition}[Polaridad del sentimiento]
+Es la conclusión que se extrae de la comprensión de un documento de tipo crítico: si el objeto de la crítica es bueno (sentimiento positivo) o malo (resp., negativo).
+\end{definition}
+\begin{figure}[htbp]
+\centering
+\pgfimage[height=0.47\textheight]{tramos-polaridad}
+\caption{Escala de valoración del sentimiento usada en Penn Sentiment Treebank de la Universidad de Pennsylvania \citep{Socher2014}}
+\end{figure}
+
+\note[item]<1>{\fullcite{Socher2014}}
+\note[item]<1>{... Comentar sobre reputación de marcas, análisis en twitter, ...}
+}
+
+\frame{\frametitle{Objetivos}
+Los objetivos del proyecto son
+\begin{itemize}
+\item Estudiar
+\begin{itemize}
+\item Diferencias entre el lenguaje natural y formal.
+\item Estrategias, métodos, procedimientos y algoritmos para analizar y extraer información de textos en lenguaje natural (NLP).
+\item Algoritmos de aprendizaje automático (ML).
+\end{itemize}
+\item Desarrollar
+\begin{itemize}
+\item Biblioteca unificada de NLP y ML para el análisis del sentimiento.
+\item Aplicación gráfica para usar en el aula.
 \end{itemize}
 \end{itemize}
 }
 
 \section[Planificación]{Planificación y metodología}
+
+\frame[plain]{%\frametitle{Planificación. Listado de tareas}
+\centering
+\begin{minipage}{0.71\textwidth}
+\resizebox{0.86\textheight}{!}{\csvautotabular{gantt.csv}}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+\begin{tabular}{c|c}
+\toprule
+Estimado & 561 horas\\
+Real & 625 horas\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+}
+
+\frame[plain]{%\frametitle{Planificación. Diagrama de Gantt}
+\tikz[overlay,remember picture]
+\node[anchor=north west] at ($(current page.north west)+(-10pt,-5pt)$) {
+  \pgfimage[width=1.03\paperwidth]{gantt}
+};
+}
 
 \section[NLP]{Procesamiento del Lenguaje Natural}
 
@@ -125,6 +192,12 @@ Universidad de Sevilla}
 \section[Conclusiones]{Conclusiones y continuidad}
 
 \section{Bibliografía}
+
+\frame{\frametitle{Bibliografía}
+\printbibliography[title=\bibname]
+}
+%\newrefcontext para dividir citas
+% Hilbert2011
 
 \appendix
 
