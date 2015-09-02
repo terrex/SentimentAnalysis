@@ -34,6 +34,8 @@
 \usepackage{booktabs}
 \usepackage{subfigure}
 \usepackage{csvsimple}
+\usepackage[colorinlistoftodos, shadow]{todonotes}
+  \presetkeys{todonotes}{inline}{}
 
 %% bib %%
 \usepackage[style=authoryear,natbib=true,%
@@ -71,6 +73,11 @@ Universidad de Sevilla}
 \subject{Procesamiento de NLP aplicado al Análisis de Sentimiento}
 \keywords{Natural Language Processing, Machine Learning, Sentiment Analysis}
 
+
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+  \insertshorttitle\hfill%
+  \insertframenumber\,/\,\inserttotalframenumber}
+  
 %% documento %%
 \begin{document}
 
@@ -181,23 +188,124 @@ Real & 625 horas\\
 };
 }
 
+\frame{\frametitle{Metodología de trabajo}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.58\textwidth]{espiral}
+\caption[Modelo de ciclo de vida en espiral]{Modelo de ciclo de vida en espiral \citep{Boehm1988}}
+\label{fig:espiral}
+\end{figure}
+}
+
 \section[NLP]{Procesamiento del Lenguaje Natural}
+
+\frame{\frametitle{Procesamiento del Lenguaje Natural}
+\todo{Diferencias entre lenguaje natural, artificial, construido ...}
+\todo{Nombrar ejemplo STUDENT (Bobrow1964) ...}
+\todo{Nombrar Linguistic Data Consortium, forma de trabajar con datasets ...}
+}
+
+\frame{\frametitle{NLP. Preprocesamiento}
+\todo{transformaciones / filtros}
+\todo{tokenización, stopwords, stemming (nombrar Porter), lemmatizing, anotación POS-tagging ...}
+}
+
+\frame{\frametitle{NLP. Análisis}
+\todo{analisis sintáctico, ...}
+\todo{modelo de espacio vectorial semántico, ...}
+}
+
+
 
 \section[ML]{Aprendizaje Automático}
 
+\frame{\frametitle{Aprendizaje automático}
+\todo{definición}
+\todo{ejemplos de utilidad}
+}
+
+\frame{\frametitle{ML. Tipologías}
+\todo{Definir las 3 clases y enumerar ejemplos de algoritmos, ...}
+\todo{supervisado, ...}
+\todo{no supervisado, ...}
+\todo{semi-supervisado, ...}
+}
+
+\frame{\frametitle{ML. Espacio de características}
+\todo{figura espacio de características }
+}
+
+\frame{\frametitle{ML. Extracción de características}
+\todo{BOW, 2-BOW, n-BOW,... }
+\todo{RNN, (Socher2013), ... }
+\todo{VM-RNN, (Socher2013), ... }
+}
+
+\frame{\frametitle{ML. Reducción de características}
+\todo{umbral de varianza, ...}
+}
+
+\frame{\frametitle{ML. Bondad del estimador}
+\todo{precision, recall, f-value, ...}
+}
+
+\frame{\frametitle{ML. Estimadores (I)}
+\todo{enumerar NB multinomial, NB gausiano, discriminantes LDA/QDA,}
+}
+
+\frame{\frametitle{ML. Estimadores (y II)}
+\todo{SVM, poner figura 4.10 }
+}
+
 \section{Problema}
+
+\frame{\frametitle{Problema a resolver}
+\todo{Definición del problema de Kaggle - rotten tomatoes, ...}
+}
 
 \section[Diseño]{Diseño de la solución}
 
+\frame{\frametitle{Diseño de la solución}
+\todo{Diagrama casos de uso (fig 5.1)}
+}
+
+\frame{\frametitle{Diseño. Patrón de diseño}
+\todo{figura MVC y figura MVP (6.1)}
+}
+
+\frame{\frametitle{Diseño. Arquitectura de componentes}
+\todo{figura 6.2}
+}
+
+\frame{\frametitle{Diseño. Toolkits de desarrollo GUI}
+\todo{Comentar Kivi, comentar QML(Qt)}
+}
+
+\frame{\frametitle{Diseño. Pantallas}
+\todo{un par de screenshots  de la app (figs tomadas del capítulo manual de usuario de la memoria)}
+}
+
+
 \section[Conclusiones]{Conclusiones y continuidad}
+
+\frame{\frametitle{Conclusiones}
+\todo{capitulo Conclusiones de la memoria ... }
+}
+
+\frame{\frametitle{Posibles mejoras}
+\todo{capitulo Trabajo futuro de la memoria ... }
+}
 
 \section{Bibliografía}
 
 \frame{\frametitle{Bibliografía}
+\todo{Completar...}
 \printbibliography[title=\bibname]
 }
 %\newrefcontext para dividir citas
 % Hilbert2011
+% Socher2014
+% Boehm1988
 
 \appendix
 
