@@ -1,4 +1,4 @@
-Steps to produce virtualbox appliance:
+Steps to reproduce virtualbox appliance:
 
 1. Install ubuntu 15.04 minimal cd (netinst)
    http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-i386/current/images/netboot/mini.iso
@@ -17,7 +17,7 @@ Steps to produce virtualbox appliance:
    xrandr --output default --mode 800x600
    xterm -e /home/pfc/pfc.sh &
    exec fluxbox
-   
+
 5. Create file /home/pfc/pfc.sh:
    #!/bin/bash -x
    cd Projects/pfc-sent-anal-movie-rev/project
