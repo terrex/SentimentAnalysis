@@ -3,20 +3,21 @@
 %!BIB TS-program = biber
 %!BIB program = biber
 
-\documentclass[xetex,compress,spanish,tikz]{beamer}
+\documentclass[xetex,compress,spanish]{beamer}
 
-%\setbeameroption{show notes}
-%\usepackage{pgfpages}\setbeameroption{show notes on second screen}
+\setbeameroption{show notes}
+%\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
 %\setbeameroption{show only notes}
-\setbeameroption{hide notes}
+%\setbeameroption{hide notes}
 
 \mode<presentation>
 {
   \usetheme{Warsaw}
   \usecolortheme[rgb={.7,.2,.2}]{structure}
-  \setbeamercovered{transparent}
+  \setbeamercovered{transparent=50}
+  \useoutertheme[footline=authortitle,subsection=false]{miniframes}
 }
-\useoutertheme[footline=authortitle,subsection=false]{miniframes}
+  \setbeamercovered{transparent=50}
 
 \usepackage[no-math]{fontspec}
 \usepackage[spanish,es-tabla,es-noshorthands,es-ucroman]{babel}
@@ -110,27 +111,148 @@ Universidad de Sevilla}
 \section[Introducción]{Introducción y objetivos}
 
 \frame{\frametitle{Introducción}
+En este proyecto se realiza
 \begin{itemize}
-\item Los compiladores, traductores y procesadores de lenguajes tradicionales procesan \textbf{lenguajes formales.}
-\item El lenguaje formal se diseña formalmente para evitar la ambigüedad.
-\item El \textbf{lenguaje natural} es ambiguo por naturaleza.
-\item Dentro del ámbito de la Inteligencia Artificial, se ha comprobado eficaz aplicar Aprendizaje Automático al tratamiento del lenguaje natural.
-\item En este proyecto:
+\item Un estudio de investigación sobre\
 \begin{itemize}
-\item Se resumen estas técnicas.
-\item Se desarrolla una aplicación gráfica para usar como laboratorio de experimentación.
+\item Procesamiento de Lenguaje Natural (NLP)
+\item Aprendizaje Automático (ML)
 \end{itemize}
+\item Una aplicación para experimentar con un problema de clasificación automática del sentimiento.
 \end{itemize}
+
+\note[item]<1>{...}
 }
 
-\frame[plain]{\frametitle{Introducción. Explosión de información digital}
-\centering
-\pgfimage[height=0.98\textheight]{Hilbert-InfoGrowth}
-\nocite{Hilbert2011}
+\frame{\frametitle{Objetivos}
+\uncover<1>{Los objetivos del proyecto son}
+\begin{itemize}
+\item Estudiar
+\begin{itemize}
+\item Diferencias entre el lenguaje natural y formal.
+\item Estrategias, métodos, procedimientos y algoritmos para analizar y extraer información de textos en lenguaje natural (NLP).
+\item Algoritmos de aprendizaje automático (ML).
+\end{itemize}
+\item Desarrollar
+\begin{itemize}
+\item Biblioteca unificada de NLP y ML para el análisis del sentimiento.
+\item Aplicación gráfica para usar en el aula.
+\end{itemize}
+\end{itemize}
 
-\note[item]<1>{En el artículo de \citep{Hilbert2011} titulado \citetitle{Hilbert2011} se realiza una estimación de la capacidad global de almacenamiento en los últimos años.}
-\note[item]<1>{En el gráfico podemos observar un incremento exponencial a partir del año 2002 cuando Internet comienza a ser un elemento imprescindible en la mayoría de hogares.}
-\note[item]<1>{Esto demuestra la posibilidad real de aplicar herramientas de tratamiento automático de la información para sintetizar el conocimiento; en el caso de procesar información textual: se puede extraer conocimiento sobre los propios lenguajes (morfología, sintaxis, gramática, semántica), sin que tenga un coste excesivo pues existe gran cantidad de datos disponible en Internet gratuitamente, tan sólo hay que recogerlo y ordenarlo.}
+\note[item]<1>{...}
+}
+
+\section[Planificación]{Planificación y metodología}
+
+\frame{%\frametitle{Planificación. Listado de tareas}
+\centering
+\begin{minipage}{0.68\textwidth}
+\resizebox{0.80\textheight}{!}{\csvautotabular{gantt.csv}}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+\begin{tabular}{c|c}
+\toprule
+Estimado & 561 horas\\
+Real & 625 horas\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+\note[item]<1>{...}
+}
+
+\frame{%\frametitle{Planificación. Diagrama de Gantt}
+\tikz[overlay,remember picture]
+\node[anchor=north west] at ($(current page.north west)+(-10pt,-8pt)$) {
+  \pgfimage[width=1.03\paperwidth]{gantt}
+};
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{Metodología de trabajo}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.58\textwidth]{espiral}
+\caption[Modelo de ciclo de vida en espiral]{Modelo de ciclo de vida en espiral \citep{Boehm1988}}
+\label{fig:espiral}
+\end{figure}
+
+\note[item]<1>{...}
+}
+
+\section{Investigación}
+
+\frame{\frametitle{Investigación. NLP}
+\todo{Diferencias entre lenguaje natural, artificial, construido ...}
+\todo{Nombrar ejemplo STUDENT (Bobrow1964) ...}
+\todo{Nombrar Linguistic Data Consortium, forma de trabajar con datasets ...}
+
+\note[item]<1>{...}
+}
+
+
+\frame{\frametitle{Investigación. ML}
+\todo{definición}
+\todo{ejemplos de utilidad}
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Tipologías}
+\todo{Definir las 3 clases y enumerar ejemplos de algoritmos, ...}
+\todo{supervisado, ...}
+\todo{no supervisado, ...}
+\todo{semi-supervisado, ...}
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Espacio de características}
+\todo{figura espacio de características }
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Extracción de características}
+\todo{BOW, 2-BOW, n-BOW,... }
+\todo{RNN, (Socher2013), ... }
+\todo{VM-RNN, (Socher2013), ... }
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Reducción de características}
+\todo{umbral de varianza, ...}
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Bondad del estimador}
+\todo{precision, recall, f-value, ...}
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Estimadores (I)}
+\todo{enumerar NB multinomial, NB gausiano, discriminantes LDA/QDA,}
+
+\note[item]<1>{...}
+}
+
+\frame{\frametitle{ML. Estimadores (y II)}
+\todo{SVM, poner figura 4.10 }
+
+\note[item]<1>{...}
+}
+
+\section{Problema}
+
+\frame{\frametitle{Problema a resolver}
+\todo{Definición del problema de Kaggle - rotten tomatoes, ...}
+
+\note[item]<1>{...}
 }
 
 \frame{\frametitle{Introducción. Polaridad del sentimiento}
@@ -147,142 +269,37 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 \note[item]<1>{... Comentar sobre reputación de marcas, análisis en twitter, ...}
 }
 
-\frame{\frametitle{Objetivos}
-Los objetivos del proyecto son
-\begin{itemize}
-\item Estudiar
-\begin{itemize}
-\item Diferencias entre el lenguaje natural y formal.
-\item Estrategias, métodos, procedimientos y algoritmos para analizar y extraer información de textos en lenguaje natural (NLP).
-\item Algoritmos de aprendizaje automático (ML).
-\end{itemize}
-\item Desarrollar
-\begin{itemize}
-\item Biblioteca unificada de NLP y ML para el análisis del sentimiento.
-\item Aplicación gráfica para usar en el aula.
-\end{itemize}
-\end{itemize}
-}
-
-\section[Planificación]{Planificación y metodología}
-
-\frame[plain]{%\frametitle{Planificación. Listado de tareas}
-\centering
-\begin{minipage}{0.71\textwidth}
-\resizebox{0.86\textheight}{!}{\csvautotabular{gantt.csv}}
-\end{minipage}
-\begin{minipage}{0.25\textwidth}
-\begin{tabular}{c|c}
-\toprule
-Estimado & 561 horas\\
-Real & 625 horas\\
-\bottomrule
-\end{tabular}
-\end{minipage}
-}
-
-\frame[plain]{%\frametitle{Planificación. Diagrama de Gantt}
-\tikz[overlay,remember picture]
-\node[anchor=north west] at ($(current page.north west)+(-10pt,-5pt)$) {
-  \pgfimage[width=1.03\paperwidth]{gantt}
-};
-}
-
-\frame{\frametitle{Metodología de trabajo}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.58\textwidth]{espiral}
-\caption[Modelo de ciclo de vida en espiral]{Modelo de ciclo de vida en espiral \citep{Boehm1988}}
-\label{fig:espiral}
-\end{figure}
-}
-
-\section[NLP]{Procesamiento del Lenguaje Natural}
-
-\frame{\frametitle{Procesamiento del Lenguaje Natural}
-\todo{Diferencias entre lenguaje natural, artificial, construido ...}
-\todo{Nombrar ejemplo STUDENT (Bobrow1964) ...}
-\todo{Nombrar Linguistic Data Consortium, forma de trabajar con datasets ...}
-}
-
-\frame{\frametitle{NLP. Preprocesamiento}
-\todo{transformaciones / filtros}
-\todo{tokenización, stopwords, stemming (nombrar Porter), lemmatizing, anotación POS-tagging ...}
-}
-
-\frame{\frametitle{NLP. Análisis}
-\todo{analisis sintáctico, ...}
-\todo{modelo de espacio vectorial semántico, ...}
-}
-
-
-
-\section[ML]{Aprendizaje Automático}
-
-\frame{\frametitle{Aprendizaje automático}
-\todo{definición}
-\todo{ejemplos de utilidad}
-}
-
-\frame{\frametitle{ML. Tipologías}
-\todo{Definir las 3 clases y enumerar ejemplos de algoritmos, ...}
-\todo{supervisado, ...}
-\todo{no supervisado, ...}
-\todo{semi-supervisado, ...}
-}
-
-\frame{\frametitle{ML. Espacio de características}
-\todo{figura espacio de características }
-}
-
-\frame{\frametitle{ML. Extracción de características}
-\todo{BOW, 2-BOW, n-BOW,... }
-\todo{RNN, (Socher2013), ... }
-\todo{VM-RNN, (Socher2013), ... }
-}
-
-\frame{\frametitle{ML. Reducción de características}
-\todo{umbral de varianza, ...}
-}
-
-\frame{\frametitle{ML. Bondad del estimador}
-\todo{precision, recall, f-value, ...}
-}
-
-\frame{\frametitle{ML. Estimadores (I)}
-\todo{enumerar NB multinomial, NB gausiano, discriminantes LDA/QDA,}
-}
-
-\frame{\frametitle{ML. Estimadores (y II)}
-\todo{SVM, poner figura 4.10 }
-}
-
-\section{Problema}
-
-\frame{\frametitle{Problema a resolver}
-\todo{Definición del problema de Kaggle - rotten tomatoes, ...}
-}
 
 \section[Diseño]{Diseño de la solución}
 
 \frame{\frametitle{Diseño de la solución}
 \todo{Diagrama casos de uso (fig 5.1)}
+
+\note[item]<1>{...}
 }
 
 \frame{\frametitle{Diseño. Patrón de diseño}
 \todo{figura MVC y figura MVP (6.1)}
+
+\note[item]<1>{...}
 }
 
 \frame{\frametitle{Diseño. Arquitectura de componentes}
 \todo{figura 6.2}
+
+\note[item]<1>{...}
 }
 
 \frame{\frametitle{Diseño. Toolkits de desarrollo GUI}
 \todo{Comentar Kivi, comentar QML(Qt)}
+
+\note[item]<1>{...}
 }
 
 \frame{\frametitle{Diseño. Pantallas}
 \todo{un par de screenshots  de la app (figs tomadas del capítulo manual de usuario de la memoria)}
+
+\note[item]<1>{...}
 }
 
 
@@ -290,17 +307,23 @@ Real & 625 horas\\
 
 \frame{\frametitle{Conclusiones}
 \todo{capitulo Conclusiones de la memoria ... }
+
+\note[item]<1>{...}
 }
 
 \frame{\frametitle{Posibles mejoras}
 \todo{capitulo Trabajo futuro de la memoria ... }
+
+\note[item]<1>{...}
 }
 
 \section{Bibliografía}
 
 \frame{\frametitle{Bibliografía}
 \todo{Completar...}
-\printbibliography[title=\bibname]
+\printbibliography[heading=none,title=\bibname]
+
+\note[item]<1>{...}
 }
 %\newrefcontext para dividir citas
 % Hilbert2011
@@ -315,6 +338,8 @@ Real & 625 horas\\
 \node[anchor=center] at ($(current page.center)+(2,0)$) {
   \includegraphics[width=120pt]{preguntas}
 };
+
+\note[item]<1>{...}
 }
 
 \frame{
@@ -331,6 +356,8 @@ Guillermo Gutiérrez-Herrera
 
 \email{xiterrex@gmail.com}
 \end{minipage}
+
+\note[item]<1>{...}
 }
 
 \end{document}
