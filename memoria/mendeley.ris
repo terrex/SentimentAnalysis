@@ -91,6 +91,12 @@ DO  - 10.1016/0732-118X(86)90008-5
 N2  - Beginning in the mid-fifties and emanating largely form MIT, and approach was developed to linguistic theory and to the study of the structure of particular languages that diverges in many respects from modern linguistics. Although this approach is connected to the traditional study of languages, it differs enough in its specific conclusions about the structure and in its specific conclusions about the structure of language to warrant a name, "generative grammar."Various deficiencies have been discovered in the first attempts to formulate a theory of transformational generative grammar and in the descriptive analysis of particular languages that motivated these formulations. At the same time, it has become apparent that these formulations can be extended and deepened.The major purpose of this book is to review these developments and to propose a reformulation of the theory of transformational generative grammar that takes them into account. The emphasis in this study is syntax; semantic and phonological aspects of the language structure are discussed only insofar as they bear on syntactic theory.
 ER  - 
 TY  - BOOK
+T1  - Gramática castellana
+A1  - de Nebrija, Elio Antonio
+Y1  - 1492///
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/de Nebrija/1492/de Nebrija - 1492 - Gramática castellana.pdf
+ER  - 
+TY  - BOOK
 T1  - Teoría de las seis lecturas
 A1  - De Zubira Samper, Miguel
 Y1  - 2002///
@@ -249,6 +255,20 @@ L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hearst/1992/Hearst - 1992 
 N1  - http://people.ischool.berkeley.edu/~hearst/
 N2  - We describe a method for the automatic acquisition of the hyponymy lexical relation from unrestricted text. Two goals motivate the approach: (i) avoidance of the need for pre-encoded knowledge and (ii) applicability across a wide range of text. We identify a set of lexicosyntactic patterns that are easily recognizable, that occur frequently and across text genre boundaries, and that indisputably indicate the lexical relation of interest. We describe a method for discovering these patterns and suggest that other lexical relations will also be acquirable in this way. A subset of the acquisition algorithm is implemented and the results are used to augment and critique the structure of a large hand-built thesaurus. Extensions and applications to areas such as information retrieval are suggested. 1 Introduction Currently there is much interest in the automatic acquisition of lexical syntax and semantics, with the goal of building up large lexicons for natural language processing. Projects ...
 ER  - 
+TY  - GEN
+T1  - How to measure the world's technological capacity to communicate, store, and compute information, part I: Results and scope
+A1  - Hilbert, Martin
+A1  - López, Priscila
+Y1  - 2012///
+JF  - International Journal of Communication
+VL  - 6
+IS  - 1
+SP  - 956
+EP  - 979
+SN  - 1932-8036
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hilbert, López/2012/Hilbert, López - 2012 - How to measure the world's technological capacity to communicate, store, and compute information, part I Result.pdf
+N2  - This is Part I of a two-part article that reviews methodological and statistical challenges involved in the estimation of humanity’s technological capacity to communicate, store, and compute information. It is written from the perspective of the results of our recent inventory of 60 technological categories between 1986 and 2007 (measured in bits and MIPS [million-instructions-per-second]). In Part I, we summarize the results of our inventory, and explore a series of basic choices that must be made in the course of measuring information and communication capacities. The most basic underlying assumptions behind our estimates include—among others—decisions about what is counted as (1) communication, (2) storage, and (3) computation; if technological capacities or consumption of information is measured; and if unique information is distinguished from duplicate information. We compare our methodological choices with different approaches taken in similar studies. The article shows how the particular question on the researcher’s mind, as well as the availability of source data has and will influence most of the methodological choices in different exercises.
+ER  - 
 TY  - JOUR
 T1  - The world's technological capacity to store, communicate, and compute information
 A1  - Hilbert, Martin
@@ -263,20 +283,6 @@ SN  - 1095-9203
 DO  - 10.1126/science.1200970
 L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hilbert, López/2011/Hilbert, López - 2011 - The world's technological capacity to store, communicate, and compute information.pdf
 N2  - We estimated the world's technological capacity to store, communicate, and compute information, tracking 60 analog and digital technologies during the period from 1986 to 2007. In 2007, humankind was able to store 2.9 × 10(20) optimally compressed bytes, communicate almost 2 × 10(21) bytes, and carry out 6.4 × 10(18) instructions per second on general-purpose computers. General-purpose computing capacity grew at an annual rate of 58%. The world's capacity for bidirectional telecommunication grew at 28% per year, closely followed by the increase in globally stored information (23%). Humankind's capacity for unidirectional information diffusion through broadcasting channels has experienced comparatively modest annual growth (6%). Telecommunication has been dominated by digital technologies since 1990 (99.9% in digital format in 2007), and the majority of our technological memory has been in digital format since the early 2000s (94% digital in 2007).
-ER  - 
-TY  - GEN
-T1  - How to measure the world's technological capacity to communicate, store, and compute information, part I: Results and scope
-A1  - Hilbert, Martin
-A1  - López, Priscila
-Y1  - 2012///
-JF  - International Journal of Communication
-VL  - 6
-IS  - 1
-SP  - 956
-EP  - 979
-SN  - 1932-8036
-L1  - file:///Users/terrex/Documents/Mendeley Desktop/Hilbert, López/2012/Hilbert, López - 2012 - How to measure the world's technological capacity to communicate, store, and compute information, part I Result.pdf
-N2  - This is Part I of a two-part article that reviews methodological and statistical challenges involved in the estimation of humanity’s technological capacity to communicate, store, and compute information. It is written from the perspective of the results of our recent inventory of 60 technological categories between 1986 and 2007 (measured in bits and MIPS [million-instructions-per-second]). In Part I, we summarize the results of our inventory, and explore a series of basic choices that must be made in the course of measuring information and communication capacities. The most basic underlying assumptions behind our estimates include—among others—decisions about what is counted as (1) communication, (2) storage, and (3) computation; if technological capacities or consumption of information is measured; and if unique information is distinguished from duplicate information. We compare our methodological choices with different approaches taken in similar studies. The article shows how the particular question on the researcher’s mind, as well as the availability of source data has and will influence most of the methodological choices in different exercises.
 ER  - 
 TY  - BOOK
 T1  - Qt 5 Blueprints
@@ -555,6 +561,21 @@ EP  - 786
 L1  - file:///Users/terrex/Documents/Mendeley Desktop/OMG/2015/OMG - 2015 - Unified Modeling Language (UML).pdf
 ER  - 
 TY  - CONF
+T1  - A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts
+A1  - Pang, Bo
+A1  - Lee, Lillian
+Y1  - 2004///
+KW  - analysis
+KW  - sentiment
+JF  - Proceedings of the 42nd Meeting of the Association for Computational Linguistics
+T3  - ACL'04
+SP  - 271
+EP  - -278
+DO  - 10.3115/1218955.1218990
+L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pang, Lee/2004/Pang, Lee - 2004 - A Sentimental Education Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts.pdf
+N2  - Sentiment analysis seeks to identify the viewpoint(s) underlying a text span; an example application is classifying a movie review as "thumbs up" or "thumbs down". To determine this sentiment polarity, we propose a novel machine-learning method that applies text-categorization techniques to just the subjective portions of the document. Extracting these portions can be implemented using efficient techniques for finding minimum cuts in graphs; this greatly facilitates incorporation of cross-sentence contextual constraints.
+ER  - 
+TY  - CONF
 T1  - Seeing stars: Exploiting class relationships for sentiment categorization with respect to rating scales
 A1  - Pang, Bo
 A1  - Lee, Lillian
@@ -569,21 +590,6 @@ DO  - 10.3115/1219840.1219855
 L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pang, Lee/2005/Pang, Lee - 2005 - Seeing stars Exploiting class relationships for sentiment categorization with respect to rating scales.pdf
 N1  - http://www.aclweb.org/anthology/P05-1015
 N2  - We address the rating-inference problem, wherein rather than simply decide whether a review is "thumbs up" or "thumbs down", as in previous sentiment analysis work, one must determine an author's evaluation with respect to a multi-point scale (e.g., one to five "stars"). This task represents an interesting twist on standard multi-class text categorization because there are several different degrees of similarity between class labels; for example, "three stars" is intuitively closer to "four stars" than to "one star". We first evaluate human performance at the task. Then, we apply a meta-algorithm, based on a metric labeling formulation of the problem, that alters a given n-ary classifier's output in an explicit attempt to ensure that similar items receive similar labels. We show that the meta-algorithm can provide significant improvements over both multi-class and regression versions of SVMs when we employ a novel similarity measure appropriate to the problem.
-ER  - 
-TY  - CONF
-T1  - A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts
-A1  - Pang, Bo
-A1  - Lee, Lillian
-Y1  - 2004///
-KW  - analysis
-KW  - sentiment
-JF  - Proceedings of the 42nd Meeting of the Association for Computational Linguistics
-T3  - ACL'04
-SP  - 271
-EP  - -278
-DO  - 10.3115/1218955.1218990
-L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pang, Lee/2004/Pang, Lee - 2004 - A Sentimental Education Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts.pdf
-N2  - Sentiment analysis seeks to identify the viewpoint(s) underlying a text span; an example application is classifying a movie review as "thumbs up" or "thumbs down". To determine this sentiment polarity, we propose a novel machine-learning method that applies text-categorization techniques to just the subjective portions of the document. Extracting these portions can be implemented using efficient techniques for finding minimum cuts in graphs; this greatly facilitates incorporation of cross-sentence contextual constraints.
 ER  - 
 TY  - CONF
 T1  - Thumbs Up? Sentiment Classification Using Machine Learning Techniques
@@ -628,11 +634,6 @@ EP  - 2830
 UR  - http://scikit-learn.org/stable/user_guide.html
 L1  - file:///Users/terrex/Documents/Mendeley Desktop/Pedregosa et al/2011/Pedregosa et al. - 2011 - Scikit-learn Machine Learning in Python.pdf
 ER  - 
-TY  - ICOMM
-T1  - Python NLTK Natural Language Processing | StreamHacker
-A1  - Perkins, Jacob
-UR  - http://streamhacker.com/
-ER  - 
 TY  - BOOK
 T1  - Python Text Processing with NLTK 2.0 Cookbook
 A1  - Perkins, Jacob
@@ -644,6 +645,11 @@ EP  - 544
 SN  - 9781849513609
 L1  - file:///Users/terrex/Documents/Mendeley Desktop/Perkins/2010/Perkins - 2010 - Python Text Processing with NLTK 2.0 Cookbook.pdf
 N2  - Text Processing in Python describes techniques for manipulation of text using the Python programming language. At the broadest level, text processing is simply taking textual information and doing something with it. This might be restructuring or reformatting it, extracting smaller bits of information from it, or performing calculations that depend on the text. Text processing is arguably what most programmers spend most of their time doing. Because Python is clear, expressive, and object-oriented it is a perfect language for doing text processing, even better than Perl. As the amount of data everywhere continues to increase, this is more and more of a challenge for programmers. This book is not a tutorial on Python. It has two other goals: helping the programmer get the job done pragmatically and efficiently; and giving the reader an understanding - both theoretically and conceptually - of why what works and what doesnt work doesnt work. Mertz provides practical pointers and tips that emphasize efficient, flexible, and maintainable approaches to the text processing tasks that working programmers face daily.
+ER  - 
+TY  - ICOMM
+T1  - Python NLTK Natural Language Processing | StreamHacker
+A1  - Perkins, Jacob
+UR  - http://streamhacker.com/
 ER  - 
 TY  - BOOK
 T1  - Python 3 Text Processing with NLTK 3 Cookbook
@@ -692,6 +698,11 @@ UR  - http://www.cs.utah.edu/~piyush/teaching/4-10-print.pdf
 L1  - file:///Users/terrex/Documents/Mendeley Desktop/Rai/Unknown/Rai - Unknown - Data Clustering K-means and Hierarchical Clustering.pdf
 ER  - 
 TY  - ICOMM
+T1  - gensim: models.word2vec – Deep learning with word2vec
+A1  - Rehurek, Radim
+UR  - http://radimrehurek.com/gensim/models/word2vec.html
+ER  - 
+TY  - ICOMM
 T1  - Performance Shootout of Nearest Neighbours: Querying
 A1  - Rehurek, Radim
 KW  - consulting
@@ -710,11 +721,6 @@ KW  - machine learning
 KW  - programming
 KW  - radim rehurek
 UR  - http://radimrehurek.com/2014/02/word2vec-tutorial/
-ER  - 
-TY  - ICOMM
-T1  - gensim: models.word2vec – Deep learning with word2vec
-A1  - Rehurek, Radim
-UR  - http://radimrehurek.com/gensim/models/word2vec.html
 ER  - 
 TY  - JOUR
 T1  - El control de la reputación on line para prevenir y gestionar una crisis
