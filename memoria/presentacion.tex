@@ -5,8 +5,8 @@
 
 \documentclass[xetex,compress,spanish]{beamer}
 
-\setbeameroption{show notes}
-%\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
+%\setbeameroption{show notes}
+\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
 %\setbeameroption{show only notes}
 %\setbeameroption{hide notes}
 
@@ -41,7 +41,7 @@
 %% bib %%
 \usepackage[style=authoryear,natbib=true,%
 maxbibnames=99,maxcitenames=2,%
-citestyle=authoryear-comp,doi=true,url=true,backend=biber,dashed=no]{biblatex}
+citestyle=authoryear-comp,doi=false,url=false,isbn=false,backend=biber,dashed=no]{biblatex}
 \bibliography{pfc-memoria.bib}
 %% style %%
 \defaultfontfeatures{Mapping=tex-text,Numbers={OldStyle}}
@@ -78,7 +78,7 @@ Universidad de Sevilla}
 \expandafter\def\expandafter\insertshorttitle\expandafter{%
   \insertshorttitle\hfill%
   \insertframenumber\,/\,\inserttotalframenumber}
-  
+
 %% documento %%
 \begin{document}
 
@@ -103,17 +103,18 @@ Universidad de Sevilla}
 \tableofcontents
 
 \note[item]<1>{Empezaremos la presentación con una breve introducción y los objetivos del proyecto; y la planificación y metodología utilizados para su realización.}
-\note[item]<1>{En la siguiente parte resumiremos los métodos de Procesamiento de Lenguaje Natural y las técnicas de Aprendizaje Automático que se describen en la memoria.}
+\note[item]<1>{En la siguiente parte mostraremos los principales aspectos del procesamiento de lenguaje natural y aprendizaje automático que se estudian y describen en la memoria.}
 \note[item]<1>{A continuación presentamos el problema concreto de clasificación automática del sentimiento; y el diseño de la solución propuesta.}
-\note[item]<1>{Y por último las conclusiones del proyecto y la bibliografía que se ha usado principalmente para la realización de este proyecto.}
+\note[item]<1>{Y por último las conclusiones del proyecto y un resumen de la bibliografía utilizada.}
 }
 
 \section[Introducción]{Introducción y objetivos}
 
 \frame{\frametitle{Introducción}
+\color{black}
 En este proyecto se realiza
 \begin{itemize}
-\item Un estudio de investigación sobre\
+\item Un estudio de investigación sobre
 \begin{itemize}
 \item Procesamiento de Lenguaje Natural (NLP)
 \item Aprendizaje Automático (ML)
@@ -125,7 +126,8 @@ En este proyecto se realiza
 }
 
 \frame{\frametitle{Objetivos}
-\uncover<1>{Los objetivos del proyecto son}
+\color{black}
+Los objetivos del proyecto son
 \begin{itemize}
 \item Estudiar y explicar
 \begin{itemize}
@@ -146,6 +148,7 @@ En este proyecto se realiza
 \section[Planificación]{Planificación y metodología}
 
 \frame{%\frametitle{Planificación. Listado de tareas}
+\color{black}
 \centering
 \begin{minipage}{0.68\textwidth}
 \resizebox{0.80\textheight}{!}{\csvautotabular{gantt.csv}}
@@ -212,60 +215,19 @@ Real & 625 horas\\
 \note[item]<1>{... }
 }
 
-
 \frame{\frametitle{Investigación. ML}
-\todo{definición}
-\todo{ejemplos de utilidad}
+\begin{itemize}
+\item Concepto del problema de clasificación automática \citep{Manning2008}
+\item Tipologías a) supervisado, b) no supervisado, c) semi-supervisado
+\item Extracción de características a partir del texto: $n$-gramas, RNN, VM-RNN \citep{Socher2013}
+\item Reducción de características
+\item Estimadores: Naïve Bayes Multinomial/Gausiano, LDA/QDA, SVM \citep{Jurafsky2015,Ruiz2001,Pedregosa2011,Russell2009}
+\item Medida del rendimiento del estimador \citep{Perkins2010}
+\end{itemize}
 
 \note[item]<1>{...}
 }
 
-\frame{\frametitle{ML. Tipologías}
-\todo{Definir las 3 clases y enumerar ejemplos de algoritmos, ...}
-\todo{supervisado, ...}
-\todo{no supervisado, ...}
-\todo{semi-supervisado, ...}
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{ML. Espacio de características}
-\todo{figura espacio de características }
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{ML. Extracción de características}
-\todo{BOW, 2-BOW, n-BOW,... }
-\todo{RNN, (Socher2013), ... }
-\todo{VM-RNN, (Socher2013), ... }
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{ML. Reducción de características}
-\todo{umbral de varianza, ...}
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{ML. Bondad del estimador}
-\todo{precision, recall, f-value, ...}
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{ML. Estimadores (I)}
-\todo{enumerar NB multinomial, NB gausiano, discriminantes LDA/QDA,}
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{ML. Estimadores (y II)}
-\todo{SVM, poner figura 4.10 }
-
-\note[item]<1>{...}
-}
 
 \section{Problema}
 
@@ -339,20 +301,19 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 
 \section{Bibliografía}
 
-\frame{\frametitle{Bibliografía}
-\todo{Completar...}
+\frame[allowframebreaks]{\frametitle{Bibliografía}
+
+\setsansfont[Scale=0.7,Mapping=tex-text]{Gill Sans}
 \printbibliography[heading=none,title=\bibname]
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
 
 \note[item]<1>{...}
 }
-%\newrefcontext para dividir citas
-% Hilbert2011
-% Socher2014
-% Boehm1988
 
 \appendix
 
 \frame{
+\color{black}
 \Huge ¿Preguntas?
 \tikz[overlay,remember picture]
 \node[anchor=center] at ($(current page.center)+(2,0)$) {
@@ -363,6 +324,7 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 }
 
 \frame{
+\color{black}
 \centering
 \huge Gracias por su atención
 
