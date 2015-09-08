@@ -3,10 +3,10 @@
 %!BIB TS-program = biber
 %!BIB program = biber
 
-\documentclass[xetex,compress,spanish]{beamer}
+\documentclass[xetex,compress,spanish,xcolor=dvipsnames]{beamer}
 
 %\setbeameroption{show notes}
-\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
+%\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
 %\setbeameroption{show only notes}
 %\setbeameroption{hide notes}
 
@@ -41,7 +41,7 @@
 %% bib %%
 \usepackage[style=authoryear,natbib=true,%
 maxbibnames=99,maxcitenames=2,%
-citestyle=authoryear-comp,doi=false,url=false,isbn=false,backend=biber,dashed=no]{biblatex}
+citestyle=authoryear-comp,doi=false,url=false,isbn=false,backend=biber,dashed=no,arxiv=false,eprint=false]{biblatex}
 \bibliography{pfc-memoria.bib}
 %% style %%
 \defaultfontfeatures{Mapping=tex-text,Numbers={OldStyle}}
@@ -60,6 +60,10 @@ citestyle=authoryear-comp,doi=false,url=false,isbn=false,backend=biber,dashed=no
 
 \DeclareSIUnit[number-unit-product = {\,}]
 	\pixel{px}
+
+\usepackage{pifont}% http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\newcommand{\cmark}{{\color{OliveGreen}\ding{51}}}
+\newcommand{\xmark}{{\color{red}\ding{55}}}
 
 %% doc info %%
 \title{Procesamiento del Lenguaje Natural Aplicado al Análisis del Sentimiento de Opiniones}
@@ -231,19 +235,12 @@ Real & 625 horas\\
 
 \section{Problema}
 
-\frame{\frametitle{Problema a resolver}
-\todo{Definición del problema de Kaggle - rotten tomatoes, ...}
-
-\note[item]<1>{...}
-}
-
-\frame{\frametitle{Introducción. Polaridad del sentimiento}
+\frame{\frametitle{Polaridad del sentimiento}
 \begin{definition}[Polaridad del sentimiento]
 Es la conclusión que se extrae de la comprensión de un documento de tipo crítico: si el objeto de la crítica es bueno (sentimiento positivo) o malo (resp., negativo).
 \end{definition}
-\begin{figure}[htbp]
-\centering
-\pgfimage[height=0.47\textheight]{tramos-polaridad}
+\begin{figure}
+\centerline{\pgfimage[height=0.47\textheight]{tramos-polaridad}}
 \caption{Escala de valoración del sentimiento usada en Penn Sentiment Treebank de la Universidad de Pennsylvania \citep{Socher2014}}
 \end{figure}
 
@@ -251,35 +248,74 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 \note[item]<1>{... Comentar sobre reputación de marcas, análisis en twitter, ...}
 }
 
+\frame{\frametitle{Problema a resolver}
+\begin{itemize}
+\item Problema de clasificación supervisado
+\item Clases: $[0:4] \rightarrow [--,-,0,+,++]$
+\item Entrada: corpus de Rotten Tomatoes \citep{Pang2005} \\
+\centerline{\footnotesize
+\begin{tabular}{llp{5cm}l}\toprule
+PhraseId & SentenceId & Phrase & Sentiment \\ \midrule
+1 & 1 & A series of escapades demonstrating the adage that what is good for the goose is also good for the gander , some of which occasionally amuses but none of which amounts to much of a story . & 1 \\
+2 & 1 & A series of escapades demonstrating the adage that what is good for the goose & 2 \\ \bottomrule
+\end{tabular}
+}
+\item Salida: clasificación del sentimiento
+\end{itemize}
+
+\note[item]<1>{... competición de kaggle ...}
+}
+
+
 
 \section[Diseño]{Diseño de la solución}
 
 \frame{\frametitle{Diseño de la solución}
-\todo{Diagrama casos de uso (fig 5.1)}
+\noindent
+\begin{figure}
+\centerline{\includegraphics[width=0.95\paperwidth]{PFC-sent-anal-workflow.pdf}}
+\caption{Fase de entrenamiento (arriba), fase de clasificación (abajo)}
+\label{fig:PFC-sent-anal-workflow}
+\end{figure}
 
 \note[item]<1>{...}
 }
 
-\frame{\frametitle{Diseño. Patrón de diseño}
-\todo{figura MVC y figura MVP (6.1)}
 
-\note[item]<1>{...}
-}
+%\frame{\frametitle{Diseño. Patrón de diseño}
+%\color{black}
+%\begin{figure}
+%\centerline{
+%\begin{minipage}{0.48\paperwidth}
+%\includegraphics[width=\textwidth]{MVC}
+%\end{minipage}
+%\begin{minipage}{0.48\paperwidth}
+%\includegraphics[width=\textwidth]{MVP}
+%\end{minipage}
+%}
+%\caption{Patrones de diseño MVC y MVP}
+%\label{fig:patrones-diseno}
+%\end{figure}
+%{\footnotesize \url{http://www.gwtproject.org/articles/testing_methodologies_using_gwt.html}}
+%
+%\note[item]<1>{...}
+%}
 
 \frame{\frametitle{Diseño. Arquitectura de componentes}
-\todo{figura 6.2}
+\centerline{\resizebox{!}{0.75\paperheight}{\input{architecture.puml.tex}}}
 
 \note[item]<1>{...}
 }
 
-\frame{\frametitle{Diseño. Toolkits de desarrollo GUI}
-\todo{Comentar Kivi, comentar QML(Qt)}
-
-\note[item]<1>{...}
-}
+%\frame{\frametitle{Diseño. Toolkits de desarrollo GUI}
+%\todo{Comentar Kivi, comentar QML(Qt)}
+%
+%\note[item]<1>{...}
+%}
 
 \frame{\frametitle{Diseño. Pantallas}
-\todo{un par de screenshots  de la app (figs tomadas del capítulo manual de usuario de la memoria)}
+
+\centerline{\includegraphics[width=0.9\textwidth]{ss-04-preproc-tab}}
 
 \note[item]<1>{...}
 }
@@ -288,13 +324,23 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 \section[Conclusiones]{Conclusiones y continuidad}
 
 \frame{\frametitle{Conclusiones}
-\todo{capitulo Conclusiones de la memoria ... }
+\color{black}
+Se han conseguido los objetivos propuestos
+\begin{itemize}
+\item[\cmark] Estudio y análisis de bibliografía sobre NLP y ML.
+\item[\cmark] Desarrollo de la aplicación multiplataforma para la experimentación en clasificación automática de sentimiento.
+\end{itemize}
 
 \note[item]<1>{...}
 }
 
 \frame{\frametitle{Posibles mejoras}
-\todo{capitulo Trabajo futuro de la memoria ... }
+
+\begin{itemize}
+\item Exportación del modelo aprendido
+\item Añadir más métodos de aprendizaje
+\item Añadir más métodos de extracción de características
+\end{itemize}
 
 \note[item]<1>{...}
 }
@@ -303,7 +349,7 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 
 \frame[allowframebreaks]{\frametitle{Bibliografía}
 
-\setsansfont[Scale=0.7,Mapping=tex-text]{Gill Sans}
+\setsansfont[Scale=0.6,Mapping=tex-text]{Gill Sans}
 \printbibliography[heading=none,title=\bibname]
 \setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
 
