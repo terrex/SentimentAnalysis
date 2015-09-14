@@ -6,7 +6,7 @@
 \documentclass[xetex,compress,spanish,xcolor=dvipsnames]{beamer}
 
 %\setbeameroption{show notes}
-%\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
+\usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
 %\setbeameroption{show only notes}
 %\setbeameroption{hide notes}
 
@@ -99,7 +99,7 @@ Universidad de Sevilla}
 \includegraphics[width=30pt]{logo-lsi}
 };
 
-\note{[Buenos días] / [Buenas tardes]. Mi nombre es Guillermo Gutiérrez y voy a presentar mi Proyecto Fin de Carrera titulado \emph{Procesamiento del Lenguaje Natural Aplicado al Análisis del Sentimiento de Opiniones} y dirigido por el profesor José Antonio Troyano.}
+\note{Buenas tardes. Mi nombre es Guillermo Gutiérrez y voy a presentar mi Proyecto Fin de Carrera titulado \emph{Procesamiento del Lenguaje Natural Aplicado al Análisis del Sentimiento de Opiniones}, que ha sido dirigido por el profesor José Antonio Troyano.}
 }
 
 %\section[Índice]{}
@@ -126,7 +126,9 @@ En este proyecto se realiza
 \item Una aplicación para experimentar con un problema de clasificación automática del sentimiento.
 \end{itemize}
 
-\note[item]<1>{...}
+\note[item]<1>{El proyecto se compone de dos partes:}
+\note[item]<1>{En la primera parte se realiza un estudio de investigación, con la lectura y análisis de amplia bibliografía en los ámbitos del lenguaje natural y aprendizaje automático.}
+\note[item]<1>{Y en la segunda parte se pone en práctica estos conocimientos adquiridos con el desarrollo de una aplicación para la clasificación automática del sentimiento de opiniones.}
 }
 
 \frame{\frametitle{Objetivos}
@@ -146,7 +148,12 @@ Los objetivos del proyecto son
 \end{itemize}
 \end{itemize}
 
-\note[item]<1>{... 1.2 usando corpus, 1.3 usando datasets....}
+\note[item]<1>{Resumiendo, los objetivos son los siguientes:}
+\note[item]<1>{Estudiar y explicar en la memoria la definión de lenguaje, los tipos de lenguaje y las características que los diferencian, entre en el lenguaje natural, lenguaje formal y lenguaje artificial o construido.}
+\note[item]<1>{Explicar en la memoria las estrategias y algoritmos para el preprocesamiento, análisis y extracción de información a partir de los textos en lenguaje natural.}
+\note[item]<1>{Estudiar y explicar con ejemplos, algunos métodos y algoritmos de aprendizaje automático aplicados a la extracción del conocimiento sobre las estructuras y la semántica del lenguaje natural; mostrando la manera de usar los corpus de texto existentes disponibles libremente en Internet como base para realizar este aprendizaje estadístico supervisado.}
+\note[item]<1>{El cuarto objetivo es desarrollar una biblioteca que combine estos métodos de NLP y ML para el análisis del sentimiento.}
+\note[item]<1>{Y por último una aplicación gráfica de escritorio para guiar al alumno durante todo el proceso de entrenamiento y clasificación del sentimiento.}
 }
 
 \section[Planificación]{Planificación y metodología}
@@ -166,7 +173,10 @@ Real & 625 horas\\
 \end{tabular}
 \end{minipage}
 
-\note[item]<1>{...}
+\note[item]<1>{Ésta es una tabla de las tareas y horas planificadas para realizar el proyecto.}
+\note[item]<1>{Los principales retrasos se debieron al estado de implementación de los frameworks declarativos de desarrollo rápido de aplicaciones utilizados durante la ejecución del proyecto:}
+\note[item]<1>{Se usó en un primer momento Kivi, que es un framework que no estaba lo suficientemente maduro para su uso con Python 3, y después de varios problemas encontrados lo cambiamos por Qt.}
+\note[item]<1>{Y usando Qt declarativo versión 5 también encontramos escasa la implementación de un control de tabla de datos que tuve que ampliar reimplementando una clase de Qt en Python 3.}
 }
 
 \frame{%\frametitle{Planificación. Diagrama de Gantt}
