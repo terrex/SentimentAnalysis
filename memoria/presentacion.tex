@@ -264,7 +264,7 @@ Es la conclusión que se extrae de la comprensión de un documento de tipo crít
 
 \note[item]<1>{Pasamos a describir el problema que vamos a resolver con la aplicación desarrollada. Se trata de una competición de Kaggle.com, una web que se dedica a proponer retos sobre ciencia de datos (data science).}
 \note[item]<1>{En este caso se trata de extraer un modelo de clasificación automática del sentimiento de opiniones, usando para ello un dataset de críticas de cine etiquetado con su sentimiento, es decir, si la crítica es positiva o negativa.}
-\note[item]<1>{Para producir este dataset se extrae el texto de las críticas de la página web de Rotten Tomatoes, se parsean en unidades más pequeñas y varios voluntarios se encargan de clasificar el sentimiento de cada frase.}
+\note[item]<1>{Para producir este dataset se extrae el texto de las críticas de la página web de Rotten Tomatoes, se parsean en unidades más pequeñas y varios voluntarios se encargan de asociar a cada frase un sentimiento.}
 \note[item]<1>{Este dataset es el que forma parte del estudio realizado por Socher dentro del proyecto para el análisis del sentimiento en la Universidad de Pennsylvania.}
 \note[item]<1>{Los voluntarios clasificaban el sentimiento en una escala con 35 graduaciones, que luego se agruparon en 5 clases (muy negativo, negativo, neutro, positivo y muy positivo).}
 }
@@ -284,7 +284,8 @@ PhraseId & SentenceId & Phrase & Sentiment \\ \midrule
 \item Salida: clasificación del sentimiento
 \end{itemize}
 
-\note[item]<1>{... competición de kaggle ...}
+\note[item]<1>{Es un problema de clasificación supervisado, con 5 clases, cuya entrada es una tabla que tiene esta forma, con la que se realiza el entrenamiento.}
+\note[item]<1>{Una vez entrenado se clasifica el subconjunto de evaluación al que le falta la columna de clase, que es lo que el modelo entrenado tiene que predecir.}
 }
 
 
@@ -299,7 +300,9 @@ PhraseId & SentenceId & Phrase & Sentiment \\ \midrule
 \label{fig:PFC-sent-anal-workflow}
 \end{figure}
 
-\note[item]<1>{...}
+\note[item]<1>{La solución propuesta divide el proceso en dos pasos, uno de entrenamiento y otro de clasificación, pero de manera integrada.}
+\note[item]<1>{La tabla se lee y se preprocesa con las opciones que ha marcado el usuario; después el texto preprocesado se vectoriza usando las opciones de extracción de características. Esto da como resultado una matriz numérica n-dimensional con la que se entrena un modelo que aprendizaje con los ajustes selecionados por el usuario.}
+\note[item]<1>{En la segunda fase se realiza sobre el subconjunto de evaluación, el mismo preprocesamiento y vectorización usados en el entrenamiento, y para la fase de clasificación se usa uno de los modelos previamente entrenados, obteniendo el resultado con las predicciones.}
 }
 
 
@@ -325,7 +328,9 @@ PhraseId & SentenceId & Phrase & Sentiment \\ \midrule
 \frame{\frametitle{Diseño. Arquitectura de componentes}
 \centerline{\resizebox{!}{0.75\paperheight}{\input{architecture.puml.tex}}}
 
-\note[item]<1>{...}
+\note[item]<1>{La arquitectura del sistema mezcla distintos componentes en Python 3 y en C++, organizados en un patrón de diseño Modelo-Vista-Presentador.}
+\note[item]<1>{Se implementan dos módulos Python. El módulo de modelo utiliza las bibliotecas de scikit-learn para el aprendizaje automático, y de NLTK3 para el procesamiento de texto, encargándose de orquestar todo el proceso de aprendizaje y clasificación.}
+\note[item]<1>{El módulo en la presentación se encarga de mostrar visualmente los datos y la ventana que hace de interfaz con el usuario, usando para ello la biblioteca de Qt5 y el motor del lenguaje declarativo QML y su envoltorio para Python.}
 }
 
 %\frame{\frametitle{Diseño. Toolkits de desarrollo GUI}
@@ -338,7 +343,8 @@ PhraseId & SentenceId & Phrase & Sentiment \\ \midrule
 
 \centerline{\includegraphics[width=0.9\textwidth]{ss-04-preproc-tab}}
 
-\note[item]<1>{...}
+\note[item]<1>{La pantalla de la aplicación tiene esta forma, está organizada por pestañas en orden de izquierda a derecha, mostrando un panel para realizar los ajustes de la etapa.}
+\note[item]<1>{Al terminar cada etapa se muestra una tabla con el resultado.}
 }
 
 
@@ -352,7 +358,8 @@ Se han conseguido los objetivos propuestos
 \item[\cmark] Desarrollo de la aplicación multiplataforma para la experimentación en clasificación automática de sentimiento.
 \end{itemize}
 
-\note[item]<1>{...}
+\note[item]<1>{Las conclusiones son que te han conseguido los objetivos marcados, el estudio de NLP y ML y la manera de combinarlos.}
+\note[item]<1>{Y el desarrollo de la aplicación para poder experimentar con los algoritmos.}
 }
 
 \frame{\frametitle{Posibles mejoras}
@@ -363,7 +370,9 @@ Se han conseguido los objetivos propuestos
 \item Añadir más métodos de extracción de características
 \end{itemize}
 
-\note[item]<1>{...}
+\note[item]<1>{Como posibles mejoras futuras que se podrían hacer se propone la posibilidad de exportar en un fichero el modelo aprendido,}
+\note[item]<1>{añadir otros métodos de aprendizaje,}
+\note[item]<1>{y otros métodos de extracción de características.}
 }
 
 \section{Bibliografía}
@@ -374,7 +383,7 @@ Se han conseguido los objetivos propuestos
 \printbibliography[heading=none,title=\bibname]
 \setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
 
-\note[item]<1>{...}
+\note[item]<1>{Esta es una muestra de la bibliografía empleada en el proyecto, en total unas 60 referencias.}
 }
 
 \appendix
@@ -387,7 +396,7 @@ Se han conseguido los objetivos propuestos
   \includegraphics[width=120pt]{preguntas}
 };
 
-\note[item]<1>{...}
+\note[item]<1>{Y nada más, muchas gracias, y si tienen alguna pregunta.}
 }
 
 \frame{
