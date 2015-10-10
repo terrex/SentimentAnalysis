@@ -1,6 +1,4 @@
 # Sentiment Analysis on Movie Reviews
 
-## Install on OS X
-
-    sudo port install py34-nltk3
-    sudo port select --set python python34
+Final Degree Project on Computer Engineering.
+Documentation available from http://dx.doi.org/10.13140/RG.2.1.2827.3366

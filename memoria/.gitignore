@@ -8,7 +8,7 @@ Referencias*
 *.log
 *.out
 pfc-memoria.pdf
-presentacion.pdf
+presentacion*.pdf
 *.nav
 *.snm
 *.run.xml
